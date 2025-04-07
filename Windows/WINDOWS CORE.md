@@ -37,8 +37,7 @@ Get-Location
 Get-ChildItem -Path "C:\" #Commandes alternative: gci C:  dir C:  ls C:
 ```
 
-# Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches
-# ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
+Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
 
 * Renommer la machine :
 ```powershell
