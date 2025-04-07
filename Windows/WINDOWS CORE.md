@@ -3,7 +3,7 @@
 
 Powershell n'a pas de sensiblité à la casse c'est juste visuel
 
-## Commandes de base
+## 🔰 Commandes de base 🔰
 
 
 * Trouver une commande :
@@ -12,12 +12,12 @@ Get-Command *hash*
 gcm *bitlocker*
 ```
 
-* Afficher les aides dans une fenêtre
+* Afficher les aides dans une fenêtre :
 ```powershell	
 Get-Help Unlock-BitLocker -ShowWindow
 ```
 
-* Se déplacer à la racine:
+* Se déplacer à la racine :
 ```powershell 			
 Set-Location \
 ```
@@ -28,82 +28,121 @@ cd ~
 sl ~
 ```
 
-* Afficher l’emplacement actuel ('pwd' focntionne aussi)
+* Afficher l’emplacement actuel ('pwd' focntionne aussi) :
+```powershell
 Get-Location 
 
-* Afficher le contenu de C:\ 
+* Afficher le contenu de C:\
+```powershell 
 Get-ChildItem -Path "C:\" #Commandes alternative: gci C:  dir C:  ls C:
+```
 
-* Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches
-* ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
+# Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches
+# ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
 
-* Renommer la machine :	 		
+* Renommer la machine :
+```powershell
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
+```
 
-* Obtenir une info: 			
-Get
-
-# Affichera juste le nom de l'ordi:	
+* Affichera juste le nom de l'ordi:
+```powershell	
 Get-computerInfo | Select CsName 
+```
 
-# Réinitialiser son mot de passe : 	
+* Réinitialiser son mot de passe : 	
+```powershell
 net user Administrateur *
+```
 
-# Réinitialiser son MDP	sur domaine :	
+* Réinitialiser son MDP	sur domaine :	
+```powershell
 net user  /domain administrateur *
+```
 
-# DL fichiers d’aide powershell :	
+* DL fichiers d’aide powershell :
+```powershell
 Update-Help 
+```
 
-# Afficher l'aide pour 'Get-Process'
+* Afficher l'aide pour 'Get-Process'
+```powershell
 Get-Help Get-Process
+```
 
-# Arréter un processus 
+* Arréter un processus  :
+```powershell
 Stop-Process -Id 2960
+```
 
-# Renommer un dossier 
+* Renommer un dossier :
+```powershell
 Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
+```
 
-# Créer un fichier texte 
+* Créer un fichier texte  :
+```powershell
 New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
+```
 
-# Créer un fichier ou écrase ancien :	
+* Créer un fichier ou écrase ancien :
+```powershell
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
+```
 
-# Ajoute texte fichier existant :	
+* Ajoute texte fichier existant :	
+```powershell
 Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
+```
 
-# Sur serveur core permet d'ouvrir le menu de config du serveur
+* Sur serveur core permet d'ouvrir le menu de config du serveur
+```powershell
 sconfig
+```
 
-# Addon VBox, monter iso puis (Semble inutile sur un serveur core):	
+* Addon VBox, monter iso puis (Semble inutile sur un serveur core) :
+```powershell	
 D:\ 	
 VBoxWidowsAdditions-amd64.exe 
+```
 
-# Redémarrer
+* Redémarrer la machine :
+```powershell
 Restart-Computer #(ou shutdown /r /t 0)  
+```
 
-# Éteindre
+* Éteindre la machine :
+```powershell
 Stop-Computer 	 #(ou shutdown /s /t 0)  
+```
 
-# Lister un dossier: 			
+* Lister un dossier : 			
+```powershell
 dir 
 ls 
 gci
+```
 
-# Revenir au dossier parent
+* Revenir au dossier parent :
+```powershell
 cd ..
+```
 
-# Changer de répertoire
+* Changer de répertoire :
+```powershell
 cd
-sl 
+sl
+```
 
-# Afficher le contenu d'un fichier:	
+* Afficher le contenu d'un fichier:
+```powershell	
 cat 'nom_fichier' 
 cat "C:\chemin\nom_fichier"  
 gc "C:\chemin\nom_fichier"
+```
 
-# tester l'écoute d'un port 		
+* tester l'écoute d'un port :
+```powershell 		
 Test-NetConnection -ComputerName localhost -Port 389
 ```
 
