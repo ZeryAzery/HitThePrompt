@@ -22,7 +22,7 @@ sudo hostnamectl set-hostname nouveau_nom
 ## Installation des outils
 
 ```bash
-apt search net-tools
+sudo apt search net-tools
 sudo apt install net-tools
 sudo apt install binutils
 sudo apt install wireshark
