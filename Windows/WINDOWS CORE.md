@@ -6,34 +6,34 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 ## 🔰 Commandes de base 🔰
 
 
-### Trouver une commande :
+Trouver une commande :
 ```powershell
 Get-Command *hash*
 gcm *bitlocker*
 ```
 
-### Afficher les aides dans une fenêtre :
+Afficher les aides dans une fenêtre :
 ```powershell	
 Get-Help Unlock-BitLocker -ShowWindow
 ```
 
-### Se déplacer à la racine :
+Se déplacer à la racine :
 ```powershell 			
 Set-Location \
 ```
 
-### Se placer dans le répertoire utilisateur :
+Se placer dans le répertoire utilisateur :
 ```batch	
 cd ~  
 sl ~
 ```
 
-### Afficher l’emplacement actuel ('pwd' focntionne aussi) :
+Afficher l’emplacement actuel ('pwd' focntionne aussi) :
 ```powershell
 Get-Location
 ``` 
 
-### Afficher le contenu de C:\
+Afficher le contenu de C:\
 ```powershell 
 Get-ChildItem -Path "C:\" #Commandes alternative: gci C:  dir C:  ls C:
 ```
