@@ -11,7 +11,7 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 Get-Command *hash*
 
 
-# Se déplacer à la racine ou rep. utilisateur (Alias: sl)			
+# Se déplacer à la racine ou dans le répertoire utilisateur (Alias: sl)	:		
 Set-Location \
 Set-Location ~
 
@@ -26,7 +26,7 @@ Get-ChildItem -Path "C:\"
 # Renommer la machine :
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 
-# Affichera juste le nom de l'ordi:
+# Affichera juste le nom de l'ordi :
 Get-computerInfo | Select CsName 
 ```	
 ```batch
@@ -39,10 +39,10 @@ net user  /domain administrateur *
 
 ### Se servir de l'aide dans powershell
 ```powershell
-# Télécharger les fichiers d'aide
+# Télécharger les fichiers d'aide :
 Update-Help 
 
-# Afficher l'aide pour 'Get-Process'
+# Afficher l'aide pour 'Get-Process' :
 Get-Help Get-Process
 
 # Afficher les aides dans une fenêtre :
