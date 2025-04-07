@@ -66,7 +66,7 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 sconfig
 
 # Addon VBox, monter iso puis (Semble inutile sur un serveur core) :	
-D:\ 	
+sl D:\ 	
 VBoxWidowsAdditions-amd64.exe 
 
 # Redémarrer la machine (eq: shutdown /r /t 0):
