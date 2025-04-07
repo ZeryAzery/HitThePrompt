@@ -6,67 +6,67 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 ## Commandes de base
 
 ```powershell
-#Trouver une commande:
-  Get-Command *hash*
-  gcm *bitlocker*
+* Trouver une commande:
+Get-Command *hash*
+gcm *bitlocker*
 
-# Afficher les aides dans une fenêtre	
-  Get-Help Unlock-BitLocker -ShowWindow
+* Afficher les aides dans une fenêtre	
+Get-Help Unlock-BitLocker -ShowWindow
 
-# Se déplacer à la racine: 			
-  Set-Location \
+* Se déplacer à la racine: 			
+Set-Location \
 
-# Se placer dans le répertoire utilisateur :	
-  cd ~  
-  sl ~
+* Se placer dans le répertoire utilisateur :	
+cd ~  
+sl ~
 
-# Afficher l’emplacement actuel ('pwd' focntionne aussi)
-  Get-Location 
+* Afficher l’emplacement actuel ('pwd' focntionne aussi)
+Get-Location 
 
-# Afficher le contenu de C:\ 
-  Get-ChildItem -Path "C:\" #Commandes alternative: gci C:  dir C:  ls C:
+* Afficher le contenu de C:\ 
+Get-ChildItem -Path "C:\" #Commandes alternative: gci C:  dir C:  ls C:
 
-# Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches
-# ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
+* Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches
+* ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
 
-# Renommer la machine :	 		
+* Renommer la machine :	 		
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 
-# Obtenir une info: 			
-  Get
+* Obtenir une info: 			
+Get
 
 # Affichera juste le nom de l'ordi:	
-  Get-computerInfo | Select CsName 
+Get-computerInfo | Select CsName 
 
 # Réinitialiser son mot de passe : 	
-  net user Administrateur *
+net user Administrateur *
 
 # Réinitialiser son MDP	sur domaine :	
-  net user  /domain administrateur *
+net user  /domain administrateur *
 
 # DL fichiers d’aide powershell :	
-  Update-Help 
+Update-Help 
 
 # Afficher l'aide pour 'Get-Process'
-  Get-Help Get-Process
+Get-Help Get-Process
 
 # Arréter un processus 
-  Stop-Process -Id 2960
+Stop-Process -Id 2960
 
 # Renommer un dossier 
-  Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
+Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
 
 # Créer un fichier texte 
-  New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
+New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
 
 # Créer un fichier ou écrase ancien :	
-  Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
+Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
 
 # Ajoute texte fichier existant :	
-  Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
+Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
 
 # Sur serveur core permet d'ouvrir le menu de config du serveur
-  sconfig
+sconfig
 
 # Addon VBox, monter iso puis (Semble inutile sur un serveur core):	
 D:\ 	
@@ -116,10 +116,8 @@ cd \windows\system32\sysprep
 
 
 ```powershell
-# Afficher les infos réseaux
+# Afficher les infos réseaux (Alias: gip)
 Get-NetIPConfiguration (eq ipconfig...)
-# Ou mieu son Alias
-gip
 
 # Afficher plus d'infos
 gip -Detailed
