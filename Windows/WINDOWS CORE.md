@@ -10,7 +10,6 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 # Trouver une commande (Alias: gcm):
 Get-Command *hash*
 
-
 # Se déplacer à la racine ou dans le répertoire utilisateur (Alias: sl)	:		
 Set-Location \
 Set-Location ~
@@ -63,7 +62,7 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 sconfig
 
 # Addon VBox, monter iso puis (Semble inutile sur un serveur core) :	
-sl D:\ 	
+Set-Location D:\ 	
 VBoxWidowsAdditions-amd64.exe 
 
 # Redémarrer la machine (eq: shutdown /r /t 0):
