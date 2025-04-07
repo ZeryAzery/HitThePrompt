@@ -15,15 +15,9 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 # Se déplacer à la racine :			
 Set-Location \
-```
-```batch
-# Se placer dans le répertoire utilisateur : 
-cd ~ 
-```
 
-```powershell
 # Se placer dans le répertoire utilisateur : 
-sl ~
+sl ~ 
 
 # Afficher l’emplacement actuel ('pwd' focntionne aussi) :
 Get-Location
@@ -47,7 +41,7 @@ net user Administrateur *
 net user  /domain administrateur *
 ```
 ```powershell
-# DL fichiers d’aide powershell :
+# Télécharger les  fichiers d’aide powershell :
 Update-Help 
 
 # Afficher l'aide pour 'Get-Process'
