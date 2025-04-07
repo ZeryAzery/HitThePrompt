@@ -11,18 +11,18 @@ Get-Command *hash*
 gcm *bitlocker*
 
 # Afficher les aides dans une fenêtre :
-	Get-Help Unlock-BitLocker -ShowWindow
+Get-Help Unlock-BitLocker -ShowWindow
 
 # Se déplacer à la racine :			
 Set-Location \
 ```
 ```batch
-# Se placer du répertoire utilisateur : 
+# Se placer dans le répertoire utilisateur : 
 cd ~ 
 ```
 
 ```powershell
-# Se placer du répertoire utilisateur : 
+# Se placer dans le répertoire utilisateur : 
 sl ~
 
 # Afficher l’emplacement actuel ('pwd' focntionne aussi) :
