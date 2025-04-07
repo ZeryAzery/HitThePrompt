@@ -38,33 +38,23 @@ Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 
 # Affichera juste le nom de l'ordi:
 Get-computerInfo | Select CsName 
-```
- 	
+```	
 ```batch
 # Réinitialiser son mot de passe :
 net user Administrateur *
-```
 
-	
-```batch
 # Réinitialiser son MDP	sur domaine :
 net user  /domain administrateur *
 ```
+```powershell
 # DL fichiers d’aide powershell :
 Update-Help 
 
 # Afficher l'aide pour 'Get-Process'
-
 Get-Help Get-Process
 
 # Arréter un processus  :
 Stop-Process -Id 2960
-
-# Renommer un dossier :
-Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
-
-# Créer un fichier texte  :
-New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
 
 # Créer un fichier ou écrase ancien :
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
@@ -79,11 +69,11 @@ sconfig
 D:\ 	
 VBoxWidowsAdditions-amd64.exe 
 
-# Redémarrer la machine :
-Restart-Computer #(ou shutdown /r /t 0)  
+# Redémarrer la machine (eq: shutdown /r /t 0):
+Restart-Computer   
 
-# Éteindre la machine :
-Stop-Computer 	 #(ou shutdown /s /t 0)  
+# Éteindre la machine (eq: shutdown /s /t 0):
+Stop-Computer 	  
 
 # Lister un dossier : 			
 dir 
@@ -97,17 +87,15 @@ cd ..
 cd
 sl
 
-
 # Afficher le contenu d'un fichier:	
-cat 'nom_fichier' 
-cat "C:\chemin\nom_fichier"  
+cat 'nom_fichier'   
 gc "C:\chemin\nom_fichier"
 
 # tester l'écoute d'un port : 		
 Test-NetConnection -ComputerName localhost -Port 389
 ```
 
-## 🖼️ SYSPREP 🖼️ 
+## 🖼️ Sysprep 🖼️ 
 
 
 Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et choisir arrêter au lieu de redémarrer (pour éviter que la machine reprenne un SID au démarrage)
@@ -120,7 +108,7 @@ cd \windows\system32\sysprep
 .\sysprep.exe /generalize /reboot
 ```
 
-## 📶 CONFIG RESEAU 📶 
+## 📶 Configurer le réseau 📶 
 
 ```powershell
 # Afficher les infos réseaux (Alias: gip ou ipconfig)
@@ -178,15 +166,17 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 ## 📂 Gestion des Objets 📂 
 
 ```powershell
-# Récup hash				
-Get-FileHash .\Fichier\
+# Renommer un dossier :
+Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
 
-# Récupérer un hash			
-Get-FileHash -Algorithm -sha512 Chemin\fichier
-
+# Créer un fichier texte  :
+New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
+```
+```batch 
 # Créer des dossiers avec mkdir		
 mkdir COMPTABILITE, INFORMATIQUE, RH, PRODUCTION 
-
+```
+```powershell
 # Supprimer un fichier/Dossier	
 Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
@@ -204,6 +194,16 @@ mi
 
 # Comparer des objects			
 Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
+```
+
+## 🔪🥩 Hashage 🔪🥩
+
+```powershell
+# Récup hash				
+Get-FileHash .\Fichier\
+
+# Récupérer un hash			
+Get-FileHash -Algorithm -sha512 Chemin\fichier
 ```
 
 ## 📇🔍 Rechercher un mot ou une expression dans un fichier 📇🔍
@@ -241,7 +241,7 @@ Get-Content C:\Users\Axel\Desktop\rockyou.txt | Select-Object -Last 10
 | XLS, XLSX |	❌ Non | COM Object ou Import-Excel |
 		
 
-## 🧱 PARE-FEU 🧱 
+## 🛡️ 🧱 Defender & Pare-Feu  🧱 🛡️
 
 ```powershell
 # règles ICMP IN : 			
