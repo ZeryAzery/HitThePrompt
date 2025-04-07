@@ -7,18 +7,13 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 ## 🔰 Commandes de base 🔰
 
 ```powershell
-# Trouver une commande :
+# Trouver une commande (Alias: gcm):
 Get-Command *hash*
-gcm *bitlocker*
 
-# Afficher les aides dans une fenêtre :
-Get-Help Unlock-BitLocker -ShowWindow
 
-# Se déplacer à la racine :			
+# Se déplacer à la racine ou rep. utilisateur (Alias: sl)			
 Set-Location \
-
-# Se placer dans le répertoire utilisateur : 
-sl ~ 
+Set-Location ~
 
 # Afficher l’emplacement actuel ('pwd' focntionne aussi) :
 Get-Location
@@ -26,7 +21,7 @@ Get-Location
 # Afficher le contenu de C:\  (alternative: gci C:  dir C:  ls C:)
 Get-ChildItem -Path "C:\"  
 
-# Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
+# Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
 
 # Renommer la machine :
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
@@ -41,13 +36,20 @@ net user Administrateur *
 # Réinitialiser son MDP	sur domaine :
 net user  /domain administrateur *
 ```
+
+### Se servir de l'aide dans powershell
 ```powershell
-# Télécharger les  fichiers d’aide powershell :
+# Télécharger les fichiers d'aide
 Update-Help 
 
 # Afficher l'aide pour 'Get-Process'
 Get-Help Get-Process
 
+# Afficher les aides dans une fenêtre :
+Get-Help Unlock-BitLocker -ShowWindow
+```
+
+```powershell
 # Arréter un processus  :
 Stop-Process -Id 2960
 
@@ -84,7 +86,7 @@ Test-NetConnection -ComputerName localhost -Port 389
 
 ## 🖼️ Sysprep 🖼️ 
 
-[color=#f5b042]Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et choisir arrêter au lieu de redémarrer (pour éviter que la machine reprenne un SID au démarrage)[/color]
+Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et choisir arrêter au lieu de redémarrer (pour éviter que la machine reprenne un SID au démarrage)
 
 ```powershell
 # Emplacement sysprep
