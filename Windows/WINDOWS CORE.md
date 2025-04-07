@@ -297,7 +297,7 @@ Get-Content "$env:ProgramData\ssh\sshd_config" | Select-String "^Port"
 Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name, LocalPort, Protocol
 ```
 
-## 🏠 INSTALLER UN CONTROLEUR DE DOMAINE 🏠 
+## 🏠 Installer un contrôleur de domaine 🏠 
 
 ### Installer les fonctionnalités
 
@@ -340,7 +340,7 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 ```
 
 	
-## 👮 CREER UN NOUVEL UTILISATEUR ADMIN DU DOMAINE 👮 
+## 👮 Créer un nouvel utilisateur admin du domaine 👮 
 
 ```powershell
 # Créer un nouvel utilisateur : 		
