@@ -106,6 +106,7 @@ Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et
 ```powershell
 # Emplacement sysprep
 cd \windows\system32\sysprep
+
 # Exécuter sysprep
 .\sysprep.exe /generalize /reboot
  ```
@@ -182,11 +183,16 @@ ri COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
 # Renommer un fichier
 Rename-Item
+
 # Son Alias				
 rni
+
 # Renommer un fichier avec move:	
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
-# Alias 				mi
+
+# Alias de Move-Item				
+mi
+
 # comparer des objects			
 Compare-Object -ReferenceObject "fhfufu" -DifferenceObject "fehueh"
 ```
@@ -258,8 +264,10 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 ```powershell
 # Installer le module maj
 Install-Module PSWindowsUpdate
+
 # Importer le module de maj
 Import-Module PSWindowsUpdate
+
 # Installer les mises à jour
 Get-WindowsUpdate -AcceptAll -Install -AutoReboot								 	
 Install-WindowsUpdate -AcceptAll 
@@ -269,23 +277,30 @@ Install-WindowsUpdate -AcceptAll
 ## 🔢 SSH 🔢 
 
 ```powershell	
-# Vérifier si le service est actif		Get-Process sshd ou Get-Service sshd
-  Faire les mises à jours avant installation
-# Installer OpenSSH Server: 			Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+# Vérifier si le service est actif		
+Get-Process sshd ou Get-Service sshd
+
+# Faire les mises à jours avant installation
+
+# Installer OpenSSH Server: 			
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+
 # Démarrer service SSH
-	Start-Service sshd
+Start-Service sshd
+
 # Configurer démarrage auto SSH
 Set-Service -Name sshd -StartupType 'Automatic'
+
 # Ouvrir port 22 dans pare-feu
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
 
 
-#Créer une règle NAT de redirection (PortForwarding) pfsense sur interface WAN vers le port 22 sur adresse NAT IP du server core pour pouvoir utiliser client ssh depuis machine hôte (attention sur machine hôte pour la page web pfsense mettre https si erreur...) et entrer l'IP de la pâte WAN >> exemple : ssh administrateur@ip_pâte_WAN
-
 # Voir sur quel port SSH écoute			
 Get-NetTCPConnection | Where-Object {$_.OwningProcess -eq (Get-Process -Name sshd).Id}
+
 # Afficher le port configuré dans sshd_config	
 Get-Content "$env:ProgramData\ssh\sshd_config" | Select-String "^Port"
+
 # Afficher la règle, port local et protocole 	
 Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name, LocalPort, Protocol
 ```
@@ -294,45 +309,51 @@ Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name,
 
 ## 🏠 INSTALLER UN CONTROLEUR DE DOMAINE 🏠 
 
-```powershell
--Étape 1 : Installer les fonctionnalités
 
+### Étape 1 : Installer les fonctionnalités
+
+```powershell
 # Installer le rôle AD DS
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+
 # Importer le module AD DS
 Import-Module ADDSDeployment
+```
 
--Étape 2 : Promouvoir le serveur en contrôleur de domaine
+### Étape 2 : Promouvoir le serveur en contrôleur de domaine
 
+```powershell
 # Ajouter domaine nouvelle forêt
 Install-ADDSForest -DomainName "TSSR.INFO" -DomainNetbiosName "TSSR" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS	
+
 # Joindre le domaine
 	Add-Computer -DomainName TSSR.INFO
 
-# Retélécharger les modules pour le réplicat :	Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+# Retélécharger les modules pour le réplicat 
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
 # Promouvoir en controleur de domaine
 Install-ADDSDomainController -DomainName "TSSR.INFO" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS
 
-Ou mieux et plus simple :
+# Ou plus simple :
 
-# Promouvoir en controleur de domaine:  : 	Install-ADDSDomainController -DomainName "domain.tld" -InstallDns:$true -Credential (Get-Credential "DOMAIN\administratreur")
+# Promouvoir en controleur de domaine:  : 	
+Install-ADDSDomainController -DomainName "domain.tld" -InstallDns:$true -Credential (Get-Credential "DOMAIN\administrateur")
 
+ 
+# Joindre domaine Sur machine cliente 
+Add-Computer -DomainName "example.com" -Credential (New-Object PSCredential ("administrateur@tssr.info", (ConvertTo-SecureString "Mon_mot_de_passe" -AsPlainText -Force))) -Restart
 
-> Sur machine cliente
-# Joindre domaine
-	Add-Computer -DomainName "example.com" -Credential (New-Object PSCredential ("administrateur@tssr.info", (ConvertTo-SecureString "Mon_mot_de_passe" -AsPlainText -Force))) -Restart
-	\\	 
-	Add-Computer -DomainName "votre_nom_de_domaine" -Credential (Get-Credential) -Restart
+# ou 
+Add-Computer -DomainName "votre_nom_de_domaine" -Credential (Get-Credential) -Restart
 
-/!\  Ne pas oublier de mettre dans le nom d'utilisateur le nom du domaine avant "TSSR\administrateur"...
-# Installer tous les outils RSAT:	Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
+# ⚠️ Ne pas oublier de mettre le nom du domaine avant pour éviter une erreur : "TSSR\administrateur"
 
+# Installer tous les outils RSAT:	
+Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
+```
 
-
-			
-
-
+	
 ## 👮 CREER UN NOUVEL UTILISATEUR ADMIN DU DOMAINE 👮 
 
 ```powershell
