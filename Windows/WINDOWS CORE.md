@@ -3,6 +3,7 @@
 
 Powershell n'a pas de sensiblité à la casse c'est juste visuel
 
+
 ## 🔰 Commandes de base 🔰
 
 ```powershell
@@ -69,25 +70,17 @@ Restart-Computer
 # Éteindre la machine (eq: shutdown /s /t 0):
 Stop-Computer 	  
 
-# Lister un dossier : 			
-dir 
-ls 
-gci
+# Lister un dossier (Alias: gci): 			
+Get-ChidItem
 
-# Revenir au dossier parent :
-cd ..
-
-# Changer de répertoire :
-cd
-sl
-
-# Afficher le contenu d'un fichier:	
-cat 'nom_fichier'   
-gc "C:\chemin\nom_fichier"
+# Afficher le contenu d'un fichier (Alias: gc) 	 
+Get-Content "C:\chemin\nom_fichier"
+cat 'nom_fichier'
 
 # tester l'écoute d'un port : 		
 Test-NetConnection -ComputerName localhost -Port 389
 ```
+
 
 ## 🖼️ Sysprep 🖼️ 
 
@@ -100,6 +93,7 @@ cd \windows\system32\sysprep
 # Exécuter sysprep
 .\sysprep.exe /generalize /reboot
 ```
+
 
 ## 📶 Configurer le réseau 📶 
 
@@ -156,6 +150,7 @@ Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
 ```
 
+
 ## 📂 Gestion des Objets 📂 
 
 ```powershell
@@ -170,11 +165,8 @@ New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
 mkdir COMPTABILITE, INFORMATIQUE, RH, PRODUCTION 
 ```
 ```powershell
-# Supprimer un fichier/Dossier	
+# Supprimer un fichier/Dossier (Alias: ri (⚠️))	
 Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
-
-# Son Alias				
-ri COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
 # Renommer un fichier (Alias: rni)
 Rename-Item			
@@ -199,6 +191,7 @@ Get-FileHash .\Fichier\
 Get-FileHash -Algorithm -sha512 Chemin\fichier
 ```
 
+
 ## 📇🔍 Rechercher un mot ou une expression dans un fichier 📇🔍
 
 ```powershell
@@ -221,6 +214,7 @@ Select-String -Path "C:\Users\Axel\Desktop\rockyou.txt" -Pattern "\bpass\b" | Fo
 Get-Content C:\Users\Axel\Desktop\rockyou.txt | Select-Object -Last 10
 ```
 
+
 ### Formats de fichiers que Powershell peut utiliser:
 
 | 📂 Format	| 📜 Supporté nativement ?	| 🔧 Méthode à utiliser |
@@ -234,8 +228,10 @@ Get-Content C:\Users\Axel\Desktop\rockyou.txt | Select-Object -Last 10
 | XLS, XLSX |	❌ Non | COM Object ou Import-Excel |
 		
 
-## 🛡️ 🧱 Defender & Pare-Feu  🧱 🛡️
 
+## 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
+
+### Pare-Feu
 ```powershell
 # règles ICMP IN : 			
 New-NetFirewallRule -DisplayName "Autoriser ICMPv4-In" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
@@ -245,13 +241,17 @@ New-NetFirewallRule -DisplayName "Autoriser ICMPv4-Out" -Protocol ICMPv4 -IcmpTy
 
 # Ouvrir port 22 dans pare-feu
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+```
 
+### Defender
+```powershell
 # Activer Defender: 			
 Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
 
 # Désactiver  Defender			
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
 ```
+
 
 ## 📅 MISES À JOUR 📅 
 
