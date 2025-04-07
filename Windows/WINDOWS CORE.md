@@ -91,9 +91,7 @@ Test-NetConnection -ComputerName localhost -Port 389
 
 ## 🖼️ Sysprep 🖼️ 
 
-[color=#f5b042]
-Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et choisir arrêter au lieu de redémarrer (pour éviter que la machine reprenne un SID au démarrage)
-[/color]
+[color=#f5b042]Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et choisir arrêter au lieu de redémarrer (pour éviter que la machine reprenne un SID au démarrage)[/color]
 
 ```powershell
 # Emplacement sysprep
