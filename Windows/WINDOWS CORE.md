@@ -157,10 +157,9 @@ cd \windows\system32\sysprep
 
 # Exécuter sysprep
 .\sysprep.exe /generalize /reboot
- ```
+```
 
 ## 📶 CONFIG RESEAU 📶 
-
 
 ```powershell
 # Afficher les infos réseaux (Alias: gip)
@@ -200,7 +199,6 @@ Remove-NetIPAddress -IPAddress 192.168.100.1 -Confirm:$false
 # Retirer la passerelle			
 Remove-NetRoute -InterfaceAlias "Ethernet" -NextHop "192.168.0.254"
 
-
 # Désactiver carte réseau
 Disable-NetAdapter -Name  nom_carte_réseau
 # Désactiver/Réactiver
@@ -211,7 +209,6 @@ Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
 # Désactiver l'IPv6 partout
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
 ```
-
 
 ## 📂 Gestion des Objets 📂 
 
@@ -244,8 +241,6 @@ mi
 Compare-Object -ReferenceObject "fhfufu" -DifferenceObject "fehueh"
 ```
 
-
-
 ## 📇🔍 Rechercher un mot ou une expression dans un fichier 📇🔍
 
 ```powershell
@@ -267,7 +262,6 @@ Select-String -Path "C:\Users\Axel\Desktop\rockyou.txt" -Pattern "\bpass\b" | Fo
 # Rechercher les 10 dernières lignes 
 Get-Content C:\Users\Axel\Desktop\rockyou.txt | Select-Object -Last 10
 ```
-
 
 ### Formats de fichiers que Powershell peut utiliser:
 
@@ -301,10 +295,7 @@ Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSy
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
 ```
 
-	
-
-
-## 📅 MISES A JOUR 📅 
+## 📅 MISES À JOUR 📅 
 
 ```powershell
 # Installer le module maj
@@ -317,7 +308,6 @@ Import-Module PSWindowsUpdate
 Get-WindowsUpdate -AcceptAll -Install -AutoReboot								 	
 Install-WindowsUpdate -AcceptAll 
 ```
-
 
 ## 🔢 SSH 🔢 
 
@@ -377,7 +367,7 @@ Add-Computer -DomainName TSSR.INFO
 # Retélécharger les modules pour le réplicat 
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
-  # Promouvoir en controleur de domaine
+# Promouvoir en controleur de domaine
 Install-ADDSDomainController -DomainName "TSSR.INFO" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS
 
 # Promouvoir en controleur de domaine (plus simple):  	
@@ -407,12 +397,7 @@ r.org" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -
 # Voir les groupes admin : 	Get-ADGroup -Filter 'Name -like "*admin*"'
 Get-ADGroup -Filter 'Name -like "*stratégie*"'
 
-
-
 # Ajouter l'utilisateur "admaxel" aux groupes admin  : 
-
-
-	# Liste des groupes auxquels ajouter l'utilisateur
 $groupes = @(
     "Administrateurs",
     "Administrateurs du schéma",
@@ -421,7 +406,6 @@ $groupes = @(
     "Propriétaires créateurs de la stratégie de groupe"
 )
 
-# Ajout de l'utilisateur à chaque groupe
 foreach ($groupe in $groupes) {
     Add-ADGroupMember -Identity $groupe -Members "admaxel" -ErrorAction SilentlyContinue
 }
