@@ -30,7 +30,8 @@ sl ~
 
 * Afficher l’emplacement actuel ('pwd' focntionne aussi) :
 ```powershell
-Get-Location 
+Get-Location
+``` 
 
 * Afficher le contenu de C:\
 ```powershell 
