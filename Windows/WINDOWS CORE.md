@@ -162,51 +162,55 @@ cd \windows\system32\sysprep
 ## 📶 CONFIG RESEAU 📶 
 
 ```powershell
-# Afficher les infos réseaux (Alias: gip)
+Afficher les infos réseaux (Alias: gip)
 Get-NetIPConfiguration (eq ipconfig...)
 
-# Afficher plus d'infos
+Afficher plus d'infos
 gip -Detailed
 
-# Nom de la carte réseau
+Nom de la carte réseau
 Get-NetAdapter
 
-# Afficher les cartes réseau up:	
+Afficher les cartes réseau up:	
 Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
 
-# Afficher n° carte réseau
+Afficher n° carte réseau
 Get-NetIPInterface 
 
-# Afficher ipv4 et interfaces		
+Afficher ipv4 et interfaces		
 Get-NetIPAddress -AddressFamily IPv4 | select IPAddress, InterfaceAlias	
 
-# IP statique et Gateway: 		
+IP statique et Gateway: 		
 New-NetIPaddress -InterfaceIndex 4 -IPAddress 192.0.100.1 -PrefixLength 24 -DefaultGateway 10.0.0.254 (ou 4 est le num de la carte réseau)
 
-# Configurer le DNS
+Configurer le DNS
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("8.8.8.8","8.8.4.4")
-# Supprimer une adresse DNS 
+
+Supprimer une adresse DNS 
 Get-DnsClientServerAddress -InterfaceIndex 6 | Set-DnsClientServerAddress -ResetServerAddresses
 
-# Vérifier l’accès au réseau
+Vérifier l’accès au réseau
 Test-Connection -ComputerName google.com
 
-# Retirer une adresse IP
+Retirer une adresse IP
 Remove-NetIPAddress -InterfaceIndex 4 -IPAddress 192.168.0.2 -PrefixLengh 24
-# ou 			
+
+Retirer une adresse IP
 Remove-NetIPAddress -IPAddress 192.168.100.1 -Confirm:$false
 
-# Retirer la passerelle			
+Retirer la passerelle			
 Remove-NetRoute -InterfaceAlias "Ethernet" -NextHop "192.168.0.254"
 
-# Désactiver carte réseau
+Désactiver carte réseau
 Disable-NetAdapter -Name  nom_carte_réseau
-# Désactiver/Réactiver
+
+Désactiver/Réactiver
 Restart-NetAdapter -Name nom_carte_réseau
 
-# Désactiver l'IPv6
+Désactiver l'IPv6
 Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
-# Désactiver l'IPv6 partout
+
+Désactiver l'IPv6 partout
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
 ```
 
