@@ -6,95 +6,95 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 ## Commandes de base
 
 ```powershell
-#Trouver une commande:
+# Trouver une commande:
 Get-Command *hash*
 gcm *bitlocker*
 
-# Afficher les aides dans une fenêtre	
+	# Afficher les aides dans une fenêtre	
 Get-Help Unlock-BitLocker -ShowWindow
 
-# Se déplacer à la racine: 			
+	# Se déplacer à la racine: 			
 Set-Location \
 
-# Se placer dans le répertoire utilisateur :	
+	#Se placer dans le répertoire utilisateur :	
 cd ~  
 sl ~
 
-# Afficher l’emplacement actuel ('pwd' focntionne aussi)
+	#Afficher l’emplacement actuel ('pwd' focntionne aussi)
 Get-Location 
 
-# Afficher le contenu de C:\ 
+	#Afficher le contenu de C:\ 
 Get-ChildItem -Path "C:\" #Commandes alternative: gci C:  dir C:  ls C:
 
-# Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches
-# ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
+	#Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches
+	#ce qui permet d'ouvrir la fenêtre "executer" pour ouvrir Powershell
 
-# Renommer la machine :	 		
+	# Renommer la machine :	 		
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
-# Obtenir une info: 			
+	# Obtenir une info: 			
 Get
 
-# Affichera juste le nom de l'ordi:	
+	# Affichera juste le nom de l'ordi:	
 Get-computerInfo | Select CsName 
 
-# Réinitialiser son mot de passe : 	
+	# Réinitialiser son mot de passe : 	
 net user Administrateur *
 
-# Réinitialiser son MDP	sur domaine :	
+	# Réinitialiser son MDP	sur domaine :	
 net user  /domain administrateur *
 
-# DL fichiers d’aide powershell :	
+	# DL fichiers d’aide powershell :	
 Update-Help 
 
-# Afficher l'aide pour 'Get-Process'
+	# Afficher l'aide pour 'Get-Process'
 Get-Help Get-Process
 
-# Arréter un processus 
+	# Arréter un processus 
 Stop-Process -Id 2960
 
-# Renommer un dossier 
+	# Renommer un dossier 
 Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
 
-# Créer un fichier texte 
+	# Créer un fichier texte 
 New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
 
-# Créer un fichier ou écrase ancien :	
+	# Créer un fichier ou écrase ancien :	
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
 
-# Ajoute texte fichier existant :	
+	# Ajoute texte fichier existant :	
 Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
 
-# Sur serveur core permet d'ouvrir le menu de config du serveur
+	# Sur serveur core permet d'ouvrir le menu de config du serveur
 sconfig
 
-# Addon VBox, monter iso puis (Semble inutile sur un serveur core):	
+	# Addon VBox, monter iso puis (Semble inutile sur un serveur core):	
 D:\ 	
 VBoxWidowsAdditions-amd64.exe 
 
-# Redémarrer
+	# Redémarrer
 Restart-Computer #(ou shutdown /r /t 0)  
 
-# Éteindre
+	# Éteindre
 Stop-Computer 	 #(ou shutdown /s /t 0)  
 
-# Lister un dossier: 			
+	# Lister un dossier: 			
 dir 
 ls 
 gci
 
-# Revenir au dossier parent
+	# Revenir au dossier parent
 cd ..
 
-# Changer de répertoire
+	# Changer de répertoire
 cd
 sl 
 
-# Afficher le contenu d'un fichier:	
+	# Afficher le contenu d'un fichier:	
 cat 'nom_fichier' 
 cat "C:\chemin\nom_fichier"  
 gc "C:\chemin\nom_fichier"
 
-# tester l'écoute d'un port 		
+	# tester l'écoute d'un port 		
 Test-NetConnection -ComputerName localhost -Port 389
 ```
 
@@ -104,10 +104,10 @@ Test-NetConnection -ComputerName localhost -Port 389
 Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et choisir arrêter au lieu de redémarrer (pour éviter que la machine reprenne un SID au démarrage)
 
 ```powershell
-# Emplacement sysprep
+	# Emplacement sysprep
 cd \windows\system32\sysprep
 
-# Exécuter sysprep
+	# Exécuter sysprep
 .\sysprep.exe /generalize /reboot
  ```
 
@@ -115,54 +115,54 @@ cd \windows\system32\sysprep
 
 
 ```powershell
-# Afficher les infos réseaux
+	# Afficher les infos réseaux
 Get-NetIPConfiguration (eq ipconfig...)
-# Ou mieu son Alias
+	# Ou mieu son Alias
 gip
 
-# Afficher plus d'infos
+	# Afficher plus d'infos
 gip -Detailed
 
-# Nom de la carte réseau
+	# Nom de la carte réseau
 Get-NetAdapter
 
-# Afficher les cartes réseau up:	
+	# Afficher les cartes réseau up:	
 Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
 
-# Afficher n° carte réseau
+	# Afficher n° carte réseau
 Get-NetIPInterface 
 
-# Afficher ipv4 et interfaces		
+	# Afficher ipv4 et interfaces		
 Get-NetIPAddress -AddressFamily IPv4 | select IPAddress, InterfaceAlias	
 
-# IP statique et Gateway: 		
+	# IP statique et Gateway: 		
 New-NetIPaddress -InterfaceIndex 4 -IPAddress 192.0.100.1 -PrefixLength 24 -DefaultGateway 10.0.0.254 (ou 4 est le num de la carte réseau)
 
-# Configurer le DNS
+	# Configurer le DNS
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("8.8.8.8","8.8.4.4")
-# Supprimer une adresse DNS 
+	# Supprimer une adresse DNS 
 Get-DnsClientServerAddress -InterfaceIndex 6 | Set-DnsClientServerAddress -ResetServerAddresses
 
-# Vérifier l’accès au réseau
+	# Vérifier l’accès au réseau
 Test-Connection -ComputerName google.com
 
-# Retirer une adresse IP
+	# Retirer une adresse IP
 Remove-NetIPAddress -InterfaceIndex 4 -IPAddress 192.168.0.2 -PrefixLengh 24
-# ou 			
+	# ou 			
 Remove-NetIPAddress -IPAddress 192.168.100.1 -Confirm:$false
 
-# Retirer la passerelle			
+	# Retirer la passerelle			
 Remove-NetRoute -InterfaceAlias "Ethernet" -NextHop "192.168.0.254"
 
 
-# Désactiver carte réseau
+	# Désactiver carte réseau
 Disable-NetAdapter -Name  nom_carte_réseau
-# Désactiver/Réactiver
+	# Désactiver/Réactiver
 Restart-NetAdapter -Name nom_carte_réseau
 
-# Désactiver l'IPv6
+	# Désactiver l'IPv6
 Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
-# Désactiver l'IPv6 partout
+	# Désactiver l'IPv6 partout
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
 ```
 
@@ -248,10 +248,8 @@ New-NetFirewallRule -DisplayName "Autoriser ICMPv4-Out" -Protocol ICMPv4 -IcmpTy
 # Ouvrir port 22 dans pare-feu
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
 
-
 # Activer Defender: 			
 Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
-
 
 # Désactiver  Defender			
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
@@ -311,7 +309,7 @@ Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name,
 ## 🏠 INSTALLER UN CONTROLEUR DE DOMAINE 🏠 
 
 
-### Étape 1 : Installer les fonctionnalités
+### Installer les fonctionnalités
 
 ```powershell
 # Installer le rôle AD DS
@@ -321,24 +319,22 @@ Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 Import-Module ADDSDeployment
 ```
 
-### Étape 2 : Promouvoir le serveur en contrôleur de domaine
+### Promouvoir le serveur en contrôleur de domaine
 
 ```powershell
-# Ajouter domaine nouvelle forêt
+  # Ajouter domaine nouvelle forêt
 Install-ADDSForest -DomainName "TSSR.INFO" -DomainNetbiosName "TSSR" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS	
 
-# Joindre le domaine
-	Add-Computer -DomainName TSSR.INFO
+  # Joindre le domaine
+Add-Computer -DomainName TSSR.INFO
 
-# Retélécharger les modules pour le réplicat 
+  # Retélécharger les modules pour le réplicat 
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
-# Promouvoir en controleur de domaine
+  # Promouvoir en controleur de domaine
 Install-ADDSDomainController -DomainName "TSSR.INFO" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS
 
-# Ou plus simple :
-
-# Promouvoir en controleur de domaine:  : 	
+# Promouvoir en controleur de domaine (plus simple):  	
 Install-ADDSDomainController -DomainName "domain.tld" -InstallDns:$true -Credential (Get-Credential "DOMAIN\administrateur")
 
  
