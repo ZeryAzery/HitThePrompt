@@ -172,20 +172,21 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 ```powershell
 # Récup hash				
 Get-FileHash .\Fichier\
+
 # Récupérer un hash			
 Get-FileHash -Algorithm -sha512 Chemin\fichier
+
 # Créer des dossiers avec mkdir		
 mkdir COMPTABILITE, INFORMATIQUE, RH, PRODUCTION 
+
 # Supprimer un fichier/Dossier	
 Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
+
 # Son Alias				
 ri COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
-# Renommer un fichier
-Rename-Item
-
-# Son Alias				
-rni
+# Renommer un fichier (Alias: rni)
+Rename-Item			
 
 # Renommer un fichier avec move:	
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
