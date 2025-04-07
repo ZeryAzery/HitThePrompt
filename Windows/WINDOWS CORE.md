@@ -5,10 +5,12 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 
 ## Commandes de base
 
-```powershell
+
 * Trouver une commande:
+```powershell
 Get-Command *hash*
 gcm *bitlocker*
+```
 
 * Afficher les aides dans une fenêtre	
 Get-Help Unlock-BitLocker -ShowWindow
