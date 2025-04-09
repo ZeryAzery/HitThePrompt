@@ -36,18 +36,6 @@ net user Administrateur *
 net user  /domain administrateur *
 ```
 
-### Se servir de l'aide dans powershell
-```powershell
-# Télécharger les fichiers d'aide :
-Update-Help 
-
-# Afficher l'aide pour 'Get-Process' :
-Get-Help Get-Process
-
-# Afficher les aides dans une fenêtre :
-Get-Help Unlock-BitLocker -ShowWindow
-```
-
 ```powershell
 # Arréter un processus  :
 Stop-Process -Id 2960
@@ -74,14 +62,20 @@ Stop-Computer
 # Lister un dossier (Alias: gci): 			
 Get-ChidItem
 
-# Afficher le contenu d'un fichier (Alias: gc) 	 
-Get-Content "C:\chemin\nom_fichier"
-cat 'nom_fichier'
-
 # tester l'écoute d'un port : 		
 Test-NetConnection -ComputerName localhost -Port 389
 ```
+### Se servir de l'aide dans powershell
+```powershell
+# Télécharger les fichiers d'aide :
+Update-Help 
 
+# Afficher l'aide pour 'Get-Process' :
+Get-Help Get-Process
+
+# Afficher les aides dans une fenêtre :
+Get-Help Unlock-BitLocker -ShowWindow
+```
 
 ## 🖼️ Sysprep 🖼️ 
 
@@ -150,8 +144,11 @@ Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
 # Désactiver l'IPv6 partout
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
 ```
-
-
+## Afficher le contenu d'un fichier (Alias: gc) 
+```powershell	 
+Get-Content "C:\chemin\nom_fichier"
+cat 'nom_fichier'
+```
 ## 📂 Gestion des Objets 📂 
 
 ```powershell
@@ -173,7 +170,7 @@ Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 Rename-Item
 Move-Item			
 ```
-# Renommer un fichier avec move:
+# Renommer un fichier avec move
 ```bash	
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 ```
