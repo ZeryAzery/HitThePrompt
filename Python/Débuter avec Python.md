@@ -31,8 +31,13 @@ python.exe -m pip install --upgrade pip
 
 ## Importer un module (Terminal Python)
 ```python
-import cryptography
-import requests
+import cryptography     # Manipuler des certificats et clés cryptographiques
+import requests         # Éffectuer des requêtes HTTP
+import socket           # Gérer les connexions réseau bas niveau
+import dns.resolver     # Permet de résoudre des noms de domaine (DNS)
+from bs4 import BeautifulSoup  # Parser et manipuler du HTML
+import ssl              # Travailler avec des connexions sécurisées (SSL/TLS)
+import subprocess       # Éffectuer des commandes du système hôte
 ```
 
 ## Caractère d'échappement \n (saut de ligne)
@@ -145,8 +150,8 @@ a = multiply(i)
 print("a :", a)
 print("i :", i)
 ```
-### Les dictionnaires 
-Un dictionnaire contient une clé et une valeur
+## Les dictionnaires 
+Un dictionnaire contient une clé et une valeur, ici il y a 2 cléfs (kiwi et orange)
 
 ```python
 dico = {
