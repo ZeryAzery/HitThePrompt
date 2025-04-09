@@ -9,8 +9,8 @@ import subprocess
 dom = "taisen.fr"
 url = "https://taisen.fr/"
 
+# Effectue une requête GET
 req = requests.get(url)
-
 print("\nRequête GET :", req.status_code, req.reason)
 print("IP du site :", socket.gethostbyname(dom))
 print("DNS Utilisé :",dns.resolver.get_default_resolver().nameservers[0])
