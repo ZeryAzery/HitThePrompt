@@ -169,16 +169,17 @@ mkdir COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 # Supprimer un fichier/Dossier (Alias: ri (⚠️))	
 Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
-# Renommer un fichier (Alias: rni)
-Rename-Item			
-
-# Renommer un fichier avec move:	
+# Renommer/bouger un fichier (Alias: rni et mi)
+Rename-Item
+Move-Item			
+```
+# Renommer un fichier avec move:
+```bash	
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
+```
 
-# Alias de Move-Item				
-mi
-
-# Comparer des objects			
+# Comparer des objects
+```powershell		
 Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 ```
 
@@ -272,17 +273,18 @@ Install-WindowsUpdate -AcceptAll
 
 ```powershell	
 # Vérifier si le service est actif		
-Get-Process sshd  
-Get-Service sshd
+Get-Process ssh-agent  
+Get-Service ssh-agent
 
 # Installer OpenSSH Server (faire les màj avant): 			
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
-# Démarrer service SSH
-Start-Service sshd
+# Démarrer/redémarrer le service SSH
+Start-Service ssh-agent
+Restart-Service ssh-agent
 
 # Configurer démarrage auto SSH
-Set-Service -Name sshd -StartupType 'Automatic'
+Set-Service ssh-agent -StartupType 'Automatic'
 
 # Ouvrir port 22 dans pare-feu
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
