@@ -166,13 +166,15 @@ Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 Rename-Item
 Move-Item			
 ```
-# Renommer un fichier avec move
+
 ```bash	
+# Renommer un fichier avec move
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 ```
 
-# Comparer des objects
-```powershell		
+
+```powershell
+# Comparer des objects		
 Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 ```
 
@@ -211,7 +213,6 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "Password" -CaseSensit
 
 # Tous les mots contenant "pass" sans afficher le n° de ligne (précédé ou suivit d'un caractère qui ne sera pas une lettre avec regex \b)
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-Object { $_.Line }
-
 ```
 
 
