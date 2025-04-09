@@ -144,11 +144,7 @@ Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
 # Désactiver l'IPv6 partout
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
 ```
-## Afficher le contenu d'un fichier (Alias: gc) 
-```powershell	 
-Get-Content "C:\chemin\nom_fichier"
-cat 'nom_fichier'
-```
+
 ## 📂 Gestion des Objets 📂 
 
 ```powershell
@@ -191,8 +187,18 @@ Get-FileHash -Algorithm -sha512 Chemin\fichier
 ```
 
 
-## 📇🔍 Rechercher un mot ou une expression dans un fichier 📇🔍
+## 📇🔍 Afficher, rechercher un mot ou une expression dans un fichier 📇🔍
 
+### Utiliser Get-Content
+```powershell
+# Afficher le contenu d'un fichier (Alias: gc) 	 
+Get-Content "C:\chemin\nom_fichier"
+
+# Rechercher les 10 dernières lignes 
+Get-Content C:\Users\User_name\Desktop\rockyou.txt | Select-Object -Last 10
+```
+
+### Utiliser Select-String 
 ```powershell
 # Rechercher un mot, une expression dans fichier
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "mot_à_rechercher"
@@ -203,14 +209,9 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "^pass"
 # Recherche sensible à la casse
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "Password" -CaseSensitive
 
-# Tous les mots contenant "pass", mais uniquement en entier (contiendra "pass" mais uniquement précédé ou suivit d'un caractère qui ne sera pas une lettre)
-Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b"
+# Tous les mots contenant "pass" sans afficher le n° de ligne (précédé ou suivit d'un caractère qui ne sera pas une lettre avec regex \b)
+Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-Object { $_.Line }
 
-# Ne pas afficher le numéro de ligne:	
-Select-String -Path "C:\Users\Axel\Desktop\rockyou.txt" -Pattern "\bpass\b" | ForEach-Object { $_.Line }
-
-# Rechercher les 10 dernières lignes 
-Get-Content C:\Users\Axel\Desktop\rockyou.txt | Select-Object -Last 10
 ```
 
 
