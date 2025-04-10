@@ -1,0 +1,10 @@
+# Initiation à la classification des vulnérabilités
+
+| Vulnérabilités | Référence CVE | Score  CVSS |                     Description de la vulnérabilité                    | Éléments d'infrastructure concernés |      Exploit disponible publiquement  ?      | 
+| :-------------:| :------------:| ------------| :--------------------------------------------------------------------| :-----------------------------------| :----------------------------------------------:|  
+| Eternal Blue   | 2017-0144 |   8.8 HIGH  | Faille dans la 1ere version du protocole SMB (SMBv1) permettant l'exécution de code à distance | Écosystème Windows (notamment Windows XP, 7, 8, Server 2003/2008)  |  [Voir l'exploit](https://www.exploit-db.com/exploits/41891){.btn .btn-danger}
+ |
+| Krack          | 2017-13077 à 13082 | 5.4 à 6.8 | Attaque sur la réinitialisation des clés WPA2 permettant d'intercepter ou manipuler le trafic Wi-Fi.| Points d’accès Wi-Fi, clients (ordinateurs, smartphones, objets connectés) utilisant WPA2. |
+| log4shell      | 2021-44228 | 10.0 (critique) | Exécution de code à distance via la bibliothèque Java Log4j, en exploitant la fonctionnalité de journalisation des messages. | Applications Java utilisant Apache Log4j (serveurs web, logiciels d'entreprise, services cloud, etc.). |
+| Looney-tunables | 2023-4911 | 7.8 (élevé) | Débordement de tampon dans glibc via les variables d’environnement GLIBC_TUNABLES permettant une élévation de privilège locale. | Distributions Linux utilisant glibc, notamment Debian, Ubuntu, Fedora, etc. |
+| Stuxnet         | 2010-2568, -2729, -2743, -2772 | Jusqu’à 10.0  | Ver informatique très sophistiqué ciblant des systèmes SCADA en manipulant des automates industriels Siemens (PLC) via des failles Windows, avec sabotage physique discret | Systèmes Windows + automates industriels Siemens (centrale nucléaire de Natanz en Iran) |
