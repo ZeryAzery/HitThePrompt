@@ -6,7 +6,7 @@
 ```
 ## Identie les machines active sur le réseau (Host Discovery)
 ```nmap
-    nmap -sn <Plage IP> 
+	nmap -sn <Plage IP> 
 ```
 ## Connaitre la version d'un système cible
 ```nmap 
@@ -47,7 +47,7 @@
 * O :		Détection du système d'exploitation via fingerprinting.
 * p 1-1000 :	Scanne les 1000 premiers ports, souvent surveillés par Suricata.
 
-### Comment Nmap effectue ses requête SYN aux ports de la cible :
+### ➡️ Comment Nmap effectue ses requête SYN aux ports de la cible :
 
 | État     | Description |
 |----------|-------------|
@@ -55,7 +55,7 @@
 | SYN-ACK  | → Si le port est ouvert, la cible répond avec SYN-ACK. |
 | RST      | → Nmap envoie un RST (Reset) au lieu d’un ACK. |
 
-➡️ Ça permet de détecter les ports ouverts sans établir une connexion complète, donc c’est plus furtif qu’un TCP connect scan (-sT), qui fait une vraie connexion (SYN → SYN-ACK → ACK).
+Ça permet de détecter les ports ouverts sans établir une connexion complète, donc c’est plus furtif qu’un TCP connect scan (-sT), qui fait une vraie connexion (SYN → SYN-ACK → ACK).
 
 ## Autres options 
 -A (Aggressive Scan, récolte des infos sur la cible)
@@ -65,7 +65,7 @@
 * Traceroute (pour voir le chemin réseau jusqu'à la cible)
 * Scripts Nmap (NSE) par défaut, qui explorent certaines vulnérabilités
 
-➡️ En gros, -A combine plusieurs scans avancés pour donner un max d’infos sur la machine scannée.
+En gros, -A combine plusieurs scans avancés pour donner un max d’infos sur la machine scannée.
 
 -----------------------------------------------------------------------------------------------------
 
