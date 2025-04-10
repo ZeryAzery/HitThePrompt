@@ -76,7 +76,7 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 | gc	| Get-Content | 
 
 
-## 😱 Passer outre la politique d'exécution des scripts 
+## ⛔ Passer outre la politique d'exécution des scripts 
 ```powershell
 Get-Content test.ps1 | iex
 ```
