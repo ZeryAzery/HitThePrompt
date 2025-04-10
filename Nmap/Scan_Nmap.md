@@ -65,7 +65,7 @@
 * Traceroute (pour voir le chemin réseau jusqu'à la cible)
 * Scripts Nmap (NSE) par défaut, qui explorent certaines vulnérabilités
 
-En gros, -A combine plusieurs scans avancés pour donner un max d’infos sur la machine scannée.
+Le -A combine plusieurs scans avancés pour donner un maximum d’infos sur la machine scannée.
 
 -----------------------------------------------------------------------------------------------------
 

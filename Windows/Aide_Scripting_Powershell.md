@@ -1,7 +1,7 @@
 # Support d'aide au Scripting Powershell
 
 
-## 📌 Principaux types de données en PowerShell:
+## 📌 Principaux types de données en PowerShell
 
 Elles empêche d'affecter une valeur incorrecte
 
@@ -76,7 +76,8 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 | gc	| Get-Content | 
 
 
-## ⛔ Passer outre la politique d'exécution des scripts 
+## ⛔ Passer outre la politique d'exécution des scripts
+ 
 ```powershell
 Get-Content test.ps1 | iex
 ```
