@@ -34,7 +34,7 @@
 ```
 ### Rapport et analyse : Consolider les données collectées, identifier les vulnérabilités exploitables en fonction de leurs criticités et recommander les mesures correctives. 
 
-=============================================================================
+--------------------------------------------------------------------------------------------
 
 ## Scan SYN (demi-ouvert ou half-open scan)
 ```nmap
