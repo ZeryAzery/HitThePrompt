@@ -1,9 +1,17 @@
 # NMAP
 
+## Vérifier la version d'nmap
+```nmap
+	nmap --version
+```
 ## Identie les machines active sur le réseau (Host Discovery)
 ```nmap
     nmap -sn <Plage IP> 
 ```
+## Connaitre la version d'un système cible
+```nmap 
+	nmap -O <Ip cible>
+```	
 ## Détecter les ports ouverts sur les hôtes actifs (potentiels services)
 ```nmap
 	nmap -sS -p 1-65535 <IP cible>
@@ -26,7 +34,6 @@
 ```
 ### Rapport et analyse : Consolider les données collectées, identifier les vulnérabilités exploitables en fonction de leurs criticités et recommander les mesures correctives. 
 
-
 ======================================================================================================
 
 ## Scan SYN (demi-ouvert ou half-open scan)
@@ -35,10 +42,10 @@
 ```
 ### Explications du scan SYN
 
--sS :		Scan SYN (demi-ouvert), typique des scans furtifs mais que Suricata détecte bien.
--sV :		Détection de version des services, ce qui génère plus de trafic identifiable.
--O :		Détection du système d'exploitation via fingerprinting.
--p 1-1000 :	Scanne les 1000 premiers ports, souvent surveillés par Suricata.
+* sS :		Scan SYN (demi-ouvert), typique des scans furtifs mais que Suricata détecte bien.
+* sV :		Détection de version des services, ce qui génère plus de trafic identifiable.
+* O :		Détection du système d'exploitation via fingerprinting.
+* p 1-1000 :	Scanne les 1000 premiers ports, souvent surveillés par Suricata.
 
 ### Comment Nmap effectue ses requête SYN aux ports de la cible :
 
@@ -50,9 +57,7 @@
 
 ➡️ Ça permet de détecter les ports ouverts sans établir une connexion complète, donc c’est plus furtif qu’un TCP connect scan (-sT), qui fait une vraie connexion (SYN → SYN-ACK → ACK).
 
-
-
-
+## Autres options 
 -A (Aggressive Scan, récolte des infos sur la cible)
 
 * Détection du système d’exploitation (OS Detection)
@@ -63,11 +68,5 @@
 ➡️ En gros, -A combine plusieurs scans avancés pour donner un max d’infos sur la machine scannée.
 
 -----------------------------------------------------------------------------------------------------
-
-Vérifier la version d'nmap
-	nmap --version
-
-Connaitre la version d'un système cible 
-	nmap -O <Ip cible>
 
 
