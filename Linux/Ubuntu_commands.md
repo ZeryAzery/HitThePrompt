@@ -32,7 +32,7 @@ sudo apt install gparted
 ## Config réseau statique
 
 ```bash
-sudo nano /etc/netplan/nano 01-network-manager-all.yaml
+sudo nano /etc/netplan/01-network-manager-all.yaml
 ```
 
 ```yaml

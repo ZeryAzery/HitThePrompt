@@ -245,6 +245,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 ```
 
 ### Defender
+
 ```powershell
 # Activer Defender: 			
 Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
@@ -268,7 +269,27 @@ Get-WindowsUpdate -AcceptAll -Install -AutoReboot
 Install-WindowsUpdate -AcceptAll 
 ```
 
-## 🔢 SSH 🔢 
+## 🔢 WinRM 🔢
+
+```powershell
+# Installation de WinRM
+Enable-PSRemoting -Force
+
+# Vérifier que WinRM est activé
+Get-Service winrm
+
+# Activer la règler de parefeu
+Enable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
+
+# Utilisation de WinRM pour des connexions distante
+Enter-PSSession -ComputerName PC01-W10 -Credential nom_domaine\compte_admin
+
+# Ouvrir (en admin) fenêtre GUI pour autoriser un compte en PSRemoting
+Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
+```
+
+
+## 🔐🔢 SSH 🔢🔐
 
 ```powershell	
 # Vérifier si le service est actif		
@@ -329,10 +350,10 @@ Install-ADDSDomainController -DomainName "TSSR.INFO" -SafeModeAdministratorPassw
 Install-ADDSDomainController -DomainName "domain.tld" -InstallDns:$true -Credential (Get-Credential "DOMAIN\administrateur")
  
 # Joindre domaine Sur machine cliente 
-Add-Computer -DomainName "example.com" -Credential (New-Object PSCredential ("administrateur@tssr.info", (ConvertTo-SecureString "Mon_mot_de_passe" -AsPlainText -Force))) -Restart
+Add-Computer -DomainName "example.com" -Credential (New-Object PSCredential ("administrateur@domainname.fr", (ConvertTo-SecureString "Mon_mot_de_passe" -AsPlainText -Force))) -Restart
 
 # ou 
-Add-Computer -DomainName "votre_nom_de_domaine" -Credential (Get-Credential) -Restart
+Add-Computer -DomainName "domainname" -Credential (Get-Credential) -Restart
 
 # ⚠️ Ne pas oublier de mettre le nom du domaine avant pour éviter une erreur : "TSSR\administrateur"
 
@@ -345,8 +366,7 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 
 ```powershell
 # Créer un nouvel utilisateur : 		
-New-ADUser -Name "admaxel" -GivenName "Adm" -Surname "axel" -SamAccountName "admaxel" -UserPrincipalName "admaxel@tssr-cybe
-r.org" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
+New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName "Adminname" -UserPrincipalName "Adminnamel@domainname.fr" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
 
 # Rechercher des groupes : 	
 Get-ADGroup -Filter 'Name -like "*admin*"'
@@ -362,6 +382,6 @@ $groupes = @(
 )
 
 foreach ($groupe in $groupes) {
-    Add-ADGroupMember -Identity $groupe -Members "admaxel" -ErrorAction SilentlyContinue
+    Add-ADGroupMember -Identity $groupe -Members "adminname" -ErrorAction SilentlyContinue
 }
 ```
