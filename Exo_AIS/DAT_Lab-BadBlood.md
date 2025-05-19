@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     A[Hyperviseur] -->|hosts| W(Windows Server)
     A --> | hosts| C(Windows Client)
@@ -14,4 +15,4 @@ flowchart TD
     L --> |running| I{SSH}
 
     C --> |joined| Z
-
+```
