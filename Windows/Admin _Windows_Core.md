@@ -10,6 +10,9 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 # Trouver une commande (Alias: gcm):
 Get-Command *hash*
 
+# Allonger la période d'essai Windows
+slmgr.vbs -rearm
+
 # Se déplacer à la racine ou dans le répertoire utilisateur (Alias: sl)	:		
 Set-Location \
 Set-Location ~
