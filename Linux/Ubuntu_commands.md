@@ -74,3 +74,52 @@ network:
 ```bash
 sudo netplan apply
 ```
+## Installer Github
+
+```bash
+# 1. Installer les dépendances
+sudo apt update
+sudo apt install curl -y
+
+# 2. Ajouter la clé GPG officielle de GitHub CLI
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
+  sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+
+# 3. Ajouter le dépôt GitHub CLI
+echo "deb [arch=$(dpkg --print-architecture) \
+  signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+  https://cli.github.com/packages stable main" | \
+  sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+# 4. Installer GitHub CLI
+sudo apt update
+sudo apt install gh -y
+
+# Vérifier l'installation
+gh --version
+```
+
+## Télécharger VulnerableLightApp sur Github
+```bash
+gitclone https://github.com/Aif4thah/VulnerableLightApp.git
+```
+
+## Installer Dotnet 8.0
+```bash
+mkdir -p /opt/dotnet
+wget https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.100/dotnet-sdk-8.0.100-linux-x64.tar.gz
+tar -zxf dotnet-sdk-8.0.100-linux-x64.tar.gz
+rm dotnet-sdk-8.0.100-linux-x64.tar.gz
+wget https://builds.dotnet.microsoft.com/dotnet/Runtime/8.0.16/dotnet-runtime-8.0.16-linux-x64.tar.gz
+tar -zxf dotnet-runtime-8.0.16-linux-x64.tar.gz
+rm dotnet-runtime-8.0.16-linux-x64.tar.gz
+# Ajouter .NET au PATH
+ln -s /opt/dotnet/dotnet /usr/bin/dotnet
+# Vérifier que tout fonctionne
+dotnet --version
+```
+
+## Lnacer VulnerableLightA
+```bash
+dotnet run --url = https://10.0.0.3:3000
+```

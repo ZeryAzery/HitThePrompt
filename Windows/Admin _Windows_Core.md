@@ -219,14 +219,14 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 ### Formats de fichiers que Powershell peut utiliser:
 
 | 📂 Format	| 📜 Supporté nativement ?	| 🔧 Méthode à utiliser |
-| ----- | ----- | ----- |
+| ----- | :---: | ----- |
 | TXT	|	✅ Oui	| Get-Content ou Select-String |
 | CSV	|	✅ Oui |	Import-Csv |
 | JSON | ✅ Oui | ConvertFrom-Json |
 | XML	|	✅ Oui	|	Select-Xml |
 | DOC, DOCX	| ❌ Non	| COM Object ou OpenXML |
 | PDF | ❌ Non	|	PDFtoText ou une librairie externe |
-| XLS, XLSX |	❌ Non | COM Object ou Import-Excel |
+| XLS, XLSX | ❌ Non | COM Object ou Import-Excel |
 		
 
 
@@ -234,7 +234,7 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 ### Pare-Feu
 ```powershell
-# règles ICMP IN : 			
+# règles ICMP IN  			
 New-NetFirewallRule -DisplayName "Autoriser ICMPv4-In" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
 
 # règles ICMP OUT 
@@ -247,7 +247,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 ### Defender
 
 ```powershell
-# Activer Defender: 			
+# Activer Defender 			
 Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
 
 # Désactiver  Defender			
@@ -296,7 +296,7 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 Get-Process ssh-agent  
 Get-Service ssh-agent
 
-# Installer OpenSSH Server (faire les màj avant): 			
+# Installer OpenSSH Server (faire les màj avant) 			
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
 # Démarrer/redémarrer le service SSH
@@ -365,14 +365,14 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 ## 👮 Créer un nouvel utilisateur admin du domaine 👮 
 
 ```powershell
-# Créer un nouvel utilisateur : 		
+# Créer un nouvel utilisateur  		
 New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName "Adminname" -UserPrincipalName "Adminnamel@domainname.fr" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
 
 # Rechercher des groupes : 	
 Get-ADGroup -Filter 'Name -like "*admin*"'
 Get-ADGroup -Filter 'Name -like "*stratégie*"'
 
-# Ajouter l'utilisateur "admaxel" aux groupes admin  : 
+# Ajouter l'utilisateur "admaxel" aux groupes admin 
 $groupes = @(
     "Administrateurs",
     "Administrateurs du schéma",
