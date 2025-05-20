@@ -163,4 +163,9 @@ gantt
 
 ## Notes
 
+Les étapes suivantes seront :
+- Audit de configuration des OS
+- Audit de Code
+- Implémentation des mesures de sécurité sélectionnées
+
 
