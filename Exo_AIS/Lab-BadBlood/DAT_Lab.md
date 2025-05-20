@@ -36,8 +36,8 @@ flowchart TD
 | Nom du compte        | Rôle              | Localisation   | Stockage des identifiants         |
 |---------------------|------------------|----------------|---------------------------------------|
 | Administrateur    | Admin Windows AD   | DC1-SRVW19     | `\\DC1-SRVW19\C$\Keepass\kps_base.kdbx`  |
-| root                | Admin Linux        | Debian12.5     | `\\DC1-SRVW19\C$\Keepass\kps_base.kdbx`   |
-|                     |                    |                |                                           |
+| root                | Admin Linux        | DEB-APACHE     | `\\DC1-SRVW19\C$\Keepass\kps_base.kdbx`   |
+|       axel           |  Partage Samba   |  DEB-APACHE   |   `\\DC1-SRVW19\C$\Keepass\kps_base.kdbx`  |
 |                     |                     |               |                                           |
 |                      |                       |                 |                                          
 
