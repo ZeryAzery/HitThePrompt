@@ -48,8 +48,16 @@ flowchart TD
 |        OS                 | Hostname   |            Rôle                              |
 |--------------------------|------------|---------------------------------------------------|                
 | **Windows Server 2019**  | DC1-SRVW19 | Active Directory, DNS, SMB, WinRM                | 
-|  **Windows 10 Pro**       | PC01-W10  | Workstation joignable au domaine                   | 
+|  **Windows 10 Pro**       | PC01-W10   | Workstation joignable au domaine                   | 
 |  **Debian 12.5**         | DEB-APACHE | Serveur Web avec l’application _VulnerableLightApp_ | 
+
+### Adressage IP
+
+|        Hostname          |   IP        |  CIDR   |
+|------------------------|--------------|---------|               
+| **DC1-SRVW19**          | 10.0.0.1         | /24 |
+|   **DEB-APACHE**        | 10.0.0.3        | /24 |
+|  **PC01-W10**         | 192.168.200.100    |  /24 |
 
 ---
 
@@ -57,21 +65,27 @@ flowchart TD
 
 ### Vérification des intégrités des images
 
-> _Insère ici une capture d'écran de la vérification des hashs ou signatures des ISO._
+* Vérifier un hash sous Windows
+```powershell
+Get-FileHash -Algorithm sha512 "F:\Users\Axel\Documents\Images ISO\Windows\Win 11\Win11_24H2_French_x64.iso"
+```
+![alt text](<File_Hash.png>)
 
----
-
-### Mises à jour réussies
-
-> _Insère ici une capture montrant les dernières mises à jour sur chaque OS._
-
+* Vérifier un hash sous Linux
+```bash
+sha512sum "/tmp/debian.12.5.netinst.iso"
+```
 ---
 
 ### Statuts des services critiques
 
 #### Services DNS et Web
 
-> _Ajoute une capture montrant les services DNS actifs sur Windows Server et le statut du service Web (Kestrel) sur Debian._
+Vérification que le service web est lancé via dotnet
+```bash
+ps aux | grep dotnet
+```
+![alt text](<Vérif_dotnet.png>)
 
 ---
 
@@ -90,26 +104,56 @@ Enter-PSSession -ComputerName PC01-W10 -Credential nom_domaine\compte_admin
 # Ouvrir (en admin) fenêtre GUI pour autoriser un compte en PSRemoting
 Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 ```
-
 ![alt text](<winrm_whoami.png>)
 ---
 
 ### Partages SMB/Samba
 
-> _Montre les permissions des partages SMB configurés (readonly + écriture libre)._
+## Partage samba
+
+```batch
+net use \\10.0.0.3 /user:axel
+```
+![alt text](<Vérif_partage_samba.png>)
+![alt text](<Partage_samba.png>)
 
 ---
 
 ### Nombre d'utilisateurs dans l’Active Directory
 
-> _Capture du nombre total d’utilisateurs créés, y compris ceux générés par le script BadBlood._
-
+* Afficher le nombre total d'utilisateur
+```powershell
+(Get-ADUser -Filter *).count
+```
+![alt text](<Nombre_User_AD.png>)
 ---
 
 ### Diagramme de gestion de projet
 
-> _Insère ici un Kanban ou un diagramme de Gantt représentant l’avancement du projet (réalisation, configuration, vérification)._
+```mermaid
+gantt
+    title Projet de mise en place du Lab (AD + Debian Web)
+    dateFormat  YYYY-MM-DD
+    excludes    weekends
 
+    section Préparation
+    Téléchargement des ISO               :done, iso, 2025-05-10, 1d
+    Vérification des hashs              :done, hash, 2025-05-11, 1d
+
+    section Installation des VMs
+    Installation Windows Server         :done, winserv, 2025-05-12, 2d
+    Installation Debian 12.5            :done, deb, 2025-05-14, 1d
+    Joindre client Windows au domaine   :done, join, 2025-05-15, 1d
+
+    section Configuration des Services
+    DNS / AD / WinRM                    :done, confad, 2025-05-16, 1d
+    Partages SMB / Samba                :done, share, 2025-05-17, 1d
+    Déploiement de l'application Web    :done, web, 2025-05-18, 1d
+    Test des accès SSH et WinRM         :done, access, 2025-05-19, 1d
+
+    section Sécurisation (à faire)
+    Audit de sécurité et durcissement   :crit, secu, 2025-05-20, 3d
+```
 ---
 
 ## Notes

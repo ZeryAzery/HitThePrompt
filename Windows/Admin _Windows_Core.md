@@ -188,7 +188,7 @@ Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 Get-FileHash .\Fichier\
 
 # Récupérer un hash			
-Get-FileHash -Algorithm -sha512 Chemin\fichier
+Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
 
 
