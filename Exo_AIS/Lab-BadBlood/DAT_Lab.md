@@ -81,7 +81,12 @@ sha512sum "/tmp/debian.12.5.netinst.iso"
 
 #### Services DNS et Web
 
-Vérification que le service web est lancé via dotnet
+* Vérification que le service DNS est lancé 
+```powershell
+Get-Service -Name DNS
+```
+![alt text](<Check_DNS_Service.png>)
+* Vérification que le service web est lancé via dotnet
 ```bash
 ps aux | grep dotnet
 ```
