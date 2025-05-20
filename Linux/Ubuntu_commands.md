@@ -119,7 +119,11 @@ ln -s /opt/dotnet/dotnet /usr/bin/dotnet
 dotnet --version
 ```
 
-## Lnacer VulnerableLightA
+## Lancer VulnerableLightA
 ```bash
-dotnet run --url = https://10.0.0.3:3000
+dotnet run --url=https://10.0.0.3:3000
+# Lancer le processus en arrère plan
+dotnet run --url=https://10.0.0.3:3000 &
+# Vérifier les processus lancés en arrère plan
+jobs
 ```
