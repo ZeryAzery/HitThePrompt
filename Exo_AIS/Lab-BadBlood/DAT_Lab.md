@@ -48,7 +48,7 @@ flowchart TD
 |        OS                 | Hostname   |            Rôle                              |
 |--------------------------|------------|---------------------------------------------------|                
 | **Windows Server 2019**  | DC1-SRVW19 | Active Directory, DNS, SMB, WinRM                | 
-|  **Windows 10 Pro**       | PC01-W10   | Workstation joignable au domaine                   | 
+|  **Windows 10 Pro**       | PC01-W10   | Workstation PC client sur domaine                 | 
 |  **Debian 12.5**         | DEB-APACHE | Serveur Web avec l’application _VulnerableLightApp_ | 
 
 ### Adressage IP
