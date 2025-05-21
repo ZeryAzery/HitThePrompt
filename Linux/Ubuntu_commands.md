@@ -107,6 +107,7 @@ gitclone https://github.com/Aif4thah/VulnerableLightApp.git
 ## Installer Dotnet 8.0
 ```bash
 mkdir -p /opt/dotnet
+cd /opt/dotnet
 wget https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.100/dotnet-sdk-8.0.100-linux-x64.tar.gz
 tar -zxf dotnet-sdk-8.0.100-linux-x64.tar.gz
 rm dotnet-sdk-8.0.100-linux-x64.tar.gz
@@ -119,9 +120,12 @@ ln -s /opt/dotnet/dotnet /usr/bin/dotnet
 dotnet --version
 ```
 
-## Lancer VulnerableLightA
+## Lancer VulnerableLightApp
 ```bash
+# En HTTPS
 dotnet run --url=https://10.0.0.3:3000
+# En HTTP
+dotnet run --url=http://10.0.0.3:4000
 # Lancer le processus en arrère plan
 dotnet run --url=https://10.0.0.3:3000 &
 # Vérifier les processus lancés en arrère plan

@@ -8,7 +8,7 @@
 * Quelle est l'adresse de votre passerelle ?
 10.0.0.254
 
-## Quels sont les flags TCP ?
+## __0. Quels sont les flags TCP ?__
 | Flag    | Nom complet               | Description                                                                |
 | ------- | ------------------------- | -------------------------------------------------------------------------- |
 | **SYN** | Synchronize               | Démarre une connexion TCP (étape 1 et 2 du 3-way handshake).               |
@@ -34,7 +34,7 @@
 - Un côté envoie un FIN, l'autre répond avec ACK, puis renvoie aussi un FIN, et le premier répond avec ACK.
 
 
-## Capturer le processus DORA du protocole DHCP
+## __1. Capturer le processus DORA du protocole DHCP__
 Pour capturer DORA, j'ai choisi le filtre Wireshark "udp.port == 67 || udp.port == 68"
 
 ![alt text](<capture_DORA.png>)
@@ -43,7 +43,7 @@ Il me manque le Deliver et le Offer car il connait déjà la MAC du PC ciblé.
 
 
 
-## Qu’est ce que le DHCP Starvation / snooping ? Rogue DHCP ?
+## __2. Qu’est ce que le DHCP Starvation / snooping ? Rogue DHCP ?__
 
 * Sécurité DHCP : Attaques et Défenses
 
@@ -70,22 +70,22 @@ Le Snooping se fait principalement au niveau du switch avec la gestion des ports
   - Les messages DHCP suspects sont bloqués sur les ports non-trusted.
 Celà empêche les réponses de faux serveurs DHCP et crée une base IP ↔ MAC ↔ port qui est aussi utile contre d'autres attaques (ex : ARP spoofing).
 
-## Que se passe t-il lors du « ipconfig /release » (windows) ? D’un point de vue sécurité quel peut etre l'enjeu ?
+## __3. Que se passe t-il lors du « ipconfig /release » (windows) ? D’un point de vue sécurité quel peut etre l'enjeu ?__
 
 Le risque, au delà de la perte de connectivité est qu'un attaquant puis l'exploiter par les méthodes vues précedemment.
 
-## Quelle fonctionnalité propose CISCO pour se prémunir des attaques DHCP ?
+## __4. Quelle fonctionnalité propose CISCO pour se prémunir des attaques DHCP ?__
 
 Le protocole s'appelle "DAI" Dynamic ARP Inspection comme vu avant il permet de bloquer des ports ou des VLANs entier.
 
-## Capturer une requête DNS et sa réponse
+## __5. Capturer une requête DNS et sa réponse__
 
 Utiliser simplement le filtre "dns" pour voir les requêtes
 
 ![alt text](<DNS_Query.png>)
 
 
-## Qu’est-ce que le DNS Spoofing ? Comment s’en protéger ?
+## __6. Qu’est-ce que le DNS Spoofing ? Comment s’en protéger ?__
 
 L'empoisonnement DNS est une attaque où un l'attaquant falsifie les réponses d’un serveur DNS pour rediriger un utilisateur vers un faux site web, tout en lui faisant croire qu’il accède au site légitime. Cela permet de voler des données sensibles ou d’infecter l’utilisateur avec un malware.
 Pour s'en protéger on peut  :
@@ -96,11 +96,11 @@ Pour s'en protéger on peut  :
 - Éffectuer un filtrage réseau et pare-feu pour Bloquer les communications DNS suspectes ou non autorisées.
 - Utiliser un SIEM ou NIDS pour surveiller le réseau et détecter des comportements anormaux.
 
-## Qu’est-ce que DNS Sec ? DNS over TLS / HTTPS ?
+## __7. Qu’est-ce que DNS Sec ? DNS over TLS / HTTPS ?__
 
 DNSSEC ajoute une signature numérique aux réponses DNS et DNS over TLS permet d'ajouter une couche de chiffrement.
 
-## Dans quels cas trouve-t-on du DNS sur TCP ?
+## __8. Dans quels cas trouve-t-on du DNS sur TCP ?__
 
 Le DNS utilise principalement UDP sur le port 53, car les requêtes sont en général petites et rapides.
 
@@ -110,7 +110,7 @@ Voici les cas où DNS peut utiliser TCP :
 - Lors de transferts de zones entre serveurs DNS (surtout AXFR) TCP  est obligatoirement utilisé pour garantir la fiabilité de la transmission.
 - Lors de requêtes récursives complexes, certains résolveurs peuvent basculer en TCP si la requête ou la chaîne de résolution est trop complexe.
 
-## Capturer un flux HTTP
+## __9. Capturer un flux HTTP__
 
 Pour capturer un flux HTTP j'utilise le filtre "tcp.port == 80"
 
@@ -121,18 +121,49 @@ Pour capturer un flux HTTP j'utilise le filtre "tcp.port == 80"
 ip.addr == 10.0.0.3  || tcp.port == 80
 ```
 
-## Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE
-## Comment mettre en place la confidentialité et l'authenticité pour HTTP ?
-## Qu’est-ce qu’une PKI ?
-## Capturer un mot de passe HTTP ou FTP ou Telnet (mettre en place les services si nécessaire)
-## Comment mettre en place la confidentialité pour ce service ?
-## Capturer un handshake TLS
-## Qu’est-ce qu’une autorité de certification (AC) racine ? Qu'est qu'une AC intermediaire ?
-## Connectez-vous sur https://taisen.fr et affichez la chaine de confiance du certificat
-## Capturer une authentification Kerberos (mettre en place le service si nécessaire)
-## Capturer une authentification RDP (mettre en place le service si nécessaire)
-## Quelles sont les attaques connues sur NetLM ?
-## Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)
-## Capturer une authentification SSH ou SFTP (mettre en place le service si nécessaire)
-## Intercepter un fichier au travers du protocole SMB
-## Comment proteger l'authenticité et la confidentialité d'un partage SMB ?
+## __10. Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE__
+
+Le HTTP request smuggling est une vulnérabilité qui permet à un attaquant de manipuler les requêtes échangées entre un client et un serveur intermédiaire, souvent un proxy ou un load balancer en exploitant les incohérences dans le traitement des requêtes HTTP.
+Ça permet de :
+- d’injecter des requêtes malveillantes
+- de contourner des contrôles de sécurité
+- de voler des sessions ou de faire du cache poisoning.
+
+La CVE-2025-4600 utilisait le smuggling request dans la QoS Google Cloud Classic en raison d'une gestion incorrecte des requêtes HTTP d'encodage en blocs.
+
+## __11. Comment mettre en place la confidentialité et l'authenticité pour HTTP ?__
+
+## __12. Qu’est-ce qu’une PKI ?__
+
+Une "Public Key Infrastructure" (infrastructure à clé publique), consiste en une paire de clés (publique et privée). 
+Elle permet de gérer des certificats numériques en garantissant la sécurité des échanges via le chiffrement asymétrique.
+Voici ces principaux composants :
+- __Autorité de certification (CA)__ : Délivre et signe les certificats numériques.
+- __Autorité d'enregistrement (RA)__ : Vérifie l’identité des entités avant que la CA délivre un certificat.
+- __Certificat numérique__           : Fichier contenant une clé publique + l’identité du propriétaire, signé par une CA.
+- __Liste de révocation (CRL) / OCSP__ :   Permet de vérifier si un certificat est encore valide ou a été révoqué.
+
+Les PKI sont courament utilisées avec le HTTPS (certificats SSL/TLS), Authentification (cartes à puce, certificats utilisateurs),
+Signature électronique, VPN, messagerie sécurisée, etc.
+
+## __13. Capturer un mot de passe HTTP ou FTP ou Telnet (mettre en place les services si nécessaire)__
+
+Trouver la rquête POST et aller dans "HTML Form URL Encoded: application/x-www-form-urlencoded"
+Puis rechercher la mention "Form item" 4 et 5; Ici une authentification avec l'identifiant et le mdp "glpi" :
+
+![alt text](<capture_Mdp_HTTP.png>)
+
+Suivre Flux HTTP![alt text](<Suivre Flux HTTP.png>)
+
+## __14. Comment mettre en place la confidentialité pour ce service ?__
+## __15. Capturer un handshake TLS__
+## __16. Qu’est-ce qu’une autorité de certification (AC) racine ? Qu'est qu'une AC intermediaire ?__
+## __17. Connectez-vous sur https://taisen.fr et affichez la chaine de confiance du certificat__
+## __18. Capturer une authentification Kerberos (mettre en place le service si nécessaire)__
+## __19. Capturer une authentification RDP (mettre en place le service si nécessaire)__
+## __20. Quelles sont les attaques connues sur NetLM ?__
+## __21. Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)__
+## __22. Capturer une authentification SSH ou SFTP (mettre en place le service si nécessaire)__
+## __23. Intercepter un fichier au travers du protocole SMB__
+## __24. Comment proteger l'authenticité et la confidentialité d'un partage SMB ?__
+
