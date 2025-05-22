@@ -65,11 +65,11 @@ Celà empêche les réponses de faux serveurs DHCP et crée une base IP ↔ MAC 
 
 ## __3. Que se passe t-il lors du « ipconfig /release » (windows) ? D’un point de vue sécurité quel peut etre l'enjeu ?__
 
-Le risque, au delà de la perte de connectivité est qu'un attaquant puis l'exploiter par les méthodes vues précedemment.
+Le risque, au delà de la perte de connectivité est qu'un attaquant puisse l'exploiter par les méthodes vues précedemment.
 
 ## __4. Quelle fonctionnalité propose CISCO pour se prémunir des attaques DHCP ?__
 
-Le protocole s'appelle "DAI" Dynamic ARP Inspection comme vu avant il permet de bloquer des ports ou des VLANs entier.
+Le protocole s'appelle "DAI" (Dynamic ARP Inspection) comme vu avant, permet de bloquer des ports ou des VLANs entier.
 
 ## __5. Capturer une requête DNS et sa réponse__
 
@@ -114,7 +114,7 @@ Pour capturer un flux HTTP j'utilise le filtre "tcp.port == 80"
 ip.addr == 10.0.0.3  || tcp.port == 80
 ```
 
-## <code style="color : cyan">**10. Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE**</code>
+## <code style="color : Green">**10. Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE**</code>
 
 Le HTTP request smuggling est une vulnérabilité qui permet à un attaquant de manipuler les requêtes échangées entre un client et un serveur intermédiaire, souvent un proxy ou un load balancer en exploitant les incohérences dans le traitement des requêtes HTTP.
 Ça permet de :
