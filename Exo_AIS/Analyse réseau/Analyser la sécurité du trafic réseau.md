@@ -185,6 +185,7 @@ Let's Encrypt (R3) est une AC intermédiaire.
 ![alt text](<Chaine_confiance_certificat.png>)
 
 ## __18. Capturer une authentification Kerberos (mettre en place le service si nécessaire)__
+
 Utiliser le filtre "ip.addr == 10.0.0.50 and kerberos" et et nchercher dans la colonne "KRB5" les lignes correspondantes à:
 - AS-REQ → Client → KDC (Demande d’un TGT)
 - AS-REP → KDC → Client (Envoi du TGT)
@@ -194,14 +195,59 @@ Utiliser le filtre "ip.addr == 10.0.0.50 and kerberos" et et nchercher dans la c
 TGT = (Ticket Granting Ticket)
 TGS = (Ticket Granting Service)
 
+![alt text](<Auth_KRB5.png>)
+
 > [!TIP]
-> Outils 
+> Outils :
 * 🔐 Mimikatz permet  d'extraire des identifiants (mots de passe, tickets Kerbero, hashes) directement depuis la mémoire d’un système Windows.
 * 🎯 Rubeus permet de mener des attaques type "pass-the-ticket" et est spécialisé dans l'abus de Kerberos (dump, forge, injection de tickets, attaque Pass-the-Ticket/TGT).
 
 ## __19. Capturer une authentification RDP (mettre en place le service si nécessaire)__
+
+> [!TIP]
+> Rappel :
+RDP n'utilise pas Kerberos pour s'authentifier mais NTLM
+
+![alt text](<RDP_Filter.png>)
+
 ## __20. Quelles sont les attaques connues sur NetLM ?__
+
+> [!TIP]
+> Rappel : 
+Comme Kerberos, NTLM (Windows NT LAN Manager) est un processus d'authentification réseau liés à l'AD.
+
+- __Relay Attack (NTLM Relay)__
+
+L’attaquant intercepte une authentification NTLM et la relaye à un autre service (ex: SMB, LDAP) pour s’authentifier en tant que la victime.
+Pas besoin de casser le hash, juste de le relayer en temps réel.
+
+
+- __Pass-the-Hash (PtH)__
+
+L’attaquant récupère le hash NTLM (ex : via Mimikatz) et l’utilise directement pour s’authentifier, sans le cracker.
+
+- __Cracking offline (Dictionary/Brute-force)__
+
+Si l’attaquant capture le NetNTLMv1/v2 challenge/response, il peut lancer une attaque par dictionnaire ou brute-force avec hashcat ou john.
+
+- __Replay Attack__
+
+L’attaquant rejoue une ancienne réponse d’authentification si le serveur ne vérifie pas les timestamps ou les nonce.
+
+- __Downgrade Attack (vers NTLMv1)__
+
+Forcer une négociation vers NTLMv1, qui est beaucoup plus faible (MD4), pour faciliter le cracking.
+
+> [!TIP]
+> Outil :
+* __ntlmrelayx__
+
+Il intercepte une authentification NTLM (par exemple via SMB, HTTP, LDAP) et la relaye vers un autre service où la victime est déjà autorisée sans avoir à casser le hash.
+Requiert le paquet "Impacket" (pip install impacket)
+
 ## __21. Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)__
+
+
 ## __22. Capturer une authentification SSH ou SFTP (mettre en place le service si nécessaire)__
 ## __23. Intercepter un fichier au travers du protocole SMB__
 ## __24. Comment proteger l'authenticité et la confidentialité d'un partage SMB ?__

@@ -15,7 +15,7 @@
 |      Filtrer entre 2 IPs      | host 10.0.0.1 and host 10.0.0.3   |
 |         TLS Handshake       |           tls.handshake          |
 |         Filtrer kerberos    |  ip.addr == 10.0.0.50 and kerberos  |  
-
+|       Filtrer rdp           |            rdp               |
  
 
 ---
