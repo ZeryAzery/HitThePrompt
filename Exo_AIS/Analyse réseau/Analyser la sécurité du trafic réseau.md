@@ -124,7 +124,7 @@ Le HTTP request smuggling est une vulnérabilité qui permet à un attaquant de 
 
 La CVE-2025-4600 utilisait le smuggling request dans la QoS Google Cloud Classic en raison d'une gestion incorrecte des requêtes HTTP d'encodage en blocs.
 
-## __11. Comment mettre en place la confidentialité et l'authenticité pour HTTP ?__
+## $${\color{red}__11. Comment mettre en place la confidentialité et l'authenticité pour HTTP ?__}$$
 * Confidentialité :
 Utiliser HTTPS (HTTP sur TLS) pour chiffrer les échanges.
 
