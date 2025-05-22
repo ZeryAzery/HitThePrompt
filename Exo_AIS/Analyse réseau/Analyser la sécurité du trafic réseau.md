@@ -26,7 +26,6 @@
  __Fin de connexion :__
 
 - Un côté envoie un FIN, l'autre répond avec ACK, puis renvoie aussi un FIN, et le premier répond avec ACK.
----
 
 ## __1. Capturer le processus DORA du protocole DHCP__
 Pour capturer DORA, j'ai choisi le filtre Wireshark "udp.port == 67 || udp.port == 68"
@@ -34,7 +33,8 @@ Pour capturer DORA, j'ai choisi le filtre Wireshark "udp.port == 67 || udp.port 
 ![alt text](<capture_DORA.png>)
 
 Il me manque le Deliver et le Offer car il connait déjà la MAC du PC ciblé.
----
+
+
 
 ## __2. Qu’est ce que le DHCP Starvation / snooping ? Rogue DHCP ?__
 
@@ -66,17 +66,17 @@ Celà empêche les réponses de faux serveurs DHCP et crée une base IP ↔ MAC 
 ## __3. Que se passe t-il lors du « ipconfig /release » (windows) ? D’un point de vue sécurité quel peut etre l'enjeu ?__
 
 Le risque, au delà de la perte de connectivité est qu'un attaquant puis l'exploiter par les méthodes vues précedemment.
----
+
 ## __4. Quelle fonctionnalité propose CISCO pour se prémunir des attaques DHCP ?__
 
 Le protocole s'appelle "DAI" Dynamic ARP Inspection comme vu avant il permet de bloquer des ports ou des VLANs entier.
----
+
 ## __5. Capturer une requête DNS et sa réponse__
 
 Utiliser simplement le filtre "dns" pour voir les requêtes
 
 ![alt text](<DNS_Query.png>)
----
+
 
 ## __6. Qu’est-ce que le DNS Spoofing ? Comment s’en protéger ?__
 
@@ -88,12 +88,12 @@ Pour s'en protéger on peut  :
 - Mettre à jour régulièrement les systèmes pour corriger les failles de sécurité des OS et des logiciels réseau.
 - Éffectuer un filtrage réseau et pare-feu pour Bloquer les communications DNS suspectes ou non autorisées.
 - Utiliser un SIEM ou NIDS pour surveiller le réseau et détecter des comportements anormaux.
----
+
 
 ## __7. Qu’est-ce que DNS Sec ? DNS over TLS / HTTPS ?__
 
 DNSSEC ajoute une signature numérique aux réponses DNS et DNS over TLS permet d'ajouter une couche de chiffrement.
----
+
 ## __8. Dans quels cas trouve-t-on du DNS sur TCP ?__
 
 Le DNS utilise principalement UDP sur le port 53, car les requêtes sont en général petites et rapides.
@@ -102,7 +102,7 @@ Voici les cas où DNS peut utiliser TCP :
 - Si la réponse est trop volumineuse pour UDP (dépasse 512 octets ou 1232 avec EDNS0), le serveur force l’usage de TCP pour renvoyer la réponse complète.
 - Certains serveurs DNS peuvent forcer l’usage de TCP pour limiter les attaques par amplification via UDP.
 - Lors de transferts de zones entre serveurs DNS (surtout AXFR) TCP  est obligatoirement utilisé pour garantir la fiabilité de la transmission.
----
+
 ## __9. Capturer un flux HTTP__
 
 Pour capturer un flux HTTP j'utilise le filtre "tcp.port == 80"
@@ -114,7 +114,7 @@ Pour capturer un flux HTTP j'utilise le filtre "tcp.port == 80"
 ip.addr == 10.0.0.3  || tcp.port == 80
 ```
 
-## __10. Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE__
+## <code style="color : name_color">__10. Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE__</code>
 
 Le HTTP request smuggling est une vulnérabilité qui permet à un attaquant de manipuler les requêtes échangées entre un client et un serveur intermédiaire, souvent un proxy ou un load balancer en exploitant les incohérences dans le traitement des requêtes HTTP.
 Ça permet de :
