@@ -205,7 +205,7 @@ TGS = (Ticket Granting Service)
 ## __19. Capturer une authentification RDP (mettre en place le service si nécessaire)__
 
 > [!NOTE]  
-> Rappel :
+
 * RDP n'utilise pas Kerberos pour s'authentifier mais NTLM
 
 ![alt text](<RDP_Filter.png>)
