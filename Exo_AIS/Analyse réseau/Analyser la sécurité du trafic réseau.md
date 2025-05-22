@@ -114,7 +114,7 @@ Pour capturer un flux HTTP j'utilise le filtre "tcp.port == 80"
 ip.addr == 10.0.0.3  || tcp.port == 80
 ```
 
-## <code style="color : name_color">__10. Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE__</code>
+## <code style="color : cyan">__10. Qu’est-ce que le HTTP Smuggling ? Donner un exemple de CVE__</code>
 
 Le HTTP request smuggling est une vulnérabilité qui permet à un attaquant de manipuler les requêtes échangées entre un client et un serveur intermédiaire, souvent un proxy ou un load balancer en exploitant les incohérences dans le traitement des requêtes HTTP.
 Ça permet de :
