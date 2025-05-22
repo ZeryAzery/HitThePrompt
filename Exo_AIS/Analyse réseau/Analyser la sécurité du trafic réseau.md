@@ -211,7 +211,7 @@ TGS = (Ticket Granting Service)
 
 ## __20. Quelles sont les attaques connues sur NetLM ?__
 
-> [!TIP]
+> [!IMPORTANT] 
 > Rappel : 
 Comme Kerberos, NTLM (Windows NT LAN Manager) est un processus d'authentification réseau liés à l'AD.
 
@@ -241,15 +241,40 @@ Forcer une négociation vers NTLMv1, qui est beaucoup plus faible (MD4), pour fa
 > Outil :
 * __ntlmrelayx__
 
-Il intercepte une authentification NTLM (par exemple via SMB, HTTP, LDAP) et la relaye vers un autre service où la victime est déjà autorisée sans avoir à casser le hash.
-Requiert le paquet "Impacket" (pip install impacket)
+Il intercepte une authentification NTLM (par exemple via SMB, HTTP, LDAP) et la relaye vers un autre service où la victime est déjà autorisée sans avoir à casser le hash. Requiert le paquet "Impacket" (pip install impacket)
 
 ## __21. Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)__
 
+![alt text](<WinRM_Ticket.png>)
 
 ## __22. Capturer une authentification SSH ou SFTP (mettre en place le service si nécessaire)__
+
+![alt text](<SSH_Auth.png>)
+
 ## __23. Intercepter un fichier au travers du protocole SMB__
+
+![alt text](<Exp_Fichiertxt_smb.png>)
+
+Enregistrer le fichier au format .txt sur Windows permet de le relire en intégralité
+
 ## __24. Comment proteger l'authenticité et la confidentialité d'un partage SMB ?__
+
+__Protéger la confidentialité en empêchant l’interception :__
+
+-  Activer le chiffrement SMB (SMB Encryption) dans le fichier /etc/samba/smb.conf, exemple pour un dossier "secure"
+```bash
+[secure]
+  path = /srv/samba/secure
+  read only = no
+  valid users = axel
+  smb encrypt = required
+```
+__Protéger l’authenticité (vérifier qui accède)__
+
+- Utiliser NTLMv2 ou Kerberos (désactiver NTLMv1)
+- Créer des comptes utilisateurs dédiés
+- Limiter l’accès avec valid users dans smb.conf
+- Activer la journalisation des accès
 
 > [!TIP]
 > Bonus : **Déchiffrer le traffic TLS** en important la clé privée du certificat dans Wireshark et **reconstituer le fichier** qui à transité sur le réseau à l'aide de Wireshark
