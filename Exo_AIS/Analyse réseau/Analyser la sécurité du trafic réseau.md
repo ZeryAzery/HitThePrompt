@@ -194,7 +194,8 @@ Utiliser le filtre "ip.addr == 10.0.0.50 and kerberos" et et nchercher dans la c
 TGT = (Ticket Granting Ticket)
 TGS = (Ticket Granting Service)
 
-> [!TIP] Outils
+> [!TIP]
+> Outils 
 * 🔐 Mimikatz permet  d'extraire des identifiants (mots de passe, tickets Kerbero, hashes) directement depuis la mémoire d’un système Windows.
 * 🎯 Rubeus permet de mener des attaques type "pass-the-ticket" et est spécialisé dans l'abus de Kerberos (dump, forge, injection de tickets, attaque Pass-the-Ticket/TGT).
 
