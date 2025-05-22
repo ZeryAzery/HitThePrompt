@@ -1,7 +1,7 @@
 # Analyser la sécurité du trafic réseau
 
 
-## __0. Quels sont les flags TCP ?__
+## <code style="color : Green">__0. Quels sont les flags TCP ?__</code>
 
 | Flag    | Nom complet               | Description                                                                |
 | ------- | ------------------------- | -------------------------------------------------------------------------- |
@@ -27,7 +27,7 @@
 
 - Un côté envoie un FIN, l'autre répond avec ACK, puis renvoie aussi un FIN, et le premier répond avec ACK.
 
-## __1. Capturer le processus DORA du protocole DHCP__
+## <code style="color : Green">__1. Capturer le processus DORA du protocole DHCP__</code>
 Pour capturer DORA, j'ai choisi le filtre Wireshark "udp.port == 67 || udp.port == 68"
 
 ![alt text](<capture_DORA.png>)
@@ -36,7 +36,7 @@ Il me manque le Deliver et le Offer car il connait déjà la MAC du PC ciblé.
 
 
 
-## __2. Qu’est ce que le DHCP Starvation / snooping ? Rogue DHCP ?__
+## <code style="color : Green">__2. Qu’est ce que le DHCP Starvation / snooping ? Rogue DHCP ?__</code>
 
 * Sécurité DHCP : Attaques et Défenses
 
@@ -63,22 +63,22 @@ Le Snooping se fait principalement au niveau du switch avec la gestion des ports
   - Les messages DHCP suspects sont bloqués sur les ports non-trusted.
 Celà empêche les réponses de faux serveurs DHCP et crée une base IP ↔ MAC ↔ port qui est aussi utile contre d'autres attaques (ex : ARP spoofing).
 
-## __3. Que se passe t-il lors du « ipconfig /release » (windows) ? D’un point de vue sécurité quel peut etre l'enjeu ?__
+## <code style="color : Green">__3. Que se passe t-il lors du « ipconfig /release » (windows) ? D’un point de vue sécurité quel peut etre l'enjeu ?__</code>
 
 Le risque, au delà de la perte de connectivité est qu'un attaquant puisse l'exploiter par les méthodes vues précedemment.
 
-## __4. Quelle fonctionnalité propose CISCO pour se prémunir des attaques DHCP ?__
+## <code style="color : Green">__4. Quelle fonctionnalité propose CISCO pour se prémunir des attaques DHCP ?__</code>
 
 Le protocole s'appelle "DAI" (Dynamic ARP Inspection) comme vu avant, permet de bloquer des ports ou des VLANs entier.
 
-## __5. Capturer une requête DNS et sa réponse__
+## <code style="color : Green">__5. Capturer une requête DNS et sa réponse__</code>
 
 Utiliser simplement le filtre "dns" pour voir les requêtes
 
 ![alt text](<DNS_Query.png>)
 
 
-## __6. Qu’est-ce que le DNS Spoofing ? Comment s’en protéger ?__
+## <code style="color : Green">__6. Qu’est-ce que le DNS Spoofing ? Comment s’en protéger ?__</code>
 
 L'empoisonnement DNS est une attaque où un l'attaquant falsifie les réponses d’un serveur DNS pour rediriger un utilisateur vers un faux site web, tout en lui faisant croire qu’il accède au site légitime. Cela permet de voler des données sensibles ou d’infecter l’utilisateur avec un malware.
 Pour s'en protéger on peut  :
@@ -90,11 +90,11 @@ Pour s'en protéger on peut  :
 - Utiliser un SIEM ou NIDS pour surveiller le réseau et détecter des comportements anormaux.
 
 
-## __7. Qu’est-ce que DNS Sec ? DNS over TLS / HTTPS ?__
+## <code style="color : Green">__7. Qu’est-ce que DNS Sec ? DNS over TLS / HTTPS ?__</code>
 
 DNSSEC ajoute une signature numérique aux réponses DNS et DNS over TLS permet d'ajouter une couche de chiffrement.
 
-## __8. Dans quels cas trouve-t-on du DNS sur TCP ?__
+## <code style="color : Green">__8. Dans quels cas trouve-t-on du DNS sur TCP ?__</code>
 
 Le DNS utilise principalement UDP sur le port 53, car les requêtes sont en général petites et rapides.
 
@@ -103,7 +103,7 @@ Voici les cas où DNS peut utiliser TCP :
 - Certains serveurs DNS peuvent forcer l’usage de TCP pour limiter les attaques par amplification via UDP.
 - Lors de transferts de zones entre serveurs DNS (surtout AXFR) TCP  est obligatoirement utilisé pour garantir la fiabilité de la transmission.
 
-## __9. Capturer un flux HTTP__
+## <code style="color : Green">__9. Capturer un flux HTTP__</code>
 
 Pour capturer un flux HTTP j'utilise le filtre "tcp.port == 80"
 
@@ -124,14 +124,14 @@ Le HTTP request smuggling est une vulnérabilité qui permet à un attaquant de 
 
 La CVE-2025-4600 utilisait le smuggling request dans la QoS Google Cloud Classic en raison d'une gestion incorrecte des requêtes HTTP d'encodage en blocs.
 
-## __11. Comment mettre en place la confidentialité et l'authenticité pour HTTP ?__
+## <code style="color : Green">__11. Comment mettre en place la confidentialité et l'authenticité pour HTTP ?__</code>
 * Confidentialité :
 Utiliser HTTPS (HTTP sur TLS) pour chiffrer les échanges.
 
 * Authenticité :
 Utiliser un certificat SSL/TLS valide délivré par une autorité de certification (CA) reconnue.
 
-## __12. Qu’est-ce qu’une PKI ?__
+## <code style="color : Green">__12. Qu’est-ce qu’une PKI ?__</code>
 
 Une "Public Key Infrastructure" (infrastructure à clé publique), consiste en une paire de clés (publique et privée). 
 Elle permet de gérer des certificats numériques en garantissant la sécurité des échanges via le chiffrement asymétrique.
@@ -144,7 +144,7 @@ Voici ces principaux composants :
 Les PKI sont courament utilisées avec le HTTPS (certificats SSL/TLS), Authentification (cartes à puce, certificats utilisateurs),
 Signature électronique, VPN, messagerie sécurisée, etc.
 
-## __13. Capturer un mot de passe HTTP ou FTP ou Telnet (mettre en place les services si nécessaire)__
+## <code style="color : Green">__13. Capturer un mot de passe HTTP ou FTP ou Telnet (mettre en place les services si nécessaire)__</code>
 
 Trouver la rquête POST et aller dans "HTML Form URL Encoded: application/x-www-form-urlencoded"
 Puis rechercher la mention "Form item" 4 et 5. Ici une authentification avec l'identifiant et le mdp "glpi" :
@@ -153,16 +153,16 @@ Puis rechercher la mention "Form item" 4 et 5. Ici une authentification avec l'i
 
 ![alt text](<Suivre Flux HTTP.png>)
 
-## __14. Comment mettre en place la confidentialité pour ce service ?__
+## <code style="color : Green">__14. Comment mettre en place la confidentialité pour ce service ?__</code>
 
 Utiliser un certificat SSL/TLS valide avec PKI.
-## __15. Capturer un handshake TLS__
+## <code style="color : Green">__15. Capturer un handshake TLS__</code>
 
 Utiliser le filtre "tls.handshake"
 
 ![alt text](<TLS_Handshake.png>)
 
-## __16. Qu’est-ce qu’une autorité de certification (AC) racine ? Qu'est qu'une AC intermediaire ?__
+## <code style="color : Green">__16. Qu’est-ce qu’une autorité de certification (AC) racine ? Qu'est qu'une AC intermediaire ?__</code>
 
 - C'est l'autorité principale de confiance dans une hiérarchie de certificats. Son certificat est auto-signé
 et elle est présente par défaut dans les navigateurs et systèmes (Windows, Linux, macOS, Firefox…).
@@ -173,11 +173,11 @@ Let's Encrypt (R3) est une AC intermédiaire.
 
 [AC Racine] ──sign──▶ [AC Intermédiaire] ──sign──▶ [Certificat du site]
 
-## __17. Connectez-vous sur https://taisen.fr et affichez la chaine de confiance du certificat__
+## <code style="color : Green">__17. Connectez-vous sur https://taisen.fr et affichez la chaine de confiance du certificat__</code>
 
 ![alt text](<Chaine_confiance_certificat.png>)
 
-## __18. Capturer une authentification Kerberos (mettre en place le service si nécessaire)__
+## <code style="color : Green">__18. Capturer une authentification Kerberos (mettre en place le service si nécessaire)__</code>
 
 Utiliser le filtre "ip.addr == 10.0.0.50 and kerberos" et et nchercher dans la colonne "KRB5" les lignes correspondantes à:
 - AS-REQ → Client → KDC (Demande d’un TGT)
@@ -195,14 +195,14 @@ TGS = (Ticket Granting Service)
 * 🔐 Mimikatz permet  d'extraire des identifiants (mots de passe, tickets Kerbero, hashes) directement depuis la mémoire d’un système Windows.
 * 🎯 Rubeus permet de mener des attaques type "pass-the-ticket" et est spécialisé dans l'abus de Kerberos (dump, forge, injection de tickets, attaque Pass-the-Ticket/TGT).
 
-## __19. Capturer une authentification RDP (mettre en place le service si nécessaire)__
+## <code style="color : Green">__19. Capturer une authentification RDP (mettre en place le service si nécessaire)__</code>
 
 > [!NOTE]  
 > RDP n'utilise pas Kerberos pour s'authentifier mais NTLM
 
 ![alt text](<RDP_Filter.png>)
 
-## __20. Quelles sont les attaques connues sur NetLM ?__
+## <code style="color : Green">__20. Quelles sont les attaques connues sur NetLM ?__</code>
 
 > [!IMPORTANT] 
 > Rappel : 
@@ -236,21 +236,21 @@ Forcer une négociation vers NTLMv1, qui est beaucoup plus faible (MD4), pour fa
 
 Il intercepte une authentification NTLM (par exemple via SMB, HTTP, LDAP) et la relaye vers un autre service où la victime est déjà autorisée sans avoir à casser le hash. Requiert le paquet "Impacket" (pip install impacket)
 
-## __21. Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)__
+## <code style="color : Green">__21. Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)__</code>
 
 ![alt text](<WinRM_Ticket.png>)
 
-## __22. Capturer une authentification SSH ou SFTP (mettre en place le service si nécessaire)__
+## <code style="color : Green">__22. Capturer une authentification SSH ou SFTP (mettre en place le service si nécessaire)__</code>
 
 ![alt text](<SSH_Auth.png>)
 
-## __23. Intercepter un fichier au travers du protocole SMB__
+## <code style="color : Green">__23. Intercepter un fichier au travers du protocole SMB__</code>
 
 ![alt text](<Exp_Fichiertxt_smb.png>)
 
 Enregistrer le fichier au format .txt sur Windows permet de le relire en intégralité
 
-## __24. Comment proteger l'authenticité et la confidentialité d'un partage SMB ?__
+## <code style="color : Green">__24. Comment proteger l'authenticité et la confidentialité d'un partage SMB ?__</code>
 
 __Protéger la confidentialité en empêchant l’interception :__
 
