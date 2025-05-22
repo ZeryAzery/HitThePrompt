@@ -132,6 +132,11 @@ Le HTTP request smuggling est une vulnérabilité qui permet à un attaquant de 
 La CVE-2025-4600 utilisait le smuggling request dans la QoS Google Cloud Classic en raison d'une gestion incorrecte des requêtes HTTP d'encodage en blocs.
 
 ## __11. Comment mettre en place la confidentialité et l'authenticité pour HTTP ?__
+* Confidentialité :
+Utiliser HTTPS (HTTP sur TLS) pour chiffrer les échanges.
+
+* Authenticité :
+Utiliser un certificat SSL/TLS valide délivré par une autorité de certification (CA) reconnue.
 
 ## __12. Qu’est-ce qu’une PKI ?__
 
@@ -149,17 +154,50 @@ Signature électronique, VPN, messagerie sécurisée, etc.
 ## __13. Capturer un mot de passe HTTP ou FTP ou Telnet (mettre en place les services si nécessaire)__
 
 Trouver la rquête POST et aller dans "HTML Form URL Encoded: application/x-www-form-urlencoded"
-Puis rechercher la mention "Form item" 4 et 5; Ici une authentification avec l'identifiant et le mdp "glpi" :
+Puis rechercher la mention "Form item" 4 et 5. Ici une authentification avec l'identifiant et le mdp "glpi" :
 
 ![alt text](<capture_Mdp_HTTP.png>)
 
-Suivre Flux HTTP![alt text](<Suivre Flux HTTP.png>)
+![alt text](<Suivre Flux HTTP.png>)
 
 ## __14. Comment mettre en place la confidentialité pour ce service ?__
+
+Utiliser un certificat SSL/TLS valide avec PKI.
 ## __15. Capturer un handshake TLS__
+
+Utiliser le filtre "tls.handshake"
+
+![alt text](<TLS_Handshake.png>)
+
 ## __16. Qu’est-ce qu’une autorité de certification (AC) racine ? Qu'est qu'une AC intermediaire ?__
+
+- C'est l'autorité principale de confiance dans une hiérarchie de certificats. Son certificat est auto-signé
+et elle est présente par défaut dans les navigateurs et systèmes (Windows, Linux, macOS, Firefox…).
+Elle signe des AC Intermédiaires (DigiCert Global Root CA, ISRG Root X1 (Let's Encrypt)).
+
+- Une AC intermédiaire est signée par l'AC racine, elle émet des certificats SSL/TLS pour les sites web ou services.
+Let's Encrypt (R3) est une AC intermédiaire.
+
+[AC Racine] ──sign──▶ [AC Intermédiaire] ──sign──▶ [Certificat du site]
+
 ## __17. Connectez-vous sur https://taisen.fr et affichez la chaine de confiance du certificat__
+
+![alt text](<Chaine_confiance_certificat.png>)
+
 ## __18. Capturer une authentification Kerberos (mettre en place le service si nécessaire)__
+Utiliser le filtre "ip.addr == 10.0.0.50 and kerberos" et et nchercher dans la colonne "KRB5" les lignes correspondantes à:
+- AS-REQ → Client → KDC (Demande d’un TGT)
+- AS-REP → KDC → Client (Envoi du TGT)
+- TGS-REQ → Client → KDC (Demande d’accès à un service, ex: CIFS)
+- TGS-REP → KDC → Client (Réponse avec le ticket pour ce service)
+
+TGT = (Ticket Granting Ticket)
+TGS = (Ticket Granting Service)
+
+> [!TIP] Outils
+* 🔐 Mimikatz permet  d'extraire des identifiants (mots de passe, tickets Kerbero, hashes) directement depuis la mémoire d’un système Windows.
+* 🎯 Rubeus permet de mener des attaques type "pass-the-ticket" et est spécialisé dans l'abus de Kerberos (dump, forge, injection de tickets, attaque Pass-the-Ticket/TGT).
+
 ## __19. Capturer une authentification RDP (mettre en place le service si nécessaire)__
 ## __20. Quelles sont les attaques connues sur NetLM ?__
 ## __21. Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)__

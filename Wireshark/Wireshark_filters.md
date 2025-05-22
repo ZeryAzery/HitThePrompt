@@ -7,12 +7,16 @@
 |     Filtrer un réseau	       |    ip.addr == 192.168.50.0/24   |
 |  Conversation to or from     |     ip.addr == 10.0.0.1           |
 |          Port filter         |         tcp.port == 80            |
+|        Port filter          |          port 443              |
 | Filtrer un flux TCP/IP       |     frame matches "nfl"           |
 | Filtrer DHCP DORA            | udp.port == 67 || udp.port == 68
 |          dhcp               |        dhcp                    |
 |          dns                  |           dns                  |
-| Filtrer entre 2 IPs          | host 10.0.0.1 and host 10.0.0.3   |
+|      Filtrer entre 2 IPs      | host 10.0.0.1 and host 10.0.0.3   |
+|         TLS Handshake       |           tls.handshake          |
+|         Filtrer kerberos    |  ip.addr == 10.0.0.50 and kerberos  |  
 
+ 
 
 ---
 
