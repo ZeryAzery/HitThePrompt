@@ -3,6 +3,8 @@
 
 <span style="color: #26B260">texte coloré en vert</span>
 
+[color=#26B260]texte coloré en vert 2[/color]
+
 ## <code style="color : Green">__0. Quels sont les flags TCP ?__</code>
 
 | Flag    | Nom complet               | Description                                                                |
