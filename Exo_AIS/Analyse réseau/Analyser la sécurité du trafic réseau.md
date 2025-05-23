@@ -156,6 +156,7 @@ Puis rechercher la mention "Form item" 4 et 5. Ici une authentification avec l'i
 ## <code style="color : Green">__14. Comment mettre en place la confidentialité pour ce service ?__</code>
 
 Utiliser un certificat SSL/TLS valide avec PKI.
+
 ## <code style="color : Green">__15. Capturer un handshake TLS__</code>
 
 Utiliser le filtre "tls.handshake"
@@ -198,9 +199,13 @@ TGS = (Ticket Granting Service)
 ## <code style="color : Green">__19. Capturer une authentification RDP (mettre en place le service si nécessaire)__</code>
 
 > [!NOTE]  
-> RDP n'utilise pas Kerberos pour s'authentifier mais NTLM
+> RDP n'utilise pas Kerberos pour s'authentifier mais NTLM (Ici via CresdSSP ?)
 
 ![alt text](<RDP_Filter.png>)
+
+Ici on peut voir le protocole CresdSSP :
+
+![alt text](<CresdSSP_Auth.png>)
 
 ## <code style="color : Green">__20. Quelles sont les attaques connues sur NetLM ?__</code>
 
