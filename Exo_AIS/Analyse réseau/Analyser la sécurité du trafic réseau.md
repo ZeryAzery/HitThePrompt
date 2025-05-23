@@ -191,7 +191,7 @@ Ici on peut voir le protocole CresdSSP :
 
 ## <code style="color : Green">__20. Quelles sont les attaques connues sur NetLM ?__</code>
 > [!IMPORTANT] 
-> Rappel : 
+> __Rappel :__ 
 Comme Kerberos, NTLM (Windows NT LAN Manager) est un processus d'authentification réseau liés à l'AD.
 - __Relay Attack (NTLM Relay)__
 L’attaquant intercepte une authentification NTLM et la relaye à un autre service (ex: SMB, LDAP) pour s’authentifier en tant que la victime.
@@ -209,7 +209,7 @@ L’attaquant rejoue une ancienne réponse d’authentification si le serveur ne
 - __Downgrade Attack (vers NTLMv1)__
 Forcer une négociation vers NTLMv1, qui est beaucoup plus faible (MD4), pour faciliter le cracking.
 > [!TIP]
-> Outil : __ntlmrelayx__
+> __Outil : ntlmrelayx__
 Il intercepte une authentification NTLM (par exemple via SMB, HTTP, LDAP) et la relaye vers un autre service où la victime est déjà autorisée sans avoir à casser le hash. Requiert le paquet "Impacket" (pip install impacket)
 
 ## <code style="color : Green">__21. Capturer une authentification WinRM (Vous pouvez utiliser EvilWinRM si nécessaire côté client.)__</code>
