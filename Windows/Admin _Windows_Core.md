@@ -5,7 +5,6 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 
 
 ## 🔰 Commandes de base 🔰
-
 ```powershell
 # Trouver une commande (Alias: gcm):
 Get-Command *hash*
@@ -38,7 +37,6 @@ net user Administrateur *
 # Réinitialiser son MDP	sur domaine :
 net user  /domain administrateur *
 ```
-
 ```powershell
 # Arréter un processus  :
 Stop-Process -Id 2960
@@ -80,21 +78,33 @@ Get-Help Get-Process
 Get-Help Unlock-BitLocker -ShowWindow
 ```
 
-## 🖼️ Sysprep 🖼️ 
+## Windows Software Licensing Management Tool
 
-Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et choisir arrêter au lieu de redémarrer (pour éviter que la machine reprenne un SID au démarrage)
+| Commande                | Ouvre...                                                      |
+|-------------------------|---------------------------------------------------------------|
+| `slmgr.vbs -rearm`      | Allonger la période d'essai Windows                           |
+| `slmgr /xpr`            | Affiche si Windows est activé de façon permanente ou non      |
+| `slmgr /ipk <clé>`      | Installe une clé de produit Windows                           |
+| `slmgr /ato`            | Active Windows avec la clé installée                          |
+| `slmgr /dlv`            | Affiche les détails de licence et d'activation                |
+| `slmgr /dli`            | Affiche un résumé de l'état de la licence                     |
+| `slmgr /upk`            | Supprime la clé de produit actuelle                           |
 
+
+## 🍴 Point de restauration 🍴
+* Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où -Value 0 = 0 minutes)
 ```powershell
-# Emplacement sysprep
-cd \windows\system32\sysprep
-
-# Exécuter sysprep
-.\sysprep.exe /generalize /reboot
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" `
+  -Name "SystemRestorePointCreationFrequency" -Value 0 -PropertyType DWord -Force
 ```
 
+* Création d'un point de restauration
+```powershell
+Enable-ComputerRestore -Drive "C:\"
+Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTINGS"
+```
 
 ## 📶 Configurer le réseau 📶 
-
 ```powershell
 # Afficher les infos réseaux (Alias: gip ou ipconfig)
 Get-NetIPConfiguration
@@ -149,19 +159,19 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 ```
 
 ## 📂 Gestion des Objets 📂 
-
+* Création/supression de dossiers avec cmd (/s suprimme tout son contenu)
+```bat
+md toto 
+rd /s	
+md COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
+```
 ```powershell
 # Renommer un dossier :
 Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
 
 # Créer un fichier texte  :
 New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
-```
-```batch 
-# Créer des dossiers avec mkdir		
-mkdir COMPTABILITE, INFORMATIQUE, RH, PRODUCTION 
-```
-```powershell
+ 
 # Supprimer un fichier/Dossier (Alias: ri (⚠️))	
 Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
@@ -169,12 +179,10 @@ Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 Rename-Item
 Move-Item			
 ```
-
 ```bash	
 # Renommer un fichier avec move
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 ```
-
 
 ```powershell
 # Comparer des objects		
@@ -182,7 +190,6 @@ Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 ```
 
 ## 🔪🥩 Hashage 🔪🥩
-
 ```powershell
 # Récup hash				
 Get-FileHash .\Fichier\
@@ -193,7 +200,6 @@ Get-FileHash -Algorithm sha512 Chemin\fichier
 
 
 ## 📇🔍 Afficher, rechercher un mot ou une expression dans un fichier 📇🔍
-
 ### Utiliser Get-Content
 ```powershell
 # Afficher le contenu d'un fichier (Alias: gc) 	 
@@ -220,7 +226,6 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 ### Formats de fichiers que Powershell peut utiliser:
-
 | 📂 Format	| 📜 Supporté nativement ?	| 🔧 Méthode à utiliser |
 | ----- | :---: | ----- |
 | TXT	|	✅ Oui	| Get-Content ou Select-String |
@@ -234,7 +239,6 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 ## 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
-
 ### Pare-Feu
 ```powershell
 # règles ICMP IN  			
@@ -248,7 +252,6 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 ```
 
 ### Defender
-
 ```powershell
 # Activer Defender 			
 Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
@@ -259,7 +262,6 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 ## 📅 MISES À JOUR 📅 
-
 ```powershell
 # Installer le module maj
 Install-Module PSWindowsUpdate
@@ -272,8 +274,8 @@ Get-WindowsUpdate -AcceptAll -Install -AutoReboot
 Install-WindowsUpdate -AcceptAll 
 ```
 
-## 🔢 WinRM 🔢
 
+## 🔢 WinRM 🔢
 ```powershell
 # Installation de WinRM
 Enable-PSRemoting -Force
@@ -293,7 +295,6 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 
 
 ## 🔐🔢 SSH 🔢🔐
-
 ```powershell	
 # Vérifier si le service est actif		
 Get-Process ssh-agent  

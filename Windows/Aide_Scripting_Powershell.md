@@ -26,7 +26,21 @@ Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 | else      | Exécute bloc si aucune condition remplie      | else { Write-Host "C'est plus petit" } |
 | switch    | Alternative à plusieurs if                    | switch ($x) { 1 { "Un" }; 2 { "Deux" } } |
 
-⚠️ else n'a jamais de conditions derrière ! ⚠️
+> [!IMPORTANT]  
+> else n'a jamais de conditions derrière !
+
+> [!TIP]
+> switch peut utiliser "Default" pour gérer les erreurs comme dans cet exemple :
+
+```powershell
+$usrvalue = Read-Host "Indiquer un numéro pour lancer un logiciel"
+switch ($usrvalue)
+{
+    "1" { Start-Process notepad.exe }
+    "2" { Start-Process powershell.exe }
+    Default { Write-Host Entree invalide }
+}      
+```
 
 ## 🔄 Boucles (itérations)
 
@@ -63,17 +77,20 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 | finally   | Exécute code  erreur ou non                   | finally { Write-Host "Terminé" } |
 
 
-## Alias
+## Alias and purposes
 
-| Alias | Commande| 
-| -----| -------- |  
-| gm	| Get-Member | 
-| gcm 	| Get-Command | 
-| %  	| foreach | 
-| fm	| Format-Table | 
-| fl 	| Format-List | 
-| iex 	| Invoke-Expression | 
-| gc	| Get-Content | 
+| Alias | Commande              | Utilité                                                                                                                                                    |
+|-------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| gm    | Get-Member            | Affiche les membres (propriétés et méthodes) d’un objet. Très utile pour explorer les objets retournés par d’autres commandes.                           |
+| gcm   | Get-Command           | Liste toutes les commandes disponibles ou récupère des informations sur une commande spécifique.                                                           |
+| %     | ForEach-Object        | Applique une action à chaque élément d’une collection.                                                                  |
+| ft    | Format-Table          | Affiche les objets en tableau                                                                |
+| fl    | Format-List           | Affiche les objets en liste, pratique pour voir toutes les propriétés d’un objet.                                                                          |
+| iex   | Invoke-Expression     | Exécute une chaîne de texte comme une commande PowerShell. À utiliser avec prudence (peut être dangereux).                                                |
+| irm   | Invoke-RestMethod     | Envoie des requêtes HTTP/HTTPS à des API REST. Utilisé pour interagir avec des services web RESTful (retourne souvent du JSON ou XML).                    |
+| iwr   | Invoke-WebRequest     | Plus généraliste qu’`irm`, permet d’envoyer des requêtes HTTP (GET, POST...) pour télécharger des pages, des fichiers, etc.                               |
+| gc    | Get-Content           | Lit le contenu d’un fichier ligne par ligne (utile pour lire des logs, scripts, etc.).                                                                    |
+
 
 
 ## ⛔ Passer outre la politique d'exécution des scripts
@@ -85,6 +102,28 @@ Get-Content test.ps1 | iex
 powershell.exe -exec bypass
 ```
 
+## Déclarer une hashtable  (Structure clé = valeur, comme un dictinnaire en python) les {} attendent une valeur pour chaque clé :
+```powershell
+$liste = @{
+    "clé1" = "valeur1"
+    "clé2" = "valeur2"
+}
+```
+## Si c'est juste pour une liste utiliser les "()" : (sinon powershell attendra une valeur avec des ">>") :
+```powershell
+$liste = @(
+    "3949"
+    "3635"
+    "3960"
+    "3939"
+    "1023"
+)
+```
+
+| PowerShell | Python | Nom commun               |
+| ---------- | ------ | ------------------------ |
+| `@{}`      | `{}`   | Dictionnaire / Hashtable |
+| `@()`      | `[]`   | Liste / Tableau          |
 
 
 
