@@ -41,6 +41,7 @@
 | `shell:startup`      | Dossier des programmes de démarrage de l’utilisateur         |
 | `printmanagement.msc` | Gestionnaire d'impression/drivers                            |
 | `slmgr`              | Windows Software Licensing Management Tool                    |
+| `certmgr.msc`        | Gestionnaire de certificats                                   |
 
 ## Active Directory :
 | Commande             | Ouvre...                                                      |
