@@ -230,7 +230,7 @@ __Protéger la confidentialité en empêchant l’interception :__
 [secure]
   path = /srv/samba/secure
   read only = no
-  valid users = axel
+  valid users = toto
   smb encrypt = required
 ```
 __Protéger l’authenticité (vérifier qui accède)__
