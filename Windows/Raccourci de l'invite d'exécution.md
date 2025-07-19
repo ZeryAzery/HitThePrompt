@@ -6,6 +6,7 @@
 | `mstsc`              | Connexion Bureau à distance                                   |
 | `taskschd.msc`       | Planificateur de tâches                                       |
 | `dxdiag`             | Outil de diagnostic DirectX                                   |
+| `msinfo32`           | Information systèmes                                          |
 | `firewall.cpl`       | Paramètres du Pare-feu Windows                                |
 | `wf.msc`             | Pare-feu Windows avec fonctions avancées                      |
 | `lusrrmgr.msc`       | Gestion des utilisateurs et groupes locaux                    |
@@ -40,3 +41,8 @@
 | `shell:startup`      | Dossier des programmes de démarrage de l’utilisateur         |
 | `printmanagement.msc` | Gestionnaire d'impression/drivers                            |
 | `slmgr`              | Windows Software Licensing Management Tool                    |
+
+## Active Directory :
+| Commande             | Ouvre...                                                      |
+|----------------------|---------------------------------------------------------------|
+| `adsiedit.msc`       |  équivalent de "regedit" pour Active Directory.               |

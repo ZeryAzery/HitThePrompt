@@ -70,11 +70,11 @@ Ces mots-clés servent à interrompre ou passer une itération.
 
 Ces structures permettent de gérer les erreurs sans planter le script.
 
-| 🔧 Mot-clé | 👉 Description                                | ✅ Exemple |
-|-----------|-----------------------------------------------|------------|
-| try       | Définit un bloc de code à tester              | try { Get-Item "C:\fichier.txt" } |
-| catch     | Capture erreur et exécute code alternatif     | catch { Write-Host "Erreur détectée" } |
-| finally   | Exécute code  erreur ou non                   | finally { Write-Host "Terminé" } |
+| 🔧 Mot-clé  | 👉 Description                               | ✅ Exemple                           |
+|-------------|-----------------------------------------------|----------------------------------------|
+| try         | Définit un bloc de code à tester              | try { Get-Item "C:\fichier.txt" }      |
+| catch       | Capture erreur et exécute code alternatif     | catch { Write-Host "Erreur détectée" } |
+| finally     | Exécute code  erreur ou non                   | finally { Write-Host "Terminé" }       |
 
 
 ## Alias and purposes
@@ -86,7 +86,7 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 | %     | ForEach-Object        | Applique une action à chaque élément d’une collection.                                                                  |
 | ft    | Format-Table          | Affiche les objets en tableau                                                                |
 | fl    | Format-List           | Affiche les objets en liste, pratique pour voir toutes les propriétés d’un objet.                                                                          |
-| iex   | Invoke-Expression     | Exécute une chaîne de texte comme une commande PowerShell. À utiliser avec prudence (peut être dangereux).                                                |
+| iex   | Invoke-Expression     | ⚠️ Exécute une chaîne de texte comme une commande PowerShell.                                                |
 | irm   | Invoke-RestMethod     | Envoie des requêtes HTTP/HTTPS à des API REST. Utilisé pour interagir avec des services web RESTful (retourne souvent du JSON ou XML).                    |
 | iwr   | Invoke-WebRequest     | Plus généraliste qu’`irm`, permet d’envoyer des requêtes HTTP (GET, POST...) pour télécharger des pages, des fichiers, etc.                               |
 | gc    | Get-Content           | Lit le contenu d’un fichier ligne par ligne (utile pour lire des logs, scripts, etc.).                                                                    |
@@ -102,7 +102,7 @@ Get-Content test.ps1 | iex
 powershell.exe -exec bypass
 ```
 
-## Déclarer une hashtable  (Structure clé = valeur, comme un dictinnaire en python) les {} attendent une valeur pour chaque clé :
+## Déclarer un hashtable  (Structure clé = valeur, comme un dictinnaire en python) les {} attendent une valeur pour chaque clé :
 ```powershell
 $liste = @{
     "clé1" = "valeur1"

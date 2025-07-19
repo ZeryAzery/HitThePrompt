@@ -131,7 +131,7 @@ net use \\10.0.0.3 /user:axel
 (Get-ADUser -Filter *).count
 ```
 ![alt text](<Nombre_User_AD.png>)
----
+
 
 ### Diagramme de gestion de projet
 

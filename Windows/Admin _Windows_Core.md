@@ -30,7 +30,7 @@ Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 # Affichera juste le nom de l'ordi :
 Get-computerInfo | Select CsName 
 ```	
-```batch
+```bat
 # Réinitialiser son mot de passe :
 net user Administrateur *
 
@@ -66,6 +66,12 @@ Get-ChidItem
 # tester l'écoute d'un port : 		
 Test-NetConnection -ComputerName localhost -Port 389
 ```
+### Élément graphique sur serveur core 2025
+```powershell
+Add-WindowsCapability -Online -Name ServerCore.AppCompatibility
+virtmgmt.msc
+```
+
 ### Se servir de l'aide dans powershell
 ```powershell
 # Télécharger les fichiers d'aide :
@@ -224,7 +230,6 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "Password" -CaseSensit
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-Object { $_.Line }
 ```
 
-
 ### Formats de fichiers que Powershell peut utiliser:
 | 📂 Format	| 📜 Supporté nativement ?	| 🔧 Méthode à utiliser |
 | ----- | :---: | ----- |
@@ -236,7 +241,13 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 | PDF | ❌ Non	|	PDFtoText ou une librairie externe |
 | XLS, XLSX | ❌ Non | COM Object ou Import-Excel |
 		
-
+## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
+```powershell
+Add-Type -AssemblyName System.Web
+[System.Web.Security.Membership]::GeneratePassword(16, 4)
+```
+* 16 : longueur totale du mot de passe.
+* 4 : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
 
 ## 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
 ### Pare-Feu
@@ -324,19 +335,19 @@ Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name,
 ```
 
 ## 🏠 Installer un contrôleur de domaine 🏠 
-
 ### Installer les fonctionnalités
-
 ```powershell
 # Installer le rôle AD DS
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
 # Importer le module AD DS
 Import-Module ADDSDeployment
+
+# Exemple pour WDS
+Install-WindowsFeature -Name WDS -IncludeManagementTools
 ```
 
 ### Promouvoir le serveur en contrôleur de domaine
-
 ```powershell
 # Ajouter domaine nouvelle forêt
 Install-ADDSForest -DomainName "TSSR.INFO" -DomainNetbiosName "TSSR" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS	
@@ -352,11 +363,8 @@ Install-ADDSDomainController -DomainName "TSSR.INFO" -SafeModeAdministratorPassw
 
 # Promouvoir en controleur de domaine (plus simple):  	
 Install-ADDSDomainController -DomainName "domain.tld" -InstallDns:$true -Credential (Get-Credential "DOMAIN\administrateur")
- 
-# Joindre domaine Sur machine cliente 
-Add-Computer -DomainName "example.com" -Credential (New-Object PSCredential ("administrateur@domainname.fr", (ConvertTo-SecureString "Mon_mot_de_passe" -AsPlainText -Force))) -Restart
 
-# ou 
+# Joindre domaine Sur machine cliente 
 Add-Computer -DomainName "domainname" -Credential (Get-Credential) -Restart
 
 # ⚠️ Ne pas oublier de mettre le nom du domaine avant pour éviter une erreur : "TSSR\administrateur"
@@ -367,7 +375,6 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 
 	
 ## 👮 Créer un nouvel utilisateur admin du domaine 👮 
-
 ```powershell
 # Créer un nouvel utilisateur  		
 New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName "Adminname" -UserPrincipalName "Adminnamel@domainname.fr" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
