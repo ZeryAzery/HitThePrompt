@@ -29,6 +29,7 @@
 |----------------------|---------------------------------------------------------------|
 | `services.msc`       | Console de gestion des services                               |
 | `devmgmt.msc`        | Gestionnaire de périphériques                                 |
+| `hdwwiz.cpl`         | Assistant d’ajout de matériel (identique devmgmt ?)           |
 | `diskmgmt.msc`       | Gestion des disques                                           |
 | `perfmon`            | Moniteur de performance                                       |
 | `ncpa.cpl`           | Connexions réseau                                             |
@@ -36,7 +37,6 @@
 | `powercfg.cpl`       | Options d’alimentation                                        |
 | `mmsys.cpl`          | Paramètres de son                                             |
 | `main.cpl`           | Propriétés de la souris                                       |
-| `hdwwiz.cpl`         | Assistant d’ajout de matériel                                 |
 | `control printers`   | Périphériques et imprimantes                                  |
 | `shell:startup`      | Dossier des programmes de démarrage de l’utilisateur         |
 | `printmanagement.msc` | Gestionnaire d'impression/drivers                            |
@@ -47,3 +47,4 @@
 | Commande             | Ouvre...                                                      |
 |----------------------|---------------------------------------------------------------|
 | `adsiedit.msc`       |  équivalent de "regedit" pour Active Directory.               |
+| `dsa.exe`            |  Utilisateurs et ordinateurs de l'Active Directory.           |
