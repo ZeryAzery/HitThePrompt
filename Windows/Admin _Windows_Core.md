@@ -65,12 +65,16 @@ Get-ChidItem
 
 # tester l'écoute d'un port : 		
 Test-NetConnection -ComputerName localhost -Port 389
+
+
 ```
 ### Élément graphique sur serveur core 2025
 ```powershell
 Add-WindowsCapability -Online -Name ServerCore.AppCompatibility
 virtmgmt.msc
 ```
+
+
 
 ### Se servir de l'aide dans powershell
 ```powershell
@@ -83,6 +87,8 @@ Get-Help Get-Process
 # Afficher les aides dans une fenêtre :
 Get-Help Unlock-BitLocker -ShowWindow
 ```
+
+
 
 ## Windows Software Licensing Management Tool
 
@@ -97,6 +103,8 @@ Get-Help Unlock-BitLocker -ShowWindow
 | `slmgr /upk`            | Supprime la clé de produit actuelle                           |
 
 
+
+
 ## 🍴 Point de restauration 🍴
 * Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où -Value 0 = 0 minutes)
 ```powershell
@@ -109,6 +117,8 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Syste
 Enable-ComputerRestore -Drive "C:\"
 Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTINGS"
 ```
+
+
 
 ## 📶 Configurer le réseau 📶 
 ```powershell
@@ -162,7 +172,9 @@ Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
 
 # Désactiver l'IPv6 partout
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
-```
+``
+
+`
 
 ## 📂 Gestion des Objets 📂 
 * Création/supression de dossiers avec cmd (/s suprimme tout son contenu)
@@ -195,6 +207,8 @@ mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 ```
 
+
+
 ## 🔪🥩 Hashage 🔪🥩
 ```powershell
 # Récup hash				
@@ -205,7 +219,11 @@ Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
 
 
-## 📇🔍 Afficher, rechercher un mot ou une expression dans un fichier 📇🔍
+
+
+## 📇🔍 Afficher, rechercher, et rechercher un mot ou une expression dans un fichier 📇🔍
+
+
 ### Utiliser Get-Content
 ```powershell
 # Afficher le contenu d'un fichier (Alias: gc) 	 
@@ -213,6 +231,19 @@ Get-Content "C:\chemin\nom_fichier"
 
 # Rechercher les 10 dernières lignes 
 Get-Content C:\Users\User_name\Desktop\rockyou.txt | Select-Object -Last 10
+```
+
+### Rechercher les fichiers en fonction de l'extension 
+```powershell
+Get-ChildItem -Path E:\ -Filter *.md -Recurse
+```
+- -Filter *.md → cherche les fichiers finissant par `.md`
+
+- -Recurse → descend dans tous les sous-dossiers
+
+### Afficher uniquement le chemin complet
+```powershell
+Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty FullName
 ```
 
 ### Utiliser Select-String 
@@ -240,7 +271,10 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 | DOC, DOCX	| ❌ Non	| COM Object ou OpenXML |
 | PDF | ❌ Non	|	PDFtoText ou une librairie externe |
 | XLS, XLSX | ❌ Non | COM Object ou Import-Excel |
-		
+
+
+
+
 ## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
 ```powershell
 Add-Type -AssemblyName System.Web
@@ -248,6 +282,10 @@ Add-Type -AssemblyName System.Web
 ```
 * 16 : longueur totale du mot de passe.
 * 4 : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
+
+
+
+
 
 ## 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
 ### Pare-Feu
@@ -272,6 +310,8 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 ```
 
 
+
+
 ## 📅 MISES À JOUR 📅 
 ```powershell
 # Installer le module maj
@@ -284,6 +324,8 @@ Import-Module PSWindowsUpdate
 Get-WindowsUpdate -AcceptAll -Install -AutoReboot								 	
 Install-WindowsUpdate -AcceptAll 
 ```
+
+
 
 
 ## 🔢 WinRM 🔢
@@ -303,6 +345,8 @@ Enter-PSSession -ComputerName PC01-W10 -Credential nom_domaine\compte_admin
 # Ouvrir (en admin) fenêtre GUI pour autoriser un compte en PSRemoting
 Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 ```
+
+
 
 
 ## 🔐🔢 SSH 🔢🔐
@@ -332,9 +376,16 @@ Get-Content "$env:ProgramData\ssh\sshd_config" | Select-String "^Port"
 
 # Afficher la règle, port local et protocole 	
 Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name, LocalPort, Protocol
+
+# Créer une clé rsa
+ssh-keygen.exe -t rsa -b 4096
 ```
 
+
+
 ## 🏠 Installer un contrôleur de domaine 🏠 
+
+
 ### Installer les fonctionnalités
 ```powershell
 # Installer le rôle AD DS
@@ -374,6 +425,8 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 ```
 
 	
+
+
 ## 👮 Créer un nouvel utilisateur admin du domaine 👮 
 ```powershell
 # Créer un nouvel utilisateur  		

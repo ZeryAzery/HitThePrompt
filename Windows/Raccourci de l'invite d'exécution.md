@@ -48,3 +48,4 @@
 |----------------------|---------------------------------------------------------------|
 | `adsiedit.msc`       |  équivalent de "regedit" pour Active Directory.               |
 | `dsa.exe`            |  Utilisateurs et ordinateurs de l'Active Directory.           |
+| `virtmgmt.msc`       |  Gestionnaire Hyper-V                                         |

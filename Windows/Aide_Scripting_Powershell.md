@@ -1,8 +1,8 @@
-# Support d'aide au Scripting Powershell
+# Aide au Scripting Powershell
+
 
 
 ## 📌 Principaux types de données en PowerShell
-
 Elles empêche d'affecter une valeur incorrecte
 
 | 🟠Type | 👉Description | 👉Exemple |
@@ -15,8 +15,8 @@ Elles empêche d'affecter une valeur incorrecte
 | [datetime] | 	Date et heure		| 		[datetime]$Maintenant = Get-Date
 
 
-## 📌 Structures conditionnelles
 
+## 📌 Structures conditionnelles
 Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 
 | 🔧 Mot-clé | 👉 Description                                | ✅ Exemple |
@@ -42,8 +42,9 @@ switch ($usrvalue)
 }      
 ```
 
-## 🔄 Boucles (itérations)
 
+
+## 🔄 Boucles (itérations)
 Ces structures permettent de répéter une action plusieurs fois.
 
 | 🔧 Mot-clé     | 👉 Description                                | ✅ Exemple |
@@ -54,8 +55,8 @@ Ces structures permettent de répéter une action plusieurs fois.
 | foreach       | Parcourt chaque élément d'une collection      | foreach ($item in $tableau) { Write-Host $item } |
 
 
-## 🔁 Saut de boucle / sortie de script
 
+## 🔁 Saut de boucle / sortie de script
 Ces mots-clés servent à interrompre ou passer une itération.
 
 | 🔧 Mot-clé | 👉 Description                            | ✅ Exemple |
@@ -66,8 +67,8 @@ Ces mots-clés servent à interrompre ou passer une itération.
 | exit      | Quitte complètement le script             | exit |
 
 
-## 🛑 Gestion des erreurs (Try-Catch)
 
+## 🛑 Gestion des erreurs (Try-Catch)
 Ces structures permettent de gérer les erreurs sans planter le script.
 
 | 🔧 Mot-clé  | 👉 Description                               | ✅ Exemple                           |
@@ -77,8 +78,8 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 | finally     | Exécute code  erreur ou non                   | finally { Write-Host "Terminé" }       |
 
 
-## Alias and purposes
 
+## Alias and purposes
 | Alias | Commande              | Utilité                                                                                                                                                    |
 |-------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | gm    | Get-Member            | Affiche les membres (propriétés et méthodes) d’un objet. Très utile pour explorer les objets retournés par d’autres commandes.                           |
@@ -94,13 +95,18 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 
 
 ## ⛔ Passer outre la politique d'exécution des scripts
- 
+
 ```powershell
 Get-Content test.ps1 | iex
 ```
 ```powershell
 powershell.exe -exec bypass
 ```
+### Changer la valeur `ExecutionPolicy` pour le terminal en cours
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+```
+
 
 ## Déclarer un hashtable  (Structure clé = valeur, comme un dictinnaire en python) les {} attendent une valeur pour chaque clé :
 ```powershell
