@@ -237,10 +237,10 @@ Get-FileHash -Algorithm sha512 Chemin\fichier
 
 
 
-## 📇🔍 Afficher, rechercher, et rechercher un mot ou une expression dans un fichier 📇🔍
+## 📇🔍 Afficher et rechercher 📇🔍
 
 
-### Utiliser Get-Content
+### Utiliser `Get-Content` et `Get-ChildItem`
 ```powershell
 # Afficher le contenu d'un fichier (Alias: gc) 	 
 Get-Content "C:\chemin\nom_fichier"
@@ -251,18 +251,16 @@ Get-Content C:\Users\User_name\Desktop\rockyou.txt | Select-Object -Last 10
 # Rechercher un dossier
 Get-ChildItem -Path C:\ -Directory -Recurse -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*NomDuDossier*" }
 ```
-
-
-### Rechercher les fichiers en fonction de l'extension 
+ 
 ```powershell
+# Rechercher les fichiers en fonction de l'extension
 Get-ChildItem -Path E:\ -Filter *.md -Recurse
 ```
 - -Filter *.md → cherche les fichiers finissant par `.md`
 
 - -Recurse → descend dans tous les sous-dossiers
-
-### Afficher uniquement le chemin complet
 ```powershell
+# Afficher uniquement le chemin complet
 Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty FullName
 ```
 
