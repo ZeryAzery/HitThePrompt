@@ -33,7 +33,8 @@ Get-ChildItem -Path "C:\"
 ```powershell
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 ```
-### Affichera juste le nom de l'ordi :
+### Affichera juste le nom de l'ordi
+```powershell
 Get-computerInfo | Select CsName 
 ```	
 
