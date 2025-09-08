@@ -5,69 +5,82 @@ Powershell n'a pas de sensiblité à la casse c'est juste visuel
 
 
 ## 🔰 Commandes de base 🔰
+
+#### Trouver une commande (Alias: gcm):
 ```powershell
-# Trouver une commande (Alias: gcm):
 Get-Command *hash*
-
-# Allonger la période d'essai Windows
+```
+### Allonger la période d'essai Windows
+```powershell
 slmgr.vbs -rearm
-
-# Se déplacer à la racine ou dans le répertoire utilisateur (Alias: sl)	:		
+```
+### Se déplacer à la racine ou dans le répertoire utilisateur (Alias: sl)	:		
+```powershell
 Set-Location \
 Set-Location ~
-
-# Afficher l’emplacement actuel ('pwd' focntionne aussi) :
+```
+### Afficher l’emplacement actuel (`pwd` ou `sl`focntionne aussi) :
+```powershell
 Get-Location
- 
-# Afficher le contenu de C:\  (alternative: gci C:  dir C:  ls C:)
+ ```
+### Afficher le contenu de C:\  (alternative: gci C:  dir C:  ls C:)
+```powershell
 Get-ChildItem -Path "C:\"  
+```
+* Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
 
-# Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
-
-# Renommer la machine :
+### Renommer la machine :
+```powershell
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
-
-# Affichera juste le nom de l'ordi :
+```
+### Affichera juste le nom de l'ordi :
 Get-computerInfo | Select CsName 
 ```	
-```bat
-# Réinitialiser son mot de passe :
-net user Administrateur *
 
-# Réinitialiser son MDP	sur domaine :
+### Réinitialiser son mot de passe
+```bat
+net user Administrateur *
+```
+### Réinitialiser son MDP	sur domaine
+```bat
 net user  /domain administrateur *
 ```
+
+### Arréter un processus
 ```powershell
-# Arréter un processus  :
 Stop-Process -Id 2960
-
-# Créer un fichier ou écrase ancien :
+```
+### Créer un fichier ou écrase ancien
+```powershell
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
-
-# Ajoute texte fichier existant :	
+```
+### Ajoute texte fichier existant
+```powershell
 Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
-
-# Sur serveur core permet d'ouvrir le menu de config du serveur
+```
+### Sur serveur core permet d'ouvrir le menu de config du serveur
+```powershell
 sconfig
-
-# Addon VBox, monter iso puis (Semble inutile sur un serveur core) :	
+```
+### Addon VBox, monter iso puis (Semble inutile sur un serveur core) :	
+```powershell
 Set-Location D:\ 	
 VBoxWidowsAdditions-amd64.exe 
-
-# Redémarrer la machine (eq: shutdown /r /t 0):
-Restart-Computer   
-
-# Éteindre la machine (eq: shutdown /s /t 0):
-Stop-Computer 	  
-
-# Lister un dossier (Alias: gci): 			
-Get-ChidItem
-
-# tester l'écoute d'un port : 		
-Test-NetConnection -ComputerName localhost -Port 389
-
-
 ```
+### Redémarrer la machine (eq: shutdown /r /t 0)
+```powershell
+Restart-Computer   
+```
+### Éteindre la machine (eq: shutdown /s /t 0)
+```powershell
+Stop-Computer 	  
+```
+### tester l'écoute d'un port
+```powershell		
+Test-NetConnection -ComputerName localhost -Port 389
+```
+
+
 ### Élément graphique sur serveur core 2025
 ```powershell
 Add-WindowsCapability -Online -Name ServerCore.AppCompatibility
@@ -80,11 +93,13 @@ virtmgmt.msc
 ```powershell
 # Télécharger les fichiers d'aide :
 Update-Help 
-
-# Afficher l'aide pour 'Get-Process' :
+```
+### Afficher l'aide pour `Get-Process`
+```powershell
 Get-Help Get-Process
-
-# Afficher les aides dans une fenêtre :
+```
+### Afficher les aides dans une fenêtre :
+```powershell
 Get-Help Unlock-BitLocker -ShowWindow
 ```
 
@@ -172,9 +187,9 @@ Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
 
 # Désactiver l'IPv6 partout
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
-``
+```
 
-`
+
 
 ## 📂 Gestion des Objets 📂 
 * Création/supression de dossiers avec cmd (/s suprimme tout son contenu)
@@ -231,7 +246,11 @@ Get-Content "C:\chemin\nom_fichier"
 
 # Rechercher les 10 dernières lignes 
 Get-Content C:\Users\User_name\Desktop\rockyou.txt | Select-Object -Last 10
+
+# Rechercher un dossier
+Get-ChildItem -Path C:\ -Directory -Recurse -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*NomDuDossier*" }
 ```
+
 
 ### Rechercher les fichiers en fonction de l'extension 
 ```powershell
