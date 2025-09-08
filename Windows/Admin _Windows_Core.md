@@ -14,12 +14,12 @@ Get-Command *hash*
 ```powershell
 slmgr.vbs -rearm
 ```
-### Se déplacer à la racine ou dans le répertoire utilisateur (Alias: sl)	:		
+### Se déplacer à la racine ou dans le répertoire utilisateur (Alias: `sl` ou `cd`)	:		
 ```powershell
 Set-Location \
 Set-Location ~
 ```
-### Afficher l’emplacement actuel (`pwd` ou `sl`focntionne aussi) :
+### Afficher l’emplacement actuel (`pwd` ou `gl`focntionne aussi) :
 ```powershell
 Get-Location
  ```
