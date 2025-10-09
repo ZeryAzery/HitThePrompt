@@ -33,6 +33,7 @@ Get-ChildItem -Path "C:\"
 ```powershell
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 ```
+
 ### Affichera juste le nom de l'ordi
 ```powershell
 Get-computerInfo | Select CsName 
@@ -42,6 +43,7 @@ Get-computerInfo | Select CsName
 ```bat
 net user Administrateur *
 ```
+
 ### Réinitialiser son MDP	sur domaine
 ```bat
 net user  /domain administrateur *
@@ -55,27 +57,33 @@ Stop-Process -Id 2960
 ```powershell
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
 ```
-### Ajoute texte fichier existant
+
+### Ajouter du texte à un fichier existant
 ```powershell
 Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
 ```
+
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
 ```powershell
 sconfig
 ```
+
 ### Addon VBox, monter iso puis (Semble inutile sur un serveur core) :	
 ```powershell
 Set-Location D:\ 	
 VBoxWidowsAdditions-amd64.exe 
 ```
+
 ### Redémarrer la machine (eq: shutdown /r /t 0)
 ```powershell
 Restart-Computer   
 ```
+
 ### Éteindre la machine (eq: shutdown /s /t 0)
 ```powershell
 Stop-Computer 	  
 ```
+
 ### tester l'écoute d'un port
 ```powershell		
 Test-NetConnection -ComputerName localhost -Port 389
@@ -87,8 +95,6 @@ Test-NetConnection -ComputerName localhost -Port 389
 Add-WindowsCapability -Online -Name ServerCore.AppCompatibility
 virtmgmt.msc
 ```
-
-
 
 ### Se servir de l'aide dans powershell
 ```powershell
@@ -137,6 +143,9 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 ## 📶 Configurer le réseau 📶 
+
+
+
 ```powershell
 # Afficher les infos réseaux (Alias: gip ou ipconfig)
 Get-NetIPConfiguration
@@ -146,6 +155,9 @@ gip -Detailed
 
 # Nom de la carte réseau
 Get-NetAdapter
+
+# Afficher le GUID de la carte réseau
+Get-NetAdapter | Select Name, InterfaceDescription, InterfaceGuid
 
 # Afficher les cartes réseau up:	
 Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
