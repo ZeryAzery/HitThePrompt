@@ -8,17 +8,21 @@
 - Simplifier le déploiement et la montée en charge (ou scalabilité).
 - Isoler les applications sans avoir à créer de machines virtuelles complètes.
 
-- 👉 En pratique :
-  - on écrit un Dockerfile 
-  - on construit une image (docker build), 
-  - puis on lance un conteneur (docker run).
-
 
 ## Concepts Docker
 
 - **Client Docker** : gère les conteneurs.
 - **Démon Docker (service)** : héberge les conteneurs.
 - Normalement, créer un compte Docker et **ne pas faire tourner Docker en root**.
+
+---
+
+__👉 En pratique :__
+  - Écrire un Dockerfile → ce qu’il y a dans ton conteneur.
+
+  - docker build → crée une image.
+
+  - docker run → lance un conteneur à partir de l’image.
 
 ## Vérifications et commandes de base
 
@@ -587,6 +591,8 @@ docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
 
 # Terraform
 
+## Intro
+
 ![alt text](<terralogo.png>)
 
 - Terraform est un outil d’Infrastructure as Code (IaC)
@@ -597,6 +603,16 @@ docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
   - Standardiser et versionner l’infrastructure comme du code (Git).
   - Faciliter la collaboration entre équipes grâce à des workflows reproductibles.
   - Éviter les erreurs manuelles et garantir la cohérence entre environnements (dev, test, prod).
+
+## Terraform concepts
+
+- Décrire → écrire les fichiers .tf (l’état souhaité de ton infra).
+
+- Planifier → terraform plan (voir les changements à appliquer).
+
+- Appliquer → terraform apply (crée/modifie/supprime l’infra).
+
+
 ### Installer Terraform 
 
 
