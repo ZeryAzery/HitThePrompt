@@ -502,10 +502,14 @@ docker stats vulnapp
 
 
 
-## Réaliser le déploiement de 2 containers à l'aide d'un Docker-compose
 
-- Docker Compose est un outil qui permet de décrire et lancer plusieurs containers en même temps via un seul fichier (docker-compose.yml).
-- Il permet de définir les containers, leurs volumes, ports et dépendances, et ensuite une seule commande docker-compose up démarre tout.
+
+# Docker-compose
+
+![alt text](<dockercompose-shema.png>)
+
+- Docker Compose permet de décrire et lancer plusieurs containers en même temps via un seul fichier (docker-compose.yml).
+- Il permet de définir les containers, leurs volumes, ports et dépendances, et ensuite une seule commande `docker-compose up` démarre tout.
 
 
 ### Créer le dossier pour Docker Compose
@@ -516,6 +520,7 @@ cd ~/vla-compose
 ```
 
 
+
 ### Créer le fichier yml pour Docker Compose
 
 ```sh
@@ -523,7 +528,8 @@ touch docker-compose.yml
 nano docker-compose.yml
 ```
 
-## Contenu du fichier docker-compose.yml
+
+## Contenu du fichier docker-compose.yml (ici pour 2 containers)
 
 ```yml
 version: "3.9"
@@ -568,6 +574,8 @@ __Explication :__
 - command: tail -f /dev/null → on laisse le container tourner “vide” juste pour que le volume existe et soit accessible.
 - logs-data correspond au volume du deuxième container, et /shared/logs est le chemin où ton application écrit ses logs.
 
+
+
 ### Lancer le fichier dockercompose :
 
 - Ici le fichier dockercompose utilise le fichier docker qui lui utilise aussi le fichier nlog
@@ -577,6 +585,8 @@ __Explication :__
 docker compose up -d
 ```
 ![alt text](<docker-compose.png>)
+
+
 
 ### Pour vérifier que les logs sont bien transmit sur le conteneur vla-logs :
 
@@ -589,32 +599,44 @@ docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
 ```
 
 
-# Terraform
 
-## Intro
+
+# Terraform
 
 ![alt text](<terralogo.png>)
 
+
+## Intro
+
 - Terraform est un outil d’Infrastructure as Code (IaC)
-- Il permet de décrire, déployer et gérer des infrastructures (serveurs, réseaux, bases de données, services cloud, etc.) via des fichiers de configuration déclaratifs.
+- Il permet de décrire, déployer et gérer des infrastructures, il peut gérer :
+  - Des VMs
+  - Des conteneurs (docker...)
+  - Des bases de données
+  - Des réseaux et Firewall
+  - Des services cloud (AWS, Azure, GCP)
+
 
 - En environnement professionnel
   - Automatiser la création et la gestion d’infrastructures sur différents fournisseurs (AWS, Azure, GCP, VMware, etc.).
   - Standardiser et versionner l’infrastructure comme du code (Git).
   - Faciliter la collaboration entre équipes grâce à des workflows reproductibles.
   - Éviter les erreurs manuelles et garantir la cohérence entre environnements (dev, test, prod).
+  -nécessite un provider (Docker, AWS, Azure...)
+
+
 
 ## Terraform concepts
 
-- Décrire → écrire les fichiers .tf (l’état souhaité de ton infra).
+- Décrire → écrire les fichiers `example.tf` (l’état souhaité de ton infra).
 
 - Planifier → terraform plan (voir les changements à appliquer).
 
 - Appliquer → terraform apply (crée/modifie/supprime l’infra).
 
 
-### Installer Terraform 
 
+### Installer Terraform 
 
 - Terraform est développé par HashiCorp. Comme Debian ne fournit pas Terraform directement dans ses dépôts officiels, il faut ajouter le dépôt de HashiCorp
 - Le paquet doit être signé pour prouver à `apt`qu’il vient bien de l’éditeur officiel (HashiCorp) et pas d’un pirate.
@@ -631,16 +653,120 @@ apt install -y gnupg curl
 curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 ```
 
-### Ajouter le dépôt HashiCorp pour Debian bookworm
+
+### Ajouter le dépôt HashiCorp pour Debian bookworm 
 
 ```sh
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" \
-  > /etc/apt/sources.list.d/hashicorp.list
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" > /etc/apt/sources.list.d/hashicorp.list
 ```
 
+
+### Installer Terraform
 ```sh
 apt update
 apt install -y terraform
 # vérifier l'installation
 terraform -v
 ```
+
+
+### Créer un dossier pour ce test 
+
+```sh
+mkdir ~/terraform-docker
+cd ~/terraform-docker
+```
+
+
+### créer un premier fichier de configuration
+
+```sh
+nano main.tf
+```
+
+
+### Fichier Terraform
+
+```t
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0.0"
+    }
+  }
+}
+
+provider "docker" {}
+
+resource "docker_container" "hello" {
+  name  = "hello-tf"
+  image = "nginx:latest"
+  ports {
+    internal = 80
+    external = 8080
+  }
+}
+```
+
+
+### Explications
+
+__1er Bloc `terraform { ... }`__
+- Indique le provider Terraform à utiliser : ici docker
+- Pour gérer Docker, Terraform a besoin du *plugin kreuzwerker/docker*
+- On précise une version pour éviter les surprises 
+
+__2em Bloc `provider "docker" {}`__
+- Connecte Terraform au  Docker local (via le socket Unix /var/run/docker.sock)
+- Pas besoin de config si ton Docker tourne sur la même machine que Terraform.
+
+__3em Bloc `resource "docker_container" "hello" { ... }`__
+- `resource` → ici on définit un conteneur Docker comme ressource gérée par Terraform.
+
+- `"docker_container"` → type de ressource.
+
+- `"hello"` → nom logique dans Terraform (utile pour référence interne).
+
+- `name` = "hello-tf" → nom réel du conteneur Docker.
+
+- `image` = "nginx:latest" → image Docker à utiliser. Terraform va la télécharger si elle n’existe pas.
+
+- `ports { internal = 80, external = 8080 }` → mappe le port 80 du conteneur sur le port 8080 de la machine hôte.
+
+
+
+
+## Exécuter Terraform
+
+###  Télécharger les providers (Docker dans ce cas)
+* À refaire seulement si changegement de provider ou changement de dossier.
+```sh
+terraform init
+```
+
+
+### Applique les changements (crée ou met à jour les conteneurs) :
+
+* Terraform fera seulement les changements nécessaires
+* À faire après chaque modif du fichier .tf*
+```sh
+terraform apply -auto-approve
+```
+
+
+
+### Détruire ce que Terraform a créé
+
+* Supprime uniquement les ressources du .tf
+```sh
+terraform destroy -auto-approve
+```
+
+
+
+
+
+
+
+### Créer un dossier pour ce projet test (VLA + Graylog + MongoDB + Elasticsearch)
