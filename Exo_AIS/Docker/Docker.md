@@ -256,6 +256,7 @@ ls -l /home/axel/shared/logs
 cat /home/axel/shared/logs/test.log
 ```
 * Si  test.log est présent le volume partagé fonctionne 
+
 ![alt text](<shared_host-container.png>)
 
 La fabrication des logs se fait avec le fichier nlog.config, j'ai recréé le fichier nlog.config en local en indiquant le chemin `/home/axel/shared/logs`
