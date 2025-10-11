@@ -406,7 +406,7 @@ docker run --memory="512m" --cpus="1.0" ...
 - Définir des quotas de stockage avec `--storage-opt`
 - Restreindre et contrôler l’usage réseau via Cgroups ou network policies
 
-## Exemple concret d'un dockerfile et d'run pour VLA, en appliquant les bonnes pratiques ANSSI
+## Exemple dockerfile/run pour VLA, en appliquant les bonnes pratiques ANSSI
 
 
 ### Docker file
@@ -489,11 +489,12 @@ docker build --no-cache -t vulnapp-http:443 .
 
 
 ## Afficher les métriques et relever la consomation des containers
+
 ```sh
 docker stats vulnapp
 ```
-![alt text](<container_stat.png>)
 
+![alt text](<container_stat.png>)
 
 
 
