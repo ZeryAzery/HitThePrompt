@@ -1,12 +1,17 @@
 # Docker / Microservices
 
-- Redéployer des applications plus facilement.
+![alt text](<docker-logo.png>)
 
+## Intro
 
-## Orchestrateurs (Infrastructure as Code et fichiers plats)
+- Créer, déployer et exécuter des applications dans des conteneurs.
+- Simplifier le déploiement et la montée en charge (ou scalabilité).
+- Isoler les applications sans avoir à créer de machines virtuelles complètes.
 
-- Terraform
-- Kubernetes
+- 👉 En pratique :
+  - on écrit un Dockerfile 
+  - on construit une image (docker build), 
+  - puis on lance un conteneur (docker run).
 
 
 ## Concepts Docker
@@ -47,7 +52,7 @@ nano Dockerfile
 
 ### Contenu du fichier
 
-```bash
+```dockerfile
 FROM debian:latest
 
 USER root
@@ -62,8 +67,6 @@ RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod
 
 RUN apt update && \
     apt install -y dotnet-sdk-8.0 dotnet-runtime-8.0
-
-VOLUME ["/shared"]
 
 EXPOSE 443
 
@@ -137,33 +140,44 @@ docker rm vulnapp
 docker images
 ```
 
-### Supprimer le conteneur en cours
+## Suppression des conteneurs
+
+
+
+* Supprimer le conteneur en cours
 ```bash
 docker rm -f vulnapp
 ```
-### Supprimer un conteneur avec son ID
+* Supprimer un conteneur avec son ID
 
 ```bash
 docker rm <ID>
 ```
-### Supprimer les conteneurs sans les images (?)
+* Supprimer les conteneurs sans les images (?)
 ```bash
 docker container prune -f
 ```
 
-### Supprimer toutes les images Docker
+* Supprimer toutes les images Docker
 
 ```bash
 docker rmi -f $(docker images -aq)
 ```
 
-### Supprimer seulement les images “vulnapp” en filtrant par nom
+* Supprimer seulement les images “vulnapp” en filtrant par nom
 
 ```bash
 docker rmi -f $(docker images vulnapp-* -q)
 ```
 
+
+
 ## Vérifier que le partage fonctionne entre l'hôte et le conteneur  
+
+__Afin que je partage de fichier puisse fonctionner, rajouter dans le Dockerfile :__
+```dockerfile
+VOLUME ["/shared"]
+```
 
 * depuis la machine hôte
 ```bash
@@ -192,7 +206,6 @@ cat /home/axel/shared/test2.txt
 
 
 ## Utiliser le volume partagé avec l'hôte afin d'y stocker les journeaux d'évenements
-
 
 * le but est de conserver les logs même une fois le container détruit.
 * le chemin des logs se modifie via les fichiers de configuration de l'application
@@ -226,6 +239,8 @@ docker run -d --name vulnapp \
 
 `vulnapp-http:443` → Nom et tag de l’image Docker à utiliser pour créer le conteneur.
 
+
+
 ### Vérifier que le volume partagé fonctionne pour les logs
 
 * Dans le conteneur, créer un fichier de test dans le dossier des logs monté
@@ -241,7 +256,7 @@ ls -l /home/axel/shared/logs
 cat /home/axel/shared/logs/test.log
 ```
 * Si  test.log est présent le volume partagé fonctionne 
-
+![alt text](<shared_host-container.png>)
 
 La fabrication des logs se fait avec le fichier nlog.config, j'ai recréé le fichier nlog.config en local en indiquant le chemin `/home/axel/shared/logs`
 
@@ -249,7 +264,7 @@ Ensuite je viens modifier le fichier Dockerfile pour qu'il écrase son fichier n
 
 Utiliser le docker file pour modifier le fichier de log
 
-```
+```dockerfile
 FROM debian:latest
 
 USER root
@@ -282,7 +297,8 @@ CMD ["dotnet", "run", "--url=https://0.0.0.0:443"]
 ```
 
 Fichier nlog.config avec le chemin de la machine hôte :
-```
+
+```yml
 <?xml version="1.0" encoding="utf-8" ?>
 <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -325,3 +341,288 @@ tail -f /home/axel/shared/logs/2025-10-09_logfile.json
 ```
 ![alt text](<host_logs_registerd.mp4>)
 ![alt text](<collected_log_on_local.png>)
+
+
+
+## Appliquer les bonnes pratiques de sécurité issues du Guide docker ANSSI
+
+
+
+### 1. Image
+
+- Utiliser une image de base minimale (`debian:slim`, `alpine`) plutôt que `debian:latest`.
+- Fixer une version d’image (`debian:12-slim`) → éviter `latest` qui peut changer sans prévenir.
+- Supprimer les paquets inutiles (pas d’éditeurs ou outils réseau superflus).
+
+
+### 2. Utilisateur
+
+- Éviter `USER root`.
+- Créer un utilisateur dédié dans le Dockerfile :
+
+```dockerfile
+RUN useradd -m appuser
+USER appuser
+```
+
+###  3. Réduction de surface
+
+- N’exposer que les ports strictement nécessaires (`EXPOSE 443` si HTTPS uniquement).
+- Définir un `WORKDIR` dédié à l’application.
+- Utiliser `COPY` plutôt que `ADD` (plus prévisible et sécurisé).
+
+
+### 4. Volumes et persistance
+
+- Monter les logs ou données sensibles sur des volumes **maîtrisés**.
+- Monter en lecture seule (`:ro`) sauf si l’écriture est indispensable.
+- Séparer les volumes de logs et de données applicatives pour limiter les risques.
+
+
+### 5. Droits et capacités
+
+- Par défaut, un conteneur a beaucoup de Linux capabilities, les réduire avec `--cap-drop ALL`
+- Ajouter uniquement celles nécessaires si besoin avec `--cap-add`
+- Rendre le système de fichiers du conteneur immuable avec `--read-only` (hors volumes).
+
+__Exemple au lancement du conteneur :__
+```bash
+docker run --cap-drop ALL --read-only ...
+```
+
+### 6. Intégrité
+
+- Scanner régulièrement les images pour vérifier les vulnéranilités avec des outils comme`docker scan` et `trivy`
+- Signer et vérifier les images si possible avant exécution (cosign, notary).
+- Maintenir les images de base à jour afin de réduire les vulnérabilités.
+
+### 7. Ressources
+
+- Limiter les ressources du conteneur (empêcher une saturation du host en limitant l’utilisation mémoire et CPU) 
+```bash
+docker run --memory="512m" --cpus="1.0" ...
+```
+- Définir des quotas de stockage avec `--storage-opt`
+- Restreindre et contrôler l’usage réseau via Cgroups ou network policies
+
+## Exemple concret d'un dockerfile et d'run pour VLA, en appliquant les bonnes pratiques ANSSI
+
+
+### Docker file
+
+```dockerfile
+FROM debian:12-slim
+
+# Étape root : installer dépendances
+USER root
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y wget git ca-certificates && \
+    wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+    dpkg -i packages-microsoft-prod.deb && \
+    rm packages-microsoft-prod.deb && \
+    apt-get update && \
+    apt-get install -y dotnet-sdk-8.0 dotnet-runtime-8.0 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Créer un utilisateur non root
+RUN useradd -m appuser
+
+# Créer les dossiers nécessaires
+RUN mkdir -p /shared/logs && chown -R appuser:appuser /shared
+
+WORKDIR /app
+RUN git clone https://github.com/Aif4thah/VulnerableLightApp.git && \
+    chown -R appuser:appuser /app
+
+# Copier config sécurisée
+COPY --chown=appuser:appuser nlog.config /app/VulnerableLightApp/nlog.config
+
+# Utiliser l’utilisateur non-root
+USER appuser
+
+VOLUME ["/shared"]
+EXPOSE 443
+
+WORKDIR /app/VulnerableLightApp
+CMD ["dotnet", "run", "--url=https://0.0.0.0:443"]
+```
+
+
+### Docker run
+
+```sh
+docker run -d --name vulnapp \
+  -p 443:443 \
+  -v /home/axel/shared:/shared \
+  --read-only \                # le conteneur est en lecture seule
+  --tmpfs /tmp \               # répertoire temporaire en mémoire (sinon beaucoup d'applis plantent)
+  --cap-drop ALL \             # supprime toutes les capacités Linux
+  --security-opt no-new-privileges:true \  # interdit l'élévation de privilèges
+  --memory="512m" \            # limite RAM
+  --cpus="1.0" \               # limite CPU
+  vulnapp-http:443
+```
+ __J'arrive pas à le faire fonctionner avec le read only...__
+
+
+### Lancer le conteneur en direct pour voir les erreurs 
+
+```sh
+docker run --rm --name vulnapp \
+  -p 443:443 \
+  -v /home/axel/shared:/shared \
+  --tmpfs /tmp \
+  --tmpfs /home/appuser/.dotnet \
+  --cap-drop ALL \
+  --security-opt=no-new-privileges:true \
+  --memory=512m \
+  --cpus=1.0 \
+  vulnapp-http:443
+  ```
+* option `--no-cache` permet de s'assurer de ne pas avoir le cache du build précédent
+```sh
+docker build --no-cache -t vulnapp-http:443 .
+```
+
+
+## Afficher les métriques et relever la consomation des containers
+```sh
+docker stats vulnapp
+```
+![alt text](<container_stat.png>)
+
+
+
+
+## Réaliser le déploiement de 2 containers à l'aide d'un Docker-compose
+
+- Docker Compose est un outil qui permet de décrire et lancer plusieurs containers en même temps via un seul fichier (docker-compose.yml).
+- Il permet de définir les containers, leurs volumes, ports et dépendances, et ensuite une seule commande docker-compose up démarre tout.
+
+
+### Créer le dossier pour Docker Compose
+
+```sh
+mkdir ~/vla-compose
+cd ~/vla-compose
+```
+
+
+### Créer le fichier yml pour Docker Compose
+
+```sh
+touch docker-compose.yml
+nano docker-compose.yml
+```
+
+## Contenu du fichier docker-compose.yml
+
+```yml
+version: "3.9"
+
+services:
+  vla-api:
+    build: .
+    container_name: vulnapp # il est possible de retirer cette ligne pour laisser dockercompose choisir le  nom pour éviter les conflits
+    ports:
+      - "443:443"
+    volumes:
+      - logs-data:/shared/logs
+    tmpfs:
+      - /tmp
+      - /home/appuser/.dotnet
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+          cpus: "1.0"
+    restart: unless-stopped
+
+  logs-storage:
+    image: busybox
+    container_name: vla-logs
+    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    volumes:
+      - logs-data:/shared/logs
+    restart: unless-stopped
+
+volumes:
+  logs-data:
+```
+__Explication :__
+
+- image: busybox → pas besoin de Dockerfile, c’est une image toute prête.
+- volumes: - logs-data:/logs → on crée un volume nommé logs-data où l’API pourra écrire ses logs.
+- command: tail -f /dev/null → on laisse le container tourner “vide” juste pour que le volume existe et soit accessible.
+- logs-data correspond au volume du deuxième container, et /shared/logs est le chemin où ton application écrit ses logs.
+
+### Lancer le fichier dockercompose :
+
+- Ici le fichier dockercompose utilise le fichier docker qui lui utilise aussi le fichier nlog
+- Ces fichiers doivent aussi se trouver dans le dossier vla-compose, ou il faut indiquer correctement le chemin du fichier dans le docker compose et dans le dockerfile... 
+
+```sh
+docker compose up -d
+```
+![alt text](<docker-compose.png>)
+
+### Pour vérifier que les logs sont bien transmit sur le conteneur vla-logs :
+
+```sh
+curl -k https://localhost:443
+docker exec -it vla-logs ls /shared/logs
+docker exec -it vla-logs tail /shared/logs/2025-10-10_logfile.json
+# ou en direct
+docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
+```
+
+
+# Terraform
+
+![alt text](<terralogo.png>)
+
+- Terraform est un outil d’Infrastructure as Code (IaC)
+- Il permet de décrire, déployer et gérer des infrastructures (serveurs, réseaux, bases de données, services cloud, etc.) via des fichiers de configuration déclaratifs.
+
+- En environnement professionnel
+  - Automatiser la création et la gestion d’infrastructures sur différents fournisseurs (AWS, Azure, GCP, VMware, etc.).
+  - Standardiser et versionner l’infrastructure comme du code (Git).
+  - Faciliter la collaboration entre équipes grâce à des workflows reproductibles.
+  - Éviter les erreurs manuelles et garantir la cohérence entre environnements (dev, test, prod).
+### Installer Terraform 
+
+
+- Terraform est développé par HashiCorp. Comme Debian ne fournit pas Terraform directement dans ses dépôts officiels, il faut ajouter le dépôt de HashiCorp
+- Le paquet doit être signé pour prouver à `apt`qu’il vient bien de l’éditeur officiel (HashiCorp) et pas d’un pirate.
+- La clé GPG est ce qui permet de vérifier cette signature. Sans elle, Debian refuserait d’installer le paquet.
+
+```sh
+apt update
+apt install -y gnupg curl
+```
+
+### Importer la clé GPG officielle et la stocker déarmorisée
+
+```sh
+curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+```
+
+### Ajouter le dépôt HashiCorp pour Debian bookworm
+
+```sh
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" \
+  > /etc/apt/sources.list.d/hashicorp.list
+```
+
+```sh
+apt update
+apt install -y terraform
+# vérifier l'installation
+terraform -v
+```
