@@ -2,14 +2,14 @@
 
 ![alt text](<docker-logo.png>)
 
-## Intro
+### Intro
 
 - Créer, déployer et exécuter des applications dans des conteneurs.
 - Simplifier le déploiement et la montée en charge (ou scalabilité).
 - Isoler les applications sans avoir à créer de machines virtuelles complètes.
 
 
-## Concepts Docker
+### Concepts Docker
 
 - **Client Docker** : gère les conteneurs.
 - **Démon Docker (service)** : héberge les conteneurs.
@@ -24,35 +24,60 @@ __👉 En pratique :__
 
   - docker run → lance un conteneur à partir de l’image.
 
-## Vérifications et commandes de base
 
-```bash
-docker --version
-docker run name-apk
-```
 
-## Installation Docker (exemple Ubuntu/Debian)
+## Installation de Docker (exemple sur Debian)
 
 ```bash
 apt-get update
-apt-get install ca-certificates curl
+apt-get install ca-certificates curl gnupg lsb-release
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
 ```
 
-### Créer un dossier pour ton projet Docker
+### Ajouter le dépôt Docker
+
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+
+### Mettre à jour la liste des paquets
+
+```bash
+apt-get update
+```
+
+
+### Installer Docker
+
+```bash
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+
+
+### Vérifier la version
+
+```bash
+docker --version
+```
+
+### Créer un dossier pour le projet Docker
 
 ```bash
 mkdir ~/vulnapp-docker
 cd ~/vulnapp-docker
 ```
 
+
 ### Créer le fichier Dockerfile
 
 ```bash
 nano Dockerfile
 ```
+
 
 ### Contenu du fichier
 
@@ -89,11 +114,13 @@ CMD ["dotnet", "run", "--url=https://0.0.0.0:443"]
 docker build -t vulnapp-http:443 .
 ```
 
+
 ### Lancer le conteneur avec volume partagé
 
 ```bash
 docker run --rm -it -p 443:443 -v /home/axel/shared:/shared vulnapp-http:443
 ```
+
 
 ### Lancer le conteneur en arrière-plan (mode detached)
 
@@ -104,6 +131,7 @@ docker run -d --name vulnapp \
   vulnapp-http:443
 ```
 
+
 ### Vérifier que le conteneur tourne
 
 ```bash
@@ -112,11 +140,13 @@ docker logs -f vulnapp
 docker logs vulnapp
 ```
 
+
 ### Accéder à un shell dans le conteneur sans l’arrêter
 
 ```bash
 docker exec -it vulnapp bash
 ```
+
 
 ### Tester l’application
 
@@ -125,11 +155,13 @@ curl -k https://localhost:443
 curl -k https://192.168.0.15:443
 ```
 
+
 ### Dans le navigateur :
 
 ```
 https://192.168.0.15/swagger
 ```
+
 
 ### Supprimer l’ancien conteneur (si existant)
 
@@ -138,11 +170,13 @@ docker stop vulnapp
 docker rm vulnapp
 ```
 
+
 ### Voir les images Docker
 
 ```bash
 docker images
 ```
+
 
 ## Suppression des conteneurs
 
