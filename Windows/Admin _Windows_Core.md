@@ -145,6 +145,8 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 ---
 
 
+
+
 ## 📶 Configurer le réseau 📶 
 
 
@@ -250,7 +252,11 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 ```
 
 
+
 ---
+---
+
+
 
 
 
@@ -279,7 +285,7 @@ Install-WindowsUpdate -AcceptAll
 ### Vérifier les mises à jours présentes
 
 ```powershell
-$kbs= @("KB5066835", "KB5049625")
+$kbs= @("KB5066835", "KB5065789")
 
   foreach ($kb in $kbs) { 
   $hotfix = (Get-HotFix).hotfixid
@@ -297,8 +303,10 @@ wusa /uninstall /kb:5066835
 ```
 
 
+
 ---
 ---
+
 
 
 
@@ -349,8 +357,10 @@ Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 ```
 
 
+
 ---
 ---
+
 
 
 
@@ -572,10 +582,11 @@ Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name,
 ```
 
 
-#### Créer une clé rsa
+### Créer une clé rsa
 ```powershell
 ssh-keygen.exe -t rsa -b 4096
 ```
+
 
 
 ---
