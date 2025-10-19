@@ -94,7 +94,6 @@ Update-Help
 
 
 ### Afficher l'aide pour `Get-Process`
-
 ```powershell
 Get-Help Get-Process
 ```
@@ -127,7 +126,7 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 ## 🍴 Point de restauration 🍴
 
-### Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où -Value 0 = 0 minutes)
+### Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où `-Value 0` = 0 minutes)
 ```powershell
 New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Value 0 -PropertyType DWord -Force
 ```
@@ -372,7 +371,7 @@ Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 Get-FileHash .\Fichier\
 ```
 
-### Choisir l'agorithme
+### Choisir l'algorithme
 ```powershel			
 Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
