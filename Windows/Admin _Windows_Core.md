@@ -1,72 +1,71 @@
 # 🪟 Administration en Powershell Core 🪟
 
 
-Powershell n'a pas de sensiblité à la casse c'est juste visuel
+* Powershell n'a pas de sensiblité à la casse c'est juste visuel
 
+* Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
 
 ## 🔰 Commandes de base 🔰
 
-#### Trouver une commande (Alias: gcm):
+
+### Sur serveur core permet d'ouvrir le menu de config du serveur
+```powershell
+sconfig
+```
+
+#### Trouver une commande (Alias: `gcm`):
 ```powershell
 Get-Command *hash*
 ```
+
+
 ### Allonger la période d'essai Windows
 ```powershell
 slmgr.vbs -rearm
 ```
-### Se déplacer à la racine ou dans le répertoire utilisateur (Alias: `sl` ou `cd`)	:		
-```powershell
-Set-Location \
-Set-Location ~
-```
-### Afficher l’emplacement actuel (`pwd` ou `gl`focntionne aussi) :
-```powershell
-Get-Location
- ```
-### Afficher le contenu de C:\  (alternative: gci C:  dir C:  ls C:)
-```powershell
-Get-ChildItem -Path "C:\"  
-```
-* Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
+
 
 ### Renommer la machine :
 ```powershell
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 ```
 
+
 ### Affichera juste le nom de l'ordi
 ```powershell
 Get-computerInfo | Select CsName 
 ```	
+
 
 ### Réinitialiser son mot de passe
 ```bat
 net user Administrateur *
 ```
 
+
 ### Réinitialiser son MDP	sur domaine
 ```bat
 net user  /domain administrateur *
 ```
 
+
 ### Arréter un processus
 ```powershell
 Stop-Process -Id 2960
 ```
+
+
 ### Créer un fichier ou écrase ancien
 ```powershell
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
 ```
+
 
 ### Ajouter du texte à un fichier existant
 ```powershell
 Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
 ```
 
-### Sur serveur core permet d'ouvrir le menu de config du serveur
-```powershell
-sconfig
-```
 
 ### Addon VBox, monter iso puis (Semble inutile sur un serveur core) :	
 ```powershell
@@ -74,15 +73,6 @@ Set-Location D:\
 VBoxWidowsAdditions-amd64.exe 
 ```
 
-### Redémarrer la machine (eq: shutdown /r /t 0)
-```powershell
-Restart-Computer   
-```
-
-### Éteindre la machine (eq: shutdown /s /t 0)
-```powershell
-Stop-Computer 	  
-```
 
 ### tester l'écoute d'un port
 ```powershell		
@@ -101,15 +91,19 @@ virtmgmt.msc
 # Télécharger les fichiers d'aide :
 Update-Help 
 ```
+
+
 ### Afficher l'aide pour `Get-Process`
+
 ```powershell
 Get-Help Get-Process
 ```
+
+
 ### Afficher les aides dans une fenêtre :
 ```powershell
 Get-Help Unlock-BitLocker -ShowWindow
 ```
-
 
 
 ## Windows Software Licensing Management Tool
@@ -126,15 +120,20 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 
 
+---
+---
+
+
 
 ## 🍴 Point de restauration 🍴
-* Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où -Value 0 = 0 minutes)
+
+### Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où -Value 0 = 0 minutes)
 ```powershell
-New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" `
-  -Name "SystemRestorePointCreationFrequency" -Value 0 -PropertyType DWord -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Value 0 -PropertyType DWord -Force
 ```
 
-* Création d'un point de restauration
+
+### Création d'un point de restauration
 ```powershell
 Enable-ComputerRestore -Drive "C:\"
 Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTINGS"
@@ -142,110 +141,235 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 
+---
+---
+
+
 ## 📶 Configurer le réseau 📶 
 
 
-
+### Information réseau détaillée
 ```powershell
-# Afficher les infos réseaux (Alias: gip ou ipconfig)
-Get-NetIPConfiguration
-
-# Afficher plus d'infos
 gip -Detailed
+```
 
-# Nom de la carte réseau
+
+### Afficher les cartes réseau
+```powershell
 Get-NetAdapter
+```
 
-# Afficher le GUID de la carte réseau
+
+### Afficher le GUID de la carte réseau
+```powershell
 Get-NetAdapter | Select Name, InterfaceDescription, InterfaceGuid
+```
 
-# Afficher les cartes réseau up:	
+
+### Afficher les cartes réseau up:
+```powershell
 Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
+```
 
-# Afficher n° carte réseau
+
+### Afficher n° carte réseau
+```powershell
 Get-NetIPInterface 
+```
 
-# Afficher ipv4 et interfaces		
+
+### Afficher ipv4 et interfaces	
+```powershell	
 Get-NetIPAddress -AddressFamily IPv4 | select IPAddress, InterfaceAlias	
+```
 
-# IP statique et Gateway: 		
+
+### IP statique et Gateway: 		
+```powershell
 New-NetIPaddress -InterfaceIndex 4 -IPAddress 192.0.100.1 -PrefixLength 24 -DefaultGateway 10.0.0.254 (ou 4 est le num de la carte réseau)
+```
 
-# Configurer le DNS
+
+### Configurer le DNS
+```powershell
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses ("8.8.8.8","8.8.4.4")
+```
 
-# Supprimer une adresse DNS 
+
+### Supprimer une adresse DNS 
+```powershell
 Get-DnsClientServerAddress -InterfaceIndex 6 | Set-DnsClientServerAddress -ResetServerAddresses
+```
 
-# Vérifier l’accès au réseau
+
+### Vérifier l’accès au réseau
+```powershell
 Test-Connection -ComputerName google.com
+```
 
-# Retirer une adresse IP
+
+### Retirer une adresse IP
+```powershell
 Remove-NetIPAddress -InterfaceIndex 4 -IPAddress 192.168.0.2 -PrefixLengh 24
+```
 
-# Retirer une adresse IP
+
+### Retirer une adresse IP
+```powershell
 Remove-NetIPAddress -IPAddress 192.168.100.1 -Confirm:$false
+```
 
-# Retirer la passerelle			
+
+### Retirer la passerelle			
+```powershell
 Remove-NetRoute -InterfaceAlias "Ethernet" -NextHop "192.168.0.254"
+```
 
-# Désactiver carte réseau
+
+### Désactiver carte réseau
+```powershell
 Disable-NetAdapter -Name  nom_carte_réseau
+```
 
-# Désactiver/Réactiver une carte réseau
+
+### Désactiver/Réactiver une carte réseau
+```powershell
 Restart-NetAdapter -Name nom_carte_réseau
+```
 
-# Désactiver l'IPv6
+
+### Désactiver l'IPv6
+```powershell
 Disable-NetAdapterBindin -InterfaceAlias "ethernet" -ComponentID ms_tcpip6
+```
 
-# Désactiver l'IPv6 partout
+
+### Désactiver l'IPv6 partout
+```powershell
 Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6 }
 ```
 
 
+---
+
+
+
+## 📅 MISES À JOUR 📅 
+
+
+###  Installer le module maj
+```powershell
+Install-Module PSWindowsUpdate
+```
+
+
+### Importer le module de maj
+```powershell
+Import-Module PSWindowsUpdate
+```
+
+
+### Installer les mises à jour
+```powershell
+Get-WindowsUpdate -AcceptAll -Install -AutoReboot								 	
+Install-WindowsUpdate -AcceptAll 
+```
+
+
+### Vérifier les mises à jours présentes
+
+```powershell
+$kbs= @("KB5066835", "KB5049625")
+
+  foreach ($kb in $kbs) { 
+  $hotfix = (Get-HotFix).hotfixid
+
+    if ($hotfix -contains $kb) {
+      Write-Host  "Found : $kb" -ForegroundColor Green }
+    else { Write-Host  "Not found : $kb" -ForegroundColor Red }
+     }
+```
+
+
+### Désinstaller une mise à jour problématique
+```powershell
+wusa /uninstall /kb:5066835
+```
+
+
+---
+---
+
+
 
 ## 📂 Gestion des Objets 📂 
-* Création/supression de dossiers avec cmd (/s suprimme tout son contenu)
-```bat
-md toto 
-rd /s	
+
+
+
+
+###  Création de dossiers avec cmd
+```batch
 md COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 ```
-```powershell
-# Renommer un dossier :
-Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
 
-# Créer un fichier texte  :
-New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
- 
-# Supprimer un fichier/Dossier (Alias: ri (⚠️))	
-Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
-# Renommer/bouger un fichier (Alias: rni et mi)
-Rename-Item
-Move-Item			
+### supression de dossiers avec cmd (/s suprimme tout son contenu)
+```bat
+rd /s	
 ```
+
+
+### Renommer un dossier :
+```powershell
+Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
+```
+
+
+### Créer un fichier texte  :
+```powershell
+New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
+```
+
+
+### Supprimer un fichier/Dossier (Alias: `ri` ⚠️ pas confondre avec Rename-Item...)
+```powershell	
+Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
+```
+
+
+### Renommer un fichier avec move
 ```bash	
-# Renommer un fichier avec move
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 ```
 
+
+### Comparer des objects
 ```powershell
-# Comparer des objects		
 Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 ```
 
 
+---
+---
+
+
 
 ## 🔪🥩 Hashage 🔪🥩
-```powershell
-# Récup hash				
-Get-FileHash .\Fichier\
 
-# Récupérer un hash			
+
+### Récupérer le hash d'un fichier (sha256 par défault)
+```powershell				
+Get-FileHash .\Fichier\
+```
+
+### Choisir l'agorithme
+```powershel			
 Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
 
+
+---
+---
 
 
 
@@ -276,7 +400,9 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse
 Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty FullName
 ```
 
+
 ### Utiliser Select-String 
+
 ```powershell
 # Rechercher un mot, une expression dans fichier
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "mot_à_rechercher"
@@ -306,6 +432,7 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 ## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
+
 ```powershell
 Add-Type -AssemblyName System.Web
 [System.Web.Security.Membership]::GeneratePassword(16, 4)
@@ -315,10 +442,16 @@ Add-Type -AssemblyName System.Web
 
 
 
+---
+---
+
 
 
 ## 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
+
+
 ### Pare-Feu
+
 ```powershell
 # règles ICMP IN  			
 New-NetFirewallRule -DisplayName "Autoriser ICMPv4-In" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
@@ -331,6 +464,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 ```
 
 ### Defender
+
 ```powershell
 # Activer Defender 			
 Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
@@ -341,75 +475,111 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 
-
-## 📅 MISES À JOUR 📅 
-```powershell
-# Installer le module maj
-Install-Module PSWindowsUpdate
-
-# Importer le module de maj
-Import-Module PSWindowsUpdate
-
-# Installer les mises à jour
-Get-WindowsUpdate -AcceptAll -Install -AutoReboot								 	
-Install-WindowsUpdate -AcceptAll 
-```
-
+---
+---
 
 
 
 ## 🔢 WinRM 🔢
+
+
+
+### Installation de WinRM
 ```powershell
-# Installation de WinRM
 Enable-PSRemoting -Force
+```
 
-# Vérifier que WinRM est activé
+
+### Vérifier que WinRM est activé
+```powershell
 Get-Service winrm
+```
 
-# Activer la règler de parefeu
+
+### Activer la règler de parefeu
+```powershell
 Enable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
+```
 
-# Utilisation de WinRM pour des connexions distante
+
+### Utilisation de WinRM pour des connexions distante
+```powershell
 Enter-PSSession -ComputerName PC01-W10 -Credential nom_domaine\compte_admin
+```
 
-# Ouvrir (en admin) fenêtre GUI pour autoriser un compte en PSRemoting
+
+### Ouvrir (en admin) fenêtre GUI pour autoriser un compte en PSRemoting
+```powershell
 Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 ```
 
 
+---
+---
+
 
 
 ## 🔐🔢 SSH 🔢🔐
-```powershell	
-# Vérifier si le service est actif		
+
+	
+### Vérifier si le service est actif
+```powershell		
 Get-Process ssh-agent  
 Get-Service ssh-agent
+```
 
-# Installer OpenSSH Server (faire les màj avant) 			
+
+### Installer OpenSSH Server (faire les màj avant) 			
+```powershell
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+```
 
-# Démarrer/redémarrer le service SSH
+
+### Démarrer/redémarrer le service SSH
+```powershell
 Start-Service ssh-agent
 Restart-Service ssh-agent
+```
 
-# Configurer démarrage auto SSH
+
+### Configurer démarrage auto SSH
+```powershell
 Set-Service ssh-agent -StartupType 'Automatic'
+```
 
-# Ouvrir port 22 dans pare-feu
+
+### Ouvrir port 22 dans pare-feu
+```powershell
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+```
 
-# Voir sur quel port SSH écoute			
+
+### Voir sur quel port SSH écoute			
+```powershell
 Get-NetTCPConnection | Where-Object {$_.OwningProcess -eq (Get-Process -Name sshd).Id}
+```
 
-# Afficher le port configuré dans sshd_config	
+
+### Afficher le port configuré dans sshd_config	
+```powershell
 Get-Content "$env:ProgramData\ssh\sshd_config" | Select-String "^Port"
+```
 
-# Afficher la règle, port local et protocole 	
+
+### Afficher la règle, port local et protocole 	
+```powershell
 Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name, LocalPort, Protocol
+```
 
-# Créer une clé rsa
+
+#### Créer une clé rsa
+```powershell
 ssh-keygen.exe -t rsa -b 4096
 ```
+
+
+---
+---
 
 
 
@@ -417,6 +587,7 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 ### Installer les fonctionnalités
+
 ```powershell
 # Installer le rôle AD DS
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
@@ -429,6 +600,7 @@ Install-WindowsFeature -Name WDS -IncludeManagementTools
 ```
 
 ### Promouvoir le serveur en contrôleur de domaine
+
 ```powershell
 # Ajouter domaine nouvelle forêt
 Install-ADDSForest -DomainName "TSSR.INFO" -DomainNetbiosName "TSSR" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS	
@@ -458,6 +630,8 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 
 
 ## 👮 Créer un nouvel utilisateur admin du domaine 👮 
+
+
 ```powershell
 # Créer un nouvel utilisateur  		
 New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName "Adminname" -UserPrincipalName "Adminnamel@domainname.fr" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
