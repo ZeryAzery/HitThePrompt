@@ -84,7 +84,7 @@ source .bashrc (rajouter ~/ si pas dans le répertoire utilisateur : source ~/.b
 
 
 ### Créer un alias de ls -la pour les vieux (comme moi) qui n'arrivent pas à lire les permissions. 
-* J'aurais souhaité que Linus Torvald implémente ça directement dans le kernel Linux mais lui devait surement bien voir du coup il s'en fout 
+J'aurais souhaité que Linus Torvald implémente ça directement dans le kernel Linux mais lui devait surement bien voir du coup il s'en fout 
 
 ```bash
 alias ll="ls -la | awk 'NR==1 {print; next} {printf \"%s | %s | %s | %s  %2s %3s %3s %8s %s %s %s %s\n\", substr(\$1,1,1), substr(\$1,2,3), substr(\$1,5,3), substr(\$1,8,3), \$2, \$3, \$4, \$5, \$6, \$7, \$8, \$9}'"
@@ -94,7 +94,6 @@ __Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh 
 
 
 
----
 ---
 ---
 
@@ -154,7 +153,6 @@ lsof -i -P -n | grep LISTEN
 
 
 
----
 ---
 ---
 
@@ -279,7 +277,6 @@ scp -P 6666 aliasll.sh Toto@10.0.0.6:/home/Toto
 
 ---
 ---
----
 
 
 
@@ -400,7 +397,6 @@ sudo smbstatus
 
 ---
 ---
----
 
 
 
@@ -432,7 +428,6 @@ grep -qxF "alias ll='ls -la'" ~/.bashrc
 
 ---
 ---
----
 
 
 
@@ -448,7 +443,6 @@ find ./ -type f -name "*test*"
 
 
 
----
 ---
 ---
 
@@ -504,7 +498,6 @@ chmod -t Archives
 
 ---
 ---
----
 
 
 
@@ -545,7 +538,6 @@ apt autoremove --purge nom_package
 
 
 
----
 ---
 ---
 
@@ -634,7 +626,6 @@ ssh -p 4444 Toto@192.168.100.2
 
 ---
 ---
----
 
 
 
@@ -715,7 +706,6 @@ cat /var/lib/dhcp/dhcpd.leases
 
 
 
----
 ---
 ---
 
@@ -805,7 +795,6 @@ Il y a 13 serveurs racines dans le monde (principalement aux États Unis)
 
 
 
----
 ---
 ---
 
@@ -906,7 +895,6 @@ curl -fsSL https://archive.kali.org/archive-key.asc | gpg --dearmor | sudo tee /
 
 ---
 ---
----
 
 
 
@@ -967,7 +955,6 @@ tail -f /var/log/fail2ban.log
 
 
 
----
 ---
 ---
 
@@ -1041,7 +1028,6 @@ ufw status verbose
 
 ---
 ---
----
 
 
 
@@ -1103,7 +1089,6 @@ Ex : 0 3 1 * 5 → Exécuté le 1er du mois et tous les vendredis.
 
 ---
 ---
----
 
 
 
@@ -1153,7 +1138,6 @@ certbot --apache -d seemyresume.duckdns.org
 
 
 
----
 ---
 ---
 
@@ -1241,7 +1225,6 @@ echo 1 > /proc/sys/vm/swappiness
 
 ---
 ---
----
 
 
 
@@ -1324,7 +1307,6 @@ systemctl enable open-iscsi
 
 
 
----
 ---
 ---
 
