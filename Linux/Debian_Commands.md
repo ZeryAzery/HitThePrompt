@@ -1115,9 +1115,9 @@ ServerName seemyresume.duckdns.org
 apache2ctl configtest
 ```
 
->[!TIP] Rappel des principaux fichiers à configurer :
->/etc/apache2/sites-available/nom_fichier_site
->/var/www/nom_dossier_site/index.html
+> [!TIP] Rappel des principaux fichiers à configurer :
+> * /etc/apache2/sites-available/nom_fichier_site
+> * /var/www/nom_dossier_site/index.html
 
 
 ### Donner les droits appropriés à www-data (utilisateur Apache et lisibles pour les autres utilisateurs)
