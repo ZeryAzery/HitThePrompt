@@ -345,7 +345,7 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 # 📂 Gestion des Objets 📂 
 
 > [!NOTE]
-> * La plupart du temps les commande batch vont fonctionner en Powershell, il peut être utile de les connaitre car elles sont souvent plus simple
+> * La plupart du temps les commande batch fonctionnent en Powershell, il peut être utile de les connaitre car elles sont souvent plus simple
 > * Cependant il arrive que certaine options peuvent ne pas être reconnues par le terminal Powershell
 
 ###  Création de dossiers avec cmd
