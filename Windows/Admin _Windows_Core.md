@@ -345,6 +345,8 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 # 📂 Gestion des Objets 📂 
 
 
+* La plupart du temps les commande batch vont fonctionner en Powershell, il peut être utile de les connaitre car elles sont souvent plus simple
+* Cependant il arrive que certaine options peuvent ne pas être reconnues par le terminal Powershell
 
 ###  Création de dossiers avec cmd
 ```batch
@@ -356,18 +358,12 @@ md COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 ```bat
 rd /s	
 ```
+* `/q` Mode silencieux, pas de confirmation demandée
 
-
-### Renommer un dossier :
-```powershell
-Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
+```bat
+rmdir /s /q "C:\Users\ccarpentier"
 ```
 
-
-### Créer un fichier texte  :
-```powershell
-New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
-```
 
 
 ### Créer un fichier texte en batch dans powershell
@@ -388,16 +384,29 @@ echo "salut ligne 2" >> .\Compta\toto.txt
 ```
 
 
+### Renommer un fichier avec move
+```batch
+mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
+```
+
+
+### Créer un fichier texte  :
+```powershell
+New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
+```
+
+
+### Renommer un dossier :
+```powershell
+Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
+```
+
+
 ### Supprimer un fichier/Dossier (Alias: `ri` ⚠️ pas confondre avec Rename-Item...)
 ```powershell	
 Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 ```
 
-
-### Renommer un fichier avec move
-```batch
-mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
-```
 
 
 ### Comparer des objects
