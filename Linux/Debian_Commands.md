@@ -1130,7 +1130,7 @@ sudo chmod -R 755 /var/www/seemyresume
 
 ### certificat TLS : 
 ```sh
-certbot --apache -d seemyresume.duckdns.org
+certbot --apache -d mon-site.fr
 ```
 
 
