@@ -472,7 +472,7 @@ chmod 777 .
 
 
 ### Droit d'exécution d'un fichier pour l'utilisateur en cours
-```bsh
+```sh
 chmod +x script.sh 
 ```
 
