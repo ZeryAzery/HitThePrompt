@@ -395,7 +395,7 @@ Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 
 
 ### Renommer un fichier avec move
-```bash	
+```batch
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 ```
 
