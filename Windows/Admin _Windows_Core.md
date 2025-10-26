@@ -371,6 +371,7 @@ Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 Get-FileHash .\Fichier\
 ```
 
+
 ### Choisir l'algorithme
 ```powershel			
 Get-FileHash -Algorithm sha512 Chemin\fichier
