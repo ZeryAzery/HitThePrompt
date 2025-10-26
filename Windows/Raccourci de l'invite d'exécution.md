@@ -25,8 +25,6 @@
 | `eventvwr.msc`       | Observateur d’événements                                      |
 | `rsop.msc`           | Jeu résultant de la stratégie (RSOP)                          |
 | `gpmc.msc`           | Console de gestion des stratégies de groupe (GPMC)            |
-| Commande             | Ouvre...                                                      |
-|----------------------|---------------------------------------------------------------|
 | `services.msc`       | Console de gestion des services                               |
 | `devmgmt.msc`        | Gestionnaire de périphériques                                 |
 | `hdwwiz.cpl`         | Assistant d’ajout de matériel (identique devmgmt ?)           |
@@ -43,9 +41,16 @@
 | `slmgr`              | Windows Software Licensing Management Tool                    |
 | `certmgr.msc`        | Gestionnaire de certificats                                   |
 
+
+
 ## Active Directory :
 | Commande             | Ouvre...                                                      |
 |----------------------|---------------------------------------------------------------|
 | `adsiedit.msc`       |  équivalent de "regedit" pour Active Directory.               |
 | `dsa.exe`            |  Utilisateurs et ordinateurs de l'Active Directory.           |
 | `virtmgmt.msc`       |  Gestionnaire Hyper-V                                         |
+| `gpedit.msc`         |  Gestionnaire de stratégies de groupe                         |
+| `adsiedit.msc`       |  Modification ADSI                                         |
+ 
+
+
