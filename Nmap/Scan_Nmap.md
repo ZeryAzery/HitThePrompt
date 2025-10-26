@@ -4,49 +4,49 @@
 
 ## Vérifier la version d'nmap
 ```nmap
-	nmap --version
+nmap --version
 ```
 
 
 ## Identie les machines active sur le réseau (Host Discovery)
 ```nmap
-	nmap -sn <Plage IP> 
+nmap -sn <Plage IP> 
 ```
 
 
 ## Connaitre la version d'un système cible
 ```nmap 
-	nmap -O <Ip cible>
+nmap -O <Ip cible>
 ```	
 
 
 ## Détecter les ports ouverts sur les hôtes actifs (potentiels services)
 ```nmap
-	nmap -sS -p 1-65535 <IP cible>
+nmap -sS -p 1-65535 <IP cible>
 ```
 
 
 ## Détecter les services et applications en cours d'exécution sur les ports ouverts
 ```nmap
-	nmap -sV <IP cible>
+nmap -sV <IP cible>
 ```
 
 
 ## Identifier les versions et vulnérabilités connues
 ```nmap
-	nmap -sV --script vuln <IP cible>
+nmap -sV --script vuln <IP cible>
 ```
 
 
 ## Tenter de comprendre la topologie réseau (parefeu, routeurs et segmentation)
 ```nmap
-	nmap -sn --traceroute <IP cible>
+nmap -sn --traceroute <IP cible>
 ```
 
 
 ## Extraire des informations détaillées sur les services, utilisateurs, partage réseau...
 ```nmap
-	nmap --script=smb-enum-shares -p 445 <Ip cible>
+nmap --script=smb-enum-shares -p 445 <Ip cible>
 ```
 
 
@@ -62,7 +62,7 @@
 
 ## Scan SYN (demi-ouvert ou half-open scan)
 ```nmap
-	nmap -sS -sV -O -p 1-1000 10.0.0.5
+nmap -sS -sV -O -p 1-1000 10.0.0.5
 ```
 
 
@@ -76,6 +76,7 @@
 
 
 
+
 ### ➡️ Comment Nmap effectue ses requête SYN aux ports de la cible :
 
 | État     | Description |
@@ -84,19 +85,20 @@
 | SYN-ACK  | → Si le port est ouvert, la cible répond avec SYN-ACK. |
 | RST      | → Nmap envoie un RST (Reset) au lieu d’un ACK. |
 
-Ça permet de détecter les ports ouverts sans établir une connexion complète, donc c’est plus furtif qu’un TCP connect scan (-sT), qui fait une vraie connexion (SYN → SYN-ACK → ACK).
+Ça permet de détecter les ports ouverts sans établir une connexion complète, donc c’est plus furtif qu’un TCP connect scan (`-sT`), qui fait une vraie connexion (SYN → SYN-ACK → ACK).
+
 
 
 
 ## Autres options 
--A (Aggressive Scan, récolte des infos sur la cible)
+`-A` (Aggressive Scan, récolte des infos sur la cible)
 
 * Détection du système d’exploitation (OS Detection)
 * Détection des services (Version Detection)
 * Traceroute (pour voir le chemin réseau jusqu'à la cible)
 * Scripts Nmap (NSE) par défaut, qui explorent certaines vulnérabilités
 
-Le -A combine plusieurs scans avancés pour donner un maximum d’infos sur la machine scannée.
+Le `-A` combine plusieurs scans avancés pour donner un maximum d’infos sur la machine scannée.
 
 
 ---
@@ -107,8 +109,8 @@ Le -A combine plusieurs scans avancés pour donner un maximum d’infos sur la m
 nmap -sS -p 1-65535 <IP_du_serveur> -Pn -T4
 ```
 
--sS : Scan SYN, plus rapide et discret qu'un scan TCP complet (-sT). Nécessite les privilèges root.
--Pn : Ne pas faire de ping (ignore la détection d’hôte). Utile si la cible ne répond pas aux pings ICMP.
+`-sS` : Scan SYN, plus rapide et discret qu'un scan TCP complet (`-sT`). Nécessite les privilèges root.
+`-Pn` : Ne pas faire de ping (ignore la détection d’hôte). Utile si la cible ne répond pas aux pings ICMP.
 
 
 ### 🎯 -T signifie "Timing Template"
@@ -124,7 +126,7 @@ nmap -sS -p 1-65535 <IP_du_serveur> -Pn -T4
 
 Plus la valeur est haute, plus les le délais est réduit entre les paquets envoyés et plus le nombre de connexions simultanées augmentent
 
-* Cette option après la commande permet de générer un fichier au format txt (-oN → « Output Normal » suivi du nom du fichier)
--oN resultat_scan.txt
+* Cette option après la commande permet de générer un fichier au format txt (`-oN` → « Output Normal » suivi du nom du fichier)
+`-oN resultat_scan.txt`
 
 

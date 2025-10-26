@@ -31,9 +31,25 @@ Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 ```
 
 
+### Afficher domaine, manufacturer, model, nom machine, utilisateur, mémoire physique
+```powershell
+Get-WmiObject Win32_ComputerSystem
+# ou
+Get-CimInstance Win32_ComputerSystem | fl
+```
+
+
 ### Affichera juste le nom de l'ordi
 ```powershell
-Get-computerInfo | Select CsName 
+Get-computerInfo 
+```	
+
+
+### Affichera juste le nom de l'ordi
+```powershell
+Get-computerInfo | Select CsName
+# ou
+hostname
 ```	
 
 
@@ -119,12 +135,16 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 
 
+
+
 ---
 ---
 
 
 
-## 🍴 Point de restauration 🍴
+
+
+# 🍴 Point de restauration 🍴
 
 ### Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où `-Value 0` = 0 minutes)
 ```powershell
@@ -140,13 +160,15 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 
+
 ---
 ---
 
 
 
 
-## 📶 Configurer le réseau 📶 
+
+# 📶 Configurer le réseau 📶 
 
 
 ### Information réseau détaillée
@@ -252,6 +274,7 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 
 
 
+
 ---
 ---
 
@@ -259,7 +282,7 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 
 
 
-## 📅 MISES À JOUR 📅 
+# 📅 MISES À JOUR 📅 
 
 
 ###  Installer le module maj
@@ -301,6 +324,15 @@ $kbs= @("KB5066835", "KB5065789")
 wusa /uninstall /kb:5066835
 ```
 
+### Désinstaller un package et vérifier les résidus
+```powershell
+Uninstall-WindowsFeature -Name WDS
+Get-WindowsFeature | Where-Object {$_.Name -like 'WDS*'}
+Uninstall-WindowsFeature -Name WDS-AdminPack
+```
+
+
+
 
 
 ---
@@ -309,8 +341,8 @@ wusa /uninstall /kb:5066835
 
 
 
-## 📂 Gestion des Objets 📂 
 
+# 📂 Gestion des Objets 📂 
 
 
 
@@ -335,6 +367,24 @@ Rename-Item -Path "C:\DATAS\DIRECTION" -NewName "D_DIRECTION"
 ### Créer un fichier texte  :
 ```powershell
 New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
+```
+
+
+### Créer un fichier texte en batch dans powershell
+```batch
+echo null > .\Compta\toto.txt
+```
+
+
+### Insérer du texte en créant un fichier 
+```batch
+echo "salut je créé un fichier avec ça écrit dedans" > .\Compta\toto.txt
+```
+
+
+### Rajouter du texte dans un fichier existant 
+```batch
+echo "salut ligne 2" >> .\Compta\toto.txt
 ```
 
 
@@ -363,7 +413,7 @@ Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 
 
 
-## 🔪🥩 Hashage 🔪🥩
+# 🔪🥩 Hashage 🔪🥩
 
 
 ### Récupérer le hash d'un fichier (sha256 par défault)
@@ -378,12 +428,15 @@ Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
 
 
+
+
 ---
 ---
 
 
 
-## 📇🔍 Afficher et rechercher 📇🔍
+
+# 📇🔍 Afficher et rechercher 📇🔍
 
 
 ### Utiliser `Get-Content` et `Get-ChildItem`
@@ -428,6 +481,7 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 ```
 
 ### Formats de fichiers que Powershell peut utiliser:
+
 | 📂 Format	| 📜 Supporté nativement ?	| 🔧 Méthode à utiliser |
 | ----- | :---: | ----- |
 | TXT	|	✅ Oui	| Get-Content ou Select-String |
@@ -452,12 +506,14 @@ Add-Type -AssemblyName System.Web
 
 
 
+
 ---
 ---
 
 
 
-## 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
+
+# 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
 
 
 ### Pare-Feu
@@ -485,12 +541,14 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 
+
 ---
 ---
 
 
 
-## 🔢 WinRM 🔢
+
+# 🔢 WinRM 🔢
 
 
 
@@ -503,6 +561,12 @@ Enable-PSRemoting -Force
 ### Vérifier que WinRM est activé
 ```powershell
 Get-Service winrm
+```
+
+
+### tester psremoting sur une machine
+```powershell
+Test-WsMan LENTBK14-1822
 ```
 
 
@@ -524,12 +588,14 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 ```
 
 
+
 ---
 ---
 
 
 
-## 🔐🔢 SSH 🔢🔐
+
+# 🔐🔢 SSH 🔢🔐
 
 	
 ### Vérifier si le service est actif
@@ -589,12 +655,14 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 
+
 ---
 ---
 
 
 
-## 🏠 Installer un contrôleur de domaine 🏠 
+
+# 🏠 Installer un contrôleur de domaine 🏠 
 
 
 ### Installer les fonctionnalités
@@ -618,20 +686,13 @@ Install-ADDSForest -DomainName "TSSR.INFO" -DomainNetbiosName "TSSR" -SafeModeAd
 
 # Joindre le domaine
 Add-Computer -DomainName TSSR.INFO
-
-# Retélécharger les modules pour le réplicat 
-Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+# ou
+Add-Computer -DomainName "domainname" -Credential (Get-Credential) -Restart
 
 # Promouvoir en controleur de domaine
 Install-ADDSDomainController -DomainName "TSSR.INFO" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS
-
-# Promouvoir en controleur de domaine (plus simple):  	
+# ou 
 Install-ADDSDomainController -DomainName "domain.tld" -InstallDns:$true -Credential (Get-Credential "DOMAIN\administrateur")
-
-# Joindre domaine Sur machine cliente 
-Add-Computer -DomainName "domainname" -Credential (Get-Credential) -Restart
-
-# ⚠️ Ne pas oublier de mettre le nom du domaine avant pour éviter une erreur : "TSSR\administrateur"
 
 # Installer tous les outils RSAT:	
 Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
@@ -640,12 +701,11 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 	
 
 
-## 👮 Créer un nouvel utilisateur admin du domaine 👮 
-
+### 👮 Créer un nouvel utilisateur admin du domaine 👮 
 
 ```powershell
 # Créer un nouvel utilisateur  		
-New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName "Adminname" -UserPrincipalName "Adminnamel@domainname.fr" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
+New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName "Adminname" -UserPrincipalName "Adminname@domainname.fr" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
 
 # Rechercher des groupes : 	
 Get-ADGroup -Filter 'Name -like "*admin*"'
@@ -664,3 +724,34 @@ foreach ($groupe in $groupes) {
     Add-ADGroupMember -Identity $groupe -Members "adminname" -ErrorAction SilentlyContinue
 }
 ```
+
+
+### Afficher le chemin LDAP d'un utilisateur
+```powershell
+(Get-ADUser -Identity aziegler).DistinguishedName
+```
+#ou
+```powershell
+Get-ADUser -Identity NomUser | Select-Object DistinguishedName
+```
+
+
+### Vérifier dernière authentification d'un PC
+```powershell
+Get-ADComputer -Identity LENTBK15-2336 -Properties LastLogonDate
+```
+
+
+
+### Vérifier dernière authentification d'un utilisateur
+```powershell
+Get-ADUser -Identity R.PETIT -Properties LastLogonDate
+```
+
+
+
+### Renommer un PC du domaine avec un compte admin (depuis n'importe quelle machine du domaine...)
+```powershell
+Rename-Computer -ComputerName "DESKTOP-SQ5RDA2" -NewName "LENV15-2130" -DomainCredential (Get-Credential) -Restart
+```
+

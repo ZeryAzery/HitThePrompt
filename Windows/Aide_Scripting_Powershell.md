@@ -1,6 +1,12 @@
 # Aide au Scripting Powershell
 
 
+### Afficher les méthodes et propriétés d'un objet avec `| gm`
+```powershel
+Get-WmiObject Win32_ComputerSystem | gm
+```
+
+
 
 ## 📌 Principaux types de données en PowerShell
 Elles empêche d'affecter une valeur incorrecte
@@ -16,6 +22,7 @@ Elles empêche d'affecter une valeur incorrecte
 
 
 
+
 ## 📌 Structures conditionnelles
 Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 
@@ -26,11 +33,13 @@ Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 | else      | Exécute bloc si aucune condition remplie      | else { Write-Host "C'est plus petit" } |
 | switch    | Alternative à plusieurs if                    | switch ($x) { 1 { "Un" }; 2 { "Deux" } } |
 
+
 > [!IMPORTANT]  
 > else n'a jamais de conditions derrière !
 
 > [!TIP]
 > switch peut utiliser "Default" pour gérer les erreurs comme dans cet exemple :
+
 
 ```powershell
 $usrvalue = Read-Host "Indiquer un numéro pour lancer un logiciel"
@@ -41,6 +50,7 @@ switch ($usrvalue)
     Default { Write-Host Entree invalide }
 }      
 ```
+
 
 
 
@@ -56,6 +66,7 @@ Ces structures permettent de répéter une action plusieurs fois.
 
 
 
+
 ## 🔁 Saut de boucle / sortie de script
 Ces mots-clés servent à interrompre ou passer une itération.
 
@@ -68,6 +79,7 @@ Ces mots-clés servent à interrompre ou passer une itération.
 
 
 
+
 ## 🛑 Gestion des erreurs (Try-Catch)
 Ces structures permettent de gérer les erreurs sans planter le script.
 
@@ -76,6 +88,7 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 | try         | Définit un bloc de code à tester              | try { Get-Item "C:\fichier.txt" }      |
 | catch       | Capture erreur et exécute code alternatif     | catch { Write-Host "Erreur détectée" } |
 | finally     | Exécute code  erreur ou non                   | finally { Write-Host "Terminé" }       |
+
 
 
 
@@ -99,13 +112,17 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 ```powershell
 Get-Content test.ps1 | iex
 ```
+
 ```powershell
 powershell.exe -exec bypass
 ```
+
+
 ### Changer la valeur `ExecutionPolicy` pour le terminal en cours
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
 ```
+
 
 
 ## Déclarer un hashtable  (Structure clé = valeur, comme un dictinnaire en python) les {} attendent une valeur pour chaque clé :
@@ -115,6 +132,9 @@ $liste = @{
     "clé2" = "valeur2"
 }
 ```
+
+
+
 ## Si c'est juste pour une liste utiliser les "()" : (sinon powershell attendra une valeur avec des ">>") :
 ```powershell
 $liste = @(
@@ -125,6 +145,8 @@ $liste = @(
     "1023"
 )
 ```
+
+
 
 | PowerShell | Python | Nom commun               |
 | ---------- | ------ | ------------------------ |
