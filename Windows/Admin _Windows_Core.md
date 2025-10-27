@@ -39,13 +39,13 @@ Get-CimInstance Win32_ComputerSystem | fl
 ```
 
 
-### Affichera juste le nom de l'ordi
+### Afficher les infos de la machine
 ```powershell
 Get-computerInfo 
 ```	
 
 
-### Affichera juste le nom de l'ordi
+### Affichera juste le nom de la machine
 ```powershell
 Get-computerInfo | Select CsName
 # ou
