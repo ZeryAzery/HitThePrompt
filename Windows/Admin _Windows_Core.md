@@ -445,51 +445,94 @@ Get-FileHash -Algorithm sha512 Chemin\fichier
 
 
 
-# 📇🔍 Afficher et rechercher 📇🔍
+# 🔍 Rechercher un fichier ou un dossier  🔍
 
 
-### Utiliser `Get-Content` et `Get-ChildItem`
+* Utiliser `Get-ChildItem`
+
+### Rechercher un fichier
 ```powershell
-# Afficher le contenu d'un fichier (Alias: gc) 	 
-Get-Content "C:\chemin\nom_fichier"
+Get-ChildItem -Path "F:\Users\Toto\Desktop\Compta-2024" -Directory -Recurse -Force | Where-Object { $_.Name -like "*NomDuFichier*" }
+```
 
-# Rechercher les 10 dernières lignes 
-Get-Content C:\Users\User_name\Desktop\rockyou.txt | Select-Object -Last 10
 
-# Rechercher un dossier
+### Rechercher un dossier
+```powershell
 Get-ChildItem -Path C:\ -Directory -Recurse -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*NomDuDossier*" }
 ```
- 
+
+
+### Rechercher les fichiers en fonction de l'extension 
 ```powershell
-# Rechercher les fichiers en fonction de l'extension
 Get-ChildItem -Path E:\ -Filter *.md -Recurse
 ```
 - -Filter *.md → cherche les fichiers finissant par `.md`
 
 - -Recurse → descend dans tous les sous-dossiers
+
+
+
+### Afficher uniquement le chemin complet
 ```powershell
-# Afficher uniquement le chemin complet
 Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty FullName
 ```
 
 
-### Utiliser Select-String 
 
+
+---
+---
+
+
+
+
+
+
+# 📇 Affichage/recherche du contenu d'un fichier 📇
+
+* Utiliser `Get-Content` et `Select-String` 
+
+### Afficher le contenu d'un fichier (Alias: gc) 	
 ```powershell
-# Rechercher un mot, une expression dans fichier
+Get-Content "C:\chemin\nom_fichier"
+```
+
+### Rechercher les 10 dernières lignes d'un fichier
+```powershell
+Get-Content C:\Users\User_name\Desktop\rockyou.txt | Select-Object -Last 10
+```
+
+
+### Rechercher un mot, une expression dans fichier
+```powershell
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "mot_à_rechercher"
+```
 
-# Chercher uniquement les mots commençant par "pass" 
+
+### Chercher uniquement les mots commençant par "pass" 
+```powershell
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "^pass"
+```
 
-# Recherche sensible à la casse
+
+### Recherche sensible à la casse
+```powershell
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "Password" -CaseSensitive
+```
 
-# Tous les mots contenant "pass" sans afficher le n° de ligne (précédé ou suivit d'un caractère qui ne sera pas une lettre avec regex \b)
+### Tous les mots contenant "pass" sans afficher le n° de ligne (précédé ou suivit d'un caractère qui ne sera pas une lettre avec regex \b)
+```powershell
 Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-Object { $_.Line }
 ```
 
-### Formats de fichiers que Powershell peut utiliser:
+
+
+---
+
+
+
+
+## Formats de fichiers que Powershell peut utiliser:
 
 | 📂 Format	| 📜 Supporté nativement ?	| 🔧 Méthode à utiliser |
 | ----- | :---: | ----- |
@@ -501,6 +544,10 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 | PDF | ❌ Non	|	PDFtoText ou une librairie externe |
 | XLS, XLSX | ❌ Non | COM Object ou Import-Excel |
 
+
+
+
+---
 
 
 

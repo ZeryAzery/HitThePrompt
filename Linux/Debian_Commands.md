@@ -424,6 +424,12 @@ grep -qxF "alias ll='ls -la'" ~/.bashrc
 ```
 
 
+### Chercher plusieurs expressions danns un fichier
+```sh
+grep -Ei "error|fail|denied" /etc/server.log
+```
+
+
 
 
 ---
