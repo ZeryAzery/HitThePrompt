@@ -784,7 +784,7 @@ foreach ($groupe in $groupes) {
 
 ### Afficher le chemin LDAP d'un utilisateur
 ```powershell
-(Get-ADUser -Identity aziegler).DistinguishedName
+(Get-ADUser -Identity j.dupont).DistinguishedName
 ```
 #ou
 ```powershell
