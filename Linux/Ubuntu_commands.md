@@ -3,7 +3,7 @@
 ## Additions invité VirtualBox
 
 ```bash
-apt update
+sudo apt update
 sudo  apt upgrade 
 reboot
 apt install make gcc dkms linux-source linux-headers-$(uname -r)
@@ -101,7 +101,7 @@ gh --version
 
 ## Télécharger VulnerableLightApp sur Github
 ```bash
-gitclone https://github.com/Aif4thah/VulnerableLightApp.git
+git clone https://github.com/Aif4thah/VulnerableLightApp.git
 ```
 
 ## Installer Dotnet 8.0
@@ -131,3 +131,7 @@ dotnet run --url=https://10.0.0.3:3000 &
 # Vérifier les processus lancés en arrère plan
 jobs
 ```
+
+## Sur une barre d'URL
+https://10.0.0.3:3000/swagger
+http://10.0.0.3:4000/swagger
