@@ -537,6 +537,10 @@ docker stats vulnapp
 
 
 
+-----------------------------------------------------------------------
+
+
+
 
 # Docker-compose
 
@@ -631,6 +635,11 @@ docker exec -it vla-logs tail /shared/logs/2025-10-10_logfile.json
 # ou en direct
 docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
 ```
+
+
+
+
+-----------------------------------------------------------------------
 
 
 

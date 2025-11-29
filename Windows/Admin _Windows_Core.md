@@ -437,7 +437,10 @@ Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
 
 
-
+### Vérifier la différence entre deux string
+```powershel
+"Bonjour" -ne "Salut"
+```
 
 ---
 ---

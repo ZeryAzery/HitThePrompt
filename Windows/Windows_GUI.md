@@ -1,0 +1,101 @@
+
+# Raccourcis clavier utiles
+
+### Ajouter un bureau virtuel
+```
+🪟 + ctrl + d
+```
+
+
+### Naviguer entre les bureaux virtuels
+```
+🪟 + ctrl + → ou ←
+```
+
+
+### Fermer les bureaux virtuels
+```
+🪟 + Tab
+```
+
+
+### Retour bureau immédiat
+```
+🪟 + d
+```
+
+
+### Rouvrir un onglet fermé sur navigateur
+```
+ctrl + Maj + T
+```
+
+
+### Rouvrir les fenêtres d'un navigateur fermé
+```
+ctrl + Shift + T
+```
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+# Applications sur la barre des tâches
+
+
+### Chemin des app sur la barre des tâches 
+```
+C:\Users\<TonUtilisateur>\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar
+```
+```
+%AppData%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar
+```
+
+
+* Fichier binaire IconCache.db
+```
+C:\Users\<user>\AppData\Local\IconCache.db
+```
+
+
+### Fichier qui stoke les images des icones windows 
+```
+%windir%\system32\imageres.dll
+```
+
+
+
+## Changer la cible d'un raccourci
+* Dans la cible d'un raccourci ajouter par exemple
+```bat
+cmd.exe /c echo "action douteuse" "chemin\vers\le\fichier\normal"
+```
+* Cette technique peut être utilisée par des attaquants pour effectuer des actions malicieuses
+
+
+### Ajouter un raccourci à la barre des tâches qui n'est pas un programme
+* Dans ce cas ça m'a permis d'ajouter un script ahk à la barre des taches
+* Je fais pointer le programme ahk en tant que cible (donc épinglable)
+* Puis ajouter le chemin du script en tant qu'argument
+```
+"C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "C:\Users\toto\Bureau\MonScript.ahk"
+```
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+### Invoke-Item (alias = `ii`)
+* Permet d'exécuter un/des programme(s) ou d'ouvrir un/des fichier(s) directement depuis le terminal
+```powershell
+Invoke-Item "C:\Users\User1\Documents\*.xls"
+```
+```powershell
+ii  '.\CPUID HWMonitor.lnk'
+```
