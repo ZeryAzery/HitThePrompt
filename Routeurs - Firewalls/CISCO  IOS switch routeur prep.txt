@@ -1,0 +1,500 @@
+		## Conf de base ##
+
+
+enable
+conf t
+hostname S1
+line console 0
+password cisco
+login
+exit
+ena sec class
+service password-encryption
+no ip domain-lookup 
+no cdp run 
+banner motd "This is a secure system. Authorized Access Only!"
+exit
+wr 	
+
+sh clo
+clo se 13:37:00 14 MARCH 2025
+
+------------------------------------------------------------------------------------------
+
+
+
+"do" avant la commande permet d'exécuter une commande sans faire exit
+wr=copy running-config startup-config ?
+no cdp run  		> protocole Cisco qui permet aux équipements réseau d’échanger des infos sur leurs voisins
+no ip domain-lookup 	> évite recherche DNS en cas d'erreur de frappe
+
+
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+		### interface routeur/switch ###
+
+
+int g0/0
+ip ad 10.1.1.1 255.255.255.0
+desc LAN to S2
+no sh
+exit
+ex
+wr
+
+sh ru
+
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+			### 🏁 ROUTAGE 🏁 ###
+
+
+• Configurer une route statique
+	ip route 10.1.1.0 255.255.255.0 g0/2 (nom interface ou adresse IP interface ?)
+• Afficher les routes statiques
+	do show running-config | include ^ip route
+
+• Routage RIPv2
+	router rip
+	version 2
+	no auto-summary
+	network 192.168.0.0
+	network 209.165.200.224
+	exit
+• Afficher les routes rip
+	show ip route rip
+
+
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+			### 🚧 VLAN 🚧 ###
+
+
+vlan 10 
+name EMPLOYES 
+vlan 20 
+name ETUDIANTS 
+vlan 30 
+name INVITES 
+vlan 99 
+name MANAGEMENT 
+ 
+
+	• MODE ACCESS 🛵 (Le port en mode access laisse passer le traffic d'un VLAN)
+	--------------
+
+int fa 0/11
+switchport access vlan 10
+
+int fa 0/18
+sw ac vl 20
+
+int range Gi 0/1-2
+switchport mode trunk
+switchport trunk native vlan 99
+
+sh vl br
+
+VLAN NATIF:
+int ra g0/1–2
+switchport trunk native vlan 84 (sw tr na vl 84)
+sh ru
+
+***Le VLAN 1 apparaîtra tjrs sur les interfaces non taguées***
+Le VLAN 1 (natif) est souvent déplacé pour des raisons de sécurité (il n'a pas de trame 802.1Q)
+
+
+
+	• MODE TRUNK 🏍️ (Le port Trunk laisse passer le traffic de plusieurs VLANs)
+	-------------
+
+   -> SWITCH ( -> sur le port connecté au routeur ! ):
+
+int ra g0/1-2
+switchport mode trunk 			(sw mo tr)
+switchport trunk allowed vlan 10,20,30	(sw tr al vl 10,20,30) 
+ex
+ex
+wr
+
+***Le protocole DTP négocie automatiquement l'autre côté des liens trunk.***
+show interface trunk (sh int tr)
+
+
+   -> ROUTEUR (sur l'interface reliée au switch):
+
+int g0/0.10
+encapsulation dot1Q 10
+ip ad 192.168.10.1 255.255.255.0
+
+int g0/0.20
+encapsulation dot1Q 20
+ip ad 192.168.20.1 255.255.255.0
+
+
+do sh vl
+do sh in tr
+
+Pour faire passer le service DHCP entre les vlans faire (si le serveur dhcp est en 192.168.20.11) :
+interface g0/0/1.10
+ip helper-address 192.168.20.11
+
+
+⚠️ Pour adresser une IP sur une interface physique quand un routeur avec le vlan 1 (natif) est éteint (car ce sont les SVIs portent les adresses)
+il faut utiliser la commande "no switchport" sur l'interface sur laquelle on souhaite adresser une IP.
+
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+		⤴️ ## LACP ## ⤴️
+
+
+Aggrégation de liens (EtherChannel) 
+
+• PAgP > protocole Cisco EtherChannel
+• LACP > version standard ouverte d’EtherChannel (IEEE - 802.3ad)
+
+• Travailler sur les liens éteints pour éviter « err-disabled » 
+
+SWITCH-1
+int ra fa0/3-4
+shutdown
+channel-group 2 mode active (LACP)
+no sh
+int port-channel 2
+sw tr enc dot1q -----------> (sur les switchs L3 faire l'encap pour pouvoir passer en trunk)
+switchport mode trunk
+do wr
+
+SWITCH-2
+int ra fa0/3-4
+shutdown
+channel-group 2 mode desirable (PAgP)
+no sh
+int port-channel 2
+switchport mode trunk
+do wr
+
+SWITCH-3
+int ra fa0/3-4
+shutdown
+channel-group 2 mode on (?)
+no sh
+int port-channel 2
+switchport mode trunk
+do wr
+
+
+Vérifier le fonctionnement de Port Channel 2
+do sh eth sum
+
+Définir S1 en pont racine Spanning-Tree
+spanning-tree vlan 1 root primary 
+
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+		## VTP ##
+
+
+Pour que les swiths récupèrent les infos vlans
+
+
+• Switch serveur
+ ---------------
+en
+conf t
+vtp mode server
+vtp domain ?
+vtp domain AIS.LAB
+vtp domain password AIS
+vtp version 2
+
+vlan 10
+name vlan10
+
+VLAN 20
+name vlan20
+
+etc......
+
+
+
+• Switch client
+ --------------
+en
+conf t
+vtp mode client
+vtp domain AIS.LAB
+vtp password AIS
+
+Si un switch ne prend pas les VLANs avec le vtp faire un delete vlan.dat
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+		## Routage Inter-VLANs ##
+
+
+• Switch client
+ --------------
+
+int f0/1
+sw mo ac
+sw ac vl 10
+sw voice vlan 40
+
+int f0/2
+sw mo ac
+sw ac vl 20
+sw voice vlan 40
+do wr
+
+
+• Switch L3 serveur (Une SVI par vlan)
+ ------------------
+
+
+in vl 10
+ip ad 10.10.0.1 255.255.255.0
+
+in vl 20
+ip ad 10.20.0.1 255.255.255.0
+
+in vl 30
+ip ad 10.30.0.1 255.255.255.0
+
+in vl 40
+ip ad 10.40.0.1 255.255.255.0
+
+ip routing (pour switch L3)
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+		## ⛔ Spanning Tree Protocol ⛔ ##
+
+
+Les trames du STP sont appelées BPDU (Bridge Protocol Data Unit) et sont envoyées aux autres switchs
+Ce protocole empêche les boucles de broadcast qui peuvent créer des tempêtes
+Il faut élire un "Pont Racine" (Switch maître)
+
+
+• Configuration du port racine
+spanning-tree vlan 1,10,20,30,40 root primary
+# ou
+spanning-tree vlan 1 priority 24576 ( entre 0 et 61440 )
+
+show spanning-tree
+
+• Config port fast
+int f0/1
+spanning-tree portfast (à faire sur les endpoints seulements) 
+
+• Configuration via la priorité
+spanning-tree bpduguard enable
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+		## DHCP ##
+
+
+• Serveur DHCP
+ip dhcp pool Client-VLAN110
+network 10.10.0.0 255.255.255.0
+dns-server 8.8.8.8
+default routeur 10.10.0.1
+
+• Exclusion DHCP
+ipdhcp excluded-address[1rst address] [last address]
+
+• Relais DHCP
+int vl 10
+ip helper-address 10.0.0.1 (adresse du DHCP...)
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+		## OSPF ##
+
+
+Protocole de routage dynamique
+déclarer mask en wildcard (ici 255.255.255.252 = 0.0.0.3 ( /30 )
+
+en 
+conf t
+router ospf 1
+network 9.9.9.24 0.0.0.3 area 0
+network 9.9.9.36 0.0.0.3 area 0
+network 9.9.9.20 0.0.0.3 area 0
+network 9.9.9.28 0.0.0.3 area 0
+network 9.9.9.32 0.0.0.3 area 0 
+passive interface
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+		## NAT ##
+
+
+NAT DYNAIQUE AVEC SURCHARGE
+
+ip nat outside
+ip nat inside 
+acecess-list 1 permit  172.16.0.128 0.0.0.15
+ip nat inside source list 1 interface f0/1 overload
+
+
+PORT FORWARDING (D-NAT)
+
+ip nat outside
+ip nat inside 
+acces-list 2 permit tcp any any eq 80
+ip nat inside source static tcp 192.168.10.1 80 9.9.9.34 80
+
+show ip nat translation
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+
+		## HSRP ## 
+
+
+Le HSRP permet de faire apparaitre pour l'utilisateur une seule passerelle alors qu'il y au moins deux routeurs (ou plus)
+qui servent de backup. La priorité la plus haute définit le routeur actif.
+
+
+• Active → routeur qui gère le trafic (celui avec la plus haute priorité).
+
+• Standby → routeur prêt à prendre le relais immédiatement si l’actif tombe.
+
+• Listen → les autres routeurs du groupe HSRP (s’il y en a plus de deux). Ils écoutent les messages HSRP mais ne sont ni actifs ni standby.
+
+
+• "preempt" permet de redevenir actif si le routeur reprend le dessus.
+
+
+
+
+
+# Exemple pour 3 routeurs :
+
+
+• Routeur 1 (actif pour LAN interne)
+
+interface GigabitEthernet0/0/0
+ ip address 172.30.128.1 255.255.255.0
+ standby 1 ip 172.30.128.254
+ standby 1 priority 120
+ standby 1 preempt
+ standby 1 description HSRP-LAN
+ no shutdown
+
+
+• Routeur 2 (standby)
+
+interface GigabitEthernet0/0/0
+ ip address 172.30.128.2 255.255.255.0
+ standby 1 ip 172.30.128.254
+ standby 1 priority 110
+ standby 1 preempt
+ standby 1 description HSRP-LAN
+ no shutdown
+
+
+• Routeur 3 (stanby / en écoute / backup)
+
+interface GigabitEthernet0/0/0
+ ip address 172.30.128.3 255.255.255.0
+ standby 1 ip 172.30.128.254
+ standby 1 priority 100
+ standby 1 preempt
+ standby 1 description HSRP-LAN
+ no shutdown
+
+
+Vérifier si HSRP HSRP est bien activé
+
+show standby
+show standby brief
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+
+		##  🔧 Commandes de réinitialisation 🔧 ##
+
+
+• Mode usine switch/routeur:
+	erase startup-config
+
+• Mode usine switch/routeur: (ne sais pas la diff&rence)
+	write erase
+
+• Réinitialiser une interface:
+	default int gi 0/1
+
+• Supprimmer un VLAN
+	no vlan 10
+
+• Supprimer toutes les VLANs
+	delete vlan.dat
+
+• Supprimer adresse interface
+	in g0/0
+	no ip address
+
+• Supprimer une route
+	no ip route 192.168.11.0 255.255.255.0 209.165.200.225
+
+• Supprimer toutes les routes (⚠️Static et dynamique)
+	clear ip route * fonctionne pas...
+
+Pour supprimer complètement le STP il faut le supprimer sur tout les VLANs (même le VLAN 1)
+• Désactiver STP sur tout le switch
+	no spanning-tree mode 
+
+• Désactiver STP sur un VLAN
+	no spanning-tree vlan <ID_VLAN>
+
+• désactiver un port channel
+no int po 2
+
+
+
+-----------------------------------------------------------------------------------------------
+Trunk couche de nv 2
+Routage couche de nv3
