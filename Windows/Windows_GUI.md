@@ -2,39 +2,39 @@
 # Raccourcis clavier utiles
 
 ### Ajouter un bureau virtuel
-```
+
 🪟 + `ctrl` + `d`
-```
+
 
 
 ### Naviguer entre les bureaux virtuels
-```
+
 🪟 + `ctrl` + `→` ou `←`
-```
+
 
 
 ### Fermer les bureaux virtuels
-```
+
 🪟 + `Tab`
-```
+
 
 
 ### Retour bureau immédiat
-```
+
 🪟 + `d`
-```
+
 
 
 ### Rouvrir un onglet fermé sur navigateur
-```
+
 `ctrl` + `Maj` + `T`
-```
+
 
 
 ### Rouvrir les fenêtres d'un navigateur fermé
-```
+
 `ctrl` + `Shift` + `T`
-```
+
 
 
 
