@@ -3,43 +3,44 @@
 
 ### Ajouter un bureau virtuel
 ```
-🪟 + ctrl + d
+🪟 + `ctrl` + `d`
 ```
 
 
 ### Naviguer entre les bureaux virtuels
 ```
-🪟 + ctrl + → ou ←
+🪟 + `ctrl` + `→` ou `←`
 ```
 
 
 ### Fermer les bureaux virtuels
 ```
-🪟 + Tab
+🪟 + `Tab`
 ```
 
 
 ### Retour bureau immédiat
 ```
-🪟 + d
+🪟 + `d`
 ```
 
 
 ### Rouvrir un onglet fermé sur navigateur
 ```
-ctrl + Maj + T
+`ctrl` + `Maj` + `T`
 ```
 
 
 ### Rouvrir les fenêtres d'un navigateur fermé
 ```
-ctrl + Shift + T
+`ctrl` + `Shift` + `T`
 ```
 
 
 
 
 -----------------------------------------------------------------
+
 
 
 
@@ -68,7 +69,7 @@ C:\Users\<user>\AppData\Local\IconCache.db
 
 
 
-## Changer la cible d'un raccourci
+### Changer la cible d'un raccourci
 * Dans la cible d'un raccourci ajouter par exemple
 ```bat
 cmd.exe /c echo "action douteuse" "chemin\vers\le\fichier\normal"
@@ -99,3 +100,57 @@ Invoke-Item "C:\Users\User1\Documents\*.xls"
 ```powershell
 ii  '.\CPUID HWMonitor.lnk'
 ```
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+
+
+# Activer wsl
+
+```powershell
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+
+### Vérifier les services Hyper-V sont actif
+```powershell
+Get-Service hns, vmcompute
+```
+
+### Démarrer les services inactifs
+```powershell
+Start-Service vmcompute
+Start-Service hns
+```
+
+
+### Lister les distributions disponibles pour WSL
+```powershell
+wsl --list --online
+```
+
+
+### Installer Debian
+```powershell
+wsl --install -d Debian
+```
+Faire `wsl` dans le terminal powershell pour accéder de nouveau à wsl
+
+
+
+### Désinstaller une version de WSL (ex : Ubuntu)
+```powershell
+wsl --unregister Ubuntu
+```
+
+
+### Désactiver WSL complètement
+```powershell
+dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux /norestart
+```
+puis redémarrer
