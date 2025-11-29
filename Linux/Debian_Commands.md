@@ -102,7 +102,7 @@ source .bashrc (rajouter ~/ si pas dans le répertoire utilisateur : source ~/.b
 ```
 
 
-## autre aide possible
+### autre aide possible
 ```bash
 tldr grep
 ```
@@ -117,10 +117,27 @@ alias ll="ls -la | awk 'NR==1 {print; next} {printf \"%s | %s | %s | %s  %2s %3s
 __Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh que non)__
 
 
+
+
+
+
+### Pour l'erreur sur kali :
+"Warning: Impossible de récupérer http://http.kali.org/kali/dists/kali-rolling/InRelease  Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 827C8569F2JVTE78JYD68EJVEJ4Q48WA, which is needed to verify signature."
+
+### Importer la nouvelle clé manquante du dépôt Kali
+```zsh
+sudo apt install curl -y
+curl -fsSL https://archive.kali.org/archive-key.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/kali-archive.gpg > /dev/null
+```
+
+
 ### Modifier le fichier history dans zsh (fermer le terminal pour que les dernières commandes soient prisent en compte)
-```sh
+```zsh
 sudo nano ~/.zsh_history
 ```
+
+
+
 
 ---
 ---
@@ -161,7 +178,8 @@ ip neigh show
 ```bash
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
-net.ipv6.conf.lo.disable_ipv6 = 1puis alliquer modif : sysctl -p
+net.ipv6.conf.lo.disable_ipv6 = 1 
+sysctl -p # recharger pour appliquer les modifs
 ```
 
 ### Afficher les ports en écoute (-t: TCP | -u: UDP | -l: Ports en écoute | -n: Ne pas résoudre les noms | -p: processus associés)

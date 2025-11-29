@@ -107,6 +107,9 @@ sudo netplan apply
 ```
 
 
+
+
+
 ## Installation des outils
 
 ```bash
@@ -166,6 +169,9 @@ ln -s /opt/dotnet/dotnet /usr/bin/dotnet
 # Vérifier que tout fonctionne
 dotnet --version
 ```
+
+
+
 
 ## Lancer VulnerableLightApp
 ```bash
