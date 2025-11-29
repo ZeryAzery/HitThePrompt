@@ -56,7 +56,7 @@ Elles empêche d'affecter une valeur incorrecte
 ###  ☝️ Structures conditionnelles
 Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 
-| 🔧 Mot-clé |  Description                                |  Exemple |
+|  Mot-clé |  Description                                |  Exemple |
 |-----------|-----------------------------------------------|------------|
 | `if`        | Exécute bloc de code si condition vraie       | if ($x -gt 10) { Write-Host "Plus grand que 10" } |
 | `elseif`    | Vérifie autre condition si if est faux        | elseif ($x -eq 10) { Write-Host "C'est 10" } |
@@ -108,7 +108,7 @@ Dans ce cas Powershell interprêtera else comme une commande à part entière et
 ### 🔄 Boucles (itérations)
 Ces structures permettent de répéter une action plusieurs fois.
 
-| 🔧 Mot-clé     | 👉 Description                                |  Exemple |
+|  Mot-clé     |  Description                                |  Exemple |
 |---------------|-----------------------------------------------|------------|
 | `while`         | Répète tant que la condition est vraie        | while ($x -lt 5) { $x++ } |
 | `do { } while`  | Exécute au moins une fois avant de tester     | do { $x++ } while ($x -lt 5) |
@@ -126,7 +126,7 @@ Ces structures permettent de répéter une action plusieurs fois.
 ### 🔁 Saut de boucle / sortie de script
 Ces mots-clés servent à interrompre ou passer une itération.
 
-| 🔧 Mot-clé | 👉 Description                            |  Exemple |
+|  Mot-clé |  Description                            |  Exemple |
 |-----------|-------------------------------------------|------------|
 | `break`     | Arrête complètement la boucle             | if ($x -eq 5) { break } |
 | `continue`  | Passe à l'itération suivante              | if ($x -eq 5) { continue } |
@@ -145,7 +145,7 @@ Ces mots-clés servent à interrompre ou passer une itération.
 ### ⚠️ Gestion des erreurs (Try-Catch)
 Ces structures permettent de gérer les erreurs sans planter le script.
 
-| 🔧 Mot-clé  | 👉 Description                               |  Exemple                           |
+|  Mot-clé  |  Description                               |  Exemple                           |
 |-------------|-----------------------------------------------|----------------------------------------|
 | `try`         | Définit un bloc de code à tester              | try { Get-Item "C:\fichier.txt" }      |
 | `catch`       | Capture erreur et exécute code alternatif     | catch { Write-Host "Erreur détectée" } |
