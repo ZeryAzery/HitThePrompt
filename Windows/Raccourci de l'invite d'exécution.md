@@ -5,12 +5,10 @@
 | `tpm.msc`            | Gestion du module de plateforme sécurisée (TPM)               |
 | `mstsc`              | Connexion Bureau à distance                                   |
 | `taskschd.msc`       | Planificateur de tâches                                       |
-
-| `msinfo32`           | Information systèmes                                          |
 | `firewall.cpl`       | Paramètres du Pare-feu Windows                                |
 | `wf.msc`             | Pare-feu Windows avec fonctions avancées                      |
 | `lusrrmgr.msc`       | Gestion des utilisateurs et groupes locaux                    |
-
+| `ncpa.cpl`           | Connexions réseau                                             |
 | `msconfig`           | Configuration du système (démarrage, services, etc.)          |
 | `control`            | Panneau de configuration classique                            |
 | `appwiz.cpl`         | Programmes et fonctionnalités                                 |
@@ -27,23 +25,20 @@
 | `printmanagement.msc` | Gestionnaire d'impression/drivers                            |
 | `services.msc`       | Console de gestion des services                               |
 | `devmgmt.msc`        | Gestionnaire de périphériques                                 |
-
 | `diskmgmt.msc`       | Gestion des disques                                           |
 | `netplwiz`           | Paramètres avancés des comptes utilisateurs                   |
-| `ncpa.cpl`           | Connexions réseau                                             |
 | `inetcpl.cpl`        | Options Internet                                              |
 | `powercfg.cpl`       | Options d’alimentation                                        |
 | `mmsys.cpl`          | Paramètres de son                                             |
 | `main.cpl`           | Propriétés de la souris                                       |
 | `control printers`   | Périphériques et imprimantes                                  |
 | `shell:startup`      | Dossier des programmes de démarrage de l’utilisateur         |
-
 | `slmgr`              | Windows Software Licensing Management Tool                    |
 | `certmgr.msc`        | Gestionnaire de certificats                                   |
 | `hdwwiz.cpl`         | Assistant d’ajout de matériel (identique devmgmt ?)           |
 | `perfmon`            | Moniteur de performance                                       |
 | `dxdiag`             | Outil de diagnostic DirectX                                   |
-
+| `msinfo32`           | Information systèmes                                          |
 
 
 ## Active Directory :
