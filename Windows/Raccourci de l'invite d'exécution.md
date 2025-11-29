@@ -79,7 +79,4 @@
 
 
 
-- [ ] citronade
-- [x] betterave
-- [ ] confiture
 
