@@ -39,12 +39,12 @@ Elles empêche d'affecter une valeur incorrecte
 
 | Type | Description | Exemple |
 | --------| -------- | ------------ | 
-| [string] |	Chaîne de caractères (texte) | [string]$Nom = "Toto" |
-| [int]	| 	Nombre entier			| 	[int]$Age = 30
-| [array]	| 	Tableau (liste de valeurs)	| 	[array]$Couleurs = @("Rouge", "Bleu", "Vert")
-| [bool]	| 	Booléen (Vrai/Faux)		| 	[bool]$Actif = $true
-| [double] | 	Nombre décimal		| 		[double]$Prix = 19.99
-| [datetime] | 	Date et heure		| 		[datetime]$Maintenant = Get-Date
+| `[string]` |	Chaîne de caractères (texte) | [string]$Nom = "Toto" |
+| `[int]`	| 	Nombre entier			| 	[int]$Age = 30
+| `[array]`	| 	Tableau (liste de valeurs)	| 	[array]$Couleurs = @("Rouge", "Bleu", "Vert")
+| `[bool]`	| 	Booléen (Vrai/Faux)		| 	[bool]$Actif = $true
+| `[double]` | 	Nombre décimal		| 		[double]$Prix = 19.99
+| `[datetime]` | 	Date et heure		| 		[datetime]$Maintenant = Get-Date
 
 
 
