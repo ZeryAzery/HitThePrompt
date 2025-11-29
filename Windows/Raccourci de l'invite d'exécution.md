@@ -2,7 +2,6 @@
 
 | Commande             | Ouvre...                                                      |
 |----------------------|---------------------------------------------------------------|
-| `tpm.msc`            | Gestion du module de plateforme sécurisée (TPM)               |
 | `mstsc`              | Connexion Bureau à distance                                   |
 | `taskschd.msc`       | Planificateur de tâches                                       |
 | `firewall.cpl`       | Paramètres du Pare-feu Windows                                |
@@ -39,7 +38,7 @@
 | `perfmon`            | Moniteur de performance                                       |
 | `dxdiag`             | Outil de diagnostic DirectX                                   |
 | `msinfo32`           | Information systèmes                                          |
-
+| `tpm.msc`            | Gestion du module de plateforme sécurisée (TPM)               |
 
 ## Active Directory :
 
