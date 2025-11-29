@@ -55,11 +55,9 @@ Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 | `else`      | Exécute bloc si aucune condition remplie      | else { Write-Host "C'est plus petit" } |
 | `switch`    | Alternative à plusieurs if                    | switch ($x) { 1 { "Un" }; 2 { "Deux" } } |
 
-> [!IMPORTANT]  
-> else n'a jamais de conditions derrière !
-
-> [!TIP]
-> switch peut utiliser "Default" pour gérer les erreurs comme dans cet exemple :
+> [!TIP]  
+> * else n'a jamais de conditions derrière !
+> * switch peut utiliser "Default" pour gérer les erreurs comme dans cet exemple :
 
 
 __Exemple de `switch`__
