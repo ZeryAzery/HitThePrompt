@@ -520,24 +520,33 @@ Get-FileHash .\Fichier\
 ```
 
 
+
 ### Choisir l'algorithme
 ```powershel			
 Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
 
 
-### Vérifier la différence entre deux string
+
+### Vérifier la différence entre deux hash
 ```powershel
-"Bonjour" -ne "Salut"
+$h1 = (Get-FileHash 'C:\Users\Toto\Desktop\debian13.iso').hash
+$h2 = (Get-FileHash 'C:\Users\Toto\Download\debian13.iso').hash
+```
+```powershell
+$h1 -eq $h2
 ```
 
+
+
+
 ---
 ---
 
 
 
 
-# 🔍 Rechercher un fichier ou un dossier  🔍
+# 🔍 Rechercher des fichiers/dossiers  🔍
 
 
 * Utiliser `Get-ChildItem`
@@ -558,9 +567,16 @@ Get-ChildItem -Path C:\ -Directory -Recurse -Force -ErrorAction SilentlyContinue
 ```powershell
 Get-ChildItem -Path E:\ -Filter *.md -Recurse
 ```
-- -Filter *.md → cherche les fichiers finissant par `.md`
 
+- -Filter *.md → cherche les fichiers finissant par `.md`
 - -Recurse → descend dans tous les sous-dossiers
+
+
+
+### Chercher sur plusieurs extensions
+```powershell
+gci C:\Users\ -Recurse -Include *.pst, *.ost -ErrorAction SilentlyContinue
+```
 
 
 
@@ -568,6 +584,7 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse
 ```powershell
 Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty FullName
 ```
+
 
 
 
@@ -620,6 +637,7 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 ---
+---
 
 
 
@@ -640,6 +658,9 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 ---
+---
+
+
 
 
 
@@ -915,3 +936,9 @@ Get-ADUser -Identity R.PETIT -Properties LastLogonDate
 Rename-Computer -ComputerName "DESKTOP-SQ5RDA2" -NewName "LENV15-2130" -DomainCredential (Get-Credential) -Restart
 ```
 
+
+
+### Ouvrir un nouveau terminal pour exécuter "en tant que"
+```bat
+runas /user:DOMAINE\MonCompteAD "cmd.exe"
+```

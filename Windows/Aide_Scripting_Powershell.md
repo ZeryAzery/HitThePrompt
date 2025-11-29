@@ -63,6 +63,7 @@ Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 | `else`      | Exécute bloc si aucune condition remplie      | else { Write-Host "C'est plus petit" } |
 | `switch`    | Alternative à plusieurs if                    | switch ($x) { 1 { "Un" }; 2 { "Deux" } } |
 
+
 > [!TIP]  
 > switch peut utiliser "Default" pour gérer les erreurs comme dans cet exemple :
 
@@ -75,6 +76,8 @@ switch ($usrvalue)
     Default { Write-Host Entree invalide }
 }      
 ```
+
+
 > [!IMPORTANT]
 > `else` n'a jamais de conditions derrière ! 
 > Et PowerShell attend obligatoirement cette syntaxe pour `else` :
@@ -87,7 +90,8 @@ if ((5 -gt 3) -eq $true) {
     Write-Host "C'est faux"
 }
 ```
-❌ Contrairement au C#, Python ou JS on ne peut pas faire :
+
+❌ Contrairement aux langages C, C#, Python ou JS on ne peut pas faire :
 ```powershell
 if ((5 -gt 3) -eq $true) { 
     Write-Host "C'est vrai"
@@ -96,7 +100,7 @@ else {
     Write-Host "C'est faux"
 }
 ```
-Dans ce cas Powershell interprêtera else comme une commande à part entière et génèrera une erreur
+Dans ce cas Powershell interprêtera else comme une commande à part entière et génèrera une erreur.
 
 
 
