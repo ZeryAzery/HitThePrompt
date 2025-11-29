@@ -59,8 +59,6 @@ Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 > * else n'a jamais de conditions derrière !
 > * switch peut utiliser "Default" pour gérer les erreurs comme dans cet exemple :
 
-
-__Exemple de `switch`__
 ```powershell
 $usrvalue = Read-Host "Indiquer un numéro pour lancer un logiciel"
 switch ($usrvalue)
