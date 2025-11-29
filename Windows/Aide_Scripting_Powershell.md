@@ -11,7 +11,7 @@ Get-WmiObject Win32_ComputerSystem | gm
 
 
 
-## ⛔ Passer outre la politique d'exécution des scripts
+### ⛔ Passer outre la politique d'exécution des scripts
 ```powershell
 Get-Content test.ps1 | iex
 ```
@@ -24,11 +24,12 @@ Set-ExecutionPolicy -Scope Process Bypass
 ```
 
 
+---
+---
 
 
 
-
-## 📍 Principaux types de données en PowerShell
+### 📍 Principaux types de données en PowerShell
 Elles empêche d'affecter une valeur incorrecte
 
 | Type | Description | Exemple |
@@ -42,10 +43,12 @@ Elles empêche d'affecter une valeur incorrecte
 
 
 
+---
+---
 
 
 
-##  ☝️ Structures conditionnelles
+###  ☝️ Structures conditionnelles
 Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 
 | 🔧 Mot-clé |  Description                                |  Exemple |
@@ -70,10 +73,12 @@ switch ($usrvalue)
 ```
 
 
+---
+---
 
 
 
-## 🔄 Boucles (itérations)
+### 🔄 Boucles (itérations)
 Ces structures permettent de répéter une action plusieurs fois.
 
 | 🔧 Mot-clé     | 👉 Description                                |  Exemple |
@@ -85,12 +90,13 @@ Ces structures permettent de répéter une action plusieurs fois.
 
 
 
+---
+---
 
 
 
 
-
-## 🔁 Saut de boucle / sortie de script
+### 🔁 Saut de boucle / sortie de script
 Ces mots-clés servent à interrompre ou passer une itération.
 
 | 🔧 Mot-clé | 👉 Description                            |  Exemple |
@@ -103,12 +109,13 @@ Ces mots-clés servent à interrompre ou passer une itération.
 
 
 
+---
+---
 
 
 
 
-
-## ⚠️ Gestion des erreurs (Try-Catch)
+### ⚠️ Gestion des erreurs (Try-Catch)
 Ces structures permettent de gérer les erreurs sans planter le script.
 
 | 🔧 Mot-clé  | 👉 Description                               |  Exemple                           |
