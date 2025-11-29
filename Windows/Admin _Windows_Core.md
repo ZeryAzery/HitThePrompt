@@ -5,6 +5,8 @@
 
 * Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
 
+
+
 ## 🔰 Commandes de base 🔰
 
 
@@ -18,11 +20,6 @@ sconfig
 Get-Command *hash*
 ```
 
-
-### Allonger la période d'essai Windows
-```powershell
-slmgr.vbs -rearm
-```
 
 
 ### Renommer la machine :
@@ -56,31 +53,9 @@ hostname
 ### Réinitialiser son mot de passe
 ```bat
 net user Administrateur *
-```
-
-
-### Réinitialiser son MDP	sur domaine
-```bat
 net user  /domain administrateur *
 ```
 
-
-### Arréter un processus
-```powershell
-Stop-Process -Id 2960
-```
-
-
-### Créer un fichier ou écrase ancien
-```powershell
-Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
-```
-
-
-### Ajouter du texte à un fichier existant
-```powershell
-Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
-```
 
 
 ### Addon VBox, monter iso puis (Semble inutile sur un serveur core) :	
@@ -90,11 +65,6 @@ VBoxWidowsAdditions-amd64.exe
 ```
 
 
-### tester l'écoute d'un port
-```powershell		
-Test-NetConnection -ComputerName localhost -Port 389
-```
-
 
 ### Élément graphique sur serveur core 2025
 ```powershell
@@ -102,20 +72,19 @@ Add-WindowsCapability -Online -Name ServerCore.AppCompatibility
 virtmgmt.msc
 ```
 
+
 ### Se servir de l'aide dans powershell
+Télécharger les fichiers d'aide
 ```powershell
-# Télécharger les fichiers d'aide :
 Update-Help 
 ```
 
-
-### Afficher l'aide pour `Get-Process`
+Afficher l'aide pour `Get-Process`
 ```powershell
 Get-Help Get-Process
 ```
 
-
-### Afficher les aides dans une fenêtre :
+Afficher les aides dans une fenêtre :
 ```powershell
 Get-Help Unlock-BitLocker -ShowWindow
 ```
@@ -123,7 +92,7 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 ## Windows Software Licensing Management Tool
 
-| Commande                | Ouvre...                                                      |
+| Commande                | ...                                                      |
 |-------------------------|---------------------------------------------------------------|
 | `slmgr.vbs -rearm`      | Allonger la période d'essai Windows                           |
 | `slmgr /xpr`            | Affiche si Windows est activé de façon permanente ou non      |
@@ -146,13 +115,13 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 # 🍴 Point de restauration 🍴
 
-### Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où `-Value 0` = 0 minutes)
+__Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où `-Value 0` = 0 minutes)__
 ```powershell
 New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore" -Name "SystemRestorePointCreationFrequency" -Value 0 -PropertyType DWord -Force
 ```
 
 
-### Création d'un point de restauration
+__Création d'un point de restauration__
 ```powershell
 Enable-ComputerRestore -Drive "C:\"
 Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTINGS"
@@ -173,8 +142,20 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 ### Information réseau détaillée
 ```powershell
+Get-NetIPConfiguration
 gip -Detailed
 ```
+
+
+### Choix de la carte réseau pour un ping (où IP source = carte réseau souhaitée)
+```powershell
+Test-Connection -ComputerName 192.168.51.253 -Source 192.168.51.245
+```
+version bat 
+```bat
+ping -S 192.168.51.245 192.168.51.253
+```
+
 
 
 ### Afficher les cartes réseau
@@ -273,6 +254,13 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 ```
 
 
+### tester l'écoute d'un port
+```powershell		
+Test-NetConnection -ComputerName localhost -Port 389
+```
+
+
+
 
 
 ---
@@ -334,6 +322,51 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
+---
+---
+
+
+
+
+
+# Gestion des processus 
+
+
+### Afficher les processus en cours 
+```powershell
+Get-Process
+```
+
+
+### Chercher avec wildcard
+```powershell
+Get-Process *green*
+```
+
+
+### Afficher les modules d'un processus
+```powershell
+(Get-Process -name Greenshot).Modules
+```
+
+
+### stopper un processus
+```powershell
+Get-Process | Where-Object { $_.Name -like '*Greenshot*' } | Stop-Process
+
+Get-Process GreenShot | Stop-Process -Confirm
+
+Get-Process GreenShot | Stop-Process -Force
+```
+
+### Arréter un processus avec son Id
+```powershell
+Stop-Process -Id 2960
+```
+
+
+
+
 
 ---
 ---
@@ -384,6 +417,19 @@ echo "salut ligne 2" >> .\Compta\toto.txt
 ```
 
 
+### Créer un fichier ou écrase ancien
+```powershell
+Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
+```
+
+
+### Ajouter du texte à un fichier existant
+```powershell
+Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
+```
+
+
+
 ### Renommer un fichier avec move
 ```batch
 mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
@@ -413,6 +459,49 @@ Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 ```powershell
 Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 ```
+
+
+### Créer un lien entre deux fichiers ou dossiers (cmd)
+```bat
+mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
+```
+* Cré un dossier 'USB' sur le bureau et ne sera accessible que si 'E:\' est joignable
+* mklink va créer le dossier "USB" mais la destination doit déjà exister
+
+
+
+
+---
+---
+
+
+
+
+
+# Sortie d'une commande dans un fichier 
+
+
+### rediriger le résultat d'une commande dans un fichier .csv existant 
+```bat
+[<commande>] > C:\Users\admazie\Desktop\User_OfficeE1.csv
+```
+
+
+### Rediriger le résultat d'une commande dans un fichier .csv non existant (Le dossier de destination doit quand même exister)
+```powershell
+[<commande>] | Export-Csv -Path  "C:\Users\admintoto\Desktop\lastlogon_active_users.csv" -NoTypeInformation -Encoding UTF8 -Delimiter ';'
+```
+
+* `-NoTypeInformation` évite la ligne #TYPE ... en haut du CSV.
+* `-Delimiter` ';' permet (dans la version française d'Excel) d'avoir le résultat dans des colonnes 
+
+### Rediriger le résultat d'une commande dans un fichier .csv non existant avec un chemin UNC
+```powershell
+[<commande>] | Export-Csv "\\192.168.64.60\C$\Users\toto\OneDrive - NEOPIX STUDIO\Desktop\LastLogonActiveUsers.csv" -NoTypeInformation -Encoding UTF8
+```
+
+
+
 
 
 
@@ -704,6 +793,18 @@ Get-Content "$env:ProgramData\ssh\sshd_config" | Select-String "^Port"
 ### Afficher la règle, port local et protocole 	
 ```powershell
 Get-NetFirewallRule -Name *ssh* | Get-NetFirewallPortFilter | Format-Table Name, LocalPort, Protocol
+```
+
+
+### Choix de l'interface pour SSH (`-b` IP Interface src)
+```bat
+ssh -b 192.168.51.245 admin@192.168.51.253
+```
+
+### Forcer SSH à utiliser SHA1 (n'est plus sécurisé aujourd'hui)
+Sur certains vieux endpoint il faut se connecter de cette façon...
+```bat
+ssh -b 192.168.64.60 -oKexAlgorithms=+diffie-hellman-group14-sha1 admin@192.168.51.254
 ```
 
 

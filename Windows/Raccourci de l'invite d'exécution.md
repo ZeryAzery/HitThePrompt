@@ -18,13 +18,13 @@
 | `compmgmt.msc`       | Gestion de l’ordinateur (utilisateurs, disques, événements)   |
 | `sysprep`            | Outil de préparation du système (déploiement)                 |
 | `secpol.msc`         | Stratégies de sécurité locale                                 |
+
 | `regedit`            | Éditeur du Registre                                           |
 | `mmc`                | Console de gestion Microsoft                                  |
 | `taskmgr`            | Gestionnaire des tâches                                       |
 | `optionalfeatures`   | Fonctionnalités Windows à activer ou désactiver               |
 | `eventvwr.msc`       | Observateur d’événements                                      |
-| `rsop.msc`           | Jeu résultant de la stratégie (RSOP)                          |
-| `gpmc.msc`           | Console de gestion des stratégies de groupe (GPMC)            |
+| `rsop.msc`           | Jeu résultant de la stratégie locale                          |
 | `services.msc`       | Console de gestion des services                               |
 | `devmgmt.msc`        | Gestionnaire de périphériques                                 |
 | `hdwwiz.cpl`         | Assistant d’ajout de matériel (identique devmgmt ?)           |
@@ -52,6 +52,25 @@
 | `virtmgmt.msc`       |  Gestionnaire Hyper-V                                         |
 | `gpedit.msc`         |  Gestionnaire de stratégies de groupe                         |
 | `adsiedit.msc`       |  Modification ADSI                                         |
+| `gpmc.msc`           | Console de gestion des stratégies de groupe (GPMC)            |
  
 
+
+## Utiliser les variables d'environnement 
+
+| Chemin / Dossier                       | Variable                            |
+| -------------------------------------- | ----------------------------------- |
+| C:\WINDOWS                             | `%systemroot%` ou  `%windir%` |
+| C:\Users\Axel\AppData\Local\Temp       | `%temp%` |
+| C:\ProgramData                         | `%ProgramData%` |  
+| C:\Users\Axel                          | `%userprofile%`                     |
+| C:\Users\Axel\Documents                | `%userprofile%\Documents`           |
+| C:\Users\Axel\AppData\Roaming          | `%appdata%`                         |
+| C:\Users\Axel\Desktop                  | `%userprofile%\Desktop`             |
+| C:\Program Files                       | `%ProgramFiles%`                    |
+| C:\Program Files (x86)                 | `%ProgramFiles(x86)%`               |
+| C:\Windows\System32                    | `%systemroot%\System32`             |
+| Dossier système 64-bits                | `%windir%\System32`                 |
+| Dossier système 32-bits sur OS 64-bits | `%windir%\SysWOW64`                 |
+| Chemin complet du serveur DNS          | `%SystemRoot%\System32\drivers\etc` |
 
