@@ -19,15 +19,43 @@ reboot
 sudo hostnamectl set-hostname nouveau_nom
 ```
 
-## Installation des outils
 
-```bash
-sudo apt search net-tools
-sudo apt install net-tools
-sudo apt install binutils
-sudo apt install wireshark
-sudo apt install gparted
+## Étendre LVM et système de fichiers
+
+LVM = Logical Volume Manager (PV + VG + LV)
+
+* PV (Physical Volume) : C’est la couche la plus basse. Il s’agit d’une partition ou d’un disque physique
+* VG (Volume Group) : C’est un pool de stockage obtenu en regroupant un ou plusieurs PV. Le VG représente l’espace total disponible pour créer des volumes.
+* LV (Logical Volume) : C’est l’équivalent d’une partition, mais créée à l’intérieur d’un volume group.
+
+
+### Étendre PV LVM pour qu’il voit tout l’espace de /dev/sda3
+```sh
+sudo pvresize /dev/sda3
 ```
+
+
+### Vérifier l'espace libre dans le VG
+```sh
+sudo vgs
+```
+
+
+### Étendre le volume logique pour utiliser tout l’espace libre du VG
+```sh
+sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+```
+
+
+### Étendre le filesystem ext4
+```sh
+sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
+```
+
+
+
+
+
 
 ## Config réseau statique
 
@@ -57,6 +85,9 @@ network:
 sudo netplan apply
 ```
 
+
+
+
 ## Config réseau DHCP
 
 ```bash
@@ -74,6 +105,20 @@ network:
 ```bash
 sudo netplan apply
 ```
+
+
+## Installation des outils
+
+```bash
+sudo apt search net-tools
+sudo apt install net-tools
+sudo apt install binutils
+sudo apt install wireshark
+sudo apt install gparted
+```
+
+
+
 ## Installer Github
 
 ```bash
@@ -98,6 +143,8 @@ sudo apt install gh -y
 # Vérifier l'installation
 gh --version
 ```
+
+
 
 ## Télécharger VulnerableLightApp sur Github
 ```bash

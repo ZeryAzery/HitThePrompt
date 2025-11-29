@@ -55,10 +55,29 @@ su -l #(donne plus de privilèges)
 echo $SHELL
 ```
 
+
+## Nom de la distribution + version
+```shell
+cat /etc/os-release
+```
+
+## Nom du système + architecture
+```shell
+uname -a
+```
+
+
 ### Version du Kernel :
 ```bash
 uname -r
 ```
+
+## Architecture du processeur
+```shell
+uname -m
+```
+
+
 
 ### Version de Debian :
 ```bash 
@@ -83,6 +102,12 @@ source .bashrc (rajouter ~/ si pas dans le répertoire utilisateur : source ~/.b
 ```
 
 
+## autre aide possible
+```bash
+tldr grep
+```
+
+
 ### Créer un alias de ls -la pour les vieux (comme moi) qui n'arrivent pas à lire les permissions. 
 J'aurais souhaité que Linus Torvald implémente ça directement dans le kernel Linux mais lui devait surement bien voir du coup il s'en fout 
 
@@ -92,7 +117,10 @@ alias ll="ls -la | awk 'NR==1 {print; next} {printf \"%s | %s | %s | %s  %2s %3s
 __Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh que non)__
 
 
-
+### Modifier le fichier history dans zsh (fermer le terminal pour que les dernières commandes soient prisent en compte)
+```sh
+sudo nano ~/.zsh_history
+```
 
 ---
 ---
