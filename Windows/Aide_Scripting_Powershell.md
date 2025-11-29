@@ -1,7 +1,7 @@
 # Aide au Scripting Powershell
 
 
-### Afficher les méthodes et propriétés d'un objet avec `| gm`
+### ©️ Afficher les méthodes et propriétés d'un objet avec `| gm`
 ```powershel
 Get-WmiObject Win32_ComputerSystem | gm
 ```
