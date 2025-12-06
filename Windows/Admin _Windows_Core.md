@@ -113,12 +113,11 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 
 
-
-
----
 ---
 
 
+
+<br>
 
 
 
@@ -138,11 +137,11 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 
-
----
 ---
 
 
+
+<br>
 
 
 
@@ -270,12 +269,11 @@ Test-NetConnection -ComputerName localhost -Port 389
 
 
 
-
-
----
 ---
 
 
+
+<br>
 
 
 
@@ -330,11 +328,11 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
-
----
 ---
 
 
+
+<br>
 
 
 
@@ -375,12 +373,11 @@ Stop-Process -Id 2960
 
 
 
-
-
----
 ---
 
 
+
+<br>
 
 
 
@@ -479,11 +476,11 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
-
----
 ---
 
 
+
+<br>
 
 
 
@@ -511,13 +508,11 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
-
-
-
----
 ---
 
 
+
+<br>
 
 
 
@@ -548,13 +543,13 @@ $h1 -eq $h2
 ```
 
 
-<br>
-
 
 ---
 
 
+
 <br>
+
 
 
 # 🔍 Rechercher des fichiers/dossiers  🔍
@@ -597,13 +592,13 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 ```
 
 
-<br>
-
 
 ---
 
 
+
 <br>
+
 
 
 # 📇 Affichage/recherche du contenu d'un fichier 📇
@@ -668,13 +663,13 @@ Format-List
 ```
 
 
-<br>
-
 
 ---
 
 
+
 <br>
+
 
 
 ## Formats de fichiers que Powershell peut utiliser:
@@ -691,13 +686,13 @@ Format-List
 
 
 
-<br>
-
 
 ---
 
 
+
 <br>
+
 
 
 ## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
@@ -713,8 +708,10 @@ Add-Type -AssemblyName System.Web
 
 
 ---
----
 
+
+
+<br>
 
 
 
@@ -746,10 +743,11 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 
-
----
 ---
 
+
+
+<br>
 
 
 
@@ -795,8 +793,10 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 
 
 ---
----
 
+
+
+<br>
 
 
 
@@ -872,10 +872,11 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 
-
----
 ---
 
+
+
+<br>
 
 
 
@@ -974,9 +975,11 @@ Rename-Computer -ComputerName "DESKTOP-SQ5RDA2" -NewName "LENV15-2130" -DomainCr
 
 
 
-
 ---
 
+
+
+<br>
 
 
 
