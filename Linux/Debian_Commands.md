@@ -1,7 +1,8 @@
 # Debian commands
 
+---
 
-
+<br>
 
 ## 🔰 Commandes de bases
 
@@ -140,7 +141,10 @@ sudo nano ~/.zsh_history
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -200,7 +204,10 @@ lsof -i -P -n | grep LISTEN
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -322,7 +329,10 @@ scp -P 6666 aliasll.sh Toto@10.0.0.6:/home/Toto
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -442,7 +452,10 @@ sudo smbstatus
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -479,7 +492,10 @@ grep -Ei "error|fail|denied" /etc/server.log
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -496,7 +512,10 @@ find ./ -type f -name "*test*"
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -549,7 +568,10 @@ chmod -t Archives
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -591,7 +613,10 @@ apt autoremove --purge nom_package
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -677,7 +702,10 @@ ssh -p 4444 Toto@192.168.100.2
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -759,7 +787,10 @@ cat /var/lib/dhcp/dhcpd.leases
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -848,7 +879,10 @@ Il y a 13 serveurs racines dans le monde (principalement aux États Unis)
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -946,7 +980,10 @@ curl -fsSL https://archive.kali.org/archive-key.asc | gpg --dearmor | sudo tee /
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -1008,7 +1045,10 @@ tail -f /var/log/fail2ban.log
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -1079,7 +1119,10 @@ ufw status verbose
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -1140,7 +1183,10 @@ Ex : 0 3 1 * 5 → Exécuté le 1er du mois et tous les vendredis.
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -1191,7 +1237,10 @@ certbot --apache -d mon-site.fr
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -1276,7 +1325,10 @@ echo 1 > /proc/sys/vm/swappiness
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -1360,7 +1412,10 @@ systemctl enable open-iscsi
 
 
 ---
----
+
+
+
+<br>
 
 
 

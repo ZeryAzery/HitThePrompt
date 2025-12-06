@@ -1,5 +1,10 @@
 # Ubuntu Desktop
 
+---
+
+
+<br>
+
 ## Additions invité VirtualBox
 
 ```bash
@@ -18,6 +23,14 @@ reboot
 ```bash
 sudo hostnamectl set-hostname nouveau_nom
 ```
+
+
+---
+
+
+
+<br>
+
 
 
 ## Étendre LVM et système de fichiers
@@ -53,6 +66,11 @@ sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 ```
 
 
+---
+
+
+
+<br>
 
 
 
@@ -86,6 +104,12 @@ sudo netplan apply
 ```
 
 
+---
+
+
+
+<br>
+
 
 
 ## Config réseau DHCP
@@ -107,6 +131,11 @@ sudo netplan apply
 ```
 
 
+---
+
+
+
+<br>
 
 
 
@@ -147,6 +176,12 @@ sudo apt install gh -y
 gh --version
 ```
 
+
+---
+
+
+
+<br>
 
 
 ## Télécharger VulnerableLightApp sur Github

@@ -1,8 +1,17 @@
 # 🪟 Aide au Scripting Powershell 🪟
 
 
+
+
+
 ---
----
+
+
+
+<br>
+
+
+
 
 
 
@@ -29,8 +38,12 @@ Set-ExecutionPolicy -Scope Process Bypass
 ```
 
 
+
 ---
----
+
+
+
+<br>
 
 
 
@@ -48,8 +61,12 @@ Elles empêche d'affecter une valeur incorrecte
 
 
 
+
 ---
----
+
+
+
+<br>
 
 
 
@@ -105,7 +122,10 @@ Dans ce cas Powershell interprêtera else comme une commande à part entière et
 
 
 ---
----
+
+
+
+<br>
 
 
 
@@ -121,9 +141,12 @@ Ces structures permettent de répéter une action plusieurs fois.
 
 
 
----
+
 ---
 
+
+
+<br>
 
 
 
@@ -141,8 +164,10 @@ Ces mots-clés servent à interrompre ou passer une itération.
 
 
 ---
----
 
+
+
+<br>
 
 
 
@@ -159,8 +184,10 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 
 
 ---
----
 
+
+
+<br>
 
 
 
@@ -187,8 +214,10 @@ Get-Service | ? { $_.Status -eq "Running" }
 
 
 ---
----
 
+
+
+<br>
 
 
 
@@ -225,8 +254,13 @@ Ne pas déclarer une liste avec des `{}` sinon Powershell attendra une valeur av
 
 
 
+
 ---
----
+
+
+
+<br>
+
 
 
 
@@ -259,8 +293,13 @@ __Exemple d'utilisation simple :__ (retournera "True" or "False")
 
 
 
+
 ---
----
+
+
+
+<br>
+
 
 
 
@@ -287,8 +326,15 @@ __Exemple__
 ```
 
 
+
+
 ---
----
+
+
+
+<br>
+
+
 
 
 ### 🧠 Opérateurs logiques
@@ -309,8 +355,13 @@ __Exemple__
 
 
 
+
 ---
----
+
+
+
+<br>
+
 
 
 
@@ -333,8 +384,14 @@ $x += 3      # x vaut maintenant 8
 ```
 
 
+
+
 ---
----
+
+
+
+<br>
+
 
 
 
@@ -354,8 +411,14 @@ __Exemple__
 ```
 
 
+
+
 ---
----
+
+
+
+<br>
+
 
 
 

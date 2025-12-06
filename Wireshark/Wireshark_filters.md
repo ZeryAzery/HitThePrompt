@@ -1,5 +1,9 @@
 # WIRESHARK 
 
+---
+
+<br>
+
 > [!IMPORTANT]  
 > Les filtres de captures ne doivent pas être confondus avec les filtres d'affichage
  
@@ -15,6 +19,10 @@
 |         TLS Handshake       |           tls.handshake          | 
 |       Filtrer rdp           |            rdp               |
  
+---
+
+
+<br>
 
 ## Filtres d'affichage
 
