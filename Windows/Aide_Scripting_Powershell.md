@@ -165,9 +165,9 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 
 
 ## Les Alias 
-| Alias | Commande              | Utilité                                                                                                            |
+| Alias | Commande              | Utilité                                                                                                           |
 |:-----:|:---------------------:|-------------------------------------------------------------------------------------------------------------------|
-| gm    | Get-Member            | Affiche les membres (propriétés et méthodes) d’un objet. Très utile pour explorer les objets retournés par d’autres commandes.           |
+| gm    | Get-Member            | Affiche les membres (propriétés et méthodes) d’un objet. Très utile pour explorer les objets retournés par d’autres commandes.  |
 | gcm   | Get-Command           | Liste toutes les commandes disponibles ou récupère des informations sur une commande spécifique.                        |
 | %     | ForEach-Object        | Applique une action à chaque élément d’une collection.                                                       |
 | ?     | Where-Object          | Filtre une collection en ne gardant que les éléments pour lesquels la condition est vraie.                               |
@@ -176,8 +176,9 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 | iex   | Invoke-Expression     | ⚠️ Exécute une chaîne de texte comme une commande PowerShell.                                                |
 | irm   | Invoke-RestMethod     | Envoie des requêtes HTTP/HTTPS à des API REST. Utilisé pour interagir avec des services web RESTful (retourne souvent du JSON ou XML).   |
 | iwr   | Invoke-WebRequest     | Plus généraliste qu’`irm`, permet d’envoyer des requêtes HTTP (GET, POST...) pour télécharger des pages, des fichiers, etc.           |
-| gc    | Get-Content           | Lit le contenu d’un fichier ligne par ligne (utile pour lire des logs, scripts, etc.).                                   |
-
+| gc    | Get-Content           | Lit le contenu d’un fichier ligne par ligne (utile pour lire des logs, scripts, etc.).                               |
+| select | Select-Object        | Sélectionne les propriétés d'un objet ou d'un ensemble d'objets. Sélectionne des objets dans un tableau.           | 
+      
 __Exemple__
 ```powershell
 Get-Service | ? { $_.Status -eq "Running" }

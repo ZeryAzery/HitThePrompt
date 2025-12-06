@@ -28,6 +28,15 @@ Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 ```
 
 
+
+### redémarrer directement dans le BIOS/UEFI
+```bat
+shutdown /r /fw /t 0
+```
+⚠️ Fonctionne si PC est en UEFI (pas BIOS legacy) et si le firmware le supporte.
+
+
+
 ### Afficher domaine, manufacturer, model, nom machine, utilisateur, mémoire physique
 ```powershell
 Get-WmiObject Win32_ComputerSystem
@@ -511,6 +520,7 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
+
 # 🔪🥩 Hashage 🔪🥩
 
 
@@ -538,12 +548,13 @@ $h1 -eq $h2
 ```
 
 
+<br>
 
 
 ---
----
 
 
+<br>
 
 
 # 🔍 Rechercher des fichiers/dossiers  🔍
@@ -586,15 +597,13 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 ```
 
 
-
+<br>
 
 
 ---
----
 
 
-
-
+<br>
 
 
 # 📇 Affichage/recherche du contenu d'un fichier 📇
@@ -636,10 +645,36 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
----
+
+### Utiliser `Get-ChildItem` et `Select-String` pour affinner la recherche
+
+* Rechercher une expression dans un fichier 
+```powershell
+Get-ChildItem -Path "C:\Users\toto" -Recurse -Filter *.txt | Select-String "proxmox"
+# ou plus propre
+Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, Line, LineNumber | fl
+```
+ Le `-Filter` Windows filtre les fichiers directement au niveau du système, donc plus rapide et plus efficace
+
+
+
+
+* Éviter les erreurs de permissions durant la recherche
+```powershell
+Get-ChildItem C:\ -Recurse -File -Force -ErrorAction SilentlyContinue |
+Select-String "cl_resend" -ErrorAction SilentlyContinue |
+Select Path, Line, LineNumber |
+Format-List
+```
+
+
+<br>
+
+
 ---
 
 
+<br>
 
 
 ## Formats de fichiers que Powershell peut utiliser:
@@ -656,12 +691,13 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
+<br>
+
 
 ---
----
 
 
-
+<br>
 
 
 ## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
@@ -938,7 +974,19 @@ Rename-Computer -ComputerName "DESKTOP-SQ5RDA2" -NewName "LENV15-2130" -DomainCr
 
 
 
+
+---
+
+
+
+
 ### Ouvrir un nouveau terminal pour exécuter "en tant que"
 ```bat
 runas /user:DOMAINE\MonCompteAD "cmd.exe"
+```
+
+
+### Vérifier le niveau des privilèges de l'utilisateur en cours
+```bat
+whoami /all
 ```
