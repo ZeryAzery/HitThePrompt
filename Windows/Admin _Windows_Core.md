@@ -479,16 +479,15 @@ echo null > .\Compta\toto.txt
 ```
 
 
+### Renommer un fichier avec move
+```bat
+mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
+```
+
 
 ### Créer un fichier ou écrase ancien
 ```powershell
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
-```
-
-
-### Renommer un fichier avec move
-```batch
-mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 ```
 
 
@@ -594,14 +593,14 @@ Get-FileHash .\Fichier\
 
 
 ### Choisir l'algorithme
-```powershel			
+```powershell			
 Get-FileHash -Algorithm sha512 Chemin\fichier
 ```
 
 
 
 ### Vérifier la différence entre deux hash
-```powershel
+```powershell
 $h1 = (Get-FileHash 'C:\Users\Toto\Desktop\debian13.iso').hash
 $h2 = (Get-FileHash 'C:\Users\Toto\Download\debian13.iso').hash
 ```
