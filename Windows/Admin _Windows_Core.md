@@ -593,24 +593,26 @@ $h1 -eq $h2
 
 
 
-# 🔍 Rechercher des fichiers/dossiers  🔍
+# 🔍 Rechercher des fichiers/dossiers avec `Get-ChildItem` 🔍
 
 
-### Utiliser `Get-ChildItem`
 
-Rechercher un fichier
+### Rechercher un fichier
 ```powershell
-Get-ChildItem -Path "F:\Users\Toto\Desktop\Compta-2024" -Directory -Recurse -Force | Where-Object { $_.Name -like "*NomDuFichier*" }
+Get-ChildItem -Path "F:\Users\Toto\Desktop\Compta-2024" -File -Recurse -Force | Where-Object { $_.Name -like "*NomDuFichier*" }
 ```
 
 
-Rechercher un dossier
+### Rechercher un dossier
 ```powershell
 Get-ChildItem -Path C:\ -Directory -Recurse -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*NomDuDossier*" }
 ```
+```powershell
+Get-ChildItem -Path F:\Users\toto\ -Directory -Recurse -Force  -Name "*save*"
+```
 
 
-Rechercher les fichiers en fonction de l'extension 
+### Rechercher les fichiers en fonction de l'extension 
 ```powershell
 Get-ChildItem -Path E:\ -Filter *.md -Recurse
 ```
@@ -620,14 +622,14 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse
 
 
 
-Chercher sur plusieurs extensions
+### Chercher sur plusieurs extensions
 ```powershell
 gci C:\Users\ -Recurse -Include *.pst, *.ost -ErrorAction SilentlyContinue
 ```
 
 
 
-Afficher uniquement le chemin complet
+### Afficher uniquement le chemin complet
 ```powershell
 Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty FullName
 ```
