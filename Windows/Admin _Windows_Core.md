@@ -426,6 +426,7 @@ Sinon utiliser process explorer...
 > * La plupart du temps les commande batch fonctionnent en Powershell, il peut être utile de les connaitre car elles sont souvent plus simple
 > * Cependant il arrive que certaines options peuvent ne pas être reconnues par le terminal Powershell
 
+
 ###  Création de dossiers avec cmd
 ```batch
 md COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
@@ -445,34 +446,16 @@ rmdir /s /q "C:\Users\ccarpentier"
 
 
 ### Créer un fichier texte en batch dans powershell
-```batch
+```bat
 echo null > .\Compta\toto.txt
 ```
 
-
-### Insérer du texte en créant un fichier 
-```batch
-echo "salut je créé un fichier avec ça écrit dedans" > .\Compta\toto.txt
-```
-
-
-### Rajouter du texte dans un fichier existant 
-```batch
-echo "salut ligne 2" >> .\Compta\toto.txt
-```
 
 
 ### Créer un fichier ou écrase ancien
 ```powershell
 Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
 ```
-
-
-### Ajouter du texte à un fichier existant
-```powershell
-Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
-```
-
 
 
 ### Renommer un fichier avec move
@@ -499,7 +482,6 @@ Remove-Item COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 ```
 
 
-
 ### Comparer des objects
 ```powershell
 Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
@@ -523,7 +505,25 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
-# ➡️📇 Sortie d'une commande dans un fichier ➡️📇
+# ➡️📇 Sortie d'une commande dans un fichier .txt/.csv ➡️📇
+
+
+### Insérer du texte en créant un fichier 
+```batch
+echo "salut je créé un fichier avec ça écrit dedans" > .\Compta\toto.txt
+```
+
+
+### Rajouter du texte dans un fichier existant 
+```batch
+echo "salut ligne 2" >> .\Compta\toto.txt
+```
+
+
+### Ajouter du texte à un fichier existant
+```powershell
+Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fichier"
+```
 
 
 ### rediriger le résultat d'une commande dans un fichier .csv existant 
