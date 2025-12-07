@@ -399,7 +399,7 @@ Select -ExpandProperty IPAddress
 ```
 
 
-### Sortie des process TCP en court étabit sur l'IPv4 de "Ethernet 4"
+### Sortie des process TCP "Established" sur l'IPv4 de "Ethernet 4"
 ```powershell
 $ipv4addr = Get-NetIPAddress -AddressFamily IPv4 | ? { $_.InterfaceAlias -eq "Ethernet 4" } | Select -ExpandProperty IPAddress
 
