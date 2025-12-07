@@ -336,7 +336,7 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
-# Gestion des processus 
+# 🟢🏃‍♀️‍➡️ Gestion des processus 🟢🏃‍♀️‍➡️
 
 
 ### Afficher les processus en cours 
@@ -381,7 +381,46 @@ Stop-Process -Id 2960
 
 
 
-# 📂 Gestion des Objets 📂 
+# 🏃‍♀️‍➡️🌐 Gestion des processus TCP 🏃‍♀️‍➡️🌐
+
+Microsoft a volontairement séparé le réseau des process, pour avoir le nom des process TCP il faut utiliser `Get-Process` aussi
+
+### Obtenir les process TCP avec le nom du programme
+```powershell
+Get-NetTCPConnection | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess, @{Name="ProcessName";Expression={ (Get-Process -Id $_.OwningProcess).Name }} | ft
+```
+
+
+Exemple pour obtenir l'IPv4 en sortie
+```powershell
+Get-NetIPAddress -AddressFamily IPv4 |
+? { $_.IPAddress -like "192.168*" } |
+Select -ExpandProperty IPAddress
+```
+
+
+### Sortie des process TCP en court étabit sur l'IPv4 de "Ethernet 4"
+```powershell
+$ipv4addr = Get-NetIPAddress -AddressFamily IPv4 | ? { $_.InterfaceAlias -eq "Ethernet 4" } | Select -ExpandProperty IPAddress
+
+Get-NetTCPConnection | 
+    Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess, @{Name="ProcessName";Expression={ (Get-Process -Id $_.OwningProcess).Name }} | 
+    Where-Object { $_.State -eq "Established" -and $_.LocalAddress -eq "$ipv4addr" } | ft
+
+```
+
+
+Sinon utiliser process explorer...
+
+---
+
+
+
+<br>
+
+
+
+# 📇 📂 Gestion des Objets 📂 📇
 
 > [!NOTE]
 > * La plupart du temps les commande batch fonctionnent en Powershell, il peut être utile de les connaitre car elles sont souvent plus simple
@@ -484,7 +523,7 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
-# Sortie d'une commande dans un fichier 
+# ➡️📇 Sortie d'une commande dans un fichier ➡️📇
 
 
 ### rediriger le résultat d'une commande dans un fichier .csv existant 
