@@ -450,8 +450,9 @@ Sinon utiliser process explorer...
 # 📇 📂 Gestion des Objets 📂 📇
 
 > [!NOTE]
-> * La plupart du temps les commande batch fonctionnent en Powershell, il peut être utile de les connaitre car elles sont souvent plus simple
-> * Cependant il arrive que certaines options peuvent ne pas être reconnues par le terminal Powershell
+> * La plupart du temps les commande batch fonctionnent en Powershell 
+> * Il peut être utile de les connaitre car elles sont souvent plus simple
+> * Il arrive que certaines options peuvent ne pas être reconnues par Powershell
 
 
 ###  Création de dossiers avec cmd
@@ -460,7 +461,7 @@ md COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 ```
 
 
-### supression de dossiers avec cmd (/s suprimme tout son contenu)
+### Supression de dossiers (/s suprimme tout son contenu)
 ```bat
 rd /s	
 ```
