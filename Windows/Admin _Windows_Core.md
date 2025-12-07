@@ -436,7 +436,7 @@ md COMPTABILITE, INFORMATIQUE, RH, PRODUCTION
 ```bat
 rd /s	
 ```
-* `/q` Mode silencieux, pas de confirmation demandée
+`/q` Mode silencieux, pas de confirmation demandée
 
 ```bat
 rmdir /s /q "C:\Users\ccarpentier"
