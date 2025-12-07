@@ -40,7 +40,8 @@ shutdown /r /fw /t 0
 ### Afficher domaine, manufacturer, model, nom machine, utilisateur, mémoire physique
 ```powershell
 Get-WmiObject Win32_ComputerSystem
-# ou
+```
+```powershell
 Get-CimInstance Win32_ComputerSystem | fl
 ```
 
@@ -263,7 +264,7 @@ Get-NetAdapter | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -Compo
 ```
 
 
-### tester l'écoute d'un port
+### Tester l'écoute d'un port
 ```powershell		
 Test-NetConnection -ComputerName localhost -Port 389
 ```
@@ -595,21 +596,21 @@ $h1 -eq $h2
 # 🔍 Rechercher des fichiers/dossiers  🔍
 
 
-* Utiliser `Get-ChildItem`
+### Utiliser `Get-ChildItem`
 
-### Rechercher un fichier
+Rechercher un fichier
 ```powershell
 Get-ChildItem -Path "F:\Users\Toto\Desktop\Compta-2024" -Directory -Recurse -Force | Where-Object { $_.Name -like "*NomDuFichier*" }
 ```
 
 
-### Rechercher un dossier
+Rechercher un dossier
 ```powershell
 Get-ChildItem -Path C:\ -Directory -Recurse -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*NomDuDossier*" }
 ```
 
 
-### Rechercher les fichiers en fonction de l'extension 
+Rechercher les fichiers en fonction de l'extension 
 ```powershell
 Get-ChildItem -Path E:\ -Filter *.md -Recurse
 ```
@@ -619,14 +620,14 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse
 
 
 
-### Chercher sur plusieurs extensions
+Chercher sur plusieurs extensions
 ```powershell
 gci C:\Users\ -Recurse -Include *.pst, *.ost -ErrorAction SilentlyContinue
 ```
 
 
 
-### Afficher uniquement le chemin complet
+Afficher uniquement le chemin complet
 ```powershell
 Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty FullName
 ```
