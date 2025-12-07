@@ -54,7 +54,8 @@ Get-computerInfo
 ### Affichera juste le nom de la machine
 ```powershell
 Get-computerInfo | Select CsName
-# ou
+```
+```bat
 hostname
 ```	
 
