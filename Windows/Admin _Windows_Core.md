@@ -389,11 +389,13 @@ Microsoft a volontairement séparé le réseau des process, pour avoir le nom de
 
 ### Obtenir les process TCP avec le nom du programme
 ```powershell
-Get-NetTCPConnection | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess, @{Name="ProcessName";Expression={ (Get-Process -Id $_.OwningProcess).Name }} | ft
+Get-NetTCPConnection | 
+Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess, @{Name="ProcessName";Expression={ (Get-Process -Id $_.OwningProcess).Name }} | 
+ft
 ```
 
 
-Exemple pour obtenir l'IPv4 en sortie
+### Exemple pour obtenir l'IPv4 en sortie
 ```powershell
 Get-NetIPAddress -AddressFamily IPv4 |
 ? { $_.IPAddress -like "192.168*" } |
@@ -407,9 +409,32 @@ $ipv4addr = Get-NetIPAddress -AddressFamily IPv4 | ? { $_.InterfaceAlias -eq "Et
 
 Get-NetTCPConnection | 
     Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess, @{Name="ProcessName";Expression={ (Get-Process -Id $_.OwningProcess).Name }} | 
-    Where-Object { $_.State -eq "Established" -and $_.LocalAddress -eq "$ipv4addr" } | ft
-
+    Where-Object { $_.State -eq "Established" -and $_.LocalAddress -eq "$ipv4addr" } | 
+    ft
 ```
+
+## NETSTAT
+
+Afficher les connexions réseaux active en rapport avec les programmes
+```bat
+netstat -nbf 
+```
+
+Afficher les connexions réseaux active sur un port
+```bat
+netstat -nbf | find [<port>]
+```
+
+Afficher les connexions réseaux active établies
+```bat
+netstat -ano | findstr "ESTABLISHED"
+```
+
+Trouver le chemin d'exécution d'un processus avec son Id
+```bat
+wmic process where processid=13128 get executablepath
+```
+
 
 
 Sinon utiliser process explorer...
@@ -644,9 +669,9 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 
 
-# 📇 Affichage/recherche du contenu d'un fichier 📇
+# 📇 Affichage/recherche du contenu d'un fichier `Get-Content` et `Select-String` 📇
 
-* Utiliser `Get-Content` et `Select-String` 
+
 
 ### Afficher le contenu d'un fichier (Alias: gc) 	
 ```powershell
@@ -686,18 +711,22 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 ### Utiliser `Get-ChildItem` et `Select-String` pour affinner la recherche
 
-* Rechercher une expression dans un fichier 
+Rechercher une expression dans un fichier 
 ```powershell
 Get-ChildItem -Path "C:\Users\toto" -Recurse -Filter *.txt | Select-String "proxmox"
-# ou plus propre
+```
+```powershell
 Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, Line, LineNumber | fl
 ```
- Le `-Filter` Windows filtre les fichiers directement au niveau du système, donc plus rapide et plus efficace
+```powershell
+Get-ChildItem -Path "C:\Users\Axel\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, LineNumber | ft
+```
+Le `-Filter` Windows filtre les fichiers directement au niveau du système, donc plus rapide et plus efficace
 
 
 
 
-* Éviter les erreurs de permissions durant la recherche
+Éviter les erreurs de permissions durant la recherche
 ```powershell
 Get-ChildItem C:\ -Recurse -File -Force -ErrorAction SilentlyContinue |
 Select-String "cl_resend" -ErrorAction SilentlyContinue |
