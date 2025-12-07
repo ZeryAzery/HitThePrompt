@@ -437,7 +437,11 @@ wmic process where processid=13128 get executablepath
 
 
 
-Sinon utiliser process explorer...
+### Sinon utiliser process explorer et/ou TCP view de la suite Sysinternals 
+Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails :
+[Télécharger Sysinternals ici](https://learn.microsoft.com/fr-fr/sysinternals/downloads/)
+
+
 
 ---
 
@@ -553,7 +557,7 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 ```
 
 
-### rediriger le résultat d'une commande dans un fichier .csv existant 
+### Rediriger le résultat d'une commande dans un fichier .csv existant 
 ```bat
 [<commande>] > C:\Users\admazie\Desktop\User_OfficeE1.csv
 ```
