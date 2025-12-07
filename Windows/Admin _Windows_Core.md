@@ -607,8 +607,6 @@ Get-FileHash -Algorithm sha512 Chemin\fichier
 ```powershell
 $h1 = (Get-FileHash 'C:\Users\Toto\Desktop\debian13.iso').hash
 $h2 = (Get-FileHash 'C:\Users\Toto\Download\debian13.iso').hash
-```
-```powershell
 $h1 -eq $h2
 ```
 
