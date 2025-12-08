@@ -223,7 +223,9 @@ Get-Service | ? { $_.Status -eq "Running" }
 
 # Hashtables et listes
 
-### Déclarer un hashtable  (Structure clé = valeur, comme dictinnaire python) les `{}` attendent une valeur pour chaque clé :
+### Déclarer un hashtable  
+* Structure clé = valeur (comme dictinnaire python) 
+* Les `{}` attendent une valeur pour chaque clé :
 ```powershell
 $liste = @{
     "clé1" = "valeur1"
@@ -234,7 +236,8 @@ $liste = @{
 
 
 
-### Déclarer une liste utiliser avec `()` 
+### Déclarer une liste 
+Utiliser avec `()` 
 ```powershell
 $liste = @(
     "3949"
