@@ -16,6 +16,7 @@
 
 
 ### ©️ Afficher les méthodes et propriétés d'un objet avec `| gm`
+
 ```powershel
 Get-WmiObject Win32_ComputerSystem | gm
 ```
@@ -26,6 +27,7 @@ Get-WmiObject Win32_ComputerSystem | gm
 
 
 ### ⛔ Passer outre la politique d'exécution des scripts
+
 ```powershell
 Get-Content test.ps1 | iex
 ```
@@ -48,6 +50,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 
 
 ### 📍 Principaux types de données en PowerShell
+
 Elles empêche d'affecter une valeur incorrecte
 
 | Type | Description | Exemple |
@@ -58,6 +61,7 @@ Elles empêche d'affecter une valeur incorrecte
 | `[bool]`	| 	Booléen (Vrai/Faux)		| 	[bool]$Actif = $true
 | `[double]` | 	Nombre décimal		| 		[double]$Prix = 19.99
 | `[datetime]` | 	Date et heure		| 		[datetime]$Maintenant = Get-Date
+
 
 
 
@@ -82,7 +86,6 @@ $htable = @{
     "clé2" = "valeur2"
 }
 ```
-
 
 
 
@@ -118,6 +121,7 @@ Ne pas déclarer une liste avec des `{}` sinon Powershell attendra une valeur av
 
 
 ###  ☝️ Structures conditionnelles
+
 Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 
 |  Mot-clé |  Description                                |  Exemple |
@@ -177,6 +181,7 @@ Dans ce cas Powershell interprêtera else comme une commande à part entière et
 
 
 ### 🔄 Boucles (itérations)
+
 Ces structures permettent de répéter une action plusieurs fois.
 
 |  Mot-clé     |  Description                                |  Exemple |
@@ -198,6 +203,7 @@ Ces structures permettent de répéter une action plusieurs fois.
 
 
 ### 🔁 Saut de boucle / sortie de script
+
 Ces mots-clés servent à interrompre ou passer une itération.
 
 |  Mot-clé |  Description                            |  Exemple |
@@ -219,6 +225,7 @@ Ces mots-clés servent à interrompre ou passer une itération.
 
 
 ### ⚠️ Gestion des erreurs (Try-Catch)
+
 Ces structures permettent de gérer les erreurs sans planter le script.
 
 |  Mot-clé  |  Description                               |  Exemple                           |
@@ -239,6 +246,7 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 
 
 ## Les Alias 
+
 | Alias | Commande              | Utilité                                                                                                           |
 |:-----:|:---------------------:|-------------------------------------------------------------------------------------------------------------------|
 | gm    | Get-Member            | Affiche les membres (propriétés et méthodes) d’un objet. Très utile pour explorer les objets retournés par d’autres commandes.  |

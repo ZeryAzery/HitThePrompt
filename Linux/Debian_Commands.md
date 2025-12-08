@@ -963,18 +963,6 @@ chsh -s /bin/bash
 ```
 
 
-### Pour l'erreur sur kali :
-"Warning: Impossible de récupérer http://http.kali.org/kali/dists/kali-rolling/InRelease  Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 827CHJII78F2JVTE74JYD68EJVEJ4Q48WA, which is needed to verify signature."
-
-
-### Importer la nouvelle clé manquante du dépôt Kali
-```bash
-sudo apt install curl -y
-curl -fsSL https://archive.kali.org/archive-key.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/kali-archive.gpg > /dev/null
-```
-
-
-
 
 
 
