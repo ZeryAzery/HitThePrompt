@@ -70,6 +70,53 @@ Elles empêche d'affecter une valeur incorrecte
 
 
 
+
+# Hashtables et listes
+
+### Déclarer un hashtable  
+* Structure clé = valeur (comme dictinnaire python) 
+* Les `{}` attendent une valeur pour chaque clé :
+```powershell
+$htable = @{
+    "clé1" = "valeur1"
+    "clé2" = "valeur2"
+}
+```
+
+
+
+
+### Déclarer une liste 
+Utiliser avec `()` 
+```powershell
+$liste = @(
+    "3949"
+    "3635"
+    "3960"
+    "3939"
+    "1023"
+)
+```
+Ne pas déclarer une liste avec des `{}` sinon Powershell attendra une valeur avec des `>>`.
+
+| PowerShell | Python | Nom commun               |
+| ---------- | ------ | ------------------------ |
+| `@{}`      | `{}`   | Dictionnaire / Hashtable |
+| `@()`      | `[]`   | Liste / Tableau          |
+
+
+
+
+
+---
+
+
+
+<br>
+
+
+
+
 ###  ☝️ Structures conditionnelles
 Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 
@@ -210,51 +257,6 @@ __Exemple__
 ```powershell
 Get-Service | ? { $_.Status -eq "Running" }
 ```
-
-
-
----
-
-
-
-<br>
-
-
-
-# Hashtables et listes
-
-### Déclarer un hashtable  
-* Structure clé = valeur (comme dictinnaire python) 
-* Les `{}` attendent une valeur pour chaque clé :
-```powershell
-$htable = @{
-    "clé1" = "valeur1"
-    "clé2" = "valeur2"
-}
-```
-
-
-
-
-### Déclarer une liste 
-Utiliser avec `()` 
-```powershell
-$liste = @(
-    "3949"
-    "3635"
-    "3960"
-    "3939"
-    "1023"
-)
-```
-Ne pas déclarer une liste avec des `{}` sinon Powershell attendra une valeur avec des `>>`.
-
-| PowerShell | Python | Nom commun               |
-| ---------- | ------ | ------------------------ |
-| `@{}`      | `{}`   | Dictionnaire / Hashtable |
-| `@()`      | `[]`   | Liste / Tableau          |
-
-
 
 
 
