@@ -2,7 +2,7 @@
 
 Il peut être utile d'intéragir directement avec le Shell de PfSense pour pouvoir débugguer certaines situations. Utiliser la touche "8" pour avoir accès à la console.
 
-## Le classique pour afficher les onfos des interfaces
+## Afficher les infos des interfaces
 ```sh
 ifconfig
 ```

@@ -775,8 +775,8 @@ Format-List
 Add-Type -AssemblyName System.Web
 [System.Web.Security.Membership]::GeneratePassword(16, 4)
 ```
-* 16 : longueur totale du mot de passe.
-* 4 : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
+* `16` : longueur totale du mot de passe.
+* `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
 
 
 
