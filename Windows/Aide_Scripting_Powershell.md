@@ -227,7 +227,7 @@ Get-Service | ? { $_.Status -eq "Running" }
 * Structure clé = valeur (comme dictinnaire python) 
 * Les `{}` attendent une valeur pour chaque clé :
 ```powershell
-$liste = @{
+$htable = @{
     "clé1" = "valeur1"
     "clé2" = "valeur2"
 }
