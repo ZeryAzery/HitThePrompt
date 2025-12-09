@@ -9,7 +9,7 @@
 
 ## __Sommaire__
 
-- [COMMANDES DE BASE](#commandes-de-base)
+- [🔰 COMMANDES DE BASE](#🔰-commandes-de-base)
 - [🍴 POINT DE RESTAURATION](#🍴-point-de-restauration)
 - [🔑 LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
 - [📶 CONFIGURATION RÉSEAU](#📶-configuration-réseau)
@@ -35,7 +35,7 @@
 
 
 
-## __COMMANDES DE BASE__ 
+## __🔰 COMMANDES DE BASE__ 
 
 
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
