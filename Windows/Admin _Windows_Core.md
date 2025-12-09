@@ -1,15 +1,15 @@
 # 🪟 __ADMINISTRATRION EN POWERSHELL__ 🪟
 
 
-* Powershell n'a pas de sensiblité à la casse c'est juste visuel
+* __Powershell n'a pas de sensiblité à la casse c'est juste visuel__
 
-* Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
+* __Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".__
 
 <br>
 
 ## __Sommaire__
 
-- [🔰 COMMANDES DE BASE](#🔰-commandes-de-base)
+- [COMMANDES DE BASE](#commandes-de-base)
 - [🍴 POINT DE RESTAURATION](#🍴-point-de-restauration)
 - [🔑 LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
 - [📶 CONFIGURATION RÉSEAU](#📶-configuration-réseau)
@@ -57,7 +57,7 @@ Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 
 
 
-### redémarrer directement dans le BIOS/UEFI
+### Redémarrer directement dans le BIOS/UEFI
 ```bat
 shutdown /r /fw /t 0
 ```
