@@ -5,6 +5,9 @@
 ---
 
 
+<br>
+
+
 ## __À propos de PsExec__
 
 - Mark Russinovich a développé PsExec et de nombreux outils Windows regroupés dans la suite **Microsoft Sysinternals**.
@@ -28,25 +31,34 @@
    - [Joindre un PC au domaine](#joindre-un-pc-au-domaine)  
    - [Lancer un script PowerShell](#Lancer-un-script-PowerShell)  
    - [Arguments supplémentaires](#arguments-supplémentaires)  
-5. [ERREURS RENCONTRÉES](#erreurs-rencontrées)
-6. [INTÉRAGIR AVEC UNE SESSION DISTANTE](#intéragir-avec-une-session-distante)
+5. [INTÉRAGIR AVEC UNE SESSION DISTANTE](#intéragir-avec-une-session-distante)
+6. [TROUBLESHOOTING](#troubleshooting)
 
 
 
 ---
 
 
+<br>
+
+
+
 ## __PRÉREQUIS__
 
 - PsExec ne fonctionne qu’entre hôtes **Windows**.
-- Le port **TCP 445** (SMB) doit être ouvert.
+- Les ports **TCP 445** (SMB) et **UDP/TCP 135** (RPC Endpoint Mapper) doivent êtres ouverts. (correspond au Partage de fichiers et imprimantes)
 - Le partage **ADMIN$** doit être actif.
 - Le service **Netlogon** est parfois nécessaire.
 - Requière un __compte administrateur sur la machine hôte.__
 - Ajouter PsExec au PATH système (Modifier la variable **Path** et y ajouter le dossier où se trouve `PsExec.exe`)
 
 
+
 ---
+
+
+<br>
+
 
 
 ## __COMMANDES DE BASE__
@@ -110,6 +122,10 @@ psexec \\192.168.0.15 -siu Administrateur cmd
 ---
 
 
+<br>
+
+
+
 ## __GESTION DES LOGICIELS__
 
 ### Avec Chocolatey
@@ -162,9 +178,11 @@ wmic product where "name like '%%Symantec%%'" call uninstall /nointeractive
 💡 Astuce : tester avec ou sans `-s` selon la version de Windows.
 
 
-
-
 ---
+
+
+<br>
+
 
 
 ## __POSSIBILITÉS SUPPLÉMENTAIRES__
@@ -202,6 +220,9 @@ psexec \\192.168.64.94 -c "C:\Installers\AnyDesk.exe"
 ---
 
 
+<br>
+
+
 
 ## __INTÉRAGIR AVEC UNE SESSION DISTANTE__
 
@@ -213,13 +234,13 @@ psexec \\192.168.64.184 query user
 
 `-i` : Exécution interactive (ex. GUI) sur une session.
 
-```cmd
+```sh
 psexec \\192.168.64.94 -i notepad.exe
 ```
 
 Cibler une session spécifique (ex : session 2)
 
-```c
+```sh
 psexec -s \\192.168.64.172 -i 2 notepad
 ```
 
@@ -233,7 +254,7 @@ psexec -s \\192.168.64.172 -u Administrateur -p ***** -i 1 powershell `
 
 ### Envoyer un message
 
-```cmd
+```sh
 psexec -s \\192.168.64.142 -u Administrateur -p ***** msg * "Bonjour !"
 ```
 
@@ -255,33 +276,157 @@ psexec -s \\192.168.64.172 -i 1 -u Administrateur -p ***** powershell -command [
 ---
 
 
-## __ERREURS RENCONTRÉES__
+<br>
 
-### Netlogon non démarré
 
-```cmd
-sc query netlogon
-net start netlogon
-```
 
-### Partage réseau bloqué (souvent en Workgroup)
+## __TROUBLESHOOTING__
 
-- S'assurer que le pare-feu autorise SMB (port 445).
-- Activer le réseau "Privé" pour le profil réseau.
 
-### Ordre des options critique
+### Ordre des options
 
 Cette commande peut échouer :
-
-```cmd
+```bat
 psexec \\192.168.0.15 -siu -a 1 -low Administrateur cmd
 ```
 
 Mais celle-ci peut fonctionner :
-
-```cmd
+```bat
 psexec \\192.168.0.15 -a 1 -low -siu Administrateur cmd
 ```
+
+<br>
+
+
+
+### Netlogon non démarré
+
+```bat
+sc query netlogon
+net start netlogon
+```
+
+<br>
+
+
+### Partage réseau bloqué (souvent en Workgroup)
+
+
+* Activer le réseau "Privé" pour le profil réseau.
+
+* Vérifier ces ports sont ouverts et non bloqués vi le pare-feu :
+
+| Port             | Description         |
+| ---------------- | ------------------- |
+| **445/TCP**      | SMB / IPC$          |
+| **135/TCP**      | RPC                 |
+| ports dynamiques | RPC Endpoint Mapper |
+
+<br>
+
+Règle de pare-feu 
+
+* Si WinRM est actif (WinRM ne dépend pas du service LanmanServer)
+```powershell
+Enable-PSRemoting -Force
+Invoke-Command -ComputerName NOM-PC -ScriptBlock { Set-NetFirewallRule -DisplayGroup "File and Printer Sharing" -Enabled True }
+```
+
+* Sans WinRM (fonctionnera seulement si le port 135 RPC est ouvert)
+```powershell
+wmic /node:NOM-PC process call create "powershell.exe -command Set-NetFirewallRule -DisplayGroup 'File and Printer Sharing' -Enabled True"
+```
+
+
+<br>
+
+
+### Vérifier si le partage IPC$ est actif
+
+```bat
+net use \\PC-CIBLE\c$
+```
+Access is denied → le compte n’est pas admin local
+
+The network path was not found → machine éteinte / pare-feu
+
+Sinon → OK
+
+
+<br>
+
+
+### Vérifier le service LanmanServer (cmd)
+
+* LanmanServer gèrer tous les partages réseau sur la machine, y compris fichiers/imprimantes et l'accès SMB
+* Ces ports associés sont : 445 (SMB), 135 (RPC), parfois 139 (NetBIOS sur TCP)
+* Pour que les partages administratifs (C$, ADMIN$, etc.) puissent se faire, LanmanServer doit être actif
+
+Voir si le service est actif
+```bat
+sc \\NOM-PC query lanmanserver
+```
+Sinon l'activer avec
+```bat
+sc \\NOM-PC start lanmanserver
+```
+
+* ⚠️ IMPORTANT : activer l’IPC distant ne contourne pas les droits.
+Il faut toujours un compte admin local sur la machine cible.
+Mais si le partage IPC$ est bloqué, même un admin recevra “Access Denied”
+
+* net use \\PC\IPC$ ouvre juste une session SMB, pas besoin d’être admin local pour que ça réponde.
+* sc \\PC query/service demande un accès RPC ADMIN, réservé exclusivement aux administrateurs locaux.
+
+
+<br>
+
+
+### Activer les partages administratifs (C$, ADMIN$…)
+
+Cette méthode crée les partages automatiquement au démarrage
+* Sur Windows client
+```powershell
+Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name AutoShareWks -Value 1 -Type DWord
+Restart-Service LanmanServer -Force
+```
+
+* Sur Windows Server
+```powershell
+Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name AutoShareServer -Value 1 -Type DWord
+Restart-Service -Name LanmanServer -Force
+```
+
+
+
+Ancienne méthode pour activer admin share si les autres ne fonctionnent pas (cmd ou powershell)
+```bat
+reg add "\\NOM-PC\HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v DisableAdminShares /t REG_DWORD /d 0 /f
+```
+```powershell
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "DisableAdminShares" -Value 0 -Type DWord -Force
+```
+
+
+
+### Autoriser l’accès au réseau (local account token filter) → Contrôle l’élévation des droits pour les comptes locaux lors d’un accès à distance
+
+* Avec cmd
+```bat
+reg add "\\NOM-PC\HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f
+```
+
+* Avec powershell
+```powershell
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "LocalAccountTokenFilterPolicy" -PropertyType DWord -Value 1 -Force
+```
+Le système doit redémarrer
+
+* 0 = filtrage activé (les comptes locaux à distance sont restreints)
+* 1 = désactive le filtrage → les comptes locaux conservent les droits d’admin à distance
+
+Même si C$ est activé, sans cette clé un compte local peut ne pas pouvoir accéder au partage administratif depuis un autre PC.
+
 
 
 ---

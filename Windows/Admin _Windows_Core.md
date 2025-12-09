@@ -1,13 +1,41 @@
-# 🪟 Administration en Powershell Core 🪟
+# 🪟 __ADMINISTRATRION EN POWERSHELL__ 🪟
 
 
 * Powershell n'a pas de sensiblité à la casse c'est juste visuel
 
 * Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".
 
+<br>
+
+## __Sommaire__
+
+- [🔰 COMMANDES DE BASE](#🔰-commandes-de-base)
+- [🍴 POINT DE RESTAURATION](#🍴-point-de-restauration)
+- [🔑 LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
+- [📶 CONFIGURATION RÉSEAU](#📶-configuration-réseau)
+- [📅 MISES À JOUR](#📅-mises-à-jour)
+- [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#🏃‍♀️‍➡️-gestion-des-processus)
+- [🌐 GESTION DES PROCESSUS TCP](#🌐-gestion-des-processus-tcp)
+- [📂 GESTION DES OBJETS](#📂-gestion-des-objets)
+- [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#➡️-sortie-de-commande-dans-un-fichier)
+- [🔪 HASHAGE](#🔪-hashage)
+- [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#🔍-rechercher-des-fichiers-et-dossiers)
 
 
-## 🔰 Commandes de base 🔰
+
+
+
+---
+
+
+
+<br>
+
+
+
+
+
+## 🔰 __COMMANDES DE BASE__ 
 
 
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
@@ -101,7 +129,7 @@ Get-Help Unlock-BitLocker -ShowWindow
 ```
 
 
-## Windows Software Licensing Management Tool
+## 🔑 __LICENSING MANAGEMENT TOOL__
 
 | Commande                | ...                                                      |
 |-------------------------|---------------------------------------------------------------|
@@ -123,7 +151,7 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 
 
-# 🍴 Point de restauration 🍴
+# 🍴 __POINT DE RESTAURATION__ 
 
 __Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où `-Value 0` = 0 minutes)__
 ```powershell
@@ -147,7 +175,7 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 
-# 📶 Configurer le réseau 📶 
+# 📶 __CONFIGURATION RÉSEAU__  
 
 
 ### Information réseau détaillée
@@ -279,7 +307,7 @@ Test-NetConnection -ComputerName localhost -Port 389
 
 
 
-# 📅 MISES À JOUR 📅 
+# 📅 __MISES À JOUR__  
 
 
 ###  Installer le module maj
@@ -338,7 +366,7 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
-# 🟢🏃‍♀️‍➡️ Gestion des processus 🟢🏃‍♀️‍➡️
+# 🏃‍♀️‍➡️ __GESTION DES PROCESSUS__
 
 
 ### Afficher les processus en cours 
@@ -383,7 +411,7 @@ Stop-Process -Id 2960
 
 
 
-# 🏃‍♀️‍➡️🌐 Gestion des processus TCP 🏃‍♀️‍➡️🌐
+# 🌐 __GESTION DES PROCESSUS TCP__ 
 
 Microsoft a volontairement séparé le réseau des process, pour avoir le nom des process TCP il faut utiliser `Get-Process` aussi
 
@@ -394,6 +422,11 @@ Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningP
 ft
 ```
 
+
+### Vérifier le chemin d'un binaire 
+```powershell
+(Get-Process -Id <PID>).Path
+```
 
 ### Exemple pour obtenir l'IPv4 en sortie
 ```powershell
@@ -422,7 +455,7 @@ netstat -nbf
 
 Afficher les connexions réseaux active sur un port
 ```bat
-netstat -nbf | find [<port>]
+netstat -nbf | find <port>
 ```
 
 Afficher les connexions réseaux active établies
@@ -451,7 +484,7 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 
 
 
-# 📇 📂 Gestion des Objets 📂 📇
+# 📂 __GESTION DES OBJETS__ 
 
 > [!NOTE]
 > * La plupart du temps les commande batch fonctionnent en Powershell 
@@ -536,7 +569,7 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
-# ➡️📇 Sortie d'une commande dans un fichier .txt/.csv ➡️📇
+# ➡️ __SORTIE DE COMMANDE DANS UN FICHIER__
 
 
 ### Insérer du texte en créant un fichier 
@@ -559,13 +592,13 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 
 ### Rediriger le résultat d'une commande dans un fichier .csv existant 
 ```bat
-[<commande>] > C:\Users\admazie\Desktop\User_OfficeE1.csv
+<commande> > C:\Users\admazie\Desktop\User_OfficeE1.csv
 ```
 
 
 ### Rediriger le résultat d'une commande dans un fichier .csv non existant (Le dossier de destination doit quand même exister)
 ```powershell
-[<commande>] | Export-Csv -Path  "C:\Users\admintoto\Desktop\lastlogon_active_users.csv" -NoTypeInformation -Encoding UTF8 -Delimiter ';'
+<commande> | Export-Csv -Path  "C:\Users\admintoto\Desktop\lastlogon_active_users.csv" -NoTypeInformation -Encoding UTF8 -Delimiter ';'
 ```
 
 * `-NoTypeInformation` évite la ligne #TYPE ... en haut du CSV.
@@ -573,7 +606,7 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 
 ### Rediriger le résultat d'une commande dans un fichier .csv non existant avec un chemin UNC
 ```powershell
-[<commande>] | Export-Csv "\\192.168.64.60\C$\Users\toto\OneDrive - NEOPIX STUDIO\Desktop\LastLogonActiveUsers.csv" -NoTypeInformation -Encoding UTF8
+<commande> | Export-Csv "\\192.168.64.60\C$\Users\toto\OneDrive - NEOPIX STUDIO\Desktop\LastLogonActiveUsers.csv" -NoTypeInformation -Encoding UTF8
 ```
 
 
@@ -586,7 +619,7 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 
 
 
-# 🔪🥩 Hashage 🔪🥩
+# 🔪 __HASHAGE__ 
 
 
 ### Récupérer le hash d'un fichier (sha256 par défault)
@@ -620,7 +653,7 @@ $h1 -eq $h2
 
 
 
-# 🔍 Rechercher des fichiers/dossiers avec `Get-ChildItem` 🔍
+# 🔍 __RECHERCHER DES FICHIERS ET DOSSIERS__ 
 
 
 
@@ -789,31 +822,55 @@ Add-Type -AssemblyName System.Web
 
 
 
-# 🛡️ 🧱 Pare-Feu & Defender 🧱 🛡️
+#  🧱 Pare-Feu & 🧱 
 
 
-### Pare-Feu
 
+### Afficher les règles de pare-feu
 ```powershell
-# règles ICMP IN  			
+Get-NetFirewallRule
+```
+
+
+### règles ICMP IN/OUT
+```powershell		
 New-NetFirewallRule -DisplayName "Autoriser ICMPv4-In" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
-
-# règles ICMP OUT 
 New-NetFirewallRule -DisplayName "Autoriser ICMPv4-Out" -Protocol ICMPv4 -IcmpType 8 -Direction Outbound -Action Allow
+```
 
-# Ouvrir port 22 dans pare-feu
+
+### Ouvrir port 22 dans pare-feu
+```powershell
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
 ```
 
-### Defender
 
-```powershell
-# Activer Defender 			
+
+
+---
+
+
+
+<br>
+
+
+
+
+ # 🛡️ Defender 🛡️
+
+
+
+### Activer Defender
+```powershell 			
 Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
+```
 
-# Désactiver  Defender			
+
+### Désactiver  Defender	
+```powershell		
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
 ```
+
 
 
 
@@ -827,16 +884,21 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 # 🔢 WinRM 🔢
 
+* Compte admin
+* Ports 5985 / 5986 autorisés
+* Pare-feu Windows autorisé pour WinRM
 
 
-### Installation de WinRM
+
+### Activer la règler de parefeu
 ```powershell
-Enable-PSRemoting -Force
+Enable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
 ```
 
 
-### Vérifier que WinRM est activé
+### Installer puis vérifier que WinRM est actif
 ```powershell
+Enable-PSRemoting -Force
 Get-Service winrm
 ```
 
@@ -846,11 +908,6 @@ Get-Service winrm
 Test-WsMan LENTBK14-1822
 ```
 
-
-### Activer la règler de parefeu
-```powershell
-Enable-NetFirewallRule -Name "WINRM-HTTP-In-TCP"
-```
 
 
 ### Utilisation de WinRM pour des connexions distante

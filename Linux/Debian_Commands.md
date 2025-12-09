@@ -957,11 +957,11 @@ sudo visudo (il se rend directement dans /etc/sudoers cet outils corrige les fau
 ```
 
 
-### Définir bash comme terminal par défaut :(se déco ou redémarrer après ou alors faire la commande "source ~/.bashrc")
+### Définir bash comme terminal par défaut 
 ```bash
 chsh -s /bin/bash
 ```
-
+Puis se déco ou redémarrer après ou alors faire la commande `source ~/.bashrc`
 
 
 

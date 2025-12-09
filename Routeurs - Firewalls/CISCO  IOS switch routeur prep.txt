@@ -391,16 +391,19 @@ show ip nat translation
 
 		## HSRP ## 
 
-
+Protocole de redondance et de clustering 
 Le HSRP permet de faire apparaitre pour l'utilisateur une seule passerelle alors qu'il y au moins deux routeurs (ou plus)
 qui servent de backup. La priorité la plus haute définit le routeur actif.
 
+hsrp → version cisco
+vrrp → version ouverte / stormshield
+carp → pfsense ?
+fgcp → Fortinet
 
-• Active → routeur qui gère le trafic (celui avec la plus haute priorité).
 
+• Active  → routeur qui gère le trafic (celui avec la plus haute priorité).
 • Standby → routeur prêt à prendre le relais immédiatement si l’actif tombe.
-
-• Listen → les autres routeurs du groupe HSRP (s’il y en a plus de deux). Ils écoutent les messages HSRP mais ne sont ni actifs ni standby.
+• Listen  → les autres routeurs du groupe HSRP (s’il y en a plus de deux). Ils écoutent les messages HSRP mais ne sont ni actifs ni standby.
 
 
 • "preempt" permet de redevenir actif si le routeur reprend le dessus.
@@ -445,7 +448,7 @@ interface GigabitEthernet0/0/0
  no shutdown
 
 
-Vérifier si HSRP HSRP est bien activé
+Vérifier si HSRP est bien activé
 
 show standby
 show standby brief
