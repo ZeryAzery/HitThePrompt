@@ -35,7 +35,7 @@
 
 
 
-## 🔰 __COMMANDES DE BASE__ 
+## __COMMANDES DE BASE__ 
 
 
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
