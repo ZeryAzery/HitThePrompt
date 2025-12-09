@@ -358,7 +358,7 @@ Sinon → OK
 
 ### Vérifier le service LanmanServer (cmd)
 
-* LanmanServer gèrer tous les partages réseau sur la machine, y compris fichiers/imprimantes et l'accès SMB
+* LanmanServer gère tous les partages réseaux sur la machine, y compris fichiers/imprimantes et l'accès SMB
 * Ces ports associés sont : 445 (SMB), 135 (RPC), parfois 139 (NetBIOS sur TCP)
 * Pour que les partages administratifs (C$, ADMIN$, etc.) puissent se faire, LanmanServer doit être actif
 
