@@ -752,13 +752,13 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 Rechercher une expression dans un fichier 
 ```powershell
-Get-ChildItem -Path "C:\Users\toto" -Recurse -Filter *.txt | Select-String "proxmox"
+Get-ChildItem -Path "C:\Users\toto" -Recurse -Filter *.txt -ErrorAction SilentlyContinue | Select-String "proxmox"
 ```
 ```powershell
-Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, Line, LineNumber | fl
+Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt -ErrorAction SilentlyContinue | Select-String "proxmox" | select Path, Line, LineNumber | fl
 ```
 ```powershell
-Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, LineNumber | ft
+Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt -ErrorAction SilentlyContinue | Select-String "proxmox" | select Path, LineNumber | ft
 ```
 Le `-Filter` Windows filtre les fichiers directement au niveau du système, donc plus rapide et plus efficace
 
