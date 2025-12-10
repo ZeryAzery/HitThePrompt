@@ -9,7 +9,7 @@
 
 ## __Sommaire__
 
-- [🔰 COMMANDES DE BASE](#🔰-commandes-de-base)
+- [COMMANDES DE BASE](#commandes-de-base)
 - [🍴 POINT DE RESTAURATION](#🍴-point-de-restauration)
 - [🔑 LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
 - [📶 CONFIGURATION RÉSEAU](#📶-configuration-réseau)
@@ -20,7 +20,8 @@
 - [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#➡️-sortie-de-commande-dans-un-fichier)
 - [🔪 HASHAGE](#🔪-hashage)
 - [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#🔍-rechercher-des-fichiers-et-dossiers)
-
+- [📇 RECHERCHER DANS UN FICHIER](#-rechercher-dans-un-fichier)
+- [RECHERCHER UN FICHIER ET SON CONTENU](#rechercher-un-fichier-et-son-contenu)
 
 
 
@@ -35,7 +36,7 @@
 
 
 
-## __🔰 COMMANDES DE BASE__ 
+## 🔰 __COMMANDES DE BASE__ 
 
 
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
@@ -704,9 +705,10 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 
 
-# 📇 Affichage/recherche du contenu d'un fichier `Get-Content` et `Select-String` 📇
 
+# 📇 RECHERCHER DANS UN FICHIER
 
+ `Get-Content` et `Select-String`
 
 ### Afficher le contenu d'un fichier (Alias: gc) 	
 ```powershell
@@ -744,7 +746,9 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
-### Utiliser `Get-ChildItem` et `Select-String` pour affinner la recherche
+# RECHERCHER UN FICHIER ET SON CONTENU
+
+`Get-ChildItem` et `Select-String` combinés
 
 Rechercher une expression dans un fichier 
 ```powershell
@@ -754,10 +758,9 @@ Get-ChildItem -Path "C:\Users\toto" -Recurse -Filter *.txt | Select-String "prox
 Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, Line, LineNumber | fl
 ```
 ```powershell
-Get-ChildItem -Path "C:\Users\Axel\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, LineNumber | ft
+Get-ChildItem -Path "C:\Users\toto\" -Recurse -Filter *.txt | Select-String "proxmox" | select Path, LineNumber | ft
 ```
 Le `-Filter` Windows filtre les fichiers directement au niveau du système, donc plus rapide et plus efficace
-
 
 
 
