@@ -122,8 +122,9 @@ docker build -t vulnapp-http:443 .
 docker run --rm -it -p 443:443 -v /home/toto/shared:/shared vulnapp-http:443
 ```
 
-
-
+* `--rm` → Supprime automatiquement le conteneur une fois qu’il s’arrête. (Pratique pour les tests ou les conteneurs temporaires)
+* `-it` → interagir avec le conteneur comme sur une machine normale ( -i = interactive et -t = terminal
+)
 ### Lancer le conteneur en arrière-plan (mode detachedavec `-d`)
 
 ```bash
@@ -135,12 +136,14 @@ docker run -d --name vulnapp \
 
 📌 __Options utiles :__
 
-`--restart=always`
-Redémarre le conteneur automatiquement à chaque reboot.
+* `--restart=always` → Redémarre le conteneur automatiquement à chaque reboot.
 
-`--restart=unless-stopped`
-Redémarre sauf si tu l’as stoppé manuellement.
+* `--restart=unless-stopped` → Redémarre sauf si tu l’as stoppé manuellement.
 
+
+> [!NOTE]  
+> * docker run -d → crée + démarre en arrière-plan
+> * docker start → redémarre toujours en arrière-plan, même sans -d
 
 ### Vérifier que le conteneur tourne
 
@@ -388,7 +391,8 @@ docker run -d --name vulnapp -p 443:443 -v /home/toto/shared:/shared vulnapp-htt
 ```sh
 tail -f /home/toto/shared/logs/2025-10-09_logfile.json
 ```
-![alt text](<host_logs_registerd.mp4>)
+
+
 ![alt text](<collected_log_on_local.png>)
 
 
