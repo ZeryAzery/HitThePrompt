@@ -8,6 +8,7 @@
 - Simplifier le déploiement et la montée en charge (ou scalabilité).
 - Isoler les applications sans avoir à créer de machines virtuelles complètes.
 
+<br>
 
 ### Concepts Docker
 
@@ -24,7 +25,7 @@ __👉 En pratique :__
 
   - docker run → lance un conteneur à partir de l’image.
 
-
+<br>
 
 ## Installation de Docker (exemple sur Debian)
 
@@ -118,18 +119,27 @@ docker build -t vulnapp-http:443 .
 ### Lancer le conteneur avec volume partagé
 
 ```bash
-docker run --rm -it -p 443:443 -v /home/axel/shared:/shared vulnapp-http:443
+docker run --rm -it -p 443:443 -v /home/toto/shared:/shared vulnapp-http:443
 ```
 
 
-### Lancer le conteneur en arrière-plan (mode detached)
+
+### Lancer le conteneur en arrière-plan (mode detachedavec `-d`)
 
 ```bash
 docker run -d --name vulnapp \
   -p 443:443 \
-  -v /home/axel/shared:/shared \
+  -v /home/toto/shared:/shared \
   vulnapp-http:443
 ```
+
+📌 __Options utiles :__
+
+`--restart=always`
+Redémarre le conteneur automatiquement à chaque reboot.
+
+`--restart=unless-stopped`
+Redémarre sauf si tu l’as stoppé manuellement.
 
 
 ### Vérifier que le conteneur tourne
@@ -219,7 +229,7 @@ VOLUME ["/shared"]
 
 * depuis la machine hôte
 ```bash
-echo "hello from host" > /home/axel/shared/test.txt
+echo "hello from host" > /home/toto/shared/test.txt
 ```
 
 * Puis vérifier dans le conteneur :
@@ -237,7 +247,7 @@ echo "hello from container" > /shared/test2.txt
 * Puis vérifier de nouveau dans l'hôte :
 
 ```bash
-cat /home/axel/shared/test2.txt
+cat /home/toto/shared/test2.txt
 ```
 * __Si `cat`retourne bien "hello from host" c'est ok__
 
@@ -252,7 +262,7 @@ cat /home/axel/shared/test2.txt
 ### Créer un dossier destiné à accueillir les logs du conteneur
 
 ```bash
-mkdir -p /home/axel/shared/logs
+mkdir -p /home/toto/shared/logs
 ```
 
 ### Monter ce dossier dans le conteneur (stopper/supprimer l’ancien conteneur si besoin)
@@ -262,7 +272,7 @@ docker rm -f vulnapp
 
 docker run -d --name vulnapp \
   -p 443:443 \
-  -v /home/axel/shared/logs:/app/logs \
+  -v /home/toto/shared/logs:/app/logs \
   vulnapp-http:443
 ```
 `docker run` → Crée et lance un nouveau conteneur.
@@ -273,7 +283,7 @@ docker run -d --name vulnapp \
 
 `-p 443:443` → Mappe le port 443 de l’hôte vers le port 443 du conteneur (HTTPS).
 
-`-v /home/axel/shared/logs:/app/logs` → Monte le dossier logs de l’hôte dans le conteneur à /app/logs. Tout ce qui est écrit ici sera persistant.
+`-v /home/toto/shared/logs:/app/logs` → Monte le dossier logs de l’hôte dans le conteneur à /app/logs. Tout ce qui est écrit ici sera persistant.
 
 `vulnapp-http:443` → Nom et tag de l’image Docker à utiliser pour créer le conteneur.
 
@@ -290,14 +300,14 @@ echo "log de test depuis le conteneur" > /app/logs/test.log
 
 * Sur l’hôte, regarder si le fichier apparaît dans le dossier logs
 ```bash
-ls -l /home/axel/shared/logs
-cat /home/axel/shared/logs/test.log
+ls -l /home/toto/shared/logs
+cat /home/toto/shared/logs/test.log
 ```
 * Si  test.log est présent le volume partagé fonctionne 
 
 ![alt text](<shared_host-container.png>)
 
-La fabrication des logs se fait avec le fichier nlog.config, j'ai recréé le fichier nlog.config en local en indiquant le chemin `/home/axel/shared/logs`
+La fabrication des logs se fait avec le fichier nlog.config, j'ai recréé le fichier nlog.config en local en indiquant le chemin `/home/toto/shared/logs`
 
 Ensuite je viens modifier le fichier Dockerfile pour qu'il écrase son fichier nlog.config et le remplace par celui qui a le chemin de la machine hôte
 
@@ -370,13 +380,13 @@ Fichier nlog.config avec le chemin de la machine hôte :
 ### Reconstruire l’image et lancer le conteneur
 ```sh
 docker build -t vulnapp-http:443 .
-docker run -d --name vulnapp -p 443:443 -v /home/axel/shared:/shared vulnapp-http:443
+docker run -d --name vulnapp -p 443:443 -v /home/toto/shared:/shared vulnapp-http:443
 ```
 
 
 ### Regarder les logs en direct : 
 ```sh
-tail -f /home/axel/shared/logs/2025-10-09_logfile.json
+tail -f /home/toto/shared/logs/2025-10-09_logfile.json
 ```
 ![alt text](<host_logs_registerd.mp4>)
 ![alt text](<collected_log_on_local.png>)
@@ -494,7 +504,7 @@ CMD ["dotnet", "run", "--url=https://0.0.0.0:443"]
 ```sh
 docker run -d --name vulnapp \
   -p 443:443 \
-  -v /home/axel/shared:/shared \
+  -v /home/toto/shared:/shared \
   --read-only \                # le conteneur est en lecture seule
   --tmpfs /tmp \               # répertoire temporaire en mémoire (sinon beaucoup d'applis plantent)
   --cap-drop ALL \             # supprime toutes les capacités Linux
@@ -511,7 +521,7 @@ docker run -d --name vulnapp \
 ```sh
 docker run --rm --name vulnapp \
   -p 443:443 \
-  -v /home/axel/shared:/shared \
+  -v /home/toto/shared:/shared \
   --tmpfs /tmp \
   --tmpfs /home/appuser/.dotnet \
   --cap-drop ALL \
