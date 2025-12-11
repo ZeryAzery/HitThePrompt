@@ -825,7 +825,7 @@ Add-Type -AssemblyName System.Web
 
 
 
-#  🧱 Pare-Feu & 🧱 
+#  🧱 Pare-Feu  
 
 
 
@@ -859,7 +859,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
- # 🛡️ Defender 🛡️
+ # 🛡️ Defender 
 
 
 
@@ -885,7 +885,7 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 
-# 🔢 WinRM 🔢
+# 🔢 WinRM 
 
 * Compte admin
 * Ports 5985 / 5986 autorisés
@@ -934,7 +934,7 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 
 
 
-# 🔐🔢 SSH 🔢🔐
+# 🔢 SSH 
 
 	
 ### Vérifier si le service est actif
@@ -1014,7 +1014,7 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 
-# 🏠 Installer un contrôleur de domaine 🏠 
+# 🏠 Installer un contrôleur de domaine  
 
 
 ### Installer les fonctionnalités
@@ -1053,7 +1053,7 @@ Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 	
 
 
-### 👮 Créer un nouvel utilisateur admin du domaine 👮 
+### 👮 Créer un nouvel utilisateur admin du domaine  
 
 ```powershell
 # Créer un nouvel utilisateur  		
