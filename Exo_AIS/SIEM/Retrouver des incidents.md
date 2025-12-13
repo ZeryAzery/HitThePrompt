@@ -1,5 +1,6 @@
 # __RETROUVER DES INCIDENTS DANS UN SIEM__
 
+Ce brief consiste à retrouver dans un SIEM les logs des vulnérabilités exploitées dans [le module pentest](https://github.com/ZeryAzery/HitThePrompt/blob/main/Exo_AIS/Pentest/Pentest_Web.md)
 
 <br>
 
@@ -30,13 +31,12 @@ Cette recherche me permet de retrouver presque la plupart des attaques, mais dan
 
 <br>
 
-Par exemple pour retrouver une possible utilisation de FLI + Path Traversal, on peut prendre le paramètre 'lang' et puis appliquer une regex en tant qu'argument de recherche :
+Par exemple pour retrouver une possible utilisation de LFI + Path Traversal, on peut prendre le paramètre 'lang' et puis appliquer une regex en tant qu'argument de recherche :
 ```s
 source="2025-12-12_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex message="lang=([a-zA-Z0-9_.-]+|(\.\./)+[a-zA-Z0-9_.-]+)"
 ```
 
-* Cette regex permet par exemple de détecter ce genre de cas
-    * Cette expression détecte :
+* Cette regex permet par exemple de détecter ce genre de cas :
     * lang=appsettings.json
     * lang=config.php
     * lang=../../etc/passwd
