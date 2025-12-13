@@ -24,13 +24,10 @@ reboot
 sudo hostnamectl set-hostname nouveau_nom
 ```
 
-
 ---
 
 
-
 <br>
-
 
 
 ## Étendre LVM et système de fichiers
@@ -65,14 +62,10 @@ sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
 sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 ```
 
-
 ---
 
 
-
 <br>
-
-
 
 
 ## Config réseau statique
@@ -103,13 +96,10 @@ network:
 sudo netplan apply
 ```
 
-
 ---
 
 
-
 <br>
-
 
 
 ## Config réseau DHCP
@@ -134,12 +124,10 @@ sudo netplan apply
 ---
 
 
-
 <br>
 
 
-
-## Installation des outils
+## Installation d'outils
 
 ```bash
 sudo apt search net-tools
@@ -151,75 +139,6 @@ sudo apt install gparted
 
 
 
-## Installer Github
-
-```bash
-# 1. Installer les dépendances
-sudo apt update
-sudo apt install curl -y
-
-# 2. Ajouter la clé GPG officielle de GitHub CLI
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
-  sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-
-# 3. Ajouter le dépôt GitHub CLI
-echo "deb [arch=$(dpkg --print-architecture) \
-  signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
-  https://cli.github.com/packages stable main" | \
-  sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-
-# 4. Installer GitHub CLI
-sudo apt update
-sudo apt install gh -y
-
-# Vérifier l'installation
-gh --version
-```
-
-
----
 
 
 
-<br>
-
-
-## Télécharger VulnerableLightApp sur Github
-```bash
-git clone https://github.com/Aif4thah/VulnerableLightApp.git
-```
-
-## Installer Dotnet 8.0
-```bash
-mkdir -p /opt/dotnet
-cd /opt/dotnet
-wget https://builds.dotnet.microsoft.com/dotnet/Sdk/8.0.100/dotnet-sdk-8.0.100-linux-x64.tar.gz
-tar -zxf dotnet-sdk-8.0.100-linux-x64.tar.gz
-rm dotnet-sdk-8.0.100-linux-x64.tar.gz
-wget https://builds.dotnet.microsoft.com/dotnet/Runtime/8.0.16/dotnet-runtime-8.0.16-linux-x64.tar.gz
-tar -zxf dotnet-runtime-8.0.16-linux-x64.tar.gz
-rm dotnet-runtime-8.0.16-linux-x64.tar.gz
-# Ajouter .NET au PATH
-ln -s /opt/dotnet/dotnet /usr/bin/dotnet
-# Vérifier que tout fonctionne
-dotnet --version
-```
-
-
-
-
-## Lancer VulnerableLightApp
-```bash
-# En HTTPS
-dotnet run --url=https://10.0.0.3:3000
-# En HTTP
-dotnet run --url=http://10.0.0.3:4000
-# Lancer le processus en arrère plan
-dotnet run --url=https://10.0.0.3:3000 &
-# Vérifier les processus lancés en arrère plan
-jobs
-```
-
-## Sur une barre d'URL
-https://10.0.0.3:3000/swagger
-http://10.0.0.3:4000/swagger
