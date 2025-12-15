@@ -9,19 +9,24 @@
 
 ## __Sommaire__
 
-- [COMMANDES DE BASE](#commandes-de-base)
-- [🍴 POINT DE RESTAURATION](#🍴-point-de-restauration)
-- [🔑 LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
-- [📶 CONFIGURATION RÉSEAU](#📶-configuration-réseau)
-- [📅 MISES À JOUR](#📅-mises-à-jour)
-- [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#🏃‍♀️‍➡️-gestion-des-processus)
-- [🌐 GESTION DES PROCESSUS TCP](#🌐-gestion-des-processus-tcp)
-- [📂 GESTION DES OBJETS](#📂-gestion-des-objets)
-- [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#➡️-sortie-de-commande-dans-un-fichier)
-- [🔪 HASHAGE](#🔪-hashage)
-- [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#🔍-rechercher-des-fichiers-et-dossiers)
-- [📇 RECHERCHER DANS UN FICHIER](#-rechercher-dans-un-fichier)
-- [RECHERCHER UN FICHIER ET SON CONTENU](#rechercher-un-fichier-et-son-contenu)
+- [COMMANDES DE BASE](#🔰-commandes-de-base)
+- [LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
+- [POINT DE RESTAURATION](#🍴-point-de-restauration)
+- [CONFIGURATION RÉSEAU](#📶-configuration-réseau)
+- [MISES À JOUR](#📅-mises-à-jour)
+- [GESTION DES PROCESSUS](#🏃‍♀️‍➡️-gestion-des-processus)
+- [GESTION DES PROCESSUS TCP](#🌐-gestion-des-processus-tcp)
+- [GESTION DES OBJETS](#📂-gestion-des-objets)
+- [SORTIE DE COMMANDE DANS UN FICHIER](#➡️-sortie-de-commande-dans-un-fichier)
+- [HASHAGE](#🔪-hashage)
+- [RECHERCHER DES FICHIERS ET DOSSIERS](#🔍-rechercher-des-fichiers-et-dossiers)
+- [RECHERCHER DANS UN FICHIER](#📇-rechercher-dans-un-fichier)
+- [RECHERCHER UN FICHIER ET SON CONTENU](#🔎-rechercher-un-fichier-et-son-contenu)
+- [Pare-Feu](#🧱-pare-feu)
+- [Defender](#️🛡️-defender)
+- [WinRM](#🔢-winrm)
+- [SSH](#🔢-ssh)
+- [CONTROLEUR DE DOMAINE](#🏠-controleur-de-domaine)
 
 
 
@@ -746,7 +751,7 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
-# RECHERCHER UN FICHIER ET SON CONTENU
+# 🔎 RECHERCHER UN FICHIER ET SON CONTENU
 
 `Get-ChildItem` et `Select-String` combinés
 
@@ -825,7 +830,7 @@ Add-Type -AssemblyName System.Web
 
 
 
-#  🧱 Pare-Feu  
+# 🧱 Pare-Feu  
 
 
 
@@ -1014,7 +1019,7 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 
-# 🏠 Installer un contrôleur de domaine  
+# 🏠 CONTROLEUR DE DOMAINE  
 
 
 ### Installer les fonctionnalités

@@ -162,6 +162,19 @@ iface enp0s3 inet static
 >[NOTE] 
 > *allow-hotplug* active l’interface quand elle est détectée et *auto* active l’interface au démarrage du système (pendant le boot), ne pas mettre les deux à la fois.
 
+
+### Config DHCP
+```c#
+# loopback
+auto lo
+iface lo inet loopback
+
+# enp0s8
+auto enp0s8
+iface enp0s8 inet dhcp
+```
+
+
 ### Pour reset la carte reseau : 
 ```bash
 systemctl restart networking
