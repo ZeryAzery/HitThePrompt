@@ -27,7 +27,24 @@ __👉 En pratique :__
 
 <br>
 
-## Installation de Docker (exemple sur Ubuntu)
+
+## Installe Docker rapide (Deiban) 
+
+Sur un shell root
+```bash
+wget https://raw.githubusercontent.com/ZeryAzery/HitThePrompt/refs/heads/main/Exo_AIS/Docker/Docker_Install_Debian.sh
+chmod +x Docker_Install_Debian.sh
+./Docker_Install_Debian.sh
+```
+
+Vérifier le contenu du script
+```bash
+curl https://raw.githubusercontent.com/ZeryAzery/HitThePrompt/refs/heads/main/Exo_AIS/Docker/Docker_Install_Debian.sh
+```
+
+<br>
+
+## Installation de Docker (exemple Ubuntu puis Debian)
 
 ```bash
 apt-get update
@@ -40,6 +57,8 @@ Pour Debian changer juste :
 ```bash
 curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 ```
+
+
 
 ### Ajouter le dépôt Docker
 
@@ -68,6 +87,10 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docke
 ```bash
 docker --version
 ```
+
+<br>
+
+## Le Dockerfile
 
 ### Créer un dossier pour le projet Docker
 
