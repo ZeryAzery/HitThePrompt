@@ -9,7 +9,7 @@
 
 ## __Sommaire__
 
-- [COMMANDES DE BASE](#%F0%9F%94%B0-commandes-de-base)
+- [%F0%9F%94%B0 COMMANDES DE BASE](#%F0%9F%94%B0-commandes-de-base)
 - [LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
 - [POINT DE RESTAURATION](#🍴-point-de-restauration)
 - [CONFIGURATION RÉSEAU](#📶-configuration-réseau)
