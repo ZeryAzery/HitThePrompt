@@ -18,7 +18,7 @@
 - [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
 - [📂 GESTION DES OBJETS](#gestion-des-objets)
 - [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
-- [🔪 HASHAGE](#-hashage)
+- [🔪 HASHAGE](#hashage)
 - [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#rechercher-des-fichiers-et-dossiers)
 - [📇 RECHERCHER DANS UN FICHIER](#rechercher-dans-un-fichier)
 - [🔎 RECHERCHER UN FICHIER ET SON CONTENU](#rechercher-un-fichier-et-son-contenu)
@@ -184,6 +184,7 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 <br>
 
 
+<a id="configuration-reseau"></a>
 
 # 📶 __CONFIGURATION RÉSEAU__  
 
@@ -316,6 +317,7 @@ Test-NetConnection -ComputerName localhost -Port 389
 <br>
 
 
+<a id="mises-a-jour"></a>
 
 # 📅 __MISES À JOUR__  
 
@@ -375,6 +377,7 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 <br>
 
 
+<a id="gestion-des-processus"></a>
 
 # 🏃‍♀️‍➡️ __GESTION DES PROCESSUS__
 
@@ -420,6 +423,7 @@ Stop-Process -Id 2960
 <br>
 
 
+<a id="gestion-des-processus-tcp"></a>
 
 # 🌐 __GESTION DES PROCESSUS TCP__ 
 
@@ -493,6 +497,7 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 <br>
 
 
+<a id="gestion-des-objets"></a>
 
 # 📂 __GESTION DES OBJETS__ 
 
@@ -578,6 +583,7 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 <br>
 
 
+<a id="sortie-de-commande-dans-un-fichier"></a>
 
 # ➡️ __SORTIE DE COMMANDE DANS UN FICHIER__
 
@@ -628,6 +634,7 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 <br>
 
 
+<a id="hashage"></a>
 
 # 🔪 __HASHAGE__ 
 
@@ -662,6 +669,7 @@ $h1 -eq $h2
 <br>
 
 
+<a id="rechercher-des-fichiers-et-dossiers"></a>
 
 # 🔍 __RECHERCHER DES FICHIERS ET DOSSIERS__ 
 
@@ -713,7 +721,7 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 <br>
 
 
-
+<a id="rechercher-dans-un-fichier"></a>
 
 # 📇 __RECHERCHER DANS UN FICHIER__
 
@@ -753,7 +761,15 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 ```
 
 
+---
 
+
+
+<br>
+
+
+
+<a id="rechercher-un-fichier-et-son-contenu"></a>
 
 # 🔎 __RECHERCHER UN FICHIER ET SON CONTENU__
 
@@ -791,7 +807,7 @@ Format-List
 
 
 
-## Formats de fichiers que Powershell peut utiliser:
+### Formats de fichiers que Powershell peut utiliser:
 
 | 📂 Format	| 📜 Supporté nativement ?	| 🔧 Méthode à utiliser |
 | ----- | :---: | ----- |
@@ -833,6 +849,7 @@ Add-Type -AssemblyName System.Web
 <br>
 
 
+<a id="pare-feu"></a>
 
 # 🧱 __PARE-FEU__
 
@@ -866,7 +883,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 <br>
 
 
-
+<a id="defender"></a>
 
  # 🛡️ __DEFENDER__ 
 
@@ -893,6 +910,7 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 <br>
 
 
+<a id="winrm"></a>
 
 # 🔢 __WINRM__ 
 
@@ -942,6 +960,7 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 <br>
 
 
+<a id="ssh"></a>
 
 # 🔢 __SSH__ 
 
@@ -1022,6 +1041,7 @@ ssh-keygen.exe -t rsa -b 4096
 <br>
 
 
+<a id="controleur-de-domaine"></a>
 
 # 🏠 __CONTROLEUR DE DOMAINE__  
 
