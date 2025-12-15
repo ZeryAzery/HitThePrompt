@@ -20,15 +20,13 @@
 
 __👉 En pratique :__
   - Écrire un Dockerfile → ce qu’il y a dans ton conteneur.
-
   - docker build → crée une image.
-
   - docker run → lance un conteneur à partir de l’image.
 
 <br>
 
 
-## Installe Docker rapide (Deiban) 
+## Installe Docker rapide (Debian) 
 
 Sur un shell root
 ```bash
