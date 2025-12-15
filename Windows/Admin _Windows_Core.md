@@ -27,6 +27,7 @@
 - [🔢 WINRM](#winrm)
 - [🔢 SSH](#ssh)
 - [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
+- [🟩 DIVERS](#divers)
 
 
 
@@ -822,25 +823,6 @@ Format-List
 
 
 
----
-
-
-
-<br>
-
-
-
-## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
-
-```powershell
-Add-Type -AssemblyName System.Web
-[System.Web.Security.Membership]::GeneratePassword(16, 4)
-```
-* `16` : longueur totale du mot de passe.
-* `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
-
-
-
 
 ---
 
@@ -885,7 +867,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 <a id="defender"></a>
 
- # 🛡️ __DEFENDER__ 
+# 🛡️ __DEFENDER__ 
 
 
 
@@ -1145,6 +1127,10 @@ Rename-Computer -ComputerName "DESKTOP-SQ5RDA2" -NewName "LENV15-2130" -DomainCr
 <br>
 
 
+<a id="divers"></a>
+
+# 🟩 DIVERS
+
 
 ### Ouvrir un nouveau terminal pour exécuter "en tant que"
 ```bat
@@ -1152,7 +1138,23 @@ runas /user:DOMAINE\MonCompteAD "cmd.exe"
 ```
 
 
+<br>
+
+
 ### Vérifier le niveau des privilèges de l'utilisateur en cours
 ```bat
 whoami /all
 ```
+
+
+<br>
+
+
+## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
+
+```powershell
+Add-Type -AssemblyName System.Web
+[System.Web.Security.Membership]::GeneratePassword(16, 4)
+```
+* `16` : longueur totale du mot de passe.
+* `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
