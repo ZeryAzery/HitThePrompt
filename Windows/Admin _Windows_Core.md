@@ -22,9 +22,9 @@
 - [RECHERCHER DES FICHIERS ET DOSSIERS](#🔍-rechercher-des-fichiers-et-dossiers)
 - [RECHERCHER DANS UN FICHIER](#📇-rechercher-dans-un-fichier)
 - [RECHERCHER UN FICHIER ET SON CONTENU](#🔎-rechercher-un-fichier-et-son-contenu)
-- [Pare-Feu](#🧱-pare-feu)
-- [Defender](#️🛡️-defender)
-- [WinRM](#🔢-winrm)
+- [PARE-FEU](#🧱-pare-feu)
+- [DEFENDER](#️🛡️-defender)
+- [WINRM](#🔢-winrm)
 - [SSH](#🔢-ssh)
 - [CONTROLEUR DE DOMAINE](#🏠-controleur-de-domaine)
 
@@ -41,7 +41,7 @@
 
 
 
-## 🔰 __COMMANDES DE BASE__ 
+# 🔰 __COMMANDES DE BASE__ 
 
 
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
@@ -711,7 +711,7 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 
 
-# 📇 RECHERCHER DANS UN FICHIER
+# 📇 __RECHERCHER DANS UN FICHIER__
 
  `Get-Content` et `Select-String`
 
@@ -751,7 +751,7 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
-# 🔎 RECHERCHER UN FICHIER ET SON CONTENU
+# 🔎 __RECHERCHER UN FICHIER ET SON CONTENU__
 
 `Get-ChildItem` et `Select-String` combinés
 
@@ -830,7 +830,7 @@ Add-Type -AssemblyName System.Web
 
 
 
-# 🧱 Pare-Feu  
+# 🧱 __PARE-FEU__
 
 
 
@@ -864,7 +864,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
- # 🛡️ Defender 
+ # 🛡️ __DEFENDER__ 
 
 
 
@@ -890,7 +890,7 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 
-# 🔢 WinRM 
+# 🔢 __WINRM__ 
 
 * Compte admin
 * Ports 5985 / 5986 autorisés
@@ -939,7 +939,7 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 
 
 
-# 🔢 SSH 
+# 🔢 __SSH__ 
 
 	
 ### Vérifier si le service est actif
@@ -1019,7 +1019,7 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 
-# 🏠 CONTROLEUR DE DOMAINE  
+# 🏠 __CONTROLEUR DE DOMAINE__  
 
 
 ### Installer les fonctionnalités
