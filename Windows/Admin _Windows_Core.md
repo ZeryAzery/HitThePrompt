@@ -1,4 +1,4 @@
-# 🪟 __ADMINISTRATRION EN POWERSHELL__ 🪟
+# 🪟 __ADMINISTRATRION EN POWERSHELL__
 
 
 * __Powershell n'a pas de sensiblité à la casse c'est juste visuel__
