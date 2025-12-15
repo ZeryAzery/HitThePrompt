@@ -9,24 +9,24 @@
 
 ## __Sommaire__
 
-- [%F0%9F%94%B0 COMMANDES DE BASE](#%F0%9F%94%B0-commandes-de-base)
-- [LICENSING MANAGEMENT TOOL](#🔑-licensing-management-tool)
-- [POINT DE RESTAURATION](#🍴-point-de-restauration)
-- [CONFIGURATION RÉSEAU](#📶-configuration-réseau)
-- [MISES À JOUR](#📅-mises-à-jour)
-- [GESTION DES PROCESSUS](#🏃‍♀️‍➡️-gestion-des-processus)
-- [GESTION DES PROCESSUS TCP](#🌐-gestion-des-processus-tcp)
-- [GESTION DES OBJETS](#📂-gestion-des-objets)
-- [SORTIE DE COMMANDE DANS UN FICHIER](#➡️-sortie-de-commande-dans-un-fichier)
-- [HASHAGE](#🔪-hashage)
-- [RECHERCHER DES FICHIERS ET DOSSIERS](#🔍-rechercher-des-fichiers-et-dossiers)
-- [RECHERCHER DANS UN FICHIER](#📇-rechercher-dans-un-fichier)
-- [RECHERCHER UN FICHIER ET SON CONTENU](#🔎-rechercher-un-fichier-et-son-contenu)
-- [PARE-FEU](#🧱-pare-feu)
-- [DEFENDER](#️🛡️-defender)
-- [WINRM](#🔢-winrm)
-- [SSH](#🔢-ssh)
-- [CONTROLEUR DE DOMAINE](#🏠-controleur-de-domaine)
+- [🔰 COMMANDES DE BASE](#commandes-de-base)
+- [🔑 LICENSING MANAGEMENT TOOL](#licensing-management-tool)
+- [🍴 POINT DE RESTAURATION](#point-de-restauration)
+- [📶 CONFIGURATION RÉSEAU](#configuration-réseau)
+- [📅 MISES À JOUR](#mises-à-jour)
+- [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#gestion-des-processus)
+- [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
+- [📂 GESTION DES OBJETS](#gestion-des-objets)
+- [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
+- [🔪 HASHAGE](#-hashage)
+- [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#rechercher-des-fichiers-et-dossiers)
+- [📇 RECHERCHER DANS UN FICHIER](#rechercher-dans-un-fichier)
+- [🔎 RECHERCHER UN FICHIER ET SON CONTENU](#rechercher-un-fichier-et-son-contenu)
+- [🧱 PARE-FEU](#pare-feu)
+- [🛡️ DEFENDER](#️defender)
+- [🔢 WINRM](#winrm)
+- [🔢 SSH](#ssh)
+- [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
 
 
 
@@ -41,8 +41,10 @@
 
 
 
-# 🔰 __COMMANDES DE BASE__ 
+<a id="commandes-de-base"></a>
 
+# 🔰 COMMANDES DE BASE
+ 
 
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
 ```powershell
@@ -134,8 +136,9 @@ Afficher les aides dans une fenêtre :
 Get-Help Unlock-BitLocker -ShowWindow
 ```
 
+<a id="licensing-management-tool"></a>
 
-## 🔑 __LICENSING MANAGEMENT TOOL__
+# 🔑 __LICENSING MANAGEMENT TOOL__
 
 | Commande                | ...                                                      |
 |-------------------------|---------------------------------------------------------------|
@@ -155,9 +158,10 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 <br>
 
-
+<a id="point-de-restauration"></a>
 
 # 🍴 __POINT DE RESTAURATION__ 
+
 
 __Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où `-Value 0` = 0 minutes)__
 ```powershell
