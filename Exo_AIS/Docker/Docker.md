@@ -27,7 +27,7 @@ __👉 En pratique :__
 
 <br>
 
-## Installation de Docker (exemple sur Debian)
+## Installation de Docker (exemple sur Ubuntu)
 
 ```bash
 apt-get update
@@ -35,6 +35,10 @@ apt-get install ca-certificates curl gnupg lsb-release
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
+```
+Pour Debian changer juste :
+```bash
+curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 ```
 
 ### Ajouter le dépôt Docker
@@ -125,7 +129,7 @@ docker run --rm -it -p 443:443 -v /home/toto/shared:/shared vulnapp-http:443
 * `--rm` → Supprime automatiquement le conteneur une fois qu’il s’arrête. (Pratique pour les tests ou les conteneurs temporaires)
 * `-it` → interagir avec le conteneur comme sur une machine normale ( -i = interactive et -t = terminal
 )
-### Lancer le conteneur en arrière-plan (mode detachedavec `-d`)
+### Lancer le conteneur en arrière-plan (mode detached avec `-d`)
 
 ```bash
 docker run -d --name vulnapp \
