@@ -26,7 +26,7 @@ __👉 En pratique :__
 <br>
 
 
-## Installe Docker rapide (Debian) 
+## Installation rapide de Docker (Debian) 
 
 Sur un shell root
 ```bash
