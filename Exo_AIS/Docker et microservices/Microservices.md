@@ -238,37 +238,39 @@ docker rmi -f $(docker images vulnapp-* -q)
 
 <br>
 
-## Vérifier que le partage fonctionne entre l'hôte et le conteneur  
+## Vérifier le partage entre l'hôte et le conteneur  
 
-__Afin que le partage de fichier puisse fonctionner, rajouter dans le Dockerfile :__
+__Pour le partage de fichier ajouter au Dockerfile :__
 ```dockerfile
 VOLUME ["/shared"]
 ```
 
-Depuis la machine hôte
+<br>
+
+* __Depuis la machine hôte__
 ```bash
 echo "hello from host" > /home/toto/shared/test.txt
 ```
 
-Puis vérifier dans le conteneur :
+Puis vérifier dans le conteneur (`cat`doit retourner "hello from host):
 ```bash
 docker exec -it vulnapp bash
 cat /shared/test.txt
 ```
-Si `cat`retourne bien "hello from host" c'est ok
+
 
 <br>
 
-Depuis le conteneur
+* __Depuis le conteneur__
 ```bash
 echo "hello from container" > /shared/test2.txt
 ```
 
-Puis vérifier de nouveau dans l'hôte :
+Puis vérifier de nouveau dans l'hôte (`cat`doit retourner "hello from host"):
 ```bash
 cat /home/toto/shared/test2.txt
 ```
-Si `cat`retourne bien "hello from host" c'est ok
+
 
 <br>
 
