@@ -87,7 +87,7 @@ source="2025-12-11_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex 
 
 <br>
 
-### Log du Reerse Shell
+### Log du Reverse Shell
 
 ```s
 source="2025-12-14_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex message="(bash)"
