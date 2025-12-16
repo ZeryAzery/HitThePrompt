@@ -1,4 +1,4 @@
-# Docker / Microservices
+# __DOCKER ET MICROSERVICES__
 
 ![alt text](<docker-logo.png>)
 
@@ -10,15 +10,14 @@
 
 <br>
 
-### Concepts Docker
-
+__Concepte de Docker__
 - **Client Docker** : gère les conteneurs.
 - **Démon Docker (service)** : héberge les conteneurs.
 - Normalement, créer un compte Docker et **ne pas faire tourner Docker en root**.
 
----
+<br>
 
-__👉 En pratique :__
+__En pratique :__
   - Écrire un Dockerfile → ce qu’il y a dans ton conteneur.
   - docker build → crée une image.
   - docker run → lance un conteneur à partir de l’image.
@@ -159,16 +158,17 @@ docker run -d --name vulnapp \
   vulnapp-http:443
 ```
 
-📌 __Options utiles :__
+__Options utiles :__
 
 * `--restart=always` → Redémarre le conteneur automatiquement à chaque reboot.
-
 * `--restart=unless-stopped` → Redémarre sauf si tu l’as stoppé manuellement.
 
+<br>
 
 > [!NOTE]  
 > * docker run -d → crée + démarre en arrière-plan
 > * docker start → redémarre toujours en arrière-plan, même sans -d
+
 
 ### Vérifier que le conteneur tourne
 
@@ -215,38 +215,36 @@ docker rm vulnapp
 docker images
 ```
 
+<br>
 
 ## Suppression des conteneurs
 
 
-
-* Supprimer le conteneur en cours
+Supprimer le conteneur en cours
 ```bash
 docker rm -f vulnapp
 ```
-* Supprimer un conteneur avec son ID
 
+Supprimer un conteneur avec son ID
 ```bash
 docker rm <ID>
 ```
-* Supprimer les conteneurs sans les images (?)
+Supprimer les conteneurs sans les images (?)
 ```bash
 docker container prune -f
 ```
 
-* Supprimer toutes les images Docker
-
+Supprimer toutes les images Docker
 ```bash
 docker rmi -f $(docker images -aq)
 ```
 
-* Supprimer seulement les images “vulnapp” en filtrant par nom
-
+Supprimer seulement les images “vulnapp” en filtrant par nom
 ```bash
 docker rmi -f $(docker images vulnapp-* -q)
 ```
 
-
+<br>
 
 ## Vérifier que le partage fonctionne entre l'hôte et le conteneur  
 
@@ -279,68 +277,67 @@ cat /home/toto/shared/test2.txt
 ```
 * __Si `cat`retourne bien "hello from host" c'est ok__
 
+<br>
 
-
-## Utiliser le volume partagé avec l'hôte afin d'y stocker les journeaux d'évenements
+## Utiliser le volume partagé avec l'hôte 
 
 * le but est de conserver les logs même une fois le container détruit.
 * le chemin des logs se modifie via les fichiers de configuration de l'application
 
 
-### Créer un dossier destiné à accueillir les logs du conteneur
-
+Créer un dossier destiné à accueillir les logs du conteneur
 ```bash
 mkdir -p /home/toto/shared/logs
 ```
 
-### Monter ce dossier dans le conteneur (stopper/supprimer l’ancien conteneur si besoin)
+### Monter ce dossier dans le conteneur avec `-v`
 
+Stopper/supprimer l’ancien conteneur si besoin
 ```bash
 docker rm -f vulnapp
-
 docker run -d --name vulnapp \
   -p 443:443 \
   -v /home/toto/shared/logs:/app/logs \
   vulnapp-http:443
 ```
+
+<br>
+
 `docker run` → Crée et lance un nouveau conteneur.
-
 `-d` → Détaché (detached mode), le conteneur tourne en arrière-plan.
-
 `--name vulnapp` → Donne un nom au conteneur (vulnapp) pour le gérer facilement.
-
 `-p 443:443` → Mappe le port 443 de l’hôte vers le port 443 du conteneur (HTTPS).
-
 `-v /home/toto/shared/logs:/app/logs` → Monte le dossier logs de l’hôte dans le conteneur à /app/logs. Tout ce qui est écrit ici sera persistant.
-
 `vulnapp-http:443` → Nom et tag de l’image Docker à utiliser pour créer le conteneur.
 
-
+<br>
 
 ### Vérifier que le volume partagé fonctionne pour les logs
 
-* Dans le conteneur, créer un fichier de test dans le dossier des logs monté
+Dans le conteneur, créer un fichier de test dans le dossier des logs monté
 ```bash
 docker exec -it vulnapp bash
-
 echo "log de test depuis le conteneur" > /app/logs/test.log
 ```
 
-* Sur l’hôte, regarder si le fichier apparaît dans le dossier logs
+Sur l’hôte, regarder si le fichier apparaît dans le dossier logs
 ```bash
 ls -l /home/toto/shared/logs
 cat /home/toto/shared/logs/test.log
 ```
-* Si  test.log est présent le volume partagé fonctionne 
+
+Si test.log est présent le volume partagé fonctionne 
 
 ![alt text](<shared_host-container.png>)
 
-La fabrication des logs se fait avec le fichier nlog.config, j'ai recréé le fichier nlog.config en local en indiquant le chemin `/home/toto/shared/logs`
+<br>
 
-Ensuite je viens modifier le fichier Dockerfile pour qu'il écrase son fichier nlog.config et le remplace par celui qui a le chemin de la machine hôte
+* La fabrication des logs se fait avec le fichier nlog.config, j'ai recréé le fichier nlog.config en local en indiquant le chemin `/home/toto/shared/logs`
+* Ensuite je viens modifier le fichier Dockerfile pour qu'il écrase son fichier nlog.config et le remplace par celui qui a le chemin de la machine hôte
+
+<br>
 
 Utiliser le docker file pour modifier le fichier de log
-
 ```dockerfile
 FROM debian:latest
 
@@ -373,9 +370,10 @@ COPY nlog.config /app/VulnerableLightApp/nlog.config
 CMD ["dotnet", "run", "--url=https://0.0.0.0:443"]
 ```
 
-Fichier nlog.config avec le chemin de la machine hôte :
+<br>
 
-```yml
+Fichier nlog.config avec le chemin de la machine hôte :
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -383,8 +381,12 @@ Fichier nlog.config avec le chemin de la machine hôte :
   <targets>
     <target name="allfile" xsi:type="File"
             fileName="/shared/logs/${shortdate}_logfile.txt"/>
+
+    <!-- Chemin dans le conteneur, monté vers l’hôte -->        
     <target name="jsonfile" xsi:type="File"
             fileName="/shared/logs/${shortdate}_logfile.json">
+            <!-- Logs JSON partagés avec l’hôte -->
+
       <layout xsi:type="JsonLayout">
         <attribute name="time" layout="${longdate}" />
         <attribute name="level" layout="${level:upperCase=true}" />
@@ -420,7 +422,7 @@ tail -f /home/toto/shared/logs/2025-10-09_logfile.json
 
 ![alt text](<collected_log_on_local.png>)
 
-
+<br>
 
 ## Appliquer les bonnes pratiques de sécurité issues du Guide docker ANSSI
 
@@ -482,6 +484,8 @@ docker run --memory="512m" --cpus="1.0" ...
 ```
 - Définir des quotas de stockage avec `--storage-opt`
 - Restreindre et contrôler l’usage réseau via Cgroups ou network policies
+
+<br>
 
 ## Exemple dockerfile/run pour VLA, en appliquant les bonnes pratiques ANSSI
 
@@ -579,18 +583,19 @@ docker stats vulnapp
 -----------------------------------------------------------------------
 
 
+<br>
 
 
-# Docker-compose
+# __DOCKER COMPOSE__
 
 ![alt text](<dockercompose-shema.png>)
 
 - Docker Compose permet de décrire et lancer plusieurs containers en même temps via un seul fichier (docker-compose.yml).
 - Il permet de définir les containers, leurs volumes, ports et dépendances, et ensuite une seule commande `docker-compose up` démarre tout.
 
+<br>
 
-### Créer le dossier pour Docker Compose
-
+Créer le dossier pour Docker Compose
 ```sh
 mkdir ~/vla-compose
 cd ~/vla-compose
@@ -598,8 +603,7 @@ cd ~/vla-compose
 
 
 
-### Créer le fichier yml pour Docker Compose
-
+Créer le fichier yml pour Docker Compose
 ```sh
 touch docker-compose.yml
 nano docker-compose.yml
@@ -651,7 +655,7 @@ __Explication :__
 - command: tail -f /dev/null → on laisse le container tourner “vide” juste pour que le volume existe et soit accessible.
 - logs-data correspond au volume du deuxième container, et /shared/logs est le chemin où ton application écrit ses logs.
 
-
+<br>
 
 ### Lancer le fichier dockercompose :
 
@@ -681,16 +685,17 @@ docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
 -----------------------------------------------------------------------
 
 
+<br>
 
-
-# Terraform
+# __TERRAFORM__
 
 ![alt text](<terralogo.png>)
 
 
 ## Intro
 
-- Terraform est un outil d’Infrastructure as Code (IaC)
+__Terraform est un outil d’Infrastructure as Code (IaC)__
+
 - Il permet de décrire, déployer et gérer des infrastructures, il peut gérer :
   - Des VMs
   - Des conteneurs (docker...)
@@ -706,44 +711,42 @@ docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
   - Éviter les erreurs manuelles et garantir la cohérence entre environnements (dev, test, prod).
   -nécessite un provider (Docker, AWS, Azure...)
 
+<br>
 
-
-## Terraform concepts
+__Concepte de Terraform__
 
 - Décrire → écrire les fichiers `example.tf` (l’état souhaité de ton infra).
-
 - Planifier → terraform plan (voir les changements à appliquer).
-
 - Appliquer → terraform apply (crée/modifie/supprime l’infra).
 
+<br>
 
-
-### Installer Terraform 
+## Installer Terraform 
 
 - Terraform est développé par HashiCorp. Comme Debian ne fournit pas Terraform directement dans ses dépôts officiels, il faut ajouter le dépôt de HashiCorp
 - Le paquet doit être signé pour prouver à `apt`qu’il vient bien de l’éditeur officiel (HashiCorp) et pas d’un pirate.
 - La clé GPG est ce qui permet de vérifier cette signature. Sans elle, Debian refuserait d’installer le paquet.
+
+<br>
 
 ```sh
 apt update
 apt install -y gnupg curl
 ```
 
-### Importer la clé GPG officielle et la stocker déarmorisée
-
+Importer la clé GPG officielle et la stocker déarmorisée
 ```sh
 curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 ```
 
 
-### Ajouter le dépôt HashiCorp pour Debian bookworm 
-
+Ajouter le dépôt HashiCorp pour Debian bookworm 
 ```sh
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bookworm main" > /etc/apt/sources.list.d/hashicorp.list
 ```
 
 
-### Installer Terraform
+Installer Terraform 
 ```sh
 apt update
 apt install -y terraform
@@ -752,22 +755,20 @@ terraform -v
 ```
 
 
-### Créer un dossier pour ce test 
-
+Créer un dossier pour ce test 
 ```sh
 mkdir ~/terraform-docker
 cd ~/terraform-docker
 ```
 
 
-### créer un premier fichier de configuration
-
+Créer un premier fichier de configuration
 ```sh
 nano main.tf
 ```
 
 
-### Fichier Terraform
+### Fichier Terraform `.tf`
 
 ```t
 terraform {
@@ -795,29 +796,31 @@ resource "docker_container" "hello" {
 ### Explications
 
 __1er Bloc `terraform { ... }`__
+
 - Indique le provider Terraform à utiliser : ici docker
 - Pour gérer Docker, Terraform a besoin du *plugin kreuzwerker/docker*
 - On précise une version pour éviter les surprises 
 
+<br>
+
 __2em Bloc `provider "docker" {}`__
+
 - Connecte Terraform au  Docker local (via le socket Unix /var/run/docker.sock)
 - Pas besoin de config si ton Docker tourne sur la même machine que Terraform.
 
+<br>
+
 __3em Bloc `resource "docker_container" "hello" { ... }`__
+
 - `resource` → ici on définit un conteneur Docker comme ressource gérée par Terraform.
-
 - `"docker_container"` → type de ressource.
-
 - `"hello"` → nom logique dans Terraform (utile pour référence interne).
-
 - `name` = "hello-tf" → nom réel du conteneur Docker.
-
 - `image` = "nginx:latest" → image Docker à utiliser. Terraform va la télécharger si elle n’existe pas.
-
 - `ports { internal = 80, external = 8080 }` → mappe le port 80 du conteneur sur le port 8080 de la machine hôte.
 
 
-
+<br>
 
 ## Exécuter Terraform
 
@@ -844,11 +847,3 @@ terraform apply -auto-approve
 ```sh
 terraform destroy -auto-approve
 ```
-
-
-
-
-
-
-
-### Créer un dossier pour ce projet test (VLA + Graylog + MongoDB + Elasticsearch)
