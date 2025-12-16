@@ -250,7 +250,7 @@ docker rmi -f $(docker images vulnapp-* -q)
 
 ## Vérifier que le partage fonctionne entre l'hôte et le conteneur  
 
-__Afin que je partage de fichier puisse fonctionner, rajouter dans le Dockerfile :__
+__Afin que le partage de fichier puisse fonctionner, rajouter dans le Dockerfile :__
 ```dockerfile
 VOLUME ["/shared"]
 ```
