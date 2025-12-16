@@ -41,7 +41,7 @@ curl https://raw.githubusercontent.com/ZeryAzery/HitThePrompt/refs/heads/main/Ex
 
 <br>
 
-## Installation de Docker (exemple Ubuntu puis Debian)
+## Installation de Docker (exemple Ubuntu/Debian)
 
 ```bash
 apt-get update
@@ -56,31 +56,25 @@ curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/doc
 ```
 
 
-
-### Ajouter le dépôt Docker
-
+Ajouter le dépôt Docker
 ```bash
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
 
-### Mettre à jour la liste des paquets
-
+Mettre à jour la liste des paquets
 ```bash
 apt-get update
 ```
 
 
-### Installer Docker
-
+Installer Docker
 ```bash
 apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 
-
-### Vérifier la version
-
+Vérifier la version
 ```bash
 docker --version
 ```
@@ -89,16 +83,14 @@ docker --version
 
 ## Le Dockerfile
 
-### Créer un dossier pour le projet Docker
-
+Créer un dossier pour le projet Docker
 ```bash
 mkdir ~/vulnapp-docker
 cd ~/vulnapp-docker
 ```
 
 
-### Créer le fichier Dockerfile
-
+Créer le fichier Dockerfile
 ```bash
 nano Dockerfile
 ```
@@ -253,29 +245,30 @@ __Afin que le partage de fichier puisse fonctionner, rajouter dans le Dockerfile
 VOLUME ["/shared"]
 ```
 
-* depuis la machine hôte
+Depuis la machine hôte
 ```bash
 echo "hello from host" > /home/toto/shared/test.txt
 ```
 
-* Puis vérifier dans le conteneur :
+Puis vérifier dans le conteneur :
 ```bash
 docker exec -it vulnapp bash
 cat /shared/test.txt
 ```
-* __Si `cat`retourne bien "hello from host" c'est ok__
+__Si `cat`retourne bien "hello from host" c'est ok__
 
-* Depuis le conteneur
+<br>
+
+Depuis le conteneur
 ```bash
 echo "hello from container" > /shared/test2.txt
 ```
 
-* Puis vérifier de nouveau dans l'hôte :
-
+Puis vérifier de nouveau dans l'hôte :
 ```bash
 cat /home/toto/shared/test2.txt
 ```
-* __Si `cat`retourne bien "hello from host" c'est ok__
+__Si `cat`retourne bien "hello from host" c'est ok__
 
 <br>
 
