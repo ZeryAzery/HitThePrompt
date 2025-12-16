@@ -255,7 +255,7 @@ Puis vérifier dans le conteneur :
 docker exec -it vulnapp bash
 cat /shared/test.txt
 ```
-__Si `cat`retourne bien "hello from host" c'est ok__
+Si `cat`retourne bien "hello from host" c'est ok
 
 <br>
 
@@ -268,7 +268,7 @@ Puis vérifier de nouveau dans l'hôte :
 ```bash
 cat /home/toto/shared/test2.txt
 ```
-__Si `cat`retourne bien "hello from host" c'est ok__
+Si `cat`retourne bien "hello from host" c'est ok
 
 <br>
 
@@ -296,12 +296,12 @@ docker run -d --name vulnapp \
 
 <br>
 
-`docker run` → Crée et lance un nouveau conteneur.
-`-d` → Détaché (detached mode), le conteneur tourne en arrière-plan.
-`--name vulnapp` → Donne un nom au conteneur (vulnapp) pour le gérer facilement.
-`-p 443:443` → Mappe le port 443 de l’hôte vers le port 443 du conteneur (HTTPS).
-`-v /home/toto/shared/logs:/app/logs` → Monte le dossier logs de l’hôte dans le conteneur à /app/logs. Tout ce qui est écrit ici sera persistant.
-`vulnapp-http:443` → Nom et tag de l’image Docker à utiliser pour créer le conteneur.
+* `docker run` → Crée et lance un nouveau conteneur.
+* `-d` → Détaché (detached mode), le conteneur tourne en arrière-plan.
+* `--name vulnapp` → Donne un nom au conteneur (vulnapp) pour le gérer facilement.
+* `-p 443:443` → Mappe le port 443 de l’hôte vers le port 443 du conteneur (HTTPS).
+* `-v /home/toto/shared/logs:/app/logs` → Monte le dossier logs de l’hôte dans le conteneur à /app/logs. Tout ce qui est écrit ici sera persistant.
+* `vulnapp-http:443` → Nom et tag de l’image Docker à utiliser pour créer le conteneur.
 
 <br>
 
