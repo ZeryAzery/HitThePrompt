@@ -8,3 +8,10 @@ docker run -d \
   -e SPLUNK_PASSWORD="MOTDEPASSE" \
   splunk/splunk:latest start
   ```
+
+
+docker images | grep splunk
+docker ps
+docker inspect splunk
+docker top splunk
+
