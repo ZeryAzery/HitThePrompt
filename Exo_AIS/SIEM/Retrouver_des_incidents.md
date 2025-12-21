@@ -1,5 +1,8 @@
 # __RETROUVER DES INCIDENTS DANS UN SIEM__
 
+
+![img](log.png)
+
 Ce brief consiste à retrouver dans un SIEM les logs des vulnérabilités exploitées dans [le module pentest](https://github.com/ZeryAzery/HitThePrompt/blob/main/Exo_AIS/Pentest/Pentest_Web.md)
 
 <br>
