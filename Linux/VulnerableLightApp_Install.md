@@ -55,8 +55,8 @@ jobs
 <br>
 
 ## Sur une barre d'URL
-* https://<IP>:3000/swagger
-* http://<IP>:4000/swagger
+* https://`<IP>`:3000/swagger
+* http://`<IP>`:4000/swagger
 
 <br>
 
