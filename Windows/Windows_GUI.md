@@ -56,7 +56,7 @@ C:\Users\<TonUtilisateur>\AppData\Roaming\Microsoft\Internet Explorer\Quick Laun
 ```
 
 
-* Fichier binaire IconCache.db
+Fichier binaire IconCache.db
 ```
 C:\Users\<user>\AppData\Local\IconCache.db
 ```
@@ -70,12 +70,13 @@ C:\Users\<user>\AppData\Local\IconCache.db
 
 
 ### Changer la cible d'un raccourci
-* Dans la cible d'un raccourci ajouter par exemple
+Dans la cible d'un raccourci ajouter par exemple
 ```bat
 cmd.exe /c echo "action douteuse" "chemin\vers\le\fichier\normal"
 ```
-* Cette technique peut être utilisée par des attaquants pour effectuer des actions malicieuses
+Cette technique peut être utilisée par des attaquants pour effectuer des actions malicieuses
 
+<br>
 
 ### Ajouter un raccourci à la barre des tâches qui n'est pas un programme
 * Dans ce cas ça m'a permis d'ajouter un script ahk à la barre des taches
@@ -86,7 +87,7 @@ cmd.exe /c echo "action douteuse" "chemin\vers\le\fichier\normal"
 ```
 
 
-
+<br>
 
 -----------------------------------------------------------------
 
@@ -107,7 +108,7 @@ ii  '.\CPUID HWMonitor.lnk'
 -----------------------------------------------------------------
 
 
-
+<br>
 
 
 # Activer wsl
