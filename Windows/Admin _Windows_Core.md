@@ -1092,31 +1092,41 @@ foreach ($groupe in $groupes) {
 ### Afficher le chemin LDAP d'un utilisateur
 ```powershell
 (Get-ADUser -Identity j.dupont).DistinguishedName
-```
-#ou
-```powershell
+# ou
 Get-ADUser -Identity NomUser | Select-Object DistinguishedName
 ```
 
 
-### Vérifier dernière authentification d'un PC
+### Dernière authentification d'un PC ou utilisateur
 ```powershell
 Get-ADComputer -Identity LENTBK15-2336 -Properties LastLogonDate
 ```
-
-
-
-### Vérifier dernière authentification d'un utilisateur
 ```powershell
 Get-ADUser -Identity R.PETIT -Properties LastLogonDate
 ```
 
 
-
-### Renommer un PC du domaine avec un compte admin (depuis n'importe quelle machine du domaine...)
+### Renommer un PC du domaine  
+Fonctionne depuis n'importe quelle machine du domaine...
 ```powershell
 Rename-Computer -ComputerName "DESKTOP-SQ5RDA2" -NewName "LENV15-2130" -DomainCredential (Get-Credential) -Restart
 ```
+
+
+### Vérifier la relation DC & FSMO
+```bat
+Netdom query fsmo
+``` 
+
+### Basculer les rôles FSMO 
+```powershell
+Move-ADDirectoryServerOperationMasterRole -Identity <SRV-Name> OperationMasterRole 0,1,2,3,4
+```
+- 0 : Schema Master 
+- 1 : Domain Naming Master 
+- 2 : RID Master 
+- 3 : PDC Emulator 
+- 4 : Infrastructure Master 
 
 
 

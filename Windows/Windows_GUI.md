@@ -2,49 +2,63 @@
 # Raccourcis clavier utiles
 
 ### Ajouter un bureau virtuel
-
 🪟 + `ctrl` + `d`
 
 
-
 ### Naviguer entre les bureaux virtuels
-
 🪟 + `ctrl` + `→` ou `←`
 
 
-
 ### Fermer les bureaux virtuels
-
 🪟 + `Tab`
 
 
-
 ### Retour bureau immédiat
-
 🪟 + `d`
 
 
-
 ### Rouvrir un onglet fermé sur navigateur
-
 `ctrl` + `Maj` + `T`
 
 
-
 ### Rouvrir les fenêtres d'un navigateur fermé
-
 `ctrl` + `Shift` + `T`
 
 
 
-
-
------------------------------------------------------------------
+---
 
 
 
 
-# Applications sur la barre des tâches
+<br>
+
+
+
+
+### Fond d'écran Windows
+```
+C:\Windows\Web\
+```
+
+### Fond d'écran Utilisateur
+```
+C:\Users\<user-name>\AppData\Roaming\Microsoft\Windows\Themes\
+```
+
+
+
+---
+
+
+
+
+<br>
+
+
+
+
+## Applications sur la barre des tâches
 
 
 ### Chemin des app sur la barre des tâches 
@@ -69,14 +83,27 @@ C:\Users\<user>\AppData\Local\IconCache.db
 
 
 
-### Changer la cible d'un raccourci
-Dans la cible d'un raccourci ajouter par exemple
+
+
+
+
+---
+
+
+
+
+<br>
+
+
+
+## Changer la cible d'un raccourci
+
+Dans la cible d'un raccourci (clic droit propriété) ajouter par exemple :
 ```bat
 cmd.exe /c echo "action douteuse" "chemin\vers\le\fichier\normal"
 ```
 Cette technique peut être utilisée par des attaquants pour effectuer des actions malicieuses
 
-<br>
 
 ### Ajouter un raccourci à la barre des tâches qui n'est pas un programme
 * Dans ce cas ça m'a permis d'ajouter un script ahk à la barre des taches
@@ -87,9 +114,13 @@ Cette technique peut être utilisée par des attaquants pour effectuer des actio
 ```
 
 
+---
+
+
+
+
 <br>
 
------------------------------------------------------------------
 
 
 
@@ -104,11 +135,14 @@ ii  '.\CPUID HWMonitor.lnk'
 
 
 
+---
 
------------------------------------------------------------------
+
 
 
 <br>
+
+
 
 
 # Activer wsl
