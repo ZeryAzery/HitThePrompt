@@ -1074,7 +1074,7 @@ New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName 
 Get-ADGroup -Filter 'Name -like "*admin*"'
 Get-ADGroup -Filter 'Name -like "*stratégie*"'
 
-# Ajouter l'utilisateur "admaxel" aux groupes admin 
+# Ajouter l'utilisateur "admtoto" aux groupes admin 
 $groupes = @(
     "Administrateurs",
     "Administrateurs du schéma",
