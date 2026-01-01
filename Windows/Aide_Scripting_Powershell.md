@@ -33,6 +33,7 @@ Exécuter un script quelque soit le ExecutionPolicy
 ```powershell
 Get-Content test.ps1 | iex
 ```
+Ouvrir un shell dans le shell avec les droits bypass
 ```powershell
 powershell.exe -exec bypass
 ```
