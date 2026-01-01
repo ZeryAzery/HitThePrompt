@@ -693,11 +693,25 @@ Get-ChildItem -Path F:\Users\toto\ -Directory -Recurse -Force  -Name "*save*"
 
 ### Rechercher les fichiers en fonction de l'extension 
 ```powershell
-Get-ChildItem -Path E:\ -Filter *.md -Recurse
+Get-ChildItem -Path E:\ -Filter *.md -Recurse -Force
 ```
 
-- -Filter *.md → cherche les fichiers finissant par `.md`
-- -Recurse → descend dans tous les sous-dossiers
+- `-Filter *.md` → cherche les fichiers finissant par `.md`
+- `-Recurse` → descend dans tous les sous-dossiers
+- `-Force` → fichiers cachés, fichiers système, certains dossiers protégés (ne fera pas apparaître les fichiers corrompues ou illisibles)
+- `-ErrorAction` → évite que la recherche s’arrête si un dossier est refusé
+
+<br>
+
+__→  Valeurs courantes de `-ErrorAction`__
+| Valeur            | Comportement |
+|-------------------|--------------|
+| Continue          | Affiche l’erreur et continue (par défaut) |
+| SilentlyContinue  | Ignore l’erreur sans rien afficher |
+| Stop              | Transforme l’erreur en erreur bloquante |
+| Ignore            | Ignore totalement l’erreur (rarement utile) |
+| Inquire           | Demande quoi faire à chaque erreur |
+
 
 
 

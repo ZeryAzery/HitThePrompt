@@ -285,7 +285,7 @@ Get-Service | ? { $_.Status -eq "Running" }
 Testent l’égalité ou la comparaison entre nombres/valeurs.
 
 | Opérateur | Signification     |
-| --------- | ----------------- |
+|:---------:| ----------------- |
 | `-eq`     | égal              |
 | `-ne`     | différent         |
 | `-gt`     | supérieur         |
@@ -321,7 +321,7 @@ __Exemple d'utilisation simple :__ (retournera "True" or "False")
 Wildcards, regex, recherches dans des collections.
 
 | Opérateur      | Signification                           |
-| -------------- | --------------------------------------- |
+|:--------------:| --------------------------------------- |
 | `-like`        | correspond avec wildcard (`*test*`)     |
 | `-notlike`     | ne correspond pas aux wildcards         |
 | `-match`       | correspond à une regex                  |
@@ -355,7 +355,7 @@ __Exemple__
 Combinent plusieurs conditions.
 
 | Opérateur | Signification                   |
-| --------- | ------------------------------- |
+|:---------:| ------------------------------- |
 | `-and`    | logique "ET"                    |
 | `-or`     | logique "OU"                    |
 | `-not`    | logique "NON"                   |
@@ -383,7 +383,7 @@ __Exemple__
 Modifient la valeur d’une variable.
 
 | Opérateur | Signification                   |
-| --------- | ------------------------------- |
+|:---------:| ------------------------------- |
 | `=`       | assignation simple              |
 | `+=`      | addition puis assignation       |
 | `-=`      | soustraction puis assignation   |
@@ -413,7 +413,7 @@ $x += 3      # x vaut maintenant 8
 Vérifient ou convertissent le type d’un objet
 
 | Opérateur | Utilité                                                 |
-| --------- | ------------------------------------------------------- |
+|:---------:| ------------------------------------------------------- |
 | `-is`     | teste si un objet est d’un type donné                   |
 | `-isnot`  | teste si un objet n’est pas d’un type donné             |
 | `-as`     | convertit vers un type (retourne `$null` si impossible) |
