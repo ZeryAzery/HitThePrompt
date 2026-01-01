@@ -28,6 +28,8 @@ Get-WmiObject Win32_ComputerSystem | gm
 
 ### ⛔ Passer outre la politique d'exécution des scripts
 
+
+Exécuter un script quelque soit le ExecutionPolicy
 ```powershell
 Get-Content test.ps1 | iex
 ```
