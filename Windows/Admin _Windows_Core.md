@@ -83,6 +83,14 @@ Get-CimInstance Win32_ComputerSystem | fl
 ```
 
 
+
+### Afficher informations BIOS
+```powershell
+Get-CimInstance -ClassName Win32_BIOS
+```
+
+
+
 ### Afficher les infos de la machine
 ```powershell
 Get-computerInfo 
