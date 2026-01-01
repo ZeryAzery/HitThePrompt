@@ -36,9 +36,12 @@ powershell.exe -exec bypass
 ```
 Changer la valeur `ExecutionPolicy` pour le terminal en cours
 ```powershell
-Set-ExecutionPolicy -Scope Process Bypass
+Set-ExecutionPolicy Bypass -Scope Process 
 ```
-
+Changer la valeur `ExecutionPolicy` pour l'utilisateur en cours
+```powershell
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+```
 
 
 ---
