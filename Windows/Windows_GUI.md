@@ -26,10 +26,9 @@
 
 
 
+
+
 ---
-
-
-
 
 <br>
 
@@ -48,10 +47,8 @@ C:\Users\<user-name>\AppData\Roaming\Microsoft\Windows\Themes\
 
 
 
+
 ---
-
-
-
 
 <br>
 
@@ -89,10 +86,8 @@ C:\Users\<user>\AppData\Local\IconCache.db
 
 ---
 
-
-
-
 <br>
+
 
 
 
@@ -114,10 +109,9 @@ Cette technique peut être utilisée par des attaquants pour effectuer des actio
 ```
 
 
+
+
 ---
-
-
-
 
 <br>
 
@@ -135,10 +129,21 @@ ii  '.\CPUID HWMonitor.lnk'
 
 
 
+
 ---
 
+<br>
 
 
+
+### Vérouiller l'écran d'une session
+```powershell
+rundll32.exe user32.dll,LockWorkStation; exit
+```
+
+
+
+---
 
 <br>
 

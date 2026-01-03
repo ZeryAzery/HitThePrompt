@@ -22,6 +22,9 @@
 - [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#rechercher-des-fichiers-et-dossiers)
 - [📇 RECHERCHER DANS UN FICHIER](#rechercher-dans-un-fichier)
 - [🔎 RECHERCHER UN FICHIER ET SON CONTENU](#rechercher-un-fichier-et-son-contenu)
+- [💾 SAUVEGARDER ET COPIER](#sauvegarder-et-copier)
+- [↔️ SMB](#smb)
+- [⬇️ GESTION CONTENU HTTP/HTTPS](#telechargement-http-https)
 - [🧱 PARE-FEU](#pare-feu)
 - [🛡️ DEFENDER](#️defender)
 - [🔢 WINRM](#winrm)
@@ -32,12 +35,10 @@
 
 
 
+
 ---
 
-
-
 <br>
-
 
 
 
@@ -50,11 +51,6 @@
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
 ```powershell
 sconfig
-```
-
-#### Trouver une commande (Alias: `gcm`):
-```powershell
-Get-Command *hash*
 ```
 
 
@@ -129,7 +125,7 @@ virtmgmt.msc
 ```
 
 
-### Se servir de l'aide dans powershell
+### Aide dans powershell
 Télécharger les fichiers d'aide
 ```powershell
 Update-Help 
@@ -144,6 +140,30 @@ Afficher les aides dans une fenêtre :
 ```powershell
 Get-Help Unlock-BitLocker -ShowWindow
 ```
+
+Outils Windows Legacy Get-Help ne fonctionnera pas utiliser /?
+```powershell
+icacls /?
+```
+
+```powershell
+man Get-Item
+```
+
+### Trouver une commande (Alias: `gcm`):
+```powershell
+Get-Command *hash*
+```
+
+
+
+
+---
+
+<br>
+
+
+
 
 <a id="licensing-management-tool"></a>
 
@@ -161,11 +181,14 @@ Get-Help Unlock-BitLocker -ShowWindow
 
 
 
+
+
 ---
 
-
-
 <br>
+
+
+
 
 <a id="point-de-restauration"></a>
 
@@ -186,11 +209,12 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="configuration-reseau"></a>
@@ -319,11 +343,12 @@ Test-NetConnection -ComputerName localhost -Port 389
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="mises-a-jour"></a>
@@ -379,11 +404,12 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="gestion-des-processus"></a>
@@ -425,11 +451,12 @@ Stop-Process -Id 2960
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="gestion-des-processus-tcp"></a>
@@ -499,11 +526,12 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="gestion-des-objets"></a>
@@ -585,11 +613,13 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
+
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="sortie-de-commande-dans-un-fichier"></a>
@@ -636,11 +666,12 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="hashage"></a>
@@ -671,11 +702,12 @@ $h1 -eq $h2
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="rechercher-des-fichiers-et-dossiers"></a>
@@ -737,11 +769,12 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="rechercher-dans-un-fichier"></a>
@@ -784,17 +817,20 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 ```
 
 
+
+
 ---
 
-
-
 <br>
+
 
 
 
 <a id="rechercher-un-fichier-et-son-contenu"></a>
 
 # 🔎 __RECHERCHER UN FICHIER ET SON CONTENU__
+
+
 
 `Get-ChildItem` et `Select-String` combinés
 
@@ -822,11 +858,11 @@ Format-List
 
 
 
+
 ---
 
-
-
 <br>
+
 
 
 
@@ -848,9 +884,197 @@ Format-List
 
 ---
 
+<br>
 
+
+
+
+<a id="sauvegarder-et-copier"></a>
+
+# 💾 __SAUVEGARDER ET COPIER__
+
+
+
+### Compress-Archive (zip)
+```powershell
+$date = Get-Date -Format "Le_dd-MM-yyyy_à_HH'h'mm"; Compress-Archive -Path \\PC-01\E$\RD -DestinationPath "E:\srcipt_save\saveRD_$date.zip" -Force
+```
+
+
+### Copier un fichier
+```powershell
+Copy-Item .\README.md -Destination 'C:\Users\toto\OneDrive - CYBER MANAGEMENT\Bureau\'
+```
+
+
+### Copier/Télécharger un fichier d'un serveur distant (si partage SMB et droits ok sur utilisateur admtoto )
+```powershell
+Copy-Item \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker\PC-485\"Clé de récupération BitLocker.txt" -Destination C:\Users\admtoto\Desktop\ -Recurse -Force
+```
+
+
+
+
+---
 
 <br>
+
+
+
+
+<a id="smb"></a>
+
+# ↔️ __SMB__
+
+
+
+### Afficher les partages SMB
+```powershell
+Get-SmbShare
+```
+
+
+### Vérifier si la connexion SMB fonctionne (avec utilisateur en cours)
+```bat
+net use \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker
+```
+```powershell
+Test-Path \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker
+```
+
+
+### Afficher le contenu d'un fichier partagé sur le réseau 
+```powershell
+gc \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker\PC-485\"Clé de récupération BitLocker.txt"
+```
+
+
+### Partager un répertoire
+```powershell
+New-SmbShare -Name "Partage_DATAS" -Path "C:\DATAS" -FullAccess "Utilisateurs du domaine" 
+```
+
+
+### Supprimer un partage
+```powershell
+Remove-SmbShare -Name "Partage_DATAS"
+```
+```bat
+net use \\192.168.10.125\PARTAGES /delete
+```
+
+### Voir les droits SMB d’un partage
+```powershell
+Get-SmbShareAccess -Name PARTAGES
+```
+
+
+### Monter un lecteur réseau 
+ne pas mettre `/persistent:yes` si c'est juste temporaire 
+```powershell
+net use Z: \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker /user:DOMAIN\Administrateur /persistent:yes
+```
+```powershell
+New-PSDrive -Name Z -PSProvider FileSystem -Root \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker -Persist
+```
+
+### Supprimmer lecteur réseau
+```powershell
+net use Z: /delete
+```
+```powershell
+Remove-PSDrive Z
+```
+
+### Voir si le chiffrement SMB est activé
+```powershell
+Get-SmbShare | Select Name, EncryptData
+```
+
+
+### Voir qui est connecté aux partages
+```powershell
+Get-SmbSession
+```
+
+
+### connexions ouvertes vers les partages
+```powershell
+Get-SmbConnection
+```
+
+
+Fermer une session SMB
+```powershell
+Close-SmbSession -SessionId 3
+```
+
+
+Voir les erreurs SMB récentes (logs)
+```powershell
+Get-WinEvent -LogName Microsoft-Windows-SMBServer/Operational -MaxEvents 30
+```
+
+---
+
+<br>
+
+
+
+
+<a id="telechargement-http-https"></a>
+
+# ⬇️ __GESTION CONTENU HTTP/HTTPS__
+
+
+### Télécharger un fichier (Invoke-WebRequest)
+```powershell
+iwr https://example.com/hosts.txt -OutFile C:\Temp\hosts.txt -SkipCertificateCheck
+```
+`-SkipCertificateCheck` → Utile pour les certificats auto-signés (eq -k curl)
+
+
+
+### Afficher sans télécharger (Invoke-RestMethod)
+```powershell
+irm https://get.activated.win
+```
+
+### Télécharger avec Invoke-RestMethod
+irm est surtout utile pour API / JSON, pas pour de gros fichiers.
+```powershell
+irm https://example.com/hosts.txt -OutFile C:\Temp\hosts.txt
+```
+
+
+### Télécharger avec BitsTransfer
+* BITS = Background Intelligent Transfer Service 
+* Reprise automatique si le transfert est interrompu et reprend là où il s’est arrêté.
+* Pratique pour gros fichiers ou connexions instables.
+
+```powershell
+Start-BitsTransfer -Source https://cdimage.kali.org/kali-2025.4/kali-linux-2025.4-installer-amd64.iso -Destination "F:\Users\Toto\Documents\Images ISO\Linux\"
+```
+
+Télécharger plusiseurs fichiers
+```powershell
+Start-BitsTransfer -Source "https://example.com/file1.txt","https://example.com/file2.txt" -Destination "C:\Temp\"
+```
+
+Permet aussi de copier des fichiers d'un partage SMB
+```powershell
+Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
+```
+
+
+
+
+
+---
+
+<br>
+
+
 
 
 <a id="pare-feu"></a>
@@ -882,9 +1106,9 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 ---
 
-
-
 <br>
+
+
 
 
 <a id="defender"></a>
@@ -909,9 +1133,9 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 ---
 
-
-
 <br>
+
+
 
 
 <a id="winrm"></a>
@@ -957,11 +1181,12 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="ssh"></a>
@@ -1038,11 +1263,12 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="controleur-de-domaine"></a>
@@ -1152,16 +1378,26 @@ Move-ADDirectoryServerOperationMasterRole -Identity <SRV-Name> OperationMasterRo
 
 
 
+
 ---
 
-
-
 <br>
+
+
 
 
 <a id="divers"></a>
 
 # 🟩 DIVERS
+
+
+### Vérouiller l'écran d'une session
+```powershell
+rundll32.exe user32.dll,LockWorkStation; exit
+```
+
+
+<br>
 
 
 ### Ouvrir un nouveau terminal pour exécuter "en tant que"
