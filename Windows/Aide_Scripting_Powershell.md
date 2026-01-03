@@ -154,9 +154,8 @@ switch ($usrvalue)
 <br>
 
 > [!IMPORTANT]
-> `else` n'a jamais de conditions derrière.
->  
-> Et PowerShell attend obligatoirement cette syntaxe pour `else` :
+> * `else` n'a jamais de conditions derrière.
+> * Et PowerShell attend obligatoirement cette syntaxe pour `else` :
 
 ✅ Syntaxe PowerShell stricte
 ```powershell
