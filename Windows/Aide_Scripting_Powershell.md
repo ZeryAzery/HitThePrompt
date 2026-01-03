@@ -57,7 +57,7 @@ Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 
 ### 📍 Principaux types de données en PowerShell
 
-Elles empêche d'affecter une valeur incorrecte
+Empêche d'affecter une valeur incorrecte
 
 | Type | Description | Exemple |
 | --------| -------- | ------------ | 
@@ -151,9 +151,11 @@ switch ($usrvalue)
 }      
 ```
 
+<br>
 
 > [!IMPORTANT]
-> `else` n'a jamais de conditions derrière ! 
+> `else` n'a jamais de conditions derrière.
+>  
 > Et PowerShell attend obligatoirement cette syntaxe pour `else` :
 
 ✅ Syntaxe PowerShell stricte
