@@ -43,9 +43,9 @@
 
 
 
-<a id="commandes-de-base"></a>
 
-# 🔰 COMMANDES DE BASE
+
+# 🔰 COMMANDES DE BASE  <a id="commandes-de-base"></a>
  
 
 ### Sur serveur core permet d'ouvrir le menu de config du serveur
@@ -165,9 +165,9 @@ Get-Command *hash*
 
 
 
-<a id="licensing-management-tool"></a>
 
-# 🔑 __LICENSING MANAGEMENT TOOL__
+
+# 🔑 __LICENSING MANAGEMENT TOOL__  <a id="licensing-management-tool"></a>
 
 | Commande                | ...                                                      |
 |-------------------------|---------------------------------------------------------------|
@@ -190,9 +190,9 @@ Get-Command *hash*
 
 
 
-<a id="point-de-restauration"></a>
 
-# 🍴 __POINT DE RESTAURATION__ 
+
+# 🍴 __POINT DE RESTAURATION__  <a id="point-de-restauration"></a>
 
 
 __Autoriser un point de restauration à 0 minute (au lieu de 24h de base et où `-Value 0` = 0 minutes)__
@@ -217,9 +217,9 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 
-<a id="configuration-reseau"></a>
 
-# 📶 __CONFIGURATION RÉSEAU__  
+
+# 📶 __CONFIGURATION RÉSEAU__  <a id="configuration-reseau"></a>
 
 
 ### Information réseau détaillée
@@ -351,9 +351,9 @@ Test-NetConnection -ComputerName localhost -Port 389
 
 
 
-<a id="mises-a-jour"></a>
 
-# 📅 __MISES À JOUR__  
+
+# 📅 __MISES À JOUR__   <a id="mises-a-jour"></a>
 
 
 ###  Installer le module maj
@@ -412,9 +412,9 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
-<a id="gestion-des-processus"></a>
 
-# 🏃‍♀️‍➡️ __GESTION DES PROCESSUS__
+
+# 🏃‍♀️‍➡️ __GESTION DES PROCESSUS__  <a id="gestion-des-processus"></a>
 
 
 ### Afficher les processus en cours 
@@ -459,9 +459,9 @@ Stop-Process -Id 2960
 
 
 
-<a id="gestion-des-processus-tcp"></a>
 
-# 🌐 __GESTION DES PROCESSUS TCP__ 
+
+# 🌐 __GESTION DES PROCESSUS TCP__  <a id="gestion-des-processus-tcp"></a>
 
 Microsoft a volontairement séparé le réseau des process, pour avoir le nom des process TCP il faut utiliser `Get-Process` aussi
 
@@ -534,9 +534,9 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 
 
 
-<a id="gestion-des-objets"></a>
 
-# 📂 __GESTION DES OBJETS__ 
+
+# 📂 __GESTION DES OBJETS__   <a id="gestion-des-objets"></a>
 
 > [!NOTE]
 > * La plupart du temps les commande batch fonctionnent en Powershell 
@@ -606,7 +606,7 @@ Compare-Object -ReferenceObject "blabla" -DifferenceObject "blablabla"
 
 ### Créer un lien entre deux fichiers ou dossiers (cmd)
 ```bat
-mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
+mklink /J "C:\Users\stoto\OneDrive - CYBER MANAGEMENT\Bureau\USB" "E:\"
 ```
 * Cré un dossier 'USB' sur le bureau et ne sera accessible que si 'E:\' est joignable
 * mklink va créer le dossier "USB" mais la destination doit déjà exister
@@ -622,9 +622,9 @@ mklink /J "C:\Users\jsimeoni\OneDrive - ABEJ SOLIDARITE\Bureau\USB" "E:\"
 
 
 
-<a id="sortie-de-commande-dans-un-fichier"></a>
 
-# ➡️ __SORTIE DE COMMANDE DANS UN FICHIER__
+
+# ➡️ __SORTIE DE COMMANDE DANS UN FICHIER__  <a id="sortie-de-commande-dans-un-fichier"></a>
 
 
 ### Insérer du texte en créant un fichier 
@@ -674,9 +674,9 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 
 
 
-<a id="hashage"></a>
 
-# 🔪 __HASHAGE__ 
+
+# 🔪 __HASHAGE__  <a id="hashage"></a>
 
 
 ### Récupérer le hash d'un fichier (sha256 par défault)
@@ -710,9 +710,9 @@ $h1 -eq $h2
 
 
 
-<a id="rechercher-des-fichiers-et-dossiers"></a>
 
-# 🔍 __RECHERCHER DES FICHIERS ET DOSSIERS__ 
+
+# 🔍 __RECHERCHER DES FICHIERS ET DOSSIERS__   <a id="rechercher-des-fichiers-et-dossiers"></a>
 
 
 
@@ -777,9 +777,9 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 
 
-<a id="rechercher-dans-un-fichier"></a>
 
-# 📇 __RECHERCHER DANS UN FICHIER__
+
+# 📇 __RECHERCHER DANS UN FICHIER__  <a id="rechercher-dans-un-fichier"></a>
 
  `Get-Content` et `Select-String`
 
@@ -826,9 +826,9 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
-<a id="rechercher-un-fichier-et-son-contenu"></a>
 
-# 🔎 __RECHERCHER UN FICHIER ET SON CONTENU__
+
+# 🔎 __RECHERCHER UN FICHIER ET SON CONTENU__  <a id="rechercher-un-fichier-et-son-contenu"></a>
 
 
 
@@ -889,9 +889,9 @@ Format-List
 
 
 
-<a id="sauvegarder-et-copier"></a>
 
-# 💾 __SAUVEGARDER ET COPIER__
+
+# 💾 __SAUVEGARDER ET COPIER__  <a id="sauvegarder-et-copier"></a>
 
 
 
@@ -922,9 +922,9 @@ Copy-Item \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker\PC-485\"Clé de récupéra
 
 
 
-<a id="smb"></a>
 
-# ↔️ __SMB__
+
+# ↔️ __SMB__  <a id="smb"></a>
 
 
 
@@ -1025,7 +1025,7 @@ Get-WinEvent -LogName Microsoft-Windows-SMBServer/Operational -MaxEvents 30
 
 
 
-# ⬇️ __GESTION CONTENU HTTP/HTTPS__ <a id="telechargement-http-https"></a>
+# ⬇️ __GESTION CONTENU HTTP/HTTPS__  <a id="telechargement-http-https"></a>
 
 
 
@@ -1079,9 +1079,9 @@ Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
 
 
 
-<a id="pare-feu"></a>
 
-# 🧱 __PARE-FEU__
+
+# 🧱 __PARE-FEU__  <a id="pare-feu"></a>
 
 
 
@@ -1113,9 +1113,9 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
-<a id="defender"></a>
 
-# 🛡️ __DEFENDER__ 
+
+# 🛡️ __DEFENDER__  <a id="defender"></a>
 
 
 
@@ -1140,9 +1140,9 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 
-<a id="winrm"></a>
 
-# 🔢 __WINRM__ 
+
+# 🔢 __WINRM__  <a id="winrm"></a>
 
 * Compte admin
 * Ports 5985 / 5986 autorisés
@@ -1191,9 +1191,9 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 
 
 
-<a id="ssh"></a>
 
-# 🔢 __SSH__ 
+
+# 🔢 __SSH__   <a id="ssh"></a>
 
 	
 ### Vérifier si le service est actif
@@ -1273,9 +1273,9 @@ ssh-keygen.exe -t rsa -b 4096
 
 
 
-<a id="controleur-de-domaine"></a>
 
-# 🏠 __CONTROLEUR DE DOMAINE__  
+
+# 🏠 __CONTROLEUR DE DOMAINE__    <a id="controleur-de-domaine"></a>
 
 
 ### Installer les fonctionnalités
@@ -1388,9 +1388,9 @@ Move-ADDirectoryServerOperationMasterRole -Identity <SRV-Name> OperationMasterRo
 
 
 
-<a id="divers"></a>
 
-# 🟩 DIVERS
+
+# 🟩 DIVERS  <a id="divers"></a>
 
 
 ### Vérouiller l'écran d'une session
