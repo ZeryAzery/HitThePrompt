@@ -1033,8 +1033,8 @@ Get-WinEvent -LogName Microsoft-Windows-SMBServer/Operational -MaxEvents 30
 ```powershell
 iwr https://example.com/hosts.txt -OutFile C:\Temp\hosts.txt -SkipCertificateCheck
 ```
-`-SkipCertificateCheck` → Utile pour les certificats auto-signés (eq -k curl)
-
+* `-SkipCertificateCheck` → Utile pour les certificats auto-signés (eq -k curl)
+* Alias `-OutFile` = `-o`
 
 
 ### Afficher sans télécharger (Invoke-RestMethod)
@@ -1045,7 +1045,7 @@ irm https://get.activated.win
 ### Télécharger avec Invoke-RestMethod
 irm est surtout utile pour API / JSON, pas pour de gros fichiers.
 ```powershell
-irm https://example.com/hosts.txt -OutFile C:\Temp\hosts.txt
+irm https://example.com/hosts.txt -o C:\Temp\hosts.txt
 ```
 
 

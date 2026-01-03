@@ -254,6 +254,16 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 
 ## Les Alias 
 
+Afficher les Alias
+```powershell
+Get-Alias
+```
+
+Afficher les Alias d'une commande précise
+```powershell
+Get-Alias -Definition Set-Location
+```
+
 | Alias | Commande              | Utilité                                                                                                           |
 |:-----:|:---------------------:|-------------------------------------------------------------------------------------------------------------------|
 | gm    | Get-Member            | Affiche les membres (propriétés et méthodes) d’un objet. Très utile pour explorer les objets retournés par d’autres commandes.  |
