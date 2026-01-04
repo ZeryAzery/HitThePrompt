@@ -26,7 +26,7 @@
 - [↔️ SMB](#smb)
 - [⬇️ GESTION CONTENU HTTP/HTTPS](#telechargement-http-https)
 - [🧱 PARE-FEU](#pare-feu)
-- [🛡️ DEFENDER](#️defender)
+- [🛡️ DEFENDER](#defender)
 - [🔢 WINRM](#winrm)
 - [🔢 SSH](#ssh)
 - [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
@@ -1115,7 +1115,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
-# 🛡️ __DEFENDER__  <a id="defender"></a>
+# 🛡️ __DEFENDER__   <a id="defender"></a>
 
 
 
@@ -1131,6 +1131,79 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 ```
 
 
+### Analyser un dossier précis
+```powershell
+Start-MpScan -ScanType CustomScan -ScanPath "C:\Users\Toto\Downloads\LePornoDouteuxDeToto.mkv" -verbose
+```
+→ Si aucune sortie, Defender n'a rien trouvé.
+
+
+### Menaces détectées
+```powershell
+Get-MpThreat
+```
+
+### Information sur une menace détectée avec `Get-MpThreat`
+Le ThreatID reçu dans la commande précédente n'est pas une valeur de Get-WinEvent il faut aller chercher la valeur du ThreatID (ici 246173 ) dans `Message` pour obtenir les infos sur cette détection.
+```powershell 
+Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational" | ? { $_.Message -match "246173" } | fl
+```
+
+### Historique des scans Defender
+```powershell
+Get-MpThreatDetection
+```
+
+
+### Afficher les 25 derniers Logs
+```powershell
+Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational" | Select -First 25
+```
+
+
+
+### Afficher les logs avec le RecordID unique de l'event
+```powershell
+Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational" |
+Where-Object { $_.Id -in 1006,1116,1007,1117,1008,1118,1119,1015,1120,1127 } |
+Select-Object TimeCreated, Id, RecordId, Message, LogName
+```
+
+
+
+### Analyser un event en particulier
+```powershell
+Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational" | Where-Object { $_.RecordID -eq 8169 } | fl
+```
+
+
+<br>
+
+
+
+__Liste non exhaustive d'ID évènements Defender__
+
+| ID événement | Description |
+|-------------|-------------|
+| 1006 | Programme malveillant détecté |
+| 1116 | Programme malveillant détecté |
+| 1007 | Action de protection système |
+| 1117 | Action de protection système |
+| 1008 | Échec de la protection système |
+| 1118 | Échec de la protection système |
+| 1119 | Échec de la protection système |
+| 1015 | Comportement suspect |
+| 1120 | Hash malveillant |
+| 5007 | Modification de la configuration Defender |
+| 1127 | Refus d’un processus non approuvé d’accéder à la mémoire |
+| 5001 | Protection en temps réel désactivée |
+| 5010 | Analyse de programme malveillant désactivée |
+| 5012 | Analyse des virus désactivée |
+
+
+<br>
+
+Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.microsoft.com/fr-fr/defender-endpoint/troubleshoot-microsoft-defender-antivirus)
 
 
 ---
