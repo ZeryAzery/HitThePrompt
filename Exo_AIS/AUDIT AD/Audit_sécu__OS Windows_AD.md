@@ -6,3 +6,6 @@
 4 indicateurs de score sont visible dans le résultat de ping castle
 - Stale Objects
 - 
+
+
+![img](img/ind_pingcastle.png)
