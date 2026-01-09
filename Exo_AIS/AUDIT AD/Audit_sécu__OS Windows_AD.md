@@ -12,6 +12,11 @@
 
 <br>
 
+
+## Mise en place de BadBlood
+
+<br>
+
 > [!NOTE]
 > * Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilisé, il génère de nombreux groupe et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
 > 
@@ -21,7 +26,7 @@
 
 <br>
 
-Mettre BadBlood en place
+Téléchager et exécuter le script
 ```Powershell
 # clone the repo
 git clone https://github.com/davidprowe/badblood.git
@@ -34,7 +39,7 @@ git clone https://github.com/davidprowe/badblood.git
 
 
 
-Le petit classique
+## Découverte des services
 ```sh
 sudo nmap -sV 10.0.0.1
 ```
