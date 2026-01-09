@@ -4,15 +4,19 @@
 
 <br>
 
-![](img/bhscreen.png)
-
+<p align="center">
+  <img src="img/bhscreen.png" />
+</p>
+<!-- ça servait à rien de le faire gros malin -->
 
 
 <br>
 
 > [!NOTE]
 > * Ici afin de rendre l'Active Directory vulnérable volontairement le script BadBlood a été utilisé, ce script génère de nombreux utilisateurs avec de mauvaises permissions.
+> 
 > * ⚠️ Ne sourtout pas utiliser ce script sur un DC d'entreprise (dommages non réversibles).
+> 
 > * [Lien vers la page GitHub du créateur de BadBlood](https://github.com/davidprowe/BadBlood)
 
 <br>
