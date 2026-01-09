@@ -194,7 +194,7 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 
 
-## __DUMP AD__
+## __DUMP OBJETS LDAP__
 
 Informations similaires à Ping Castle
 
@@ -212,7 +212,7 @@ Informations similaires à Ping Castle
    
 <br>
 
-Dumper l'AD et afficher le rapport utilisateur (`-o`va créer un dossier de destination)
+Dumper les objets LDAP de l'AD et afficher le rapport utilisateur (`-o`va créer un dossier de destination)
 ```sh
 ldapdomaindump -u 'TSSR-CYBER.FR\KATRINA_RUTLEDGE' -p Hacker1 10.0.0.1 -o LDAP-DUMP
 firefox domain_users.html  
@@ -397,6 +397,9 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 # __BLOODHOUND__
+
+
+<br>
 
 
 ![](img/bhlogo.png)
