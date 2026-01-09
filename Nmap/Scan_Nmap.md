@@ -78,10 +78,10 @@ nmap -sS -p 1-65535 <IP_du_serveur> -Pn -T4
 ```
 
 * `-sT`: scan TCP complet 
-* `-sS` : Scan SYN, plus rapide et discret qu'un . Nécessite les privilèges root.
+* `-sS` : Scan SYN, plus rapide et discret que -sT . Nécessite les privilèges root.
 * `sV` : Détection de version des services, ce qui génère plus de trafic identifiable.
-* `O` :	Détection du système d'exploitation via fingerprinting.
-* `p 1-1000` : Scanne les 1000 premiers ports
+* `-O` :	Détection du système d'exploitation via fingerprinting.
+* `-p 1-1000` : Scanne les 1000 premiers ports
 * `-Pn` : Ne fait pas de ping (ignore la détection d’hôte). Utile si la cible ne répond pas aux pings ICMP.
 
 

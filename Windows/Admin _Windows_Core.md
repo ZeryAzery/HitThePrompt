@@ -1336,6 +1336,12 @@ ssh -b 192.168.64.60 -oKexAlgorithms=+diffie-hellman-group14-sha1 admin@192.168.
 ssh-keygen.exe -t rsa -b 4096
 ```
 
+### Transférer un fichier via SCP vers une machine Linux
+
+Inutile de préciser le port source et inutile de préciser le port dest si port 22 (SSH actif sur machine Linux évidemment)
+```shell
+scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> axel@10.0.0.51:/home/axel/Bureau/
+```
 
 
 
