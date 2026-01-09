@@ -95,7 +95,10 @@ Vérifer les comptes qui ne nécéssitent pas de pré-authetification Kerberos
 Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 ```
 
-Protocole Kerberos
+<br>
+
+
+## __Fonctionnement du protocole Kerberos__
 
 ![](img/krbproto.png)
 
@@ -121,7 +124,7 @@ Cette vulnérabilité consite à récupérer un ticket AS-REP
 
 > [!NOTE]
 > * Créer un fichier avec les noms de connexion utilisateurs listés dans PinCastle (usr.txt ici). 
-> * J'ai dû changer le mot de passe manuellement dans l'AD car le script BadBlood ne connecte pas automatiquement les comptes.
+> * Le mot de passe à été changé manuellement dans l'AD car le script BadBlood ne connecte pas automatiquement les comptes.
 
 
 Avec Impacket :
