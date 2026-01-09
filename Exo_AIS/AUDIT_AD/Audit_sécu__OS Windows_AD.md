@@ -398,9 +398,18 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 # __BLOODHOUND__
 
+
+![](img/bhlogo.png)
+
+<br>
+
 BloodHound collecte les relations AD (sessions, groupes, ACL, délégations, trusts…) et les modélise sous forme de graphe et permet d’identifier des chemins d’attaque menant à des comptes à privilèges.
 
-BloodHound est principalement un outils RedTeam, mais il peut aussi servir à comprendre comment un attaquant peut escalader ses privilèges dans un domaine AD et à prioriser les failles de configuration à corriger. (BlueTeam)
+C'est est principalement un outils RedTeam, mais il peut aussi servir à comprendre comment un attaquant peut escalader ses privilèges dans un domaine AD et à prioriser les failles de configuration à corriger. (BlueTeam)
+
+
+<br>
+
 
 ## Éxécuter SharpHound.exe
 
