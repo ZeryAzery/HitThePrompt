@@ -4,9 +4,8 @@
 <br>
 
 <p align="center">
-  <img src="img/bhscreen.png" alt="img">
+  ![](img/bhscreen.png)
 </p>
-
 
 <br>
 
