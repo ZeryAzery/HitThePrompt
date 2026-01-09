@@ -1,15 +1,18 @@
-# <p style="text-align:center;">  __AUDIT DE SÉCURITÉ WINDOWS AD__ </p>
+<h1 align="center">AUDIT DE SÉCURITÉ WINDOWS AD</h1>
+
 
 
 <br>
 
 <p align="center">
-  ![](img/bhscreen.png)
+  <img src="img/bhscreen.png" />
 </p>
+
+
 
 <br>
 
-> ![NOTE]
+> [!NOTE]
 > * Ici afin de rendre l'Active Directory vulnérable volontairement le script BadBlood a été utilisé, ce script génère de nombreux utilisateurs avec de mauvaises permissions.
 > * ⚠️ Ne sourtout pas utiliser ce script sur un DC d'entreprise (dommages non réversibles).
 > * [Lien vers la page GitHub du créateur de BadBlood](https://github.com/davidprowe/BadBlood)
