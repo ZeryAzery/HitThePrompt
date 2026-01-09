@@ -187,6 +187,8 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 ## __DUMP AD__
 
+
+
 * ldapdomaindump
   * Dumper les utilisateurs AD
   * Dumper les groupes AD
@@ -194,10 +196,13 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
   * Dumper les computers AD
   * Dumper les OS Version computers AD
 
+<br>
 
 > [!NOTE]
 > Les résultats semblent similaires en dumpant avec un utilisateur standard 
    
+<br>
+
 Dumper l'AD et afficher le rapport utilisateur (`-o`va créer un dossier de destination)
 ```sh
 ldapdomaindump -u 'TSSR-CYBER.FR\KATRINA_RUTLEDGE' -p Hacker1 10.0.0.1 -o LDAP-DUMP
