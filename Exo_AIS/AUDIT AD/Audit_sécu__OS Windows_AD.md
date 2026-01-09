@@ -13,7 +13,7 @@
 <br>
 
 > [!NOTE]
-> * Ici afin de rendre l'Active Directory vulnérable volontairement le script BadBlood a été utilisé, ce script génère de nombreux utilisateurs avec de mauvaises permissions.
+> * Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilisé, il génère de nombreux utilisateurs avec de mauvaises permissions.
 > 
 > * ⚠️ Ne sourtout pas utiliser ce script sur un DC d'entreprise (dommages non réversibles).
 > 
