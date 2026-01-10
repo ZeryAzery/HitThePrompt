@@ -20,7 +20,7 @@
 ## Mise en place de BadBlood
 
 
-Afin de rendre l'Active Directory vulnérable le script **BadBlood** est utilisé, il génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
+BadBlood permet de rendre l'Active Directory vulnérable c'est un script qui génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
 
 Il est utilisé pour tester BloodHound, s’entraîner à l’attaque/défense AD et simuler des scénarios réels sans impacter un vrai environnement de production.
 
