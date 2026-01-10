@@ -1,5 +1,4 @@
-# kali linux
-
+<h1 align="center">KALI LINUX</h1>
 
 ### Vérifier quel shell est utilisé
 ```sh
