@@ -13,7 +13,7 @@
 <br>
 
 > [!IMPORTANT]
-> Lors d'un Audit ou d'un Pentest et quelque soit sa nature il faut penser à toujours documenter les informations récoltées au fur et à mesure afin d'éviter les oublis (en vue du rapport pour le client), mais également si des modifications sont apportées (créations d'utilisateurs, modification des droits pour éléver ses privilèges...) de pouvoir être capable de rendre les choses dans leur état initial. 
+> Lors d'un Audit ou d'un Pentest et quelque soit sa nature, penser à toujours documenter les informations récoltées au fur et à mesure afin d'éviter les oublis (en vue du rapport pour le client), mais également si des modifications sont apportées (créations d'utilisateurs, modification des droits pour éléver ses privilèges...) de pouvoir être capable de rendre les choses dans leur état initial. 
 
 <br>
 
