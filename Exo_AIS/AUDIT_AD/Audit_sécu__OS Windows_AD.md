@@ -226,6 +226,8 @@ Les informations collectées sont similaires à Ping Castle, mais l'outils est r
 Dumper les objets LDAP de l'AD et afficher le rapport utilisateur (`-o`va créer un dossier de destination)
 ```sh
 ldapdomaindump -u 'TSSR-CYBER.FR\KATRINA_RUTLEDGE' -p Hacker1 10.0.0.1 -o LDAP-DUMP
+```
+```sh
 firefox domain_users.html  
 ```
 
