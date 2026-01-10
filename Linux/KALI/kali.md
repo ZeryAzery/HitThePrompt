@@ -63,6 +63,7 @@ Commenter la partie du fichier  (ligne 248 àce moment): "# enable auto-suggesti
 
 ![](img/fix.png)
 
+
 Puis actualiser avec:
 ```sh
 exec zsh
