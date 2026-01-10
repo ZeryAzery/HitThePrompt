@@ -1301,9 +1301,10 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled Tru
 ```
 
 
-### Voir sur quel port SSH écoute			
+### Voir sur quel port SSH écoute	
+Une connexion doit déjà être établie...		
 ```powershell
-Get-NetTCPConnection | Where-Object {$_.OwningProcess -eq (Get-Process -Name sshd).Id}
+Get-NetTCPConnection | Where-Object {$_.OwningProcess -eq (Get-Process -Name sshd-agent).Id}
 ```
 
 
@@ -1458,8 +1459,11 @@ Move-ADDirectoryServerOperationMasterRole -Identity <SRV-Name> OperationMasterRo
 - 4 : Infrastructure Master 
 
 
-
-
+### Lister les partages réseaux accessibles
+Permet aussi de confirmer la connection au domaine
+```bat
+net view \\$env:USERDNSDOMAIN
+```
 ---
 
 <br>

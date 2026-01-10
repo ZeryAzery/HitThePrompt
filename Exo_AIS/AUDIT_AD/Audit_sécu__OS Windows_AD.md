@@ -209,7 +209,7 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 Les informations collectées sont similaires à Ping Castle, mais l'outils est rapide et peut toujours être utile lors d'un Audit AD.
 
-* ldapdomaindump
+* **ldapdomaindump**
   * Dumper les utilisateurs AD
   * Dumper les groupes AD
   * Dumper la Domain policy
@@ -219,7 +219,7 @@ Les informations collectées sont similaires à Ping Castle, mais l'outils est r
 <br>
 
 > [!NOTE]
-> Les résultats semblent similaires en dumpant avec un utilisateur standard 
+> Comme SharpHound, ldapdomaindump n'a pas besoins d'être effectué avec un compte admin, un utilisateur standard suffit pour intéroger LDAP.
    
 <br>
 
@@ -322,7 +322,7 @@ Un test simple pour voir si Responder fonctionne est d'effectuer un ping sur une
 ```bat
 ping FAUXSERVEUR
 ```
-Windwows aura bien une réponse au ping pour FAUXSERVEUR.
+La machine Windows aura bien une réponse au ping pour FAUXSERVEUR.
 
 ![res](img/responder0.png)
 
@@ -336,7 +336,7 @@ Windwows aura bien une réponse au ping pour FAUXSERVEUR.
 
 
 
-En se connectant depuis un navigateur de la machine cliente vers la machine attaquante on peut déclencher un UAC et capturer le hash.
+En se connectant depuis un navigateur de la machine cliente vers la machine attaquante on peut déclencher un UAC et capturer le hash mais en entreprise il est possible de capturer des hashs de cette façon en fonction de la configuration de plusieurs paramètres différents (pare-feu, règles de parefeu, NTLMv1, NTLMv2...)
 
 ![img](img/responder2.png)
 
