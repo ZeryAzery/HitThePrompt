@@ -22,7 +22,7 @@
 
 BadBlood permet de rendre l'Active Directory vulnérable c'est un script qui génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
 
-Il est utilisé pour tester BloodHound, s’entraîner à l’attaque/défense AD et simuler des scénarios réels sans impacter un vrai environnement de production.
+Il est utilisé pour tester BloodHound et s’entraîner à l’attaque/défense AD en simulant des scénarios réels sans impacter un vrai environnement de production.
 
 Lien vers la [page GitHub du créateur de BadBlood](https://github.com/davidprowe/BadBlood)
 
@@ -30,7 +30,7 @@ Lien vers la [page GitHub du créateur de BadBlood](https://github.com/davidprow
 <br>
 
 
-> [!NOTE]
+> [!WARNING]
 > ⚠️ Ne sourtout pas utiliser ce script sur un DC d'entreprise (dommages non réversibles).
 
 
