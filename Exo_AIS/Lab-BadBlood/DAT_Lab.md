@@ -7,6 +7,9 @@
 
 ![alt text](<Lab_BadBlood.drawio.png>)
 
+---
+
+<br>
 
 ### Schéma des services
 
@@ -29,7 +32,7 @@ flowchart TD
     C --> |joined| Z
 ```
 
-
+<br>
 
 ### Tableau des comptes administratifs
 
@@ -38,9 +41,11 @@ flowchart TD
 | Administrateur    | Admin Windows AD   | DC1-SRVW19     | `\\DC1-SRVW19\C$\Keepass\kps_base.kdbx`  |
 | root                | Admin Linux        | DEB-APACHE     | `\\DC1-SRVW19\C$\Keepass\kps_base.kdbx`   |
 |       axel           |  Partage Samba   |  DEB-APACHE   |   `\\DC1-SRVW19\C$\Keepass\kps_base.kdbx`  |
-|                     |                     |               |                                           |
-|                      |                       |                 |                                          
+  
 
+---
+
+<br>
 
 ## 2. Environnement
 
@@ -51,6 +56,8 @@ flowchart TD
 |  **Windows 10 Pro**       | PC01-W10   | Workstation PC client sur domaine                 | 
 |  **Debian 12.5**         | DEB-APACHE | Serveur Web avec l’application _VulnerableLightApp_ | 
 
+<br>
+
 ### Adressage IP
 
 |        Hostname          |   IP        |  CIDR   |
@@ -60,6 +67,8 @@ flowchart TD
 |  **PC01-W10**         | 192.168.200.100    |  /24 |
 
 ---
+
+<br>
 
 ## 3. Exploitation
 
@@ -75,7 +84,13 @@ Get-FileHash -Algorithm sha512 "F:\Users\Axel\Documents\Images ISO\Windows\Win 1
 ```bash
 sha512sum "/tmp/debian.12.5.netinst.iso"
 ```
+
+
+
 ---
+
+<br>
+
 
 ### Statuts des services critiques
 
@@ -92,7 +107,10 @@ ps aux | grep dotnet
 ```
 ![alt text](<Vérif_dotnet.png>)
 
+
 ---
+
+<br>
 
 ### Connexions SSH et WinRM réussies
 
@@ -109,20 +127,29 @@ Enter-PSSession -ComputerName PC01-W10 -Credential nom_domaine\compte_admin
 # Ouvrir (en admin) fenêtre GUI pour autoriser un compte en PSRemoting
 Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 ```
+
 ![alt text](<winrm_whoami.png>)
+
+
 ---
 
-### Partages SMB/Samba
+<br>
 
-## Partage samba
+
+
+## Partage SMB/samba
 
 ```batch
 net use \\10.0.0.3 /user:axel
 ```
 ![alt text](<Vérif_partage_samba.png>)
+
 ![alt text](<Partage_samba.png>)
 
----
+
+
+<br>
+
 
 ### Nombre d'utilisateurs dans l’Active Directory
 
@@ -132,6 +159,7 @@ net use \\10.0.0.3 /user:axel
 ```
 ![alt text](<Nombre_User_AD.png>)
 
+<br>
 
 ### Diagramme de gestion de projet
 
@@ -159,6 +187,9 @@ gantt
     section Sécurisation (à faire)
     Audit de sécurité et durcissement   :crit, secu, 2025-05-20, 3d
 ```
+
+<br>
+
 ---
 
 ## Notes

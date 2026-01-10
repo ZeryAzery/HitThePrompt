@@ -134,7 +134,7 @@ Cette vulnérabilité consite à récupérer un ticket TGT
 <br>
 
 > [!NOTE] 
-> Le mot de passe de ce compte Administrateur a été changé manuellement dans l'AD car le script BadBlood génère des comptes expirés, mais dans un cas réel ces comptes sont actifs (souvent des comptes dédiés àdes services).
+> Le mot de passe de ce compte Administrateur a été changé manuellement dans l'AD car le script BadBlood génère des comptes expirés, mais dans un cas réel ces comptes sont actifs (souvent des comptes dédiés à des services).
 
 <br>
 
