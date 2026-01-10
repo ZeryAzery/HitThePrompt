@@ -81,10 +81,10 @@ Un score est indiqué pour chacune des 4 parties, trust est à 0 car il n'y a pa
 
 | Catégorie            | Description                                                     |
 |----------------------|-----------------------------------------------------------------|
-| Stale Objects        | Operations related to inactive or obsolete user or computer objects |
-| Trusts               | Connections between two Active Directory domains or forests     |
-| Privileged Accounts  | Administrators and highly privileged accounts in Active Directory |
-| Anomalies            | Specific security control points and abnormal behaviors         |
+| *Stale Objects*        | Operations related to inactive or obsolete user or computer objects |
+| *Trusts*               | Connections between two Active Directory domains or forests     |
+| *Privileged Accounts*  | Administrators and highly privileged accounts in Active Directory |
+| *Anomalies*            | Specific security control points and abnormal behaviors         |
 
 
 <br>
@@ -133,13 +133,14 @@ Cette vulnérabilité consite à récupérer un ticket TGT
 
 <br>
 
-> [!NOTE]
-> * Créer un fichier avec les noms de connexion utilisateurs listés dans PinCastle (usr.txt ici). 
-> * Le mot de passe à été changé manuellement dans l'AD car le script BadBlood ne connecte pas automatiquement les comptes.
+> [!NOTE] 
+> Le mot de passe de ce compte Administrateur a été changé manuellement dans l'AD car le script BadBlood génère des comptes expirés, mais dans un cas réel ces comptes sont actifs (souvent des comptes dédiés àdes services).
 
 <br>
 
-Avec Impacket :
+### Impacket 
+
+Fichier contenant les noms d'utilisateurs trouvés depuis PingCastle avec la préauth Kerberos désactivée
 ```sh
 impacket-GetNPUsers tssr-cyber.fr/ -no-pass -usersfile usr.txt
 ```
@@ -162,14 +163,16 @@ printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.t
 <br>
 
 | Code d’erreur Kerberos            | Statut de l’utilisateur                                   |
-|----------------------------------|------------------------------------------------------------|
-| KDC_ERR_C_PRINCIPAL_UNKNOWN      | Le nom d’utilisateur n’existe pas                          |
-| KDC_ERR_PREAUTH_REQUIRED         | Le nom d’utilisateur est valide et le compte est activé    |
-| KDC_ERR_CLIENT_REVOKED           | L’utilisateur existe, mais le compte est désactivé ou bloqué |
-| KDC_ERR_KEY_EXPIRED              | Password expiré, changé le pswd pur reset   |
+|---------------------------------:|------------------------------------------------------------|
+| *KDC_ERR_C_PRINCIPAL_UNKNOWN*      | Le nom d’utilisateur n’existe pas                          |
+| *KDC_ERR_PREAUTH_REQUIRED*         | Le nom d’utilisateur est valide et le compte est activé    |
+| *KDC_ERR_CLIENT_REVOKED*           | L’utilisateur existe, mais le compte est désactivé ou bloqué |
+| *KDC_ERR_KEY_EXPIRED*             | Password expiré, changé le pswd pur reset   |
+
+
+
 
 <br>
-
 
 
 
@@ -233,6 +236,8 @@ firefox domain_users.html
 Domain policy rapport
 
 ![](img/dumpolicy.png)
+
+
 
 
 <br>
@@ -333,7 +338,7 @@ En se connectant depuis un navigateur de la machine cliente vers la machine atta
 
 ![img](img/responder2.png)
 
-Chemin des logs Responder :
+__Chemin des logs Responder :__
 ```
 /usr/share/responder/logs
 ```
