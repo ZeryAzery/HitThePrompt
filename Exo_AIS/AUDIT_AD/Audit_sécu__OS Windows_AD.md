@@ -120,11 +120,12 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 
 <br>
 
+# Steal or Forge Kerberos Tickets: Golden Ticket
 
+> ATT&CK Tactic : Credential Access <br>
+> ATT&CK Technique : ID: T1558.001
 
-# **AS-REP Roasting** 
-
-Cette vulnérabilité consite à récupérer un ticket TGT
+La vulnérabilité **AS-REP Roasting** consite à récupérer un ticket TGT ou Golden Ticket
 
 * Les **Ticket Granting Tickets** sont fournis par le **Key Distribution Center** (KDC), mais obtenus de façon malicieuse on les appelle **Golden Tiket**.
 * Certains programmes et applications supportent l'authentification LDAP que si la préauthentification est désactivée sur le compte de service.
@@ -134,7 +135,7 @@ Cette vulnérabilité consite à récupérer un ticket TGT
 <br>
 
 > [!NOTE] 
-> Le mot de passe de ce compte Administrateur a été changé manuellement dans l'AD car le script BadBlood génère des comptes expirés, mais dans un cas réel ces comptes sont actifs (souvent des comptes dédiés à des services).
+> Le mot de passe de ce compte Administrateur (récupéré avec PingCastle) a été changé manuellement dans l'AD car le script BadBlood génère des comptes expirés, mais dans un cas réel ces comptes sont actifs (souvent des comptes dédiés à des services).
 
 <br>
 

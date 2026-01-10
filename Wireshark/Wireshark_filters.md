@@ -35,8 +35,19 @@
 |         Filtrer kerberos    |  ip.addr == 10.0.0.50 and kerberos  | 
 | Entre workstation et serveur | ip.src==192.168.0.0/16 and ip.dst==192.168.0.0/16 |
 | filtrer sur un seul port    |          tcp.dstport == 445         |    
+| Flitrer sur NTLM            |          ntlmssp        | 
+|       LDAP                    |            tcp.port == 389         |
+|         LDAPS              |          tcp.port == 636   |
+| Kerberos (SPNEGO) sur HTTP |         spnego        |
+
+
+
+NTLM sur HTTP(S) uniquement :
+ntlmssp && (tcp.port == 80 || tcp.port == 443)
+
 
 * __Il est possible d'utiliser différents filtres à la fois comme ceci :__
+
 ```wireshark
-ip.addr ==10.0.0.3  || tcp.port == 80
+ip.addr == 10.0.0.3  || tcp.port == 80
 ```
