@@ -1121,13 +1121,38 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 ### Activer Defender
 ```powershell 			
-Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
+Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -DisableBlockAtFirstSeen $true -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
 ```
 
 
-### Désactiver  Defender	
+### Désactiver Defender, ajouter une exclusion pour "C:\Windows\Temp", exclut les extension .exe et .ps1
 ```powershell		
-Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
+Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
+```
+
+<br>
+
+| Set-MpPreference | Action |
+|---------------------|--------|
+| -DisableRealtimeMonitoring $true | Désactive la protection en temps réel |
+| -DisableBehaviorMonitoring $true | Désactive la surveillance comportementale |
+| -DisableIOAVProtection $true | Désactive l’analyse des fichiers téléchargés ou des pièces jointes |
+| -DisableBlockAtFirstSeen $true | Désactive la détection cloud lors de la première apparition |
+| -DisableEmailScanning $true | Désactive l’analyse des fichiers .pst et autres formats de messagerie |
+| -DisableScriptScanning $true | Désactive l’analyse des scripts lors des scans antimalware |
+| -ExclusionExtension "ps1", "exe" | Exclut les fichiers selon leur extension |
+
+
+<br>
+
+### Make exclusion for a certain folder
+```powershell
+Add-MpPreference -ExclusionPath "C:\Windows\Temp"
+```
+
+### Exclude files by extension
+```powershell
+Set-MpPreference -ExclusionExtension "ps1", "exe"
 ```
 
 
@@ -1464,6 +1489,18 @@ Permet aussi de confirmer la connection au domaine
 ```bat
 net view \\$env:USERDNSDOMAIN
 ```
+
+
+### Extraire une liste de tous les sAMAccountName (Login name)
+```powershell
+Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -Encoding UTF8 C:\Users\Administrateur\domusers.txt
+```
+`Out-File -Encoding UTF8` : éviter les problèmes de caractères ou d’outils qui lisent mal l’ANSI/Unicode
+
+
+
+
+
 ---
 
 <br>

