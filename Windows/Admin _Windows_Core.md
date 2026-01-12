@@ -1085,6 +1085,12 @@ Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
 
 
 
+### Disable all Firewall profiles (Requires Admin privileges)
+```powershell
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+```
+
+
 ### Afficher les règles de pare-feu
 ```powershell
 Get-NetFirewallRule
