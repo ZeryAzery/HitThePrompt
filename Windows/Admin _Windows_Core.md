@@ -1125,12 +1125,6 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
-### Activer Defender
-```powershell 			
-Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -DisableBlockAtFirstSeen $true -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
-```
-
-
 ### Désactiver Defender, ajouter une exclusion pour "C:\Windows\Temp", exclut les extension .exe et .ps1
 ```powershell		
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
@@ -1160,6 +1154,22 @@ Add-MpPreference -ExclusionPath "C:\Windows\Temp"
 ```powershell
 Set-MpPreference -ExclusionExtension "ps1", "exe"
 ```
+
+### Réactiver Defender et retirer les exclusions
+```shell
+Set-MpPreference `
+  -DisableRealtimeMonitoring $false `
+  -DisableBehaviorMonitoring $false `
+  -DisableIntrusionPreventionSystem $false `
+  -DisableIOAVProtection $false `
+  -DisableScriptScanning $false `
+  -DisablePrivacyMode $false `
+  -DisableBlockAtFirstSeen $false
+
+Remove-MpPreference -ExclusionExtension "ps1","exe"
+Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
+```
+
 
 
 ### Analyser un dossier précis
@@ -1377,7 +1387,7 @@ scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> axel@10.0.0.51:/
 
 
 
----
+
 
 <br>
 

