@@ -36,11 +36,11 @@
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -158,11 +158,11 @@ Get-Command *hash*
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -182,12 +182,11 @@ Get-Command *hash*
 
 
 
+<br>
 
 ---
 
 <br>
-
-
 
 
 
@@ -210,11 +209,11 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -298,9 +297,6 @@ Test-Connection -ComputerName google.com
 ```powershell
 Remove-NetIPAddress -InterfaceIndex 4 -IPAddress 192.168.0.2 -PrefixLengh 24
 ```
-
-
-### Retirer une adresse IP
 ```powershell
 Remove-NetIPAddress -IPAddress 192.168.100.1 -Confirm:$false
 ```
@@ -344,11 +340,11 @@ Test-NetConnection -ComputerName localhost -Port 389
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -405,11 +401,11 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -452,10 +448,11 @@ Stop-Process -Id 2960
 
 
 
+<br>
+
 ---
 
 <br>
-
 
 
 
@@ -527,11 +524,12 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 
 
 
----
 
 <br>
 
+---
 
+<br>
 
 
 
@@ -614,12 +612,11 @@ mklink /J "C:\Users\stoto\OneDrive - CYBER MANAGEMENT\Bureau\USB" "E:\"
 
 
 
+<br>
 
 ---
 
 <br>
-
-
 
 
 
@@ -667,11 +664,11 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -703,11 +700,11 @@ $h1 -eq $h2
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -770,11 +767,11 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -819,11 +816,11 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -859,6 +856,8 @@ Format-List
 
 
 
+<br>
+
 ---
 
 <br>
@@ -882,11 +881,11 @@ Format-List
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -915,11 +914,11 @@ Copy-Item \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker\PC-485\"Clé de récupéra
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -1015,12 +1014,14 @@ Voir les erreurs SMB récentes (logs)
 Get-WinEvent -LogName Microsoft-Windows-SMBServer/Operational -MaxEvents 30
 ```
 
----
+
+
 
 <br>
 
+---
 
-
+<br>
 
 
 
@@ -1071,12 +1072,11 @@ Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
 
 
 
+<br>
 
 ---
 
 <br>
-
-
 
 
 
@@ -1112,11 +1112,11 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -1247,10 +1247,13 @@ __Liste non exhaustive d'ID évènements Defender__
 Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.microsoft.com/fr-fr/defender-endpoint/troubleshoot-microsoft-defender-antivirus)
 
 
----
+
 
 <br>
 
+---
+
+<br>
 
 
 
@@ -1298,11 +1301,11 @@ Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 
 
 
+<br>
+
 ---
 
 <br>
-
-
 
 
 
@@ -1388,10 +1391,11 @@ scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> axel@10.0.0.51:/
 
 
 
-
 <br>
 
+---
 
+<br>
 
 
 
@@ -1516,12 +1520,11 @@ Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -
 
 
 
+<br>
 
 ---
 
 <br>
-
-
 
 
 
