@@ -122,6 +122,7 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 
 # Steal or Forge Kerberos Tickets: Golden Ticket
 
+> Outils : Impacket (linux), Rubeus (windows) <br>
 > ATT&CK Tactic : Credential Access <br>
 > ATT&CK Technique ID: T1558.001
 
@@ -180,9 +181,11 @@ printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.t
 ## __OFFLINE CRAKING__
 
 
+> Outils : hashcat, JhonTheRipper
+
 Après avoir avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
 
-Il est possible de le craker avec hashcat ou JhonTheRipper.
+`-m 18200` → Kerberos 5, etype 23, AS-REP `$krb5asrep$23$`
 ```sh
 sudo hashcat -m 18200 -a 0 asrep.hash /usr/share/wordlists/rockyou.txt
 ```
