@@ -1564,8 +1564,7 @@ Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler 
 
 
 
-
-Push les modifications
+Script pour Push les modifications
 ```powershell
 sl "C:\Users\t.petit\OneDrive - CYBER MANAGEMENT\Documents\HitThePrompt"
 git add .
@@ -1573,8 +1572,16 @@ git commit -m "$(Get-Date -Format 'dd/MM/yyyy')"
 git push
 ```
 
-
-
+Éditer infos du compte GiHub (s'ouvre avec vi)
+```powershell
+git config --global --edit
+```
+vi : <br>
+`i` → mode insertion <br>
+`Esc` → retour en mode normal <br>
+`x` → supprimer un caractère <br>
+`dd` → supprime une ligne <br>
+`:wq` → sauvegarder et quitter
 
 
 <br>
