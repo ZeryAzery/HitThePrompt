@@ -102,7 +102,7 @@ On peut aussi voir un compte administrateur qui ne nécéssite pas de pré-authe
 
 <br>
 
-Vérifer les comptes qui ne nécéssitent pas de pré-authetification Kerberos
+Vérifer les comptes (Ordinateurs et Utilisateurs) qui ne nécéssitent pas de pré-authetification Kerberos
 ```powershell
 Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 ```

@@ -1092,13 +1092,24 @@ Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 ```
 
 
+### Désactiver la découverte réseau
+```bat
+netsh advfirewall firewall set rule group="Network Discovery" new enable=No
+```
+
+### Activer la découverte réseau
+```bat
+netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes
+```
+
+
 ### Afficher les règles de pare-feu
 ```powershell
 Get-NetFirewallRule
 ```
 
 
-### règles ICMP IN/OUT
+### Règles ICMP IN/OUT
 ```powershell		
 New-NetFirewallRule -DisplayName "Autoriser ICMPv4-In" -Protocol ICMPv4 -IcmpType 8 -Direction Inbound -Action Allow
 New-NetFirewallRule -DisplayName "Autoriser ICMPv4-Out" -Protocol ICMPv4 -IcmpType 8 -Direction Outbound -Action Allow
@@ -1520,12 +1531,40 @@ Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -
 
 
 
+### Informations Password Policy
+```powershell
+Get-ADDefaultDomainPasswordPolicy
+```
+
+
+### Lister les comptes (Ordinateurs et Utilisateurs) qui ne nécéssitent pas de pré-authetification Kerberos
+```powershell
+Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
+```
+
+
+### Lister les comptes qui ont la pré-authentication Kerberos désactivée
+Commande équivalente à la précédente mais d'une autre façon (juste user ici)
+```powershell
+Get-ADUser -Filter * -Properties userAccountControl |
+Where-Object { $_.userAccountControl -band 0x400000 } |
+Select-Object Name, SamAccountName
+```
+
+* Le bit `0x400000` = `DONT_REQUIRE_PREAUTH` 
+* `-band` vérifie le bit dans userAccountControl
+
+
+
+
+
 
 <br>
 
 ---
 
 <br>
+
 
 
 
@@ -1538,7 +1577,7 @@ winget install --id Git.Git -e
 ```
 
 
-### CLoner un dépot
+### Cloner un dépot
 ```powershell
 git clone https://github.com/ZeryAzery/HitThePrompt.git
 ```
