@@ -183,7 +183,7 @@ printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.t
 
 > Outils : hashcat, JhonTheRipper
 
-Après avoir avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
+Après avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
 
 `-m 18200` → Kerberos 5, etype 23, AS-REP `$krb5asrep$23$`
 ```sh
