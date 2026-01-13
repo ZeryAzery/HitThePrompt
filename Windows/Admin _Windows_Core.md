@@ -30,6 +30,7 @@
 - [🔢 WINRM](#winrm)
 - [🔢 SSH](#ssh)
 - [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
+- [🐈‍⬛ GITHUB](#-github)
 - [🟩 DIVERS](#divers)
 
 
@@ -1516,6 +1517,55 @@ net view \\$env:USERDNSDOMAIN
 Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -Encoding UTF8 C:\Users\Administrateur\domusers.txt
 ```
 `Out-File -Encoding UTF8` : éviter les problèmes de caractères ou d’outils qui lisent mal l’ANSI/Unicode
+
+
+
+
+<br>
+
+---
+
+<br>
+
+
+
+# 🐈‍⬛ GITHUB  <a id="github"></a>
+
+
+### Installer GitHub
+```powershell
+winget install --id Git.Git -e
+```
+
+
+### CLoner un dépot
+```powershell
+git clone https://github.com/ZeryAzery/HitThePrompt.git
+```
+
+
+### NE JAMAIS re-cloner un dépot
+récupérer tout ce que tu as pushé au boulot...
+```powershell
+git pull
+```
+
+
+Clone → une seule fois par machine
+
+Pull → récupérer les modifs
+
+Commit + Push → synchroniser
+
+
+Push les modifications
+```powershell
+sl "C:\Users\t.petit\OneDrive - CYBER MANAGEMENT\Documents\HitThePrompt"
+git add .
+git commit -m "$(Get-Date -Format 'dd/MM/yyyy')"
+git push
+```
+
 
 
 
