@@ -30,7 +30,7 @@
 - [🔢 WINRM](#winrm)
 - [🔢 SSH](#ssh)
 - [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
-- [🐈‍⬛ GITHUB](#-github)
+- [🐈‍⬛ GITHUB](#github)
 - [🟩 DIVERS](#divers)
 
 
@@ -1544,18 +1544,25 @@ git clone https://github.com/ZeryAzery/HitThePrompt.git
 ```
 
 
-### NE JAMAIS re-cloner un dépot
+### Ne JAMAIS re-cloner un dépot
 récupérer tout ce que tu as pushé au boulot...
 ```powershell
 git pull
 ```
 
+<br>
 
-Clone → une seule fois par machine
+* Clone → une seule fois par machine
 
-Pull → récupérer les modifs
+* Pull → récupérer les modifs
 
-Commit + Push → synchroniser
+* Commit + Push → synchroniser
+
+
+Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler le pull manquant. <br>
+`! [rejected] main -> main (fetch first)`
+
+
 
 
 Push les modifications
