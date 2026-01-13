@@ -1559,7 +1559,8 @@ git pull
 
 <br>
 
-Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler le pull manquant. <br>
+**Toujours faire `git pull` avant de commencer à coder.**<br>
+Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler le pull manquant : <br>
 `! [rejected] main -> main (fetch first)`
 
 
@@ -1576,7 +1577,7 @@ git push
 ```powershell
 git config --global --edit
 ```
-vi : <br>
+**Commandes vi :** <br>
 `i` → mode insertion <br>
 `Esc` → retour en mode normal <br>
 `x` → supprimer un caractère <br>
