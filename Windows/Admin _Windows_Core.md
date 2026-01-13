@@ -1544,8 +1544,7 @@ git clone https://github.com/ZeryAzery/HitThePrompt.git
 ```
 
 
-### Ne JAMAIS re-cloner un dépot
-récupérer tout ce que tu as pushé au boulot...
+### Ne **jamais** re-cloner un dépot
 ```powershell
 git pull
 ```
@@ -1556,8 +1555,9 @@ git pull
 
 * Pull → récupérer les modifs
 
-* Commit + Push → synchroniser
+* Commit + Push → synchroniser les modifs
 
+<br>
 
 Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler le pull manquant. <br>
 `! [rejected] main -> main (fetch first)`
