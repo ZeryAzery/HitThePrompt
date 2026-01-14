@@ -84,18 +84,16 @@ sudo unzip 20260108151307_BloodHound.zip -d BH_extract
 ```
 
 
-
 ### Vider un fichier
 ```sh
 : > krbhash_bernie_pate.txt
 ```
 
 
-### Copier un fichier de Linux vers windows
+### Copier un fichier de Linux vers Windows
 ```sh
 scp -P 1111 administrateur@10.0.0.1:/C:/Users/Administrateur/Desktop/20260108151307_BloodHound.zip .
 ```
-
 
 
 ### Copier un dossier Linux vers windows
@@ -150,16 +148,22 @@ wc -l totoshit.txt
 
 
 
-## Télécharger un fichier + changer son nom avec la destination
+### Télécharger un fichier
 ```sh
-sudo wget https://chemin/vers/fichier -O /chemin/vers/nouveau_nom_fichier
+cd ~/Bureau
+wget https://github.com/ropnop/kerbrute/archive/refs/heads/master.zip -O Kerbrute-master.zip
+
+```
+`-O` et pas -o (lowercase o = log file)
+```sh
+unzip Kerbrute-master.zip
 ```
 
 ### Ajouter un binaire au PATH (et le renommer avec un nom plus simple)
 
 ```sh
-cd ~/kerbrute-master 					            # être dans le bon répertoire
-chmod 700 kerbrute_linux_amd64 				        # rendre le bin exécutable
+cd ~/kerbrute-master 					                # être dans le bon répertoire
+chmod 700 kerbrute_linux_amd64 				            # rendre le bin exécutable
 sudo mv kerbrute_linux_amd64 /usr/local/bin/kerbrute 	# le mettre dans bin
 ```
 
@@ -168,6 +172,111 @@ sudo mv kerbrute_linux_amd64 /usr/local/bin/kerbrute 	# le mettre dans bin
 ---
 
 <br>
+
+
+
+
+### Cloner le repo est préférable
+sur Kali git est installé par défaut, c'est mieux de passer par là pour télécharger !
+```sh
+cd ~/Bureau
+git clone https://github.com/ropnop/kerbrute.git
+```
+
+<br>
+
+### Compiler le code source Go pour le transformer en binaire
+
+Vérifier que Go est installé
+```sh
+go version
+```
+
+Si pas installé
+```sh
+sudo apt update
+sudo apt install golang -y
+```
+
+Compiler 
+```sh
+cd ~/Bureau/kerbrute-master
+go build -o kerbrute
+```
+
+### Ajouter kerbrute au Path
+```sh
+sudo mv kerbrute /usr/local/bin/
+```
+
+
+
+---
+
+<br>
+
+
+
+
+### Installer krbrelayx
+```sh
+cd /opt
+git clone https://github.com/dirkjanm/krbrelayx.git
+```
+
+Vérifier si python est installé
+```sh
+python3 --version
+```
+
+Si absent
+```sh
+sudo apt update
+sudo apt install python3 python3-pip -y
+```
+
+Dépendances Python pour krbrelayx
+```sh
+sudo apt install python3-impacket -y
+```
+
+Exécuter krbrelayx directement avec Python (recommandé)
+```sh
+chmod +x krbrelayx.py
+python3 krbrelayx.py --help
+```
+
+Exemple krbrelayx
+```sh
+python3 krbrelayx.py -d example.local --dc-ip 192.168.1.10 -t ldap://192.168.1.20
+```
+
+<br>
+
+### Créer un wrapper (créer une commande système krbrelayx qui appelle Python)
+```sh
+sudo nano /usr/local/bin/krbrelayx
+```
+Contenu du fichier ("$@" sert à l'interprétation des )
+```sh
+#!/bin/bash
+python3 /opt/krbrelayx/krbrelayx.py "$@"
+```
+donner les droits au script
+```sh
+sudo chmod +x /usr/local/bin/krbrelayx
+```
+Plus qu'à taper krbrelayx dans le shell
+```sh
+krbrelayx --help
+```
+
+
+
+---
+
+<br>
+
 
 
 

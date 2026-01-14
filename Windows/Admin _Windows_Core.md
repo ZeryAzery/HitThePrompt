@@ -1037,6 +1037,7 @@ iwr https://example.com/hosts.txt -OutFile C:\Temp\hosts.txt -SkipCertificateChe
 ```
 * `-SkipCertificateCheck` → Utile pour les certificats auto-signés (eq -k curl)
 * Alias `-OutFile` = `-o`
+* Contrairement à curl, -OutFile attend toujours un nom de fichier dans sa sortie.
 
 
 ### Afficher sans télécharger (Invoke-RestMethod)

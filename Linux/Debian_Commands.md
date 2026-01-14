@@ -115,7 +115,7 @@ J'aurais souhaité que Linus Torvald implémente ça directement dans le kernel 
 ```bash
 alias ll="ls -la | awk 'NR==1 {print; next} {printf \"%s | %s | %s | %s  %2s %3s %3s %8s %s %s %s %s\n\", substr(\$1,1,1), substr(\$1,2,3), substr(\$1,5,3), substr(\$1,8,3), \$2, \$3, \$4, \$5, \$6, \$7, \$8, \$9}'"
 ```
-__Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh que non)__
+Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh que non)
 
 
 
@@ -1279,7 +1279,7 @@ cfdisk /dev/sdb
 
 ##  Création et activation d’un fichier swap
 
-* Le swap sert d’extension à la mémoire RAM.
+Le swap sert d’extension à la mémoire RAM.
 
 
 ### Crée un fichier vide de 1 Go pour servir de swap
