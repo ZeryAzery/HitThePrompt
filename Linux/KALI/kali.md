@@ -98,6 +98,12 @@ scp -P 1111 administrateur@10.0.0.1:/C:/Users/Administrateur/Desktop/20260108151
 
 
 
+### Copier un dossier Linux vers windows
+```sh
+scp -r <dossier> t.petit@192.168.34.60:/c/Users/t.petit/
+```
+
+
 ---
 
 <br>
