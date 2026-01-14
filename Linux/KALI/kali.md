@@ -96,7 +96,7 @@ scp -P 1111 administrateur@10.0.0.1:/C:/Users/Administrateur/Desktop/20260108151
 ```
 
 
-### Copier un dossier Linux vers windows
+### Copier un dossier de Linux vers windows
 ```sh
 scp -r <dossier> t.petit@192.168.34.60:/c/Users/t.petit/
 ```
@@ -186,6 +186,8 @@ git clone https://github.com/ropnop/kerbrute.git
 <br>
 
 ### Compiler le code source Go pour le transformer en binaire
+
+Le Git clone télécharge le code source de kerbrute  (codé en Go), il faut le compiler.
 
 Vérifier que Go est installé
 ```sh

