@@ -77,9 +77,39 @@ C:\Users\<user>\AppData\Local\IconCache.db
 ```
 %windir%\system32\imageres.dll
 ```
+```
+C:\Windows\System32\imageres.dll
+```
 
+icônes générales : bulles, messages, utilisateurs
+```
+C:\Windows\System32\shell32.dll
+```
 
+icônes modernes, notifications, communication
+```
+C:\Windows\System32\ddores.dll
+```
 
+icônes réseau et communication
+```
+C:\Windows\System32\pnidui.dll
+```
+
+icônes liées aux consoles et interactions
+```
+C:\Windows\System32\mmcndmgr.dll
+```
+
+icônes COM, parfois bulles/info
+```
+C:\Windows\System32\comres.dll
+```
+
+Rechercher des .ico sur google :
+```
+github octocat icon filetype:ico
+```
 
 
 
