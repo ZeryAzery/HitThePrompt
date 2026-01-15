@@ -319,9 +319,10 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 ## __Intercepter un hash NTLMv1 ou NTLMv2__
 
 
-> Outils : Responder
-> ATT&CK Tactic : LLMNR/NBT-NS Poisoning <br>
-> ATT&CK Technique : T1557.0012
+> Outils : Responder <br>
+> ATT&CK Tactic : Adversary-in-the-Middle, Credential Access, Collection <br>
+> Sub-techniques : LLMNR/NBT-NS Poisoning <br>
+> ATT&CK Technique : T1557
 
 
 **LLMNR** (*Link-Local Multicast Name Resolution*) et **NBT-NS** (*NetBIOS Name Service*) sont des composants Microsoft Windows qui servent de méthodes alternatives d'identification d'hôte.
@@ -467,11 +468,27 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 <br>
 
 > Outils : BloodHound <br>
-> ATT&CK Tactic : Discovery, <br>
-> ATT&CK Technique : ID T1087.002
+> ATT&CK Tactic : Discovery <br>
+> ATT&CK Technique : **voir tableau**
 
+<br>
 
-BloodHound collecte les relations AD (sessions, groupes, ACL, délégations, trusts…) et les modélise sous forme de graphe et permet d’identifier des chemins d’attaque menant à des comptes à privilèges.
+| Domaine     | Technique ID | Nom de la technique               | Utilisation (BloodHound) |
+|-------------|:------------:|-----------------------------------|---------------------------|
+| Enterprise  | T1087.001    | Account Discovery  Local Account | can identify users with local administrator rights |
+| Enterprise  | T1087.002    | Account Discovery Domain Account | can collect information about domain users, including identification of domain admin accounts |
+| Enterprise  | T1560        | Archive Collected Data            | Compression des données collectées (ZIP) |
+| Enterprise  | T1059        | Command and Scripting Interpreter | Collecte AD via PowerShell |
+| Enterprise  | T1482        | Domain Trust Discovery            | Cartographie des relations de confiance |
+| Enterprise  | T1615        | Group Policy Discovery            | Collecte d’informations via GPO |
+| Enterprise  | T1106        | Native API                        | Utilisation des API .NET pour l’énumération AD |
+| Enterprise  | T1069        | Permission Groups Discovery       | Énumération des groupes et membres |
+| Enterprise  | T1018        | Remote System Discovery           | Découverte des machines du domaine |
+| Enterprise  | T1033        | System Owner/User Discovery       | Identification des sessions utilisateurs |
+
+<br>
+
+BloodHound collecte les relations AD (sessions, groupes, ACL, délégations, trusts…) en effectuant une reconnaissance et en modélisant sous forme de graphe des chemins d’attaque menant à des comptes à privilèges.
 
 C'est principalement un outils RedTeam, mais il peut aussi servir coté BlueTeam pour comprendre comment un attaquant peut escalader ses privilèges dans un domaine AD et à prioriser les failles de configuration à corriger.
 
