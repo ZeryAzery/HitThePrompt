@@ -1168,6 +1168,12 @@ Add-MpPreference -ExclusionPath "C:\Windows\Temp"
 Set-MpPreference -ExclusionExtension "ps1", "exe"
 ```
 
+### Exclure une adresse IP
+```powershell
+Set-MpPreference -ExclusionIpAddress
+```
+
+
 ### Réactiver Defender et retirer les exclusions
 ```shell
 Set-MpPreference `
