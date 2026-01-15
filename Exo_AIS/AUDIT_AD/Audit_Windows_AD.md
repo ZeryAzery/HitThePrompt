@@ -579,8 +579,8 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 ```
 
 
+<p align="center"><img src="img/meme.png" alt="img"></p>
 
-![](img/meme.png)
 
 
 ### Télécharger mimikatz
