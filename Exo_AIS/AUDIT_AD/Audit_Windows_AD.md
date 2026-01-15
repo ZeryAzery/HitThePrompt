@@ -64,6 +64,13 @@ sudo nmap -sV 10.0.0.1
 
 ## __PING CASTLE__
 
+> Outils : PingCastle
+> ATT&CK Tactic : Discovery
+> ATT&CK Technique : T1087 – Account Discovery
+> Sub-technique : T1087.002 – Domain Account
+
+<br>
+
 * Ping Castle permet de faire un état de santé général de l'Active Directory.
 * Cet outils est basé sur les critères de sécurités comme CIS Benchmarks, ANSSI
 * Il génère un rapport détallé en 4 blocs distincts.
@@ -126,6 +133,8 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 > ATT&CK Tactic : Credential Access <br>
 > ATT&CK Technique ID: T1558.001
 
+<br>
+
 La vulnérabilité **AS-REP Roasting** consite à récupérer un ticket TGT ou Golden Ticket
 
 * Les **Ticket Granting Tickets** sont fournis par le **Key Distribution Center** (KDC), mais obtenus de façon malicieuse on les appelle **Golden Tiket**.
@@ -185,6 +194,8 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 > ATT&CK Tactic :  Password Cracking <br>
 > ATT&CK Technique : T1110.002
 
+<br>
+
 Après avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
 
 `-m 18200` → Kerberos 5, etype 23, AS-REP `$krb5asrep$23$`
@@ -217,10 +228,11 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 > ATT&CK Tactic : Discovery <br>
 > ATT&CK Technique : T1087 – Account Discovery
 
+<br>
 
 Les informations collectées sont similaires à Ping Castle, mais l'outils est rapide et peut toujours être utile lors d'un Audit AD.
 
-* **ldapdomaindump**
+L'outil **ldapdomaindump** permet de :
   * Dumper les utilisateurs AD
   * Dumper les groupes AD
   * Dumper la Domain policy
@@ -264,9 +276,9 @@ Domain policy rapport
 > ATT&CK Tactic: Discovery <br>
 > ATT&CK Technique : T1087 – Account Discovery
 
+<br>
 
-* Il peut aussi être utile d'énumérer les comptes qui répondent aux requêtes **Kerberos (AS-REQ)** 
-* Ca peut permettre d'écarter :
+Énumérer les comptes qui répondent aux requêtes **Kerberos (AS-REQ)** peut permettre d'écarter :
     * compte désactivé
     * compte verrouillé
     * compte sans mot de passe Kerberos valide
@@ -294,6 +306,8 @@ Domain policy rapport
 > ATT&CK Tactic : Credential Access <br>
 > ATT&CK Technique : Brute Force <br>
 > ATT&CK Sub-technique : T1110.003 – Password Spraying
+
+<br>
 
 * Tester un mot de passe avec un utilisateur valide de l'AD (login + mdp)
 * Il est possible d'utiliser sprayhound sans compte valide
@@ -335,6 +349,7 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 > ATT&CK Sub-techniques : LLMNR/NBT-NS Poisoning <br>
 > ATT&CK Technique : T1557
 
+<br>
 
 **LLMNR** (*Link-Local Multicast Name Resolution*) et **NBT-NS** (*NetBIOS Name Service*) sont des composants Microsoft Windows qui servent de méthodes alternatives d'identification d'hôte.
 
@@ -391,6 +406,13 @@ __Chemin des logs Responder :__
 
 
 ## __Se connecter via WinRM sur la machine victime__
+
+> Outils : <br>
+> ATT&CK Tactic :  <br>
+> ATT&CK Sub-techniques :  <br>
+> ATT&CK Technique : 
+
+<br>
 
 ### L'utilisateur doit être dans le groupe admin du domaine
 ```sh
