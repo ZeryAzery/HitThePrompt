@@ -275,6 +275,53 @@ krbrelayx --help
 
 
 
+
+---
+
+<br>
+
+
+
+
+
+### Création d'une worlist avec `crunch`
+```sh
+crunch 9 9 -t toto\*%%%% -o tototest.txt
+```
+* `9` → 1er chiffre caractères min du mdp
+* `9` → 2em chiffre caractères max du mdp
+* `-t`→ Respecte le masque (pattern indiqué)
+
+la liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :<br>
+[toto][*][0-9999]
+
+
+
+<br>
+
+| Besoin         | Solution    |
+| -------------- | ----------- |
+| Étoile fixe    | `\*`        |
+| Position fixe  | masque `-t` |
+| 0000 → 9999    | `%%%%`      |
+| Sortie fichier | `-o`        |
+
+<br>
+
+__Masques utiles__
+| Symbole | Signification       |
+| ------- | ------------------- |
+| `@`     | lettres minuscules  |
+| `,`     | lettres MAJUSCULES  |
+| `%`     | chiffres            |
+| `^`     | caractères spéciaux |
+| `*`     | tous les caractères |
+
+
+
+
+
+
 ---
 
 <br>
