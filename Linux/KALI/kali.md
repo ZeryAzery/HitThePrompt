@@ -295,6 +295,26 @@ docker-compose --version
 
 
 
+
+---
+
+<br>
+
+
+
+
+### Utiliser flameshot pour les captures d'écran
+```sh
+apt install flameshot
+```
+* Dans la GUI chercher clavier
+* Puis onglet 'Raccourcis d'application'
+* Cliquer sur 'ajouter'
+* Insérer la commande ```flameshot gui```
+* Choisir la touche souhaitée
+
+
+
 ---
 
 <br>
