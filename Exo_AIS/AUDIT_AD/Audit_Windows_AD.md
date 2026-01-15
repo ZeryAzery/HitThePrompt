@@ -182,6 +182,8 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 
 
 > Outils : hashcat, JhonTheRipper
+> ATT&CK Tactic :  Password Cracking 
+> ATT&CK Technique : T1110.002
 
 Après avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
 
@@ -212,7 +214,7 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 ## __DUMPER LES OBJETS LDAP__
 
 > Outils : ldapdomaindum
-
+> ATT&CK Tactic : Discovery
 
 Les informations collectées sont similaires à Ping Castle, mais l'outils est rapide et peut toujours être utile lors d'un Audit AD.
 
@@ -316,11 +318,13 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 ## __Intercepter un hash NTLMv1 ou NTLMv2__
 
-__Responder__
 
-> T1557.001 – LLMNR/NBT-NS Poisoning
+> Outils : Responder
+> ATT&CK Tactic : LLMNR/NBT-NS Poisoning <br>
+> ATT&CK Technique : T1557.0012
 
-`Link-Local Multicast Name Resolution` (LLMNR) et `NetBIOS Name Service` (NBT-NS) sont des composants Microsoft Windows qui servent de méthodes alternatives d'identification d'hôte.
+
+**LLMNR** (*Link-Local Multicast Name Resolution*) et **NBT-NS** (*NetBIOS Name Service*) sont des composants Microsoft Windows qui servent de méthodes alternatives d'identification d'hôte.
 
 * Responder usurpe des services via MDNS / LLMNR / NBT-NS  / WPAD 
 * NTLM peut être amené à utiliser ces protocoles, Responder peut donc les intercepter.
@@ -328,6 +332,9 @@ __Responder__
 * Il peut permettre de forcer une authentification NTLM puis récupère le hash de Kerberos
 
 <br>
+
+
+__Responder__
 
 Indiquer l'interface sur laquelle on souhaite écouter (celle de la machine d'attaque)
 ```sh
@@ -458,6 +465,11 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 ![](img/bhlogo.png)
 
 <br>
+
+> Outils : BloodHound <br>
+> ATT&CK Tactic : Discovery, <br>
+> ATT&CK Technique : ID T1087.002
+
 
 BloodHound collecte les relations AD (sessions, groupes, ACL, délégations, trusts…) et les modélise sous forme de graphe et permet d’identifier des chemins d’attaque menant à des comptes à privilèges.
 
