@@ -578,10 +578,11 @@ klist
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
 ```
 
+<br>
 
 <p align="center"><img src="img/meme.png" alt="img"></p>
 
-
+<br>
 
 ### Télécharger mimikatz
 ```powershell
