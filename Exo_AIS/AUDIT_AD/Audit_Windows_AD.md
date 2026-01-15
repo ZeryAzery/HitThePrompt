@@ -213,8 +213,10 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 
 ## __DUMPER LES OBJETS LDAP__
 
-> Outils : ldapdomaindum
-> ATT&CK Tactic : Discovery
+> Outils : ldapdomaindum <br>
+> ATT&CK Tactic : Discovery <br>
+> ATT&CK Technique : T1087 – Account Discovery
+
 
 Les informations collectées sont similaires à Ping Castle, mais l'outils est rapide et peut toujours être utile lors d'un Audit AD.
 
@@ -256,7 +258,12 @@ Domain policy rapport
 
 
 
-## Comptes qui répondent aux requêtes **Kerberos (AS-REQ)**
+## __Comptes qui répondent aux requêtes Kerberos (*AS-REQ*)__
+
+> Outil : Kerbrute <br>
+> ATT&CK Tactic: Discovery <br>
+> ATT&CK Technique : T1087 – Account Discovery
+
 
 * Il peut aussi être utile d'énumérer les comptes qui répondent aux requêtes **Kerberos (AS-REQ)** 
 * Ca peut permettre d'écarter :
@@ -283,6 +290,10 @@ Domain policy rapport
 
 ## __Comptes AD qui ont le même mot de passe__
 
+> Outil : SprayHound <br>
+> ATT&CK Tactic : Credential Access <br>
+> ATT&CK Technique : Brute Force <br>
+> ATT&CK Sub-technique : T1110.003 – Password Spraying
 
 * Tester un mot de passe avec un utilisateur valide de l'AD (login + mdp)
 * Il est possible d'utiliser sprayhound sans compte valide
@@ -321,7 +332,7 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 > Outils : Responder <br>
 > ATT&CK Tactic : Adversary-in-the-Middle, Credential Access, Collection <br>
-> Sub-techniques : LLMNR/NBT-NS Poisoning <br>
+> ATT&CK Sub-techniques : LLMNR/NBT-NS Poisoning <br>
 > ATT&CK Technique : T1557
 
 
