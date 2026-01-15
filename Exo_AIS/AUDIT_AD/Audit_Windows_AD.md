@@ -17,7 +17,7 @@
 
 <br>
 
-## Mise en place de BadBlood
+## __MISE EN PLACE DE BADBLOOD__
 
 
 BadBlood permet de rendre l'Active Directory vulnérable c'est un script qui génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
@@ -49,7 +49,7 @@ git clone https://github.com/davidprowe/badblood.git
 
 
 
-## Scan de Ports et services
+## __SCAN PORTS & SERVICES__
 ```sh
 sudo nmap -sV 10.0.0.1
 ```
@@ -119,9 +119,8 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 
 ## __Fonctionnement du protocole Kerberos__
 
-![](img/krbproto.png)
 
-
+<p align="center"><img src="img/krbproto.png" alt="img"></p>
 
 <br>
 
