@@ -181,8 +181,8 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 ## __OFFLINE CRAKING__
 
 
-> Outils : hashcat, JhonTheRipper
-> ATT&CK Tactic :  Password Cracking 
+> Outils : hashcat, JhonTheRipper <br>
+> ATT&CK Tactic :  Password Cracking <br>
 > ATT&CK Technique : T1110.002
 
 Après avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
