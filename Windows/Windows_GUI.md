@@ -138,8 +138,12 @@ Cette technique peut être utilisée par des attaquants pour effectuer des actio
 "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" "C:\Users\toto\Bureau\MonScript.ahk"
 ```
 
-
-
+Mettre un script Powershell sur la barre des tâches 
+```
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "C:\Users\toto\Documents\GitPullPush.ps1"
+```
+À noter que le dossier du script a été ajouté au Path, <br>
+De cette façon Toto effectue un pull/push sur Github en 1 clic et il est heureux.
 
 ---
 
