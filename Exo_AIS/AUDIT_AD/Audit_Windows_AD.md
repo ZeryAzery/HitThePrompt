@@ -428,11 +428,16 @@ sudo evil-winrm -i 10.0.0.1 -u '<UserName>@<Domain-Name>' -p '<password>'
 ```powershell
 Get-ADDefaultDomainPasswordPolicy
 ```
-* __*-LockoutThreshold :*__ Nombre de tentatives de mdp avant que le compye soit vérouillé
 
-* __*-LockoutObservationWindow :*__ durée pendant laquelle les échecs de connexion sont comptabilisés avant remise à zéro du compteur.
+<br>
 
-* __*-LockoutDuration :*__ durée pendant laquelle le compte reste verrouillé après avoir atteint le seuil de verrouillage.
+| Paramètre                     | Description |
+|------------------------------|-------------|
+| *-LockoutThreshold            | Nombre de tentatives de mdp avant que le compye soit vérouillé |
+| *-LockoutObservationWindow   | durée pendant laquelle les échecs de connexion sont comptabilisés avant remise à zéro du compteur. |
+| *-LockoutDuration            | durée pendant laquelle le compte reste verrouillé après avoir atteint le seuil de verrouillage. |
+
+<br>
 
 ### Ne jamais bloquer le compte avec des faux mots de passe
 ```powershell
