@@ -286,6 +286,8 @@ Domain policy rapport
 * compte machine / service
 * compte protégé (Protected Users, smartcard required, etc.)
 
+<br>
+
 ```sh
 ./kerbrute_linux_amd64 userenum -d TSSR-CYBER.FR /home/toto/Bureau/domnames.txt -v
 ```
@@ -788,7 +790,6 @@ impacket-lookupsid KATRINA_RUTLEDGE:Hacker1@10.0.0.1
 
 
 
----
 
 <br>
 
