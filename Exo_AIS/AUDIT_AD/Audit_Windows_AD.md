@@ -433,9 +433,9 @@ Get-ADDefaultDomainPasswordPolicy
 
 | Paramètre                     | Description |
 |------------------------------|-------------|
-| *-LockoutThreshold            | Nombre de tentatives de mdp avant que le compye soit vérouillé |
-| *-LockoutObservationWindow   | durée pendant laquelle les échecs de connexion sont comptabilisés avant remise à zéro du compteur. |
-| *-LockoutDuration            | durée pendant laquelle le compte reste verrouillé après avoir atteint le seuil de verrouillage. |
+| -LockoutThreshold            | Nombre de tentatives de mdp avant que le compye soit vérouillé |
+| -LockoutObservationWindow   | durée pendant laquelle les échecs de connexion sont comptabilisés avant remise à zéro du compteur. |
+| -LockoutDuration            | durée pendant laquelle le compte reste verrouillé après avoir atteint le seuil de verrouillage. |
 
 <br>
 
