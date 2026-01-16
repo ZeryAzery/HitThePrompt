@@ -278,12 +278,13 @@ Domain policy rapport
 <br>
 
 Énumérer les comptes qui répondent aux requêtes **Kerberos (AS-REQ)** peut permettre d'écarter :
-    * compte désactivé
-    * compte verrouillé
-    * compte sans mot de passe Kerberos valide
-    * compte “logon interdit”
-    * compte machine / service
-    * compte protégé (Protected Users, smartcard required, etc.)
+
+* compte désactivé
+* compte verrouillé
+* compte sans mot de passe Kerberos valide
+* compte “logon interdit”
+* compte machine / service
+* compte protégé (Protected Users, smartcard required, etc.)
 
 ```sh
 ./kerbrute_linux_amd64 userenum -d TSSR-CYBER.FR /home/toto/Bureau/domnames.txt -v
