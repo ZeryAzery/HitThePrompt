@@ -429,8 +429,6 @@ sudo evil-winrm -i 10.0.0.1 -u '<UserName>@<Domain-Name>' -p '<password>'
 Get-ADDefaultDomainPasswordPolicy
 ```
 
-<br>
-
 | Paramètre                     | Description |
 |------------------------------|-------------|
 | -LockoutThreshold            | Nombre de tentatives de mdp avant que le compye soit vérouillé |
