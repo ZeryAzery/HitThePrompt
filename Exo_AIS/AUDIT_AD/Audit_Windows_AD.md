@@ -269,7 +269,7 @@ Domain policy rapport
 
 
 
-## __Comptes qui répondent aux requêtes Kerberos (*AS-REQ*)__
+## __ACCOUNTS THAT RESPOND TO KRB REQUESTS__
 
 > Outil : Kerbrute <br>
 > ATT&CK Tactic: Discovery <br>
