@@ -197,6 +197,8 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 
 Après avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
 
+### Kerberos hash
+
 `-m 18200` → Kerberos 5, etype 23, AS-REP `$krb5asrep$23$`
 ```sh
 sudo hashcat -m 18200 -a 0 asrep.hash /usr/share/wordlists/rockyou.txt
@@ -212,6 +214,34 @@ sudo hashcat -m 18200 -a 0 berniepatehash.txt /usr/share/wordlists/rockyou.txt -
 ```
 
 ![img](img/crackrule.png)
+
+<br>
+
+### NTLMv1 hash
+
+`-m 1000` → NTLMv1
+```sh
+sudo hashcat -m 1000 -a 0 <hashfile.txt> /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+```
+
+<br>
+
+### NTLMv2 hash
+
+Télécharger un fichier de règle
+```sh
+sudo wget https://raw.githubusercontent.com/NotSoSecure/password_cracking_rules/refs/heads/master/OneRuleToRuleThemAll.rule -O /usr/share/hashcat/rules/OneRuleToRuleThemAll.rule
+```
+
+Créer le fichier avec le hash (permet d'éviter l'erreur 'Token encoding exception')
+```sh
+printf '%s' username::DOMAIN:challenge:NTLMv2_response+blob
+```
+
+`-m 5600` → NTLMv2
+```sh
+sudo hashcat -m 5600 -a 0 <hashfile.txt> /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+```
 
 
 
