@@ -15,6 +15,9 @@
 > [!IMPORTANT]
 > Lors d'un audit ou d'un pentest, penser à toujours documenter les informations récoltées au fur et à mesure afin d'éviter les oublis (en vue du rapport pour le client), mais également si des modifications sont apportées (créations d'utilisateurs, modification des droits pour éléver ses privilèges...) de pouvoir être capable de rendre les choses dans leur état initial. 
 
+
+---
+
 <br>
 
 ## __MISE EN PLACE DE BADBLOOD__
@@ -252,6 +255,8 @@ sudo hashcat -m 5600 -a 0 <hashfile.txt> /usr/share/wordlists/rockyou.txt -r /us
 
 <br>
 
+---
+
 
 
 
@@ -298,7 +303,10 @@ Domain policy rapport
 
 
 
+
 <br>
+
+---
 
 
 
@@ -331,7 +339,10 @@ Domain policy rapport
 
 
 
+
 <br>
+
+---
 
 
 
@@ -373,6 +384,7 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 <br>
 
+---
 
 
 
@@ -437,6 +449,8 @@ __Chemin des logs Responder :__
 
 
 <br>
+
+---
 
 
 
@@ -522,8 +536,10 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
-
 <br>
+
+---
+
 
 
 
@@ -560,10 +576,9 @@ $bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe(
 
 
 
----
-
 <br>
 
+---
 
 
 
@@ -575,10 +590,12 @@ $bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe(
 INC.
 
 
----
+
+
 
 <br>
 
+---
 
 
 
@@ -788,6 +805,7 @@ gc c:\windows\system32\mimilsa.log
 
 
 
+
 ## __KERBEROS RELAY__
 
 > ATT&CK Tactic : Lateral Movement / Privilege Escalation <br>
@@ -826,10 +844,9 @@ impacket-lookupsid KATRINA_RUTLEDGE:Hacker1@10.0.0.1
 
 
 
-
-
 <br>
 
+---
 
 
 
@@ -986,6 +1003,16 @@ password : bloodhoundcommunityedition
 ```
 
 Aller dans Upload et charger le fichier "20260108151307_BloodHound.zip"
+
+
+
+
+
+<br>
+
+---
+
+
 
 
 
