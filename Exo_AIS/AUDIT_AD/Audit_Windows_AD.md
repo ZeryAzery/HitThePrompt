@@ -197,6 +197,14 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 
 Après avoir récupéré un hash, créer un fichier (ici asrep.hash) qui contient le hash AS-REP obtenu avec impacket : `$krb5asrep$23$KATRINA_RUTLEDGE@CYBER-MANAGEMENT.FR:<hash>`.
 
+Télécharger un fichier de règle
+```sh
+sudo wget https://raw.githubusercontent.com/NotSoSecure/password_cracking_rules/refs/heads/master/OneRuleToRuleThemAll.rule -O /usr/share/hashcat/rules/OneRuleToRuleThemAll.rule
+```
+
+<br>
+
+
 ### Kerberos hash
 
 `-m 18200` → Kerberos 5, etype 23, AS-REP `$krb5asrep$23$`
@@ -228,10 +236,6 @@ sudo hashcat -m 1000 -a 0 <hashfile.txt> /usr/share/wordlists/rockyou.txt -r /us
 
 ### NTLMv2 hash
 
-Télécharger un fichier de règle
-```sh
-sudo wget https://raw.githubusercontent.com/NotSoSecure/password_cracking_rules/refs/heads/master/OneRuleToRuleThemAll.rule -O /usr/share/hashcat/rules/OneRuleToRuleThemAll.rule
-```
 
 Créer le fichier avec le hash (permet d'éviter l'erreur 'Token encoding exception')
 ```sh
