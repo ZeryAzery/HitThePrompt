@@ -600,9 +600,9 @@ crunch 9 9 -t toto\*%%%% -o tototest.txt
 ```
 * `9` → 1er chiffre caractères min du mdp
 * `9` → 2em chiffre caractères max du mdp
-* `-t`→ Respecte le masque (pattern indiqué)
+* `-t`→ Respectera le masque du pattern indiqué
 
-La liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :<br>
+La liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :
 ```
 [toto][*][0-9999]
 ```
@@ -612,6 +612,13 @@ La liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :<br>
 Respectera ce mmasque : [toto][1000-9999][!]
 ```sh
 crunch 9 9  -t Toto%%%%\! | sed -n '1000,9999p' >> Toto-1000-9999-!.txt
+```
+Donnera :
+```
+Toto1000!
+Toto1001!
+Toto1002!
+...
 ```
 
 
@@ -627,7 +634,7 @@ crunch 9 9  -t Toto%%%%\! | sed -n '1000,9999p' >> Toto-1000-9999-!.txt
 
 Le principe des formats printf (%d, %04d, etc.) est le même que dans le language C (les regex suivent des principes similaires).
 
-Va générer une liste avec des les nombres de 0 à 9999 
+Va générer une liste avec des nombres de 0 à 9999 
 ```sh
 #!/bin/bash
 {
@@ -684,7 +691,7 @@ End-of-file (EOF) est un marqueur qui indique la fin d'entrée d'un flux.
 
 ### Utiliser `sed`
 
-Création d'un fichier d'agrément temporaire :
+Afin d'étoffer la liste prédente on créé un fichier d'agrément temporaire :
 ```sh
 sed 's/$/*/' Nord.txt > tmp.txt    # rajoute `*` dans tmp.txt
 sed 's/$/@/' Nord.txt >> tmp.txt   # rajoute `@` dans tmp.txt
@@ -726,7 +733,7 @@ Lille$
 
 <br>
 
-Avec toutes ces possiblités, il possible de créer facilement de longues listes de mots de passe ciblées par rapports au contexte souhaité (nom d'entreprise, locations,etc...). Rajouter un fichier de règle de nombres serait pertinent dans ce contexte.
+Avec toutes ces possiblités, il est possible de créer facilement de longues listes de mots de passe ciblées par rapports au contexte souhaité (nom d'entreprise, locations,etc...). Rajouter un fichier de règle de nombres serait pertinent dans ce contexte.
 
 
 
