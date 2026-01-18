@@ -495,6 +495,20 @@ sudo evil-winrm -i 10.0.0.1 -u '<UserName>@<Domain-Name>' -p '<password>'
 
 ![img](img/evil.png)
 
+### Afficher la description d'un compte
+```powershell
+Get-ADUser -Filter * -Properties * | select name, description | fl
+```
+
+![](img/pswdindesc.png)
+
+### Afficher les groupes auxquel cet utilisateur appartient
+```powershell
+Get-ADPrincipalGroupMembership TAMMIE_FOWLER | Select Name
+```
+
+![](img/showgrp.png)
+
 
 ### Extraire une liste d'utilisateurs de l'AD
 ```powershell
