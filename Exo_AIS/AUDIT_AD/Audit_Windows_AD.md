@@ -554,10 +554,10 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 ## __CREATIING A PASSWORD LIST__
 
 
-> Outils : crunch
+> Outils : crunch, sed, heredoc, printf, boucles
 
 
-
+crunch est pratique pour créer des variations d'un même mot
 ```sh
 crunch 9 9 -t toto\*%%%% -o tototest.txt
 ```
@@ -565,14 +565,18 @@ crunch 9 9 -t toto\*%%%% -o tototest.txt
 * `9` → 2em chiffre caractères max du mdp
 * `-t`→ Respecte le masque (pattern indiqué)
 
-la liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :<br>
+La liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :<br>
 ```
 [toto][*][0-9999]
 ```
 
+<br>
+
+Respectera ce mmasque : [toto][1000-9999][!]
 ```sh
-crunch 9 9  -t Toto%%%%\! | sed -n '1000,9999p' >> A-\*-@-num-\!.txt
+crunch 9 9  -t Toto%%%%\! | sed -n '1000,9999p' >> Toto-1000-9999-!.txt
 ```
+
 
 | Besoin         | Solution    |
 | -------------- |:-----------:|
@@ -609,7 +613,6 @@ Ici `%04d` réserve l'emplacement pour la variable `$i` <br>
 ```sh                                                                                                              
 #!/bin/bash
 {
-
 for i in {0..9999}; do
     printf "toto*%04d\n" "$i"
 done
@@ -623,6 +626,44 @@ toto*0001
 toto*0002
 ...
 ```
+
+Liste de mots simple
+```sh
+cat << EOF >> Nord.txt
+Lille
+Roubaix
+Chicorée
+Potjevleesch
+Marais
+Boisblanc
+Faches
+Thumesnil
+Templemars
+...
+EOF
+```
+
+Création d'un fichier d'agrément temporaire :
+```sh
+sed 's/$/*/' Nord.txt > tmp.txt    # rajoute `*` dans tmp.txt
+sed 's/$/@/' Nord.txt >> tmp.txt   # rajoute `@` dans tmp.txt
+sed 's/$/\$/' Nord.txt >> tmp.txt  # rajoute `$` dans tmp.txt
+```
+
+```sh
+cat tmp.txt >> Nord.txt
+rm tmp.txt
+```
+Dans liste on retrouvera tous les mots avec ces variations
+```
+Lille
+Lille*
+Lille@
+Lille$
+...
+```
+
+<br>
 
 
 
