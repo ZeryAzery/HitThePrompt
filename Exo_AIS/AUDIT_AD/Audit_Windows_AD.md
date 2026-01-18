@@ -48,9 +48,9 @@ git clone https://github.com/davidprowe/badblood.git
 ```
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -63,9 +63,9 @@ sudo nmap -sV 10.0.0.1
 ![img](img/nmap.png)
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -124,9 +124,9 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -138,9 +138,9 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 
 <br>
 
-<br>
-
 ---
+
+<br>
 
 
 ## __STEAL KERBEROS TICKETS__
@@ -199,9 +199,9 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -270,9 +270,9 @@ sudo hashcat -m 5600 -a 0 <hashfile.txt> /usr/share/wordlists/rockyou.txt -r /us
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -321,9 +321,9 @@ Domain policy rapport
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -357,9 +357,9 @@ Domain policy rapport
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -399,9 +399,9 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -465,9 +465,9 @@ __Chemin des logs Responder :__
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -554,9 +554,9 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -702,9 +702,9 @@ Avec toutes ces possiblités, il possible de créer facilement de longues listes
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -742,9 +742,9 @@ $bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe(
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -759,9 +759,9 @@ INC.
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -1010,9 +1010,9 @@ impacket-lookupsid KATRINA_RUTLEDGE:Hacker1@10.0.0.1
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
@@ -1083,9 +1083,9 @@ cd .\SharpHound\
 Après exécution du script un fichier "20260108151307_BloodHound.zip" apparîtera il faut l'importer dans la machine où se trouve le serveur web installé avec doker-compose.
 
 
-<br>
-
 ---
+
+<br>
 
 
 ### Transférer le fichier vers la machine d'attaque 
@@ -1109,9 +1109,9 @@ Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
 ```
 
 
-<br>
-
 ---
+
+<br>
 
 
 ### Installation de Docker-Compose sur Kali
@@ -1125,9 +1125,9 @@ docker-compose --version
 ```
 
 
-<br>
-
 ---
+
+<br>
 
 
 ### Lancer le conteneur BloodHound
@@ -1147,9 +1147,9 @@ sudo docker-compose -f docker-compose-BloodHound.yml down
 ```
 
 
-<br>
-
 ---
+
+<br>
 
 
 ### Se connecter sur la page web de BloodHound 
@@ -1174,9 +1174,9 @@ Aller dans Upload et charger le fichier "20260108151307_BloodHound.zip"
 
 
 
-<br>
-
 ---
+
+<br>
 
 
 
