@@ -309,6 +309,7 @@ la liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :<br>
 <br>
 
 __Masques utiles__
+
 | Symbole | Signification       |
 | ------- | ------------------- |
 | `@`     | lettres minuscules  |
@@ -317,7 +318,18 @@ __Masques utiles__
 | `^`     | caractères spéciaux |
 | `*`     | tous les caractères |
 
+compter le nombre de ligne dans un fichier 
+```sh
+wc fichier.txt
+```
 
+
+Options pour la commande `wc`
+* `-c` : compter uniquement les octets au sein d’un fichier.
+* `-L` : afficher la longueur de la ligne la plus longue.
+* `-l` : compter uniquement les lignes au sein d’un fichier.
+* `-m` : afficher uniquement les caractères au sein d’un fichier.
+* `-w` : compter uniquement les mots au sein d’un fichier.
 
 
 

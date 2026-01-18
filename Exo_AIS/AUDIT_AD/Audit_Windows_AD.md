@@ -50,6 +50,9 @@ git clone https://github.com/davidprowe/badblood.git
 
 <br>
 
+---
+
+
 
 
 ## __SCAN PORTS & SERVICES__
@@ -62,6 +65,7 @@ sudo nmap -sV 10.0.0.1
 
 <br>
 
+---
 
 
 
@@ -117,7 +121,14 @@ Vérifer les comptes (Ordinateurs et Utilisateurs) qui ne nécéssitent pas de p
 Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 ```
 
+
+
+
 <br>
+
+---
+
+
 
 
 <h2 align="center">KERBEROS PROTOCOL</h2>
@@ -128,6 +139,9 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 <br>
 
 <br>
+
+---
+
 
 ## __STEAL KERBEROS TICKETS__
 
@@ -186,6 +200,9 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 
 
 <br>
+
+---
+
 
 
 
@@ -534,9 +551,80 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
+## __CREATIING A PASSWORD LIST__
 
+
+> Outils : crunch
+
+
+
+```sh
+crunch 9 9 -t toto\*%%%% -o tototest.txt
+```
+* `9` → 1er chiffre caractères min du mdp
+* `9` → 2em chiffre caractères max du mdp
+* `-t`→ Respecte le masque (pattern indiqué)
+
+la liste fera que des mdp de 9 caractères en respectant (`-t`) le masque :<br>
+```
+[toto][*][0-9999]
+```
+
+```sh
+crunch 9 9  -t Toto%%%%\! | sed -n '1000,9999p' >> A-\*-@-num-\!.txt
+```
+
+| Besoin         | Solution    |
+| -------------- |:-----------:|
+| Étoile fixe    | `\*`        |
+| Position fixe  | `-t`        |
+| 0000 → 9999    | `%%%%`      |
 
 <br>
+
+### Explication sur printf 
+
+Va générer une liste avec des les nombres de 0 à 9999 
+```sh
+#!/bin/bash
+{
+for i in {0..9999}; do
+    printf "toto*$i\n"
+done
+} 
+```
+donnera :
+```
+toto*0
+toto*1
+toto*2
+...
+```
+
+<br>
+
+Ici `%04d` réserve l'emplacement pour la variable `$i` <br>
+`%d` réserve l'emplacement pour la variable et <br>
+`04` indique une série de 4 chiffres remplie de zero à gauche
+```sh                                                                                                              
+#!/bin/bash
+{
+
+for i in {0..9999}; do
+    printf "toto*%04d\n" "$i"
+done
+
+} 
+```
+donnera :
+```
+toto*0000
+toto*0001
+toto*0002
+...
+```
+
+
 
 ---
 
