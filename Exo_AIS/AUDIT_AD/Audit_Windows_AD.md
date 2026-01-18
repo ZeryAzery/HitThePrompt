@@ -551,10 +551,20 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
+
+
+
+<br>
+
+---
+
+
+
+
 ## __CREATIING A PASSWORD LIST__
 
 
-> Outils : crunch, sed, heredoc, printf, boucles
+> Outils : crunch, sed, heredoc (EOF), printf, boucles for
 
 
 crunch est pratique pour créer des variations d'un même mot
@@ -587,6 +597,8 @@ crunch 9 9  -t Toto%%%%\! | sed -n '1000,9999p' >> Toto-1000-9999-!.txt
 <br>
 
 ### Explication sur printf 
+
+Le principe des formats printf (%d, %04d, etc.) est le même que dans le language C (les regex suivent des principes similaires).
 
 Va générer une liste avec des les nombres de 0 à 9999 
 ```sh
@@ -627,21 +639,19 @@ toto*0002
 ...
 ```
 
-Liste de mots simple
+Liste de mots simple (Here document ou heredoc est pratique pour faire du ligne par ligne)
 ```sh
 cat << EOF >> Nord.txt
 Lille
 Roubaix
 Chicorée
-Potjevleesch
-Marais
-Boisblanc
-Faches
-Thumesnil
-Templemars
+Frite
 ...
 EOF
 ```
+End-of-file (EOF) est un marqueur qui indique la fin d'entrée d'un flux.
+
+<br>
 
 Création d'un fichier d'agrément temporaire :
 ```sh
@@ -649,7 +659,12 @@ sed 's/$/*/' Nord.txt > tmp.txt    # rajoute `*` dans tmp.txt
 sed 's/$/@/' Nord.txt >> tmp.txt   # rajoute `@` dans tmp.txt
 sed 's/$/\$/' Nord.txt >> tmp.txt  # rajoute `$` dans tmp.txt
 ```
+Explication du 1er exemple : `'s/$/*/'` ajoutera `*` à la fin de chaque ligne 
+* `s/` pour substitute
+* `$/` Fin de la ligne
+* `*/`
 
+Concaténer le fichier tmp.txt dans Nord.txt :
 ```sh
 cat tmp.txt >> Nord.txt
 rm tmp.txt
@@ -662,10 +677,32 @@ Lille@
 Lille$
 ...
 ```
+<br>
+
+| Motif | Signification |
+|------|---------------|
+| `^` | Début de ligne |
+| `$` | Fin de ligne |
+| `.` | N’importe quel caractère |
+| `*` | 0 ou plusieurs fois l’élément précédent |
+| `+` | 1 ou plusieurs fois l’élément précédent |
+| `?` | 0 ou 1 fois l’élément précédent |
+| `[]` | Ensemble de caractères |
+| `[^ ]` | Négation d’un ensemble |
+| `{n}` | Exactement n répétitions |
+| `{n,m}` | Entre n et m répétitions |
+| `s` | Substitution (`s/ancien/nouveau/`) |
 
 <br>
 
+Avec toutes ces possiblités, il possible de créer facilement de longues listes de mots de passe et surtout de cibler ces listes par rapports au contexte souhaité (nom d'entreprise, locations,etc...)
 
+
+
+
+
+
+<br>
 
 ---
 
