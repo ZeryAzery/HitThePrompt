@@ -481,7 +481,7 @@ __Chemin des logs Responder :__
 > ATT&CK Sub-techniques : Windows Remote Management (WinRM) — T1021.006 
 
 
-Établir une session distante sur un hôte Windows à l’aide d’identifiants volés et valides, permettant l’exécution de commandes et l’obtention d’un shell distant.  <br>
+Établir une session distante sur un hôte Windows à l’aide d’identifiants volés , permettant l’obtention d’un shell distant.  <br>
 Le compte de la machine ciblée doit faire partie du groupe `Administrateurs` et WinRM doit être activé sur l’hôte.
 
 
