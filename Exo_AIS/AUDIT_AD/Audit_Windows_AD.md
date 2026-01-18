@@ -790,7 +790,8 @@ klist
 <br>
 
 
-> [!NOTE] Le processus **lsass.exe** (Local Security Authority SubSystem) gère des informations d'identifications qui sont stockées en mémoire.
+> [!NOTE] 
+> Le processus **lsass.exe** (Local Security Authority SubSystem) gère des informations d'identifications qui sont stockées en mémoire.
 
 ### Désactiver Defender, exclusion "C:\Windows\Temp", exclusion des  .exe et .ps1
 ```powershell		
