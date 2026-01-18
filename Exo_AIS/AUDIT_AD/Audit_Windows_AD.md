@@ -14,7 +14,7 @@
 <br>
 
 > [!IMPORTANT]
-> Lors d'un audit ou d'un pentest, penser à toujours documenter les informations récoltées au fur et à mesure afin d'éviter les oublis (en vue du rapport pour le client), mais également si des modifications sont apportées (créations d'utilisateurs, modification des droits pour éléver ses privilèges...) de pouvoir être capable de rendre les choses dans leur état initial. 
+> Lors d'un audit ou d'un pentest, penser à toujours documenter les informations récoltées au fur et à mesure afin d'éviter les oublis (en vue du rapport pour le client), mais également si des modifications sont apportées (créations d'utilisateurs, modification des droits pour éléver ses privilèges...) il faut pouvoir être capable de rendre les choses dans leur état initial. 
 
 
 ---
@@ -57,6 +57,7 @@ git clone https://github.com/davidprowe/badblood.git
 
 
 # __SCAN PORTS & SERVICES__
+
 ```sh
 sudo nmap -sV 10.0.0.1
 ```
@@ -894,7 +895,7 @@ Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
 
 
 
-# __PLAINTEXT CREDENTIALS__ 
+# __PLAINTEXT CREDENTIALS EXTRACTION__ 
 
 
 
@@ -1000,7 +1001,7 @@ gc c:\windows\system32\mimilsa.log
 > ATT&CK Technique ID : T1557 – Adversary-in-the-Middle
 > Outils : krbrelayx.py
 
-
+<br>
 
 
 INC.
