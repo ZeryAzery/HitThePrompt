@@ -480,10 +480,10 @@ __Chemin des logs Responder :__
 > ATT&CK Technique : Remote Services — T1021 <br>
 > ATT&CK Sub-techniques : Windows Remote Management (WinRM) — T1021.006 
 
+<br>
 
 Établir une session distante sur un hôte Windows à l’aide d’identifiants volés , permettant l’obtention d’un shell distant.  <br>
 Le compte de la machine ciblée doit faire partie du groupe `Administrateurs` et WinRM doit être activé sur l’hôte.
-
 
 <br>
 
@@ -570,8 +570,8 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 # __CREATIING A PASSWORD LIST__
 
 
-> Outils : crunch, sed, heredoc (EOF), printf, boucles for
-
+> Outils : crunch, sed, heredoc (EOF), printf, boucles for <br>
+> ATT&CK Technique : Credential Access
 
 crunch est pratique pour créer des variations d'un même mot
 ```sh
