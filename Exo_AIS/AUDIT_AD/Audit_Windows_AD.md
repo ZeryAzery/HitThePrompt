@@ -1,4 +1,5 @@
-<h1 align="center">AUDIT DE SÉCURITÉ WINDOWS AD</h1>
+<h1 align="center"><strong>AUDIT DE SÉCURITÉ WINDOWS AD</strong></h1>
+
 
 
 
@@ -20,7 +21,7 @@
 
 <br>
 
-## __MISE EN PLACE DE BADBLOOD__
+# __MISE EN PLACE DE BADBLOOD__
 
 
 BadBlood permet de rendre l'Active Directory vulnérable c'est un script qui génère de nombreux groupes et utilisateurs avec de mauvaises permissions ainsi que des paramètres générant des failles exploitables comme c'est souvent le cas en entreprise.
@@ -55,7 +56,7 @@ git clone https://github.com/davidprowe/badblood.git
 
 
 
-## __SCAN PORTS & SERVICES__
+# __SCAN PORTS & SERVICES__
 ```sh
 sudo nmap -sV 10.0.0.1
 ```
@@ -69,7 +70,7 @@ sudo nmap -sV 10.0.0.1
 
 
 
-## __PING CASTLE__
+# __PING CASTLE__
 
 > Outils : PingCastle
 > ATT&CK Tactic : Discovery
@@ -143,7 +144,7 @@ Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
 <br>
 
 
-## __STEAL KERBEROS TICKETS__
+# __STEAL KERBEROS TICKETS__
 
 > Outils : Impacket (linux), Rubeus (windows) <br>
 > ATT&CK Tactic : Credential Access <br>
@@ -206,7 +207,7 @@ printf '%s' '$krb5asrep$23$COLETTE_MCKEE@TSSR-CYBER.FR:<hash>' > COLETTEHASH.txt
 
 
 
-## __OFFLINE CRAKING__
+# __OFFLINE CRAKING__
 
 
 > Outils : hashcat, JhonTheRipper <br>
@@ -277,7 +278,7 @@ sudo hashcat -m 5600 -a 0 <hashfile.txt> /usr/share/wordlists/rockyou.txt -r /us
 
 
 
-## __DUMPER LES OBJETS LDAP__
+# __DUMPER LES OBJETS LDAP__
 
 > Outils : ldapdomaindum <br>
 > ATT&CK Tactic : Discovery <br>
@@ -328,7 +329,7 @@ Domain policy rapport
 
 
 
-## __ACCOUNTS THAT RESPOND TO KRB REQUESTS__
+# __ACCOUNTS THAT RESPOND TO KRB REQUESTS__
 
 > Outil : Kerbrute <br>
 > ATT&CK Tactic: Discovery <br>
@@ -364,7 +365,7 @@ Domain policy rapport
 
 
 
-## __AD ACCOUNTS WITH SAME PASSWORD__
+# __AD ACCOUNTS WITH SAME PASSWORD__
 
 > Outil : SprayHound <br>
 > ATT&CK Tactic : Credential Access <br>
@@ -406,7 +407,7 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 
 
-## __INTERCEPT NTLMv1 - NTLMv2 HASHS__
+# __INTERCEPT NTLMv1 - NTLMv2 HASHS__
 
 
 > Outils : Responder <br>
@@ -472,7 +473,7 @@ __Chemin des logs Responder :__
 
 
 
-## __WINRM SHELL__
+# __WINRM SHELL__
 
 > Outils : <br>
 > ATT&CK Tactic :  <br>
@@ -561,7 +562,7 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
-## __CREATIING A PASSWORD LIST__
+# __CREATIING A PASSWORD LIST__
 
 
 > Outils : crunch, sed, heredoc (EOF), printf, boucles for
@@ -709,7 +710,7 @@ Avec toutes ces possiblités, il possible de créer facilement de longues listes
 
 
 
-## __AMSI BYPASS__
+# __AMSI BYPASS__
 
 > ATT&CK Tactic : Defense Evasion (TA0005) <br>
 > ATT&CK Technique ID : T1562.001 – Impair Defenses: Disable or Modify Tools <br>
@@ -749,7 +750,7 @@ $bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe(
 
 
 
-## __PRIVILEGE ESCALATION__
+# __PRIVILEGE ESCALATION__
 
 
 
@@ -766,7 +767,7 @@ INC.
 
 
 
-## __NTLM HASH EXTRACTION__
+# __NTLM HASH EXTRACTION__
 
 > ATT&CK Tactic : Credential Access <br>
 > ATT&CK Technique ID : T1003.001-008 <br>
@@ -801,7 +802,7 @@ klist
 
 <br>
 
-### Télécharger mimikatz
+##Télécharger mimikatz
 
 Désactiver Defender, exclusion "C:\Windows\Temp", exclusion des .exe et .ps1
 ```powershell		
@@ -876,7 +877,7 @@ Remove-MpPreference -ExclusionPath "C:\Windows\Temp"
 
 
 
-## __PLAINTEXT CREDENTIALS__ 
+# __PLAINTEXT CREDENTIALS__ 
 
 
 
@@ -976,7 +977,7 @@ gc c:\windows\system32\mimilsa.log
 
 
 
-## __KERBEROS RELAY__
+# __KERBEROS RELAY__
 
 > ATT&CK Tactic : Lateral Movement / Privilege Escalation <br>
 > ATT&CK Technique ID : T1557 – Adversary-in-the-Middle
@@ -997,7 +998,7 @@ INC.
 
 
 
-## __FIND USERS & GROUPS SID__
+# __FIND USERS & GROUPS SID__
 
 bruteforce the Windows SID through [MS-LSAT] MSRPC Interface 
 
@@ -1060,7 +1061,7 @@ C'est principalement un outils RedTeam, mais il peut aussi servir coté BlueTeam
 <br>
 
 
-## Éxécuter SharpHound.exe
+# Éxécuter SharpHound.exe
 
 SharpHound se lance sur une machine du domaine, c'est lui qui se charge de récolter les informations du domaine qu'on exploitera par la suite.
 
