@@ -825,12 +825,22 @@ Afficher les tickets mis en cache sur la machine
 klist
 ```
 
+**Cette attaque nécessite un compte admin local.** <br> 
+Cette commande permet d'identifer les membres du groupe buit in 'Administrateurs' (qui sont aussi utilisateurs du domaine) sur toutes les machines du domaine
+```powershell	
+$pcs = Get-ADComputer -Filter * | Select -ExpandProperty Name 
+Invoke-Command -ComputerName $pcs -ScriptBlock { Get-LocalGroupMember Administrateurs | ? { $_.Name -like '<NETBIOS Domain name>\*' } | select pscomputername, name }
+```
+
+![](img/locadm.png)
+
+
+
 <br>
 
 
 > [!NOTE] 
 > Le processus **lsass.exe** (Local Security Authority SubSystem) gère des informations d'identifications qui sont stockées en mémoire.
-
 
 
 <br>
