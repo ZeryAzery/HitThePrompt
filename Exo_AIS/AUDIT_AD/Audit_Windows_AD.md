@@ -701,7 +701,7 @@ Lille$
 
 <br>
 
-Avec toutes ces possiblités, il possible de créer facilement de longues listes de mots de passe et surtout de cibler ces listes par rapports au contexte souhaité (nom d'entreprise, locations,etc...)
+Avec toutes ces possiblités, il possible de créer facilement de longues listes de mots de passe ciblées par rapports au contexte souhaité (nom d'entreprise, locations,etc...). Rajouter un fichier de règle de nombres serait pertinent dans ce contexte.
 
 
 
