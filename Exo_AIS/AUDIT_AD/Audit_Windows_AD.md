@@ -587,6 +587,11 @@ Invoke-Command -ComputerName $pcs -ScriptBlock { Get-LocalGroupMember Administra
 ```
 
 
+### Afficher l'IP des partages réseau 
+```powershell
+Get-PSDrive -PSProvider FileSystem
+```
+
 ### Afficher la description d'un compte
 ```powershell
 Get-ADUser -Filter * -Properties * | select name, description | fl
