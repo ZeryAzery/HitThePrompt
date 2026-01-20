@@ -259,7 +259,7 @@ python3 krbrelayx.py -d example.local --dc-ip 192.168.1.10 -t ldap://192.168.1.2
 ```sh
 sudo nano /usr/local/bin/krbrelayx
 ```
-Contenu du fichier ("$@" sert à l'interprétation des )
+Contenu du fichier ("$@" sert à l'interprétation des options)
 ```sh
 #!/bin/bash
 python3 /opt/krbrelayx/krbrelayx.py "$@"
