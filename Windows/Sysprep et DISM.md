@@ -6,13 +6,17 @@ Faire le sysprep avant le clone si besoin de déployer l'image plusieurs fois et
 * Ne pas syprep un PC sur domaine
 * Pas d’application UWP installée par utilisateur (genre Candy Crush, Spotify, etc.)
 
-## Installer WIn11 sans internet
-```powershell
-# Appuyez sur Maj + F10 pour ouvrir cmd (ou Maj + Fn + F10)
-oobe\bypassnro
-```
+
 Une fois sur le compte admin built-in de windows installer tous ce que vous souhaitez (logiciels, pilotes...)
 lancer sysprep
+
+
+
+<br>
+
+---
+
+<br>
 
 
 ## sysprep
@@ -22,6 +26,14 @@ cd \windows\system32\sysprep
 # Exécuter sysprep
 .\sysprep.exe /generalize /reboot
 ```
+
+
+<br>
+
+---
+
+<br>
+
 
 ## run sysprep avec un fichier unattend.xml
 ```batch
@@ -33,6 +45,14 @@ sysprep /generalize /oobe /shutdown /unattend:C:\Windows\System32\Sysprep\Unatte
 ```
 %WINDIR%\System32\Sysprep\Panther\setupact.log
 ```
+
+
+<br>
+
+---
+
+<br>
+
 
 ## Erreurs de sysprep
 
@@ -60,6 +80,14 @@ Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like "*WidgetsPla
 -  *UnattendErrorFromResults: Error text = Windows n’a pas pu analyser ou traiter le fichier de réponses sans assistance pour l’étape [generalize]. Un composant ou un paramètre spécifié dans le fichier de réponses n’existe pas.*
 
  -> Sysprep indique que le fichier Unattend est absent ou qu'il cherche à en charger un, vérifier qu'aucun fichier unattend ne sois dans le dossier sysprep sinon essayer de lancer sysprep en powershell...
+
+
+
+<br>
+
+---
+
+<br>
 
 
 
