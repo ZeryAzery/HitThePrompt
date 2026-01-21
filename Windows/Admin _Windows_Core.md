@@ -58,6 +58,7 @@ sconfig
 
 ### Misc :
 ```powershell
+# Renommer la machine et redémarrer
 Rename-Computer -NewName "SRV-W19-CORE-1" -Restart
 
 # Se déplacer à la racine ou dans le répertoire utilisateur (Alias: `sl` ou `cd`)	:		
