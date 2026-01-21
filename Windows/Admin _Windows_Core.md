@@ -16,6 +16,7 @@
 - [📅 MISES À JOUR](#mises-a-jour)
 - [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#gestion-des-processus)
 - [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
+- [💿 GESTION DES DISQUES]
 - [📂 GESTION DES OBJETS](#gestion-des-objets)
 - [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
 - [🔪 HASHAGE](#hashage)
@@ -519,6 +520,7 @@ wmic process where processid=13128 get executablepath
 
 
 ### Sinon utiliser process explorer et/ou TCP view de la suite Sysinternals 
+
 Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails :
 [Télécharger Sysinternals ici](https://learn.microsoft.com/fr-fr/sysinternals/downloads/)
 
@@ -531,6 +533,69 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 ---
 
 <br>
+
+
+
+
+
+# 💿 __GESTION DES DISQUES__ <a id="gestion-des-disques"></a>
+
+
+### Afficher les disques 
+
+Pratique sur domaine pour afficher d'où proviennent les lecteurs réseaux
+```powershell
+Get-PSDrive -PSProvider FileSystem
+```
+
+<br>
+
+### Gestion des disques avec Diskpart
+
+Diskpart est l'outils de partitionnement des disques de Windows en CLI.
+
+```bat
+# Ouvrir diskpart (dans un terminal)
+diskpart
+
+# Lister les diques 
+lis dis
+
+# Sélectionner un disque
+sel dis
+
+# Lister les volumes
+lis vol
+
+# Sélectionner un volume
+sel vol
+
+# Assigner une à un volume
+ass letter D
+
+# créer une partition primaire de 40Go (exprimé en Mo)
+crea par prim size=40000
+```
+
+Le formatage ne s'effectue pas dans Diskpart
+```bat
+# Formater un disque au format NTFS 
+exit
+format G: /FS:ntfs
+```
+
+
+
+
+
+
+<br>
+
+---
+
+<br>
+
+
 
 
 
