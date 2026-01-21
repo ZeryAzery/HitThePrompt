@@ -16,7 +16,7 @@
 - [📅 MISES À JOUR](#mises-a-jour)
 - [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#gestion-des-processus)
 - [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
-- [💿 GESTION DES DISQUES]
+- [💿 GESTION DES DISQUES](#gestion-des-disques)
 - [📂 GESTION DES OBJETS](#gestion-des-objets)
 - [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
 - [🔪 HASHAGE](#hashage)
