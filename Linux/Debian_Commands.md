@@ -153,7 +153,7 @@ iface enp0s3 inet static
 	gateway 192.168.0.1
 	dns-nameserver 8.8.8.8
 ```
-> [NOTE] 
+> [!NOTE] 
 > *allow-hotplug* active l’interface quand elle est détectée <br> 
 > *auto* active l’interface au démarrage du système (pendant le boot),<br> 
 >  ⚠️ Ne pas mettre les deux à la fois.
