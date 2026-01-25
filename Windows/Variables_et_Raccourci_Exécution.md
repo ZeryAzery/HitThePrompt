@@ -52,6 +52,9 @@
 | `gpmc.msc`           | Console de gestion des stratégies de groupe (GPMC)            |
  
 
+---
+
+<br>
 
 ## Utiliser les variables d'environnement 
 
@@ -72,5 +75,41 @@
 | Chemin complet du serveur DNS          | `%SystemRoot%\System32\drivers\etc` |
 
 
+---
+
+<br>
+
+# Variables utilisateur courantes en PowerShell
+
+### Nom de l’utilisateur
+```powershell
+$env:USERNAME
+```
 
 
+### Profil Local complet (Machine\Utilisateur)
+```powershell
+$env:USERDOMAIN\$env:USERNAME
+```
+
+
+### Nom de domaine
+```powershell
+$env:USERDNSDOMAIN
+```
+
+
+
+### Dossier du profil utilisateur
+```powershell
+$env:USERPROFILE
+```
+```powershell
+$HOME
+```
+
+
+### Lister toutes les variables d’environnement
+```powershell
+Get-ChildItem Env:
+```

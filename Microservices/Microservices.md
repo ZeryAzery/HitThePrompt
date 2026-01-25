@@ -1,6 +1,6 @@
 # __DOCKER ET MICROSERVICES__
 
-![alt text](<docker-logo.png>)
+![alt text](<img/docker-logo.png>)
 
 ### Intro
 
@@ -323,7 +323,7 @@ cat /home/toto/shared/logs/test.log
 
 Si test.log est présent le volume partagé fonctionne 
 
-![alt text](<shared_host-container.png>)
+![alt text](<img/shared_host-container.png>)
 
 <br>
 
@@ -415,7 +415,7 @@ tail -f /home/toto/shared/logs/2025-10-09_logfile.json
 ```
 
 
-![alt text](<collected_log_on_local.png>)
+![alt text](<img/collected_log_on_local.png>)
 
 <br>
 
@@ -570,7 +570,7 @@ docker build --no-cache -t vulnapp-http:443 .
 docker stats vulnapp
 ```
 
-![alt text](<container_stat.png>)
+![alt text](<img/container_stat.png>)
 
 
 
@@ -583,7 +583,7 @@ docker stats vulnapp
 
 # __DOCKER COMPOSE__
 
-![alt text](<dockercompose-shema.png>)
+![alt text](<img/dockercompose-shema.png>)
 
 - Docker Compose permet de décrire et lancer plusieurs containers en même temps via un seul fichier (docker-compose.yml).
 - Il permet de définir les containers, leurs volumes, ports et dépendances, et ensuite une seule commande `docker-compose up` démarre tout.
@@ -660,7 +660,7 @@ __Explication :__
 ```sh
 docker compose up -d
 ```
-![alt text](<docker-compose.png>)
+![alt text](<img/docker-compose.png>)
 
 
 
@@ -684,7 +684,7 @@ docker exec -it vla-logs tail -f  /shared/logs/2025-10-10_logfile.json
 
 # __TERRAFORM__
 
-![alt text](<terralogo.png>)
+![alt text](<img/terralogo.png>)
 
 
 ## Intro
