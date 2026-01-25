@@ -154,9 +154,9 @@ iface enp0s3 inet static
 	dns-nameserver 8.8.8.8
 ```
 > [!NOTE] 
-> *allow-hotplug* active l’interface quand elle est détectée <br> 
-> *auto* active l’interface au démarrage du système (pendant le boot),<br> 
->  ⚠️ Ne pas mettre les deux à la fois.
+> * __*allow-hotplug*__ active l’interface quand elle est détectée  
+> * __*auto*__ active l’interface au démarrage du système (pendant le boot)
+> * ⚠️ Ne pas mettre les deux à la fois.
 
 
 ### Config DHCP
