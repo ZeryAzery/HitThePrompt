@@ -44,6 +44,48 @@ exec zsh
 
 
 
+### Pour l'erreur sur kali :
+
+"Warning: Impossible de récupérer http://http.kali.org/kali/dists/kali-rolling/InRelease  Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 827C8569F2JVTE78JYD68EJVEJ4Q48WA, which is needed to verify signature."
+
+
+```zsh
+### Importer la nouvelle clé manquante du dépôt Kali
+sudo apt install curl -y
+curl -fsSL https://archive.kali.org/archive-key.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/kali-archive.gpg > /dev/null
+```
+
+
+### Pour l'erreur Docker sur kali :
+
+Attention : OpenPGP signature verification failed: https://download.docker.com/linux/debian bookworm InRelease: Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 7EA0A8C3G273FCD8, which is needed to verify signature.
+```sh
+### Créer le dossier des keyrings (si absent)
+sudo mkdir -p /etc/apt/keyrings
+
+### Télécharger la clé GPG Docker
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+### Fixer les permissions
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+### Ajouter le bon dépot sources.list.d/docker.list
+printf "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable\n" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+```
+
+
+
+## dépanner une kali coicée au boot sur VBox...
+Ctrl + Alt + F2 peut rendre le terminal acessible.
+---
+
+<br>
+
+
+
+
 ### Fixer l'autocomplétion pour les chemins des dossier/fichiers
 
 → si message `(eval):1: _python-argcomplete: function definition file not found`

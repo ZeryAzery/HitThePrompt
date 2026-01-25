@@ -1,10 +1,28 @@
 # Debian commands
 
+
+
 ---
 
 <br>
 
+
+
 ## 🔰 Commandes de bases
+
+
+
+### Manuel d'aide d'une commande
+```bash
+man grep
+```
+
+### Aide tl;dr
+```bash
+sudo apt install tldr
+tldr awk
+```
+
 
 
 ### Mise à jour 
@@ -92,26 +110,18 @@ cd ~
 nano .bashrc 
 ```
 
-
-__Puis ajouter :__
+Puis ajouter 
 ```ini 
 alias ll='ls -la'
 ```
-__Recharger le fichier pour que les modifs prennent effet :__
+Recharger le fichier pour que les modifs prennent effet
 ```bash
 source .bashrc (rajouter ~/ si pas dans le répertoire utilisateur : source ~/.bashrc)
 ```
 
 
-### autre aide possible
-```bash
-tldr grep
-```
 
-
-### Créer un alias de ls -la pour les vieux (comme moi) qui n'arrivent pas à lire les permissions. 
-J'aurais souhaité que Linus Torvald implémente ça directement dans le kernel Linux mais lui devait surement bien voir du coup il s'en fout 
-
+### Exemple de personalisation/création d'un alias (`ls -la` ici)
 ```bash
 alias ll="ls -la | awk 'NR==1 {print; next} {printf \"%s | %s | %s | %s  %2s %3s %3s %8s %s %s %s %s\n\", substr(\$1,1,1), substr(\$1,2,3), substr(\$1,5,3), substr(\$1,8,3), \$2, \$3, \$4, \$5, \$6, \$7, \$8, \$9}'"
 ```
@@ -122,49 +132,35 @@ Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh qu
 
 
 
-### Pour l'erreur sur kali :
-"Warning: Impossible de récupérer http://http.kali.org/kali/dists/kali-rolling/InRelease  Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 827C8569F2JVTE78JYD68EJVEJ4Q48WA, which is needed to verify signature."
-
-### Importer la nouvelle clé manquante du dépôt Kali
-```zsh
-sudo apt install curl -y
-curl -fsSL https://archive.kali.org/archive-key.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/kali-archive.gpg > /dev/null
-```
-
-
-### Modifier le fichier history dans zsh (fermer le terminal pour que les dernières commandes soient prisent en compte)
-```zsh
-sudo nano ~/.zsh_history
-```
-
-
-
 
 ---
-
-
 
 <br>
 
 
 
-# 📶 Réseau 📶 
+
+
+
+# 📶 Réseau 
 
 
 ### Pour une config statique dans le fichier interfaces : (nano /etc/network/interfaces)
-```c#
+```sh
 allow-hotplug enp0s3
 iface enp0s3 inet static
 	address 192.168.0.16/24
 	gateway 192.168.0.1
 	dns-nameserver 8.8.8.8
 ```
->[NOTE] 
-> *allow-hotplug* active l’interface quand elle est détectée et *auto* active l’interface au démarrage du système (pendant le boot), ne pas mettre les deux à la fois.
+> [NOTE] 
+> *allow-hotplug* active l’interface quand elle est détectée <br> 
+> *auto* active l’interface au démarrage du système (pendant le boot),<br> 
+>  ⚠️ Ne pas mettre les deux à la fois.
 
 
 ### Config DHCP
-```c#
+```sh
 # loopback
 auto lo
 iface lo inet loopback
@@ -199,10 +195,16 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 sysctl -p # recharger pour appliquer les modifs
 ```
 
-### Afficher les ports en écoute (-t: TCP | -u: UDP | -l: Ports en écoute | -n: Ne pas résoudre les noms | -p: processus associés)
+### Afficher les ports en écoute s
 ```bash
 ss -tulnp 
 ```
+* `-t`: TCP 
+* `-u`: UDP
+* `-l`: Ports en écoute
+* `-n`: Ne pas résoudre les noms
+* `-p`: processus associé
+
 
 ### Voir quel processus utilise un port
 ```bash
@@ -225,7 +227,7 @@ lsof -i -P -n | grep LISTEN
 
 
 
-# 📁 Manipulation de fichiers  📁 
+# 📁 Manipulation de fichiers
 
 
 ### Supprimer un dossier et tout son contenu :
@@ -352,7 +354,7 @@ scp -P 6666 aliasll.sh Toto@10.0.0.6:/home/Toto
 
 
 
-# 📇 Samba 📇
+# 📇 Samba
 
 
 ### Installer Samba
@@ -473,7 +475,7 @@ sudo smbstatus
 
 
 
-# 🪝 GREP 🪝
+# 🪝 GREP
 
 
 ### Rechercher un mot exacte
@@ -514,7 +516,7 @@ grep -Ei "error|fail|denied" /etc/server.log
 
 
 
-# 🔍🔍 FIND 🔎🔎 
+# 🔍 FIND  
 
 
 ### Rechercher ce qui contient test dans le dossier actuel:
@@ -523,17 +525,25 @@ find ./ -type f -name "*test*"
 ```
 
 
+### Localiser un binaire 
+```sh
+locate ls
+```
+```sh
+where kerbrute
+```
+
+
+
 
 ---
-
-
 
 <br>
 
 
 
 
-# 👮‍♀️ Gestion des permissions 👮‍♀️
+# 👮‍♀️ Gestion des permissions
 
 | Octal | Signification                 |
 |-------|-------------------------------|
@@ -582,15 +592,13 @@ chmod -t Archives
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 📇 Gestion des packages 📇
+# 📇 Gestion des packages
 
 
 ### Pour changer de serveur de gestion de paquets :
@@ -598,6 +606,10 @@ chmod -t Archives
 nano /etc/apt/sources.list
 ```
 
+### retirer un ancien dépot inutile
+```sh
+sudo rm /etc/apt/sources.list.d/stretch-backports.list
+```
 
 
 ### Rechercher des paquets
@@ -627,14 +639,14 @@ apt autoremove --purge nom_package
 
 ---
 
-
-
 <br>
 
 
 
 
-#  🛣️ SSH 🛣️
+
+
+#  🛣️ SSH
 
 
 ### Installer SSH
@@ -716,15 +728,14 @@ ssh -p 4444 Toto@192.168.100.2
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 🙋‍♂️ DHCP 🙋‍♂️ 
+
+# 🙋‍♂️ DHCP
 
 
 ### S'installe ici automatiquement : `/etc/dhcp` 
@@ -740,19 +751,16 @@ nano /etc/default/isc-dhcp-server
 ```
 
 
-
 ```ini
 # Puis ajouter
 INTERFACESv4="enp0s3"
 ```
 
 
-
 ### Renommer le fichier d'origine en .old
 ```bash
 cp  /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.old
 ```
-
 
 
 ### Vider puis éditer `/etc/dhcp/dhcpd.conf`
@@ -780,14 +788,12 @@ option domain-name-servers 8.8.8.8;
 
 
 
-
 ### Enregisterer le fichier puis redémarrer le servive
 ```bash
 systemctl restart isc-dhcp-server
 # ou
 service isc-dhcp-server restart
 ```
-
 
 
 ### Vérifier qu'il a prit le DHCP : (montre les machines qui ont chopé le dhcp)
@@ -801,15 +807,14 @@ cat /var/lib/dhcp/dhcpd.leases
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 🗒️ DNS 🗒️ 
+
+# 🗒️ DNS 
 
 
 ```bash
@@ -825,16 +830,13 @@ ls /etc/bind
 
 
 
-
 ### Fichier de conf DNS : named.conf.local
 ```bash
 nano /etc/bind/named.conf.local
 ```
 
 
-
-* configurer le fichier comme ceci :
-
+configurer le fichier comme ceci :
 ```ini
 zone "debdns.net {
 type master;
@@ -893,15 +895,14 @@ Il y a 13 serveurs racines dans le monde (principalement aux États Unis)
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 🙋 Gestion des utilisateurs 🙋 
+
+# 🙋 Gestion des utilisateurs  
 
 
 ### Lister les utilisateurs :
@@ -982,8 +983,6 @@ Puis se déco ou redémarrer après ou alors faire la commande `source ~/.bashrc
 
 ---
 
-
-
 <br>
 
 
@@ -991,7 +990,7 @@ Puis se déco ou redémarrer après ou alors faire la commande `source ~/.bashrc
 
 
 
-# 🚷 FAIL2BAN 🚷 
+# 🚷 FAIL2BAN
 
 
 ### Repérer une erreur dans la conf fail2an :
@@ -1047,15 +1046,13 @@ tail -f /var/log/fail2ban.log
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 🧱 UFW 🧱 
+# 🧱 UFW 
 
 
 ### réinitiliser ufw (retire toutes les règles)
@@ -1121,15 +1118,13 @@ ufw status verbose
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 📆 CRON 📆 
+# 📆 CRON
 
 
 cron est l'exétuteur de tâches planifiées
@@ -1147,11 +1142,11 @@ crontab -e
 
 
 
->[NOTE]
+> [NOTE]
 > cron utilise 5 positions (min, heure, jour du mois, mois, jour de la semaine)
 
 
-# Exemples pour le fichier crontab
+### Exemples pour le fichier crontab
 ```ini
 */5 * * * * ~/duckdns/duck.sh >/dev/null 2>&1	# toutes les 5 minutes
 */30 * * * * ~/duckdns/duck.sh >/dev/null 2>&1	# toutes les 30 minutes
@@ -1160,7 +1155,7 @@ crontab -e
 0 3,5,7 * * * ~/duckdns/duck.sh >/dev/null 2>&1	# à 3h, 5h et 7h chaque jour
 ```
 
-# Autre exemple
+### Autre exemple
 ```ini
 0 3 1 * * apt update && apt upgrade -y && apt autoremove -y && apt autoclean
 ```
@@ -1174,7 +1169,7 @@ crontab -e
 | *        | 1-12 ou *                | Mois (ici, tous les mois)              |
 | *        | 0-7 (0 et 7 = Dimanche)  | Jour de la semaine (ici, tous les jours) |
 
->[HINT]
+> [HINT]
 > Si une valeur est entrée dans la colonne "Jour du mois" (3ème colonne) et une autre dans "Jour de la semaine" (5ème colonne), cron exécute la tâche si l'une des deux conditions est remplie.
 Ex : 0 3 1 * 5 → Exécuté le 1er du mois et tous les vendredis.
 
@@ -1185,15 +1180,13 @@ Ex : 0 3 1 * 5 → Exécuté le 1er du mois et tous les vendredis.
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 🕸️ APACHE2 🕸️ 
+# 🕸️ APACHE2
 
 
 
@@ -1239,15 +1232,13 @@ certbot --apache -d mon-site.fr
 
 ---
 
-
-
 <br>
 
 
 
 
 
-# 💾💿 GESTION DES DISQUES 💾💿 
+# 💿 GESTION DES DISQUES 
 
 
 
@@ -1277,7 +1268,7 @@ cfdisk /dev/sdb
 
 
 
-##  Création et activation d’un fichier swap
+##  Création d’un fichier swap
 
 Le swap sert d’extension à la mémoire RAM.
 
@@ -1327,8 +1318,6 @@ echo 1 > /proc/sys/vm/swappiness
 
 ---
 
-
-
 <br>
 
 
@@ -1336,35 +1325,34 @@ echo 1 > /proc/sys/vm/swappiness
 
 
 
-# ➡️⬅️ Installation et connexion iSCSI ➡️⬅️
+# ➡️⬅️ Installation et connexion iSCSI
 
 
 
-### Installe le paquet client iSCSI sur Debian. Ce service permet à la machine d'accéder à des volumes de stockage distants (targets iSCSI)
+### Installe le paquet client iSCSI sur Debian.
+
+Ce service permet à la machine d'accéder à des volumes de stockage distants (targets iSCSI)
 ```bash
 apt install open-iscsi
 ```
-
 
 ### Découvre les cibles iSCSI disponibles sur le serveur 10.0.0.1
 ```bash
 iscsiadm -m discovery -t sendtargets -p 10.0.0.1
 ```
-
-
-
 * `-m discovery` : mode de découverte
 * `-t sendtargets` : méthode standard de découverte
 * `-p 10.0.0.1` : IP du serveur cible iSCSI
 
 
+### Se connecte à la cible iSCSI découverte.
 
-### Se connecte à la cible iSCSI découverte. Un nouveau disque apparaîtra dans `/dev/` (souvent `/dev/sdb`).
+Un nouveau disque apparaîtra dans `/dev/` (souvent `/dev/sdb`).
 ```bash
 iscsiadm -m node --login
 ```
 
-
+<br>
 
 
 ## Gestion et montage du disque iSCSI
@@ -1375,7 +1363,6 @@ iscsiadm -m node --login
 fdisk -l
 ```
 
-
 ### Créer un dossier de montage et monte la partition iSCSI.
 ```bash
 mkdir /mnt/TOTO
@@ -1383,12 +1370,10 @@ mount /dev/sdb1 /mnt/TOTO/
 ```
 
 
-
 ### Installe le pilote NTFS pour lecture/écriture. (Utile depuis un Windows)
 ```bash
 apt install ntfs-3g
 ```
-
 
 ### Monte et navigue dans le dossier monté
 ```bash
@@ -1396,12 +1381,10 @@ mount /dev/sdb1 /mnt/TOTO/
 cd /mnt/TOTO/
 ```
 
-
 ### Démonter le disque
 ```bash
 umount /mnt/TOTO
 ```
-
 
 ### Connexion iSCSI automatique au démarrage
 ```bash
@@ -1412,9 +1395,8 @@ systemctl enable open-iscsi
 
 
 
+
 ---
-
-
 
 <br>
 
