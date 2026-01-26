@@ -220,8 +220,6 @@ lsof -i -P -n | grep LISTEN
 
 ---
 
-
-
 <br>
 
 
@@ -345,8 +343,6 @@ scp -P 6666 aliasll.sh Toto@10.0.0.6:/home/Toto
 
 ---
 
-
-
 <br>
 
 
@@ -468,8 +464,6 @@ sudo smbstatus
 
 ---
 
-
-
 <br>
 
 
@@ -508,8 +502,6 @@ grep -Ei "error|fail|denied" /etc/server.log
 
 ---
 
-
-
 <br>
 
 
@@ -539,6 +531,7 @@ where kerbrute
 ---
 
 <br>
+
 
 
 
