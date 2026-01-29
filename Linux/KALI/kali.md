@@ -1,5 +1,14 @@
 <h1 align="center">KALI LINUX</h1>
 
+
+
+### Sur VBox
+```sh
+sudo apt install -y build-essential dkms linux-headers-$(uname -r)
+sudo apt install -y virtualbox-guest-x11
+sudo reboot
+```
+
 ### Vérifier quel shell est utilisé
 ```sh
 echo $0
