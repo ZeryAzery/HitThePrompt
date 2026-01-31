@@ -394,8 +394,13 @@ Get-WindowsUpdate -AcceptAll -Install -AutoReboot
 Install-WindowsUpdate -AcceptAll 
 ```
 
+### Afficher les maj présentes
+```bat
+wmic qfe get Caption,Description,HotFixID,InstalledOn
+```
 
-### Vérifier les mises à jours présentes
+
+### Vérifier la présence de mises à jours 
 
 ```powershell
 $kbs= @("KB5066835", "KB5065789")
@@ -407,6 +412,9 @@ $kbs= @("KB5066835", "KB5065789")
       Write-Host  "Found : $kb" -ForegroundColor Green }
     else { Write-Host  "Not found : $kb" -ForegroundColor Red }
      }
+```
+```bat
+wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:"KB2393802"
 ```
 
 
