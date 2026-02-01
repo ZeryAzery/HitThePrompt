@@ -1534,21 +1534,35 @@ Install-WindowsFeature -Name WDS -IncludeManagementTools
 
 ```powershell
 # Ajouter domaine nouvelle forêt
-Install-ADDSForest -DomainName "TSSR.INFO" -DomainNetbiosName "TSSR" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS	
+Install-ADDSForest -DomainName "<domain.tld>" -DomainNetbiosName "<domain>" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "<Admin_Pswd>" -Force) -InstallDNS	
 
-# Joindre le domaine
+### Joindre le domaine
 Add-Computer -DomainName TSSR.INFO
 # ou
-Add-Computer -DomainName "domainname" -Credential (Get-Credential) -Restart
+Add-Computer -DomainName "<domain.tld>" -Credential (Get-Credential) -Restart
 
-# Promouvoir en controleur de domaine
-Install-ADDSDomainController -DomainName "TSSR.INFO" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "Mon_mot_de_passe" -Force) -InstallDNS
+# Promouvoir en controleur de domaine (idem pour le réplicat)
+Install-ADDSDomainController -DomainName "<domain.tld>" -InstallDNS -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "<Admin_Pswd>" -Force) 
 # ou 
-Install-ADDSDomainController -DomainName "domain.tld" -InstallDns:$true -Credential (Get-Credential "DOMAIN\administrateur")
+Install-ADDSDomainController -DomainName "<domain.tld>" -InstallDns -Credential (Get-Credential "<domain.tld\administrateur>")
 
 # Installer tous les outils RSAT:	
 Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online
 ```
+
+### Quick replication troubleshooting
+```powershell
+# Résoudre nom d'hôte
+Resolve-DnsName <domain.tld>
+nslookup <domain.tld>
+
+# Vérifier la dispo du service AD
+nltest /dsgetdc:<domain.tld>
+
+# Tester le port LDAP
+Test-NetConnection <hostname> -Port 389
+```
+
 
 	
 
