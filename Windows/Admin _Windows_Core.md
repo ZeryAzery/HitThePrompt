@@ -1653,6 +1653,24 @@ Get-ADDefaultDomainPasswordPolicy
 ```
 
 
+### Changer le mot de passe
+```powershell
+Set-ADAccountPassword EDDIE_ROACH -Reset -NewPassword (ConvertTo-SecureString "NouveauMotDePasse123!" -AsPlainText -Force)
+```
+
+
+### Forcer le changement au prochain login
+```powershell
+Set-ADUser EDDIE_ROACH -ChangePasswordAtLogon $true
+```
+
+### Vérifier quand le pswd à été changé
+```powershell
+Get-ADUser EDDIE_ROACH -Properties PasswordLastSet | Select PasswordLastSet
+```
+
+
+
 ### Lister les comptes (Ordinateurs et Utilisateurs) qui ne nécéssitent pas de pré-authetification Kerberos
 ```powershell
 Get-ADObject -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=4194304)"
