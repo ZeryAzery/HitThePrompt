@@ -1664,6 +1664,7 @@ Set-ADAccountPassword EDDIE_ROACH -Reset -NewPassword (ConvertTo-SecureString "N
 Set-ADUser EDDIE_ROACH -ChangePasswordAtLogon $true
 ```
 
+
 ### Vérifier quand le pswd à été changé
 ```powershell
 Get-ADUser EDDIE_ROACH -Properties PasswordLastSet | Select PasswordLastSet
