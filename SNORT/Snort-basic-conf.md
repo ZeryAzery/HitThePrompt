@@ -330,7 +330,7 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/snort -c /etc/snort/snort.lua -i ens19 -s 65535 -k none -l /var/log/snort -D -m 0x1b -u snort -g snort
+ExecStart=/usr/local/bin/snort -c /etc/snort/snort.lua -i ens19 -s 65535 -k none -l /var/log/snort -D -m 0x1b -u snort -g snort
 # ExecStop=/bin/kill -9 $MAINPID
 Restart=on-failure
 
