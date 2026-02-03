@@ -108,8 +108,8 @@ alert icmp any any -> any any (msg:"!!! ICMP Alert !!!";sid:1000001;rev:1;classt
 EOF
 ```
 
-La structure de base des règles est la suivante : 
-* [action] [protocol] [source IP] [source port] -> [destination IP] [destination port] (options)
+**La structure de base des règles est la suivante :** <br>
+__[action] [protocol] [source IP] [source port] -> [destination IP] [destination port] (options)__
 
 
 
