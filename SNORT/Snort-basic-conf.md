@@ -27,12 +27,15 @@ ip link set dev enp0s3 promisc on
 ![](img/promisc.png)
 
 
+<br>
+
 ### Désactiver l'interface Offloading (exemple pour enp0s3)
 
 > [!NOTE] 
 > * L’Interface Offloading est une série d’optimisations matérielles utilisées pour décharger le traitement des paquets vers la carte réseau, ce qui peut réduire la charge CPU. Cependant, ces options peuvent causer des problèmes avec Snort, notamment en tronquant les paquets de plus de 1518 octets, ce qui empêche Snort de capturer certaines menaces de manière complète.
 > * Nous devons désactiver les fonctionnalités GRO (Generic Receive Offload) et LRO (Large Receive Offload), qui sont souvent activées par défaut sur les interfaces réseau.
 
+<br>
 
 Installer l'outils qui permet de désactiver ces fonctions 
 ```sh
@@ -47,9 +50,9 @@ Désactiver ces fonction
 ethtool -K enp0s3  gro off lro off  # désactive gro et lro
 ```
 
+<br>
 
 ### Rendre la désactivation de l'Offloading permanent
-
 
 Les configurations effectuées pour le mode promiscuous et la désactivation de l’offloading peuvent être temporaires et réinitialisés après un redémarrage. Pour rendre ces modifications permanentes on créé un service. (exemple de fichier de service pour enp0s3)
 
@@ -115,6 +118,8 @@ EOF
 **La structure de base des règles est la suivante :** <br>
 __[action] [protocol] [source IP] [source port] -> [destination IP] [destination port] (options)__
 
+
+<br>
 
 
 ### Configuration des règles dans le fichier de conf snort.lua
