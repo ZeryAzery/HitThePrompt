@@ -57,7 +57,7 @@ ethtool -K enp0s3  gro off lro off  # désactive gro et lro
 Les configurations effectuées pour le mode promiscuous et la désactivation de l’offloading peuvent être temporaires et réinitialisés après un redémarrage. Pour rendre ces modifications permanentes on créé un service. (exemple de fichier de service pour enp0s3)
 
 ```sh
-cat << EOF > /etc/systemd/system/snort3-nic.service
+cat << EOF > /etc/systemd/system/promisc-mode.service
 [Unit]
 Description=Set Snort 3 NIC in promiscuous mode and Disable GRO, LRO on boot
 After=network.target
@@ -77,16 +77,16 @@ EOF
 ### Activation et redémarrage du service
 ```sh
 systemctl daemon-reload
-systemctl start snort3-nic.service
-systemctl enable --now snort3-nic.service
+systemctl start promisc-mode.service
+systemctl enable --now promisc-mode.service
 ```
 
 ### Vérifier le service
 ```sh
-systemctl status snort3-nic.service
+systemctl status promisc-mode.service
 ```
-
-
+Le service est de type oneshot → il s’exécute puis se termine (active (exited) = OK) <br>
+systemd lit les services en root (ne pas mettre snort propriétaire)
 
 
 <br>
@@ -202,7 +202,7 @@ cp -r /usr/local/etc/snort/* /etc/snort/
 
 
 
-## __CONIGURER LES LOGS__
+## __CONFIGURER LES LOGS__
 
 
 ### Création du répertoire
@@ -265,7 +265,10 @@ Les fichiers `alert_full.txt` et `log.pcap.*.txt` doivent apparaître dans /var/
 ```sh
 tail /var/log/snort/alert_full.txt
 ```
-
+Voir les logs en temps réel:
+```sh
+tail -f /var/log/snort/alert_full.txt
+```
 Ici on voit la règle personnalisée créée précédemment et une alerte d'une autre règle par défaut
 
 ![](img/testrule.png)
