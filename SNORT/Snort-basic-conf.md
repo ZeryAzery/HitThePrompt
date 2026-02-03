@@ -84,7 +84,11 @@ systemctl status snort3-nic.service
 ```
 
 
+
+
 <br>
+
+
 
 
 
@@ -148,7 +152,9 @@ snort -c /usr/local/etc/snort/snort.lua -T
 
 
 
+
 <br>
+
 
 
 
@@ -184,7 +190,9 @@ cp -r /usr/local/etc/snort/* /etc/snort/
 
 
 
+
 <br>
+
 
 
 
@@ -226,7 +234,9 @@ log_pcap = { limit = 100000 }
 
 
 
+
 <br>
+
 
 
 
@@ -258,7 +268,9 @@ Ici on voit la règle personnalisée créée précédemment et une alerte d'une 
 
 
 
+
 <br>
+
 
 
 
