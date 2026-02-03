@@ -1,7 +1,10 @@
-# __SNORT3 INITIAL CONFIGURATION__
+<h1 align="center">SNORT3 INITIAL CONFIGURATION</h1>
 
 
-![](img/snort.png)
+<p align="center">
+  <img src="img/snort.png" alt="img">
+</p>
+
 
 
 
