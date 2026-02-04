@@ -378,9 +378,10 @@ Ici on voit la règle personnalisée créée précédemment et une alerte d'une 
 
 Par défaut Snort 3 est utilisable uniquement de manière interactive via la CLI. Pour automatiser sont lancement/arrêt, il est nécessaire de créer un service à ce effet.
 
-Commande de base à utiliser <br>
 
-### Valider le fonctionnement de la commande de base qui sera lancée en tant que service
+### Commande utilisée par le service
+
+Tester cette commande avant de l'intégrer dans le service
 ```sh
 snort -c /etc/snort/snort.lua -i enp0s3 -s 65535 -k none -l /var/log/snort
 ```
@@ -401,6 +402,8 @@ chmod -R 2775 /var/log/snort
 chown -R snort:snort /var/log/snort
 ```
 
+<br>
+
 > [!NOTE] 
 > * Rappel pour le 1er chiffre de chmod
 >   * 2 = setgid (Sur un dossier les fichiers héritent du groupe du dossier)
@@ -408,8 +411,7 @@ chown -R snort:snort /var/log/snort
 >   * 5 = setuid + setgid (inutile sur un dossier car sera ignoré)
 >   * 1 = sticky bit
 
-
-
+<br>
 
 ### Création du fichier de service
 ```sh
@@ -429,7 +431,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-Initialment on peut mettre l'option `-D` après `/var/log/snort` ligne `ExecStart` mais j'avais des erreurs, pour rectifier j'ai commenté `ExecStop` et ajouté `Restart=on-failure` (il semblerait que systemd tente de kill un process qui n'existait pas et faisait planter le service)
+L'option `-D` après `/var/log/snort` (ligne `ExecStart`) créait une intérruption du service, pour rectifier je l'ai supprimé et commenté `ExecStop` puis ajouté `Restart=on-failure` (il semblerait que systemd tente de kill un process qui n'existait pas et faisait planter le service)
 
 
 
