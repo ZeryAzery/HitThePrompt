@@ -51,11 +51,11 @@ Installer l'outils qui permet de désactiver ces fonctions
 ```sh
 apt install ethtool
 ```
-Vérifier les paramètres d'optimisation de la réception des paquets sur l'interface (faire avant/ après pour voir la différence)
+Vérifier les paramètres d'optimisation de la réception des paquets sur l'interface (faire avant/après pour voir la différence)
 ```sh
 ethtool -k enp0s3 | grep receive-offload
 ```
-Désactiver ces fonction
+Désactiver ces fonctions
 ```sh 
 ethtool -K enp0s3  gro off lro off  # désactive gro et lro
 ```
@@ -385,7 +385,7 @@ snort -c /etc/snort/snort.lua -i enp0s3 -s 65535 -k none -l /var/log/snort
 
 ### Création de l'utilisateur snort
 
-Cet utilisateur sera destiné au service Snort (il est recommandé d'exécuter le service Snort avec un compte utilisateur dédié et à privilèges limités pour des raisons de sécurité)
+Exécuter le service Snort avec un compte utilisateur dédié et à privilèges limités pour des raisons de sécurité
 ```sh
 useradd -r -s /usr/sbin/nologin -M snort
 ```
@@ -413,7 +413,7 @@ chown -R snort:snort /var/log/snort
 ```sh
 cat << EOF > /etc/systemd/system/snort3.service
 [Unit]
-Description=Snort3 IDS Daemon Service
+Description=Snort3 Daemon Service
 After=syslog.target network.target
 
 [Service]

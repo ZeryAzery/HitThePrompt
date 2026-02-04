@@ -102,6 +102,10 @@ Get-WmiObject Win32_ComputerSystem
 Get-CimInstance Win32_ComputerSystem | fl
 ```
 
+### Infos motherboard
+```bat
+wmic baseboard get product,manufacturer,version,serialnumber
+```
 
 
 ### Afficher informations BIOS
