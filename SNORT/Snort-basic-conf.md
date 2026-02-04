@@ -126,7 +126,7 @@ Structure :
 | Action | Proto| Src IP | Src Port | Dir | Dst IP | Dst Port | Options |
 |:------:|:----:|:------:|:--------:|:---:|:------:|:--------:|---------|
 | alert  | icmp | any    | any      | ->  | any    | any      | (msg:"!!! ICMP Alert !!!"; sid:1000001; rev:1; classtype:icmpevent;) |
-| alert  | tcp  | any    | any      | ->  | any    | 445      | (msg:"Possible NTLM auth over SMB"; content:"NTLMSSP"; sid:1000002; rev:1;) classtype:credential-harvest; |
+| alert  | tcp  | any    | any      | ->  | any    | 445      | (msg:"Possible NTLM auth over SMB"; content:"NTLMSSP"; sid:1000002; rev:1; classtype:credential-harvest;) |
 
 <br>
 
@@ -449,3 +449,4 @@ systemctl start snort3
 systemctl status snort3
 ps aux | grep snort
 ```
+
