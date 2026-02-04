@@ -24,22 +24,18 @@ Snort peut être téléchargé et configuré pour un usage personnel ou professi
 
 # __CONFIGURER LA CARTE RÉSEAU__
 
+En mode normal, une interface réseau ne traite que les paquets qui sont adressés spécifiquement à elle, plus les paquets de diffusion (broadcast) et de multidiffusion (multicast) auxquels elle est abonnée. <br>
+En mode promiscuous, l'interface réseau traite tous les paquets qu'elle voit passer sur le réseau, indépendamment du fait qu'ils lui soient destinés ou non.
+
 ### Activation du mode promiscuous
 ```sh
 ip link set dev enp0s3 promisc on
 ```
 
-* En mode normal, une interface réseau ne traite que les paquets qui sont adressés spécifiquement à elle, plus les paquets de diffusion (broadcast) et de multidiffusion (multicast) auxquels elle est abonnée.
-
-* En mode promiscuous, l'interface réseau traite tous les paquets qu'elle voit passer sur le réseau, indépendamment du fait qu'ils lui soient destinés ou non.
-
-
 Vérifier le mode promiscuous
-
 `ip link show enp0s3` ou `ip a`
 
 ![](img/promisc.png)
-
 
 <br>
 
