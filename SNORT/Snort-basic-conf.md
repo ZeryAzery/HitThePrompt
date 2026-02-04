@@ -39,7 +39,7 @@ Vérifier le mode promiscuous
 
 <br>
 
-### Désactiver l'interface Offloading (exemple pour enp0s3)
+### Désactiver l'interface Offloading
 
 > [!NOTE] 
 > * L’Interface Offloading est une série d’optimisations matérielles utilisées pour décharger le traitement des paquets vers la carte réseau, ce qui peut réduire la charge CPU. Cependant, ces options peuvent causer des problèmes avec Snort, notamment en tronquant les paquets de plus de 1518 octets, ce qui empêche Snort de capturer certaines menaces de manière complète.
