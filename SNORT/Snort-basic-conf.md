@@ -1,4 +1,4 @@
-<h1 align="center">SNORT3 INITIAL CONFIGURATION</h1>
+<h1 align="center"><strong>SNORT3 INITIAL CONFIGURATION</strong></h1>
 
 
 <p align="center">
@@ -115,8 +115,45 @@ alert icmp any any -> any any (msg:"!!! ICMP Alert !!!";sid:1000001;rev:1;classt
 EOF
 ```
 
-**La structure de base des règles est la suivante :** <br>
-__[action] [protocol] [source IP] [source port] -> [destination IP] [destination port] (options)__
+### La structure des règles 
+
+| Action | Protocole | Src IP | Src Port | Direction | Dest IP | Dest Port | Options |
+|--------|-----------|--------|----------|-----------|---------|-----------|---------|
+| alert  | icmp      | any    | any      | ->        | any     | any       | (msg:"!!! ICMP Alert !!!"; sid:1000001; rev:1; classtype:icmpevent;) |
+| alert  | tcp       | any    | any      | ->        | any     | 445       | (msg:"Possible NTLM auth over SMB"; content:"NTLMSSP"; sid:1000002; rev:1;) classtype:credential-harvest; |
+
+<br>
+
+* Les options sont matérialisées par un bloc entre parenthèses contenant différents sous `Labels` 
+
+* Les `Labels` sont à la fois des critères de détection (content, pcre, flow) et des métadonnées d’alerte (msg, sid, classtype)
+
+* Ces `Labels` sont extraits et convertis (JSON, syslog, CEF, Elastic) puis utilisés par les systèmes de journalisation et les SIEM.
+
+<br>
+
+> [!NOTE]
+> * L'ordre des labels n'est pas strict sauf pour certaines options de détection (content, pcre, flow).
+> * Bonnes pratiques pour les N° des règles : `< 1 000 000` → réservé Snort officiels et `> 1 000 000` → règles custom  
+
+
+<br>
+
+Exemple des labels en JSON:
+```json
+{
+  "timestamp": "2026-02-03T15:42:11",
+  "sid": 1000002,
+  "rev": 1,
+  "msg": "Possible NTLM auth over SMB",
+  "classtype": "credential-harvest",
+  "src_ip": "10.0.0.12",
+  "dst_ip": "10.0.0.5",
+  "dst_port": 445,
+  "protocol": "tcp"
+}
+```
+
 
 
 <br>
@@ -187,7 +224,7 @@ Dans la section -- 5. configure detection
     ]]
 ```
 
-### Copier les règles déjà présente lors de l'install vers le dossier
+### Copier les règles déjà présente lors de l'install vers le dossier adéquat
 ```sh
 cp -r /usr/local/etc/snort/* /etc/snort/
 ```

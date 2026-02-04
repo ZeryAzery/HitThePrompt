@@ -1,4 +1,4 @@
-# Installation de Snort 3  (Debian)
+# __Installation de Snort 3__  (Debian)
 
 > Cette procédure a été testée et validée sur Debian 12.4.0
 
@@ -6,6 +6,8 @@
 ```bash
 apt update && apt upgrade -y
 ```
+
+<br>
 
 ## Installation des dépendances requises
 ```bash
@@ -31,6 +33,8 @@ libunwind-dev \
 libfl-dev \
 bison flex gawk
 ```
+
+<br>
 
 ## Installation de libdaq
 
@@ -73,6 +77,8 @@ make -j$(nproc)
 make install
 ldconfig
 ```
+
+<br>
 
 ## Test de fonctionnement 
 
