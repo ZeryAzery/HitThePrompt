@@ -8,7 +8,7 @@
 
 
 
-## __CONFIGURER LA CARTE RÉSEAU__
+# __CONFIGURER LA CARTE RÉSEAU__
 
 ### Activation du mode promiscuous
 ```sh
@@ -100,7 +100,7 @@ systemd lit les services en root (ne pas mettre snort propriétaire)
 
 
 
-## __STRUCTURE DES RÈGLES__
+# __STRUCTURE DES RÈGLES__
 
 Exemple d'une règle de test
 ```js
@@ -174,7 +174,7 @@ Exemple des labels en JSON:
 
 
 
-## __FICHIER DE RÈGLES PERSONNALISÉES__
+# __FICHIER DE RÈGLES PERSONNALISÉES__
 
 
 ### Création du répertoire de règles
@@ -237,7 +237,7 @@ snort -c /usr/local/etc/snort/snort.lua -T
 
 
 
-##  __RÈGLES OFFICIELLES__
+#  __RÈGLES OFFICIELLES__
 
 ### Télécharger les règles dans le répertoire /etc/snort/rules (Créer un compte sur le site de snort si besoin)
 ```sh
@@ -276,7 +276,7 @@ cp -r /usr/local/etc/snort/* /etc/snort/
 
 
 
-## __CONFIGURER LES LOGS__
+# __CONFIGURER LES LOGS__
 
 
 ### Création du répertoire
@@ -320,7 +320,7 @@ log_pcap = { limit = 100000 }
 
 
 
-## __TESTER__
+# __TESTER__
 
 ### Tester le fichier de configuration
 ```sh
@@ -357,7 +357,7 @@ Ici on voit la règle personnalisée créée précédemment et une alerte d'une 
 
 
 
-## __CRÉÉR LE SERVICE SNORT__
+# __CRÉÉR LE SERVICE SNORT__
 
 
 Par défaut Snort 3 est utilisable uniquement de manière interactive via la CLI. Pour automatiser sont lancement/arrêt, il est nécessaire de créer un service à ce effet.
