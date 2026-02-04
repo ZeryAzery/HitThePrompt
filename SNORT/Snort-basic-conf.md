@@ -89,33 +89,18 @@ Le service est de type oneshot → il s’exécute puis se termine (active (exit
 systemd lit les services en root (ne pas mettre snort propriétaire)
 
 
+
+
+
+
 <br>
 
 
 
 
 
-## __FICHIER DE RÈGLES PERSONNALISÉES__
 
-
-### Création du répertoire de règles
-```sh
-mkdir /etc/snort/rules
-```
-
-### Créér le fichier de règle
-```sh
-cat << EOF >> /etc/snort/rules/local.rules
-# ----------------
-# LOCAL RULES
-# ----------------
-# This file intentionally does nots come with signatures. Put your local additions here.
-
-alert icmp any any -> any any (msg:"!!! ICMP Alert !!!";sid:1000001;rev:1;classtype:icmpevent;)
-EOF
-```
-
-### La structure des règles 
+## __STRUCTURE DES RÈGLES__
 
 | Action | Proto| Src IP | Src Port | Dir | Dst IP | Dst Port | Options |
 |:------:|:----:|:------:|:--------:|:---:|:------:|:--------:|---------|
@@ -154,8 +139,6 @@ Exemples de Labels destinés à la détection
 | nocase    | Ignore la casse lors de la détection  |
 
 
-
-
 <br>
 
 Exemple des labels en JSON:
@@ -175,8 +158,32 @@ Exemple des labels en JSON:
 
 
 
+
 <br>
 
+
+
+
+
+## __FICHIER DE RÈGLES PERSONNALISÉES__
+
+
+### Création du répertoire de règles
+```sh
+mkdir /etc/snort/rules
+```
+
+### Créér le fichier de règle
+```sh
+cat << EOF >> /etc/snort/rules/local.rules
+# ----------------
+# LOCAL RULES
+# ----------------
+# This file intentionally does nots come with signatures. Put your local additions here.
+
+alert icmp any any -> any any (msg:"!!! ICMP Alert !!!";sid:1000001;rev:1;classtype:icmpevent;)
+EOF
+```
 
 ### Configuration des règles dans le fichier de conf snort.lua
 ```sh
@@ -214,7 +221,9 @@ snort -c /usr/local/etc/snort/snort.lua -T
 
 
 
+
 <br>
+
 
 
 
