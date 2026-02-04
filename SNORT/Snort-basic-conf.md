@@ -20,7 +20,7 @@ ip link set dev enp0s3 promisc on
 * En mode promiscuous, l'interface réseau traite tous les paquets qu'elle voit passer sur le réseau, indépendamment du fait qu'ils lui soient destinés ou non.
 
 
-### Vérifier le mode promiscuous
+Vérifier le mode promiscuous
 
 `ip link show enp0s3` ou `ip a`
 
@@ -74,14 +74,14 @@ WantedBy=default.target
 EOF
 ```
 
-### Activation et redémarrage du service
+Activer et redémarrer le service
 ```sh
 systemctl daemon-reload
 systemctl start promisc-mode.service
 systemctl enable --now promisc-mode.service
 ```
 
-### Vérifier le service
+Vérifier le service
 ```sh
 systemctl status promisc-mode.service
 ```
@@ -117,10 +117,10 @@ EOF
 
 ### La structure des règles 
 
-| Action | Protocole | Src IP | Src Port | Direction | Dest IP | Dest Port | Options |
-|--------|-----------|--------|----------|-----------|---------|-----------|---------|
-| alert  | icmp      | any    | any      | ->        | any     | any       | (msg:"!!! ICMP Alert !!!"; sid:1000001; rev:1; classtype:icmpevent;) |
-| alert  | tcp       | any    | any      | ->        | any     | 445       | (msg:"Possible NTLM auth over SMB"; content:"NTLMSSP"; sid:1000002; rev:1;) classtype:credential-harvest; |
+| Action | Proto| Src IP | Src Port | Dir | Dst IP | Dst Port | Options |
+|:------:|:----:|:------:|:--------:|:---:|:------:|:--------:|---------|
+| alert  | icmp | any    | any      | ->  | any    | any      | (msg:"!!! ICMP Alert !!!"; sid:1000001; rev:1; classtype:icmpevent;) |
+| alert  | tcp  | any    | any      | ->  | any    | 445      | (msg:"Possible NTLM auth over SMB"; content:"NTLMSSP"; sid:1000002; rev:1;) classtype:credential-harvest; |
 
 <br>
 
