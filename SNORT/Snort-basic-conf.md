@@ -128,6 +128,8 @@ Structure :
 > * L'ordre des labels n'est pas strict sauf pour certaines options de détection (content, pcre, flow).
 > * Bonnes pratiques pour les N° des règles : `< 1 000 000` → réservé Snort officiels et `> 1 000 000` → règles custom  
 
+<br>
+
 Exemples de Labels destinés aux SIEM :
 
 | msg    | Message lisible humain  |                 
