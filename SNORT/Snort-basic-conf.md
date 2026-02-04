@@ -146,8 +146,9 @@ Structure :
 
 Exemples de Labels destinés aux SIEM :
 
-| msg    | Message lisible humain  |                 
+| label    | Fonction  |                 
 | --------- | ---------------------- |
+| msg    | Message lisible humain  |  
 | sid       | ID unique de la règle  |
 | rev       | Version de la règle    | 
 | classtype | Catégorie de l’attaque | 
@@ -155,8 +156,9 @@ Exemples de Labels destinés aux SIEM :
 
 Exemples de Labels destinés à la détection :
 
-| content   | Cherche une chaîne précise dans le paquete (string)  |
+| label    | Fonction  |
 | --------- | ---------------------- |
+| content   | Cherche une chaîne précise dans le paquete (string)  |
 | pcre      | Regex avancée  (attaques plus complexes)        |
 | flow      | Sens + état de la connexion/du flux (to_server, established…)    | 
 | nocase    | Ignore la casse lors de la détection  |
