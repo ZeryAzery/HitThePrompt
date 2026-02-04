@@ -102,6 +102,13 @@ systemd lit les services en root (ne pas mettre snort propriétaire)
 
 ## __STRUCTURE DES RÈGLES__
 
+Exemple d'une règle de test
+```js
+alert icmp any any -> any any (msg:"!!! ICMP Alert !!!";sid:1000001;rev:1;classtype:icmpevent;)
+```
+
+Structure :
+
 | Action | Proto| Src IP | Src Port | Dir | Dst IP | Dst Port | Options |
 |:------:|:----:|:------:|:--------:|:---:|:------:|:--------:|---------|
 | alert  | icmp | any    | any      | ->  | any    | any      | (msg:"!!! ICMP Alert !!!"; sid:1000001; rev:1; classtype:icmpevent;) |
@@ -121,7 +128,7 @@ systemd lit les services en root (ne pas mettre snort propriétaire)
 > * L'ordre des labels n'est pas strict sauf pour certaines options de détection (content, pcre, flow).
 > * Bonnes pratiques pour les N° des règles : `< 1 000 000` → réservé Snort officiels et `> 1 000 000` → règles custom  
 
-Exemples de Labels destinés aux SIEM 
+Exemples de Labels destinés aux SIEM :
 
 | msg    | Message lisible humain  |                 
 | --------- | ---------------------- |
@@ -130,7 +137,7 @@ Exemples de Labels destinés aux SIEM
 | classtype | Catégorie de l’attaque | 
 | priority  | Gravité                | 
 
-Exemples de Labels destinés à la détection 
+Exemples de Labels destinés à la détection :
 
 | content   | Cherche une chaîne précise dans le paquete (string)  |
 | --------- | ---------------------- |
