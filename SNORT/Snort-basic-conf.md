@@ -154,7 +154,7 @@ Exemples de Labels destinés à la détection :
 
 | label    | Fonction  |
 | --------- | ---------------------- |
-| content   | Cherche une chaîne précise dans le paquete (string)  |
+| content   | Cherche une chaîne précise dans le paquet (string)  |
 | pcre      | Regex avancée  (attaques plus complexes)        |
 | flow      | Sens + état de la connexion/du flux (to_server, established…)    | 
 | nocase    | Ignore la casse lors de la détection  |
