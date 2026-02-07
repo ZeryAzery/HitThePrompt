@@ -1,17 +1,17 @@
 # __RETROUVER DES INCIDENTS DANS UN SIEM__
 
 
-![img](log.png)
+![](img/log.png)
 
 Ce brief consiste à retrouver dans un SIEM les logs des vulnérabilités exploitées dans [le module pentest](https://github.com/ZeryAzery/HitThePrompt/blob/main/Exo_AIS/Pentest/Pentest_Web.md)
 
 <br>
 
-![alt text](<splunk.png>)
+![](img/splunk.png)
 
 Sur Splunk il est possible d'ajouter directement un fichier de log
 
-![alt text](<ajoutdonnées.png>)
+![](img/ajoutdonnées.png)
 
 <br>
 
@@ -26,7 +26,7 @@ source="2025-12-11_logfile.json" host="8b1e2fd8c559" sourcetype="_json"
 )
 ```
 
-![alt text](<Splunk_Request_Pattern.png>)
+![](<Splunk_Request_Pattern.png>)
 
 <br>
 
@@ -50,7 +50,7 @@ source="2025-12-12_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex 
 
 ### Log de l'injection SQL
 
-![alt text](<SQLi_Splunk_Log.png>)
+![](img/SQLi_Splunk_Log.png)
 
 <br>
 
@@ -60,20 +60,20 @@ source="2025-12-12_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex 
 source="2025-12-12_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | search message="*lang=*"
 ```
 
-![alt text](<Log_LFI.png>)
+![](img/Log_LFI.png)
 
 <br>
 
 
 ### Log du Path Traversal
 
-![alt text](<PathTraversal_Splunk_Log.png>)
+![](img/PathTraversal_Splunk_Log.png)
 
 <br>
 
 ### Log de la RCE
 
-![alt text](<RCE_Splunk_Log.png>)
+![](img/RCE_Splunk_Log.png)
 
 <br>
 
@@ -86,7 +86,7 @@ source="2025-12-11_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex 
 source="2025-12-11_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex message="<marquee"
 ```
 
-![alt text](<Log_XSS.png>)
+![](img/Log_XSS.png)
 
 <br>
 
@@ -96,4 +96,4 @@ source="2025-12-11_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex 
 source="2025-12-14_logfile.json" host="8b1e2fd8c559" sourcetype="_json" | regex message="(bash)"
 ```
 
-![Rev_Log.png](Rev_Log.png)
+![](img/Rev_Log.png)
