@@ -49,6 +49,35 @@ b) echo "Option -b avec valeur $OPTARG";;
 esac
 done
 	
+---
 
 
+`>`  →  écrire (écrase)
+`>>` →  écrire (ajoute)
+
+
+
+`<`  →  lire fichier (ne crée pas un fichier) 
+```sh
+while read -r l; do echo "$l"; done < file.txt
+```
+* `l` représente chaque ligne de file.txt, une par une.
+* à chaque itération du while → l = une ligne du fichier
+* quand le fichier est fini → la boucle s’arrête
+
+
+
+`<<` →  texte multi-lignes (EOF mais pourrait fonctionner avec n'importe qeul mot)
+```sh
+cat << EOF
+hello
+world
+EOF
+```
+
+
+`<<<`  Fourni une string à une commande (here-string)
+```sh
+read w <<< "admin"
+```
 
