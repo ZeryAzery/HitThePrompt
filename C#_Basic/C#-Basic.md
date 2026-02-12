@@ -18,7 +18,7 @@ where csc
 ### Installer .NET (SDK)
 ```powershell
 wget https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.102/dotnet-sdk-10.0.102-win-x64.exe
-& C:\Users\aziegler\Downloads\dotnet-sdk-10.0.102-win-x64.exe /install /norestart # /quiet
+& C:\Users\<user>\Downloads\dotnet-sdk-10.0.102-win-x64.exe /install /norestart # /quiet
 dotnet --version
 ```
 
