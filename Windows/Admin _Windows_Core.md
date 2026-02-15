@@ -1842,6 +1842,7 @@ Ces services doivent être activés pour faire apparaître les SSID inconnus de 
 Get-Service lfsvc, SensorService
 Start-Service lfsvc, SensorService
 # Set-Service lfsvc -StartupType Automatic
+# Set-Service SensorService -StartupType Automatic
 ```
 
 ### URI de la page Localisation
