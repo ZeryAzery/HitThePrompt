@@ -1819,6 +1819,8 @@ Add-Type -AssemblyName System.Web
 
 
 
+# Réseau WiFi
+
 ### Afficher les détails de la carte WiFi
 ```bat
 netsh wlan show interfaces
