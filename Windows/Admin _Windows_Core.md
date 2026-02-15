@@ -1797,12 +1797,14 @@ runas /user:DOMAINE\MonCompteAD "cmd.exe"
 ```bat
 whoami /all
 ```
-
+```bat
+whoami /priv
+```
 
 <br>
 
 
-## Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
+### Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
 
 ```powershell
 Add-Type -AssemblyName System.Web
@@ -1810,3 +1812,39 @@ Add-Type -AssemblyName System.Web
 ```
 * `16` : longueur totale du mot de passe.
 * `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
+
+
+
+---
+
+
+
+### Afficher les détails de la carte WiFi
+```bat
+netsh wlan show interfaces
+```
+
+### Afficher password WiFi
+```bat
+# Afficher les profiles ssid connus de la carte wifi
+netsh wlan show profile
+
+# Afficher les détails d'un profil ssid connu
+netsh wlan show profile <SSID_Name>
+
+# Afficher le Contenu de la clé d'un SSID
+netsh wlan show profile <SSID_Name> key=clear
+```
+
+### Service de localisation et service de capteur (géoloc avancée)
+Ces services doivent être activés pour faire apparaître les SSID inconnus de la carte WiFi.
+```powershell
+Get-Service lfsvc, SensorService
+Start-Service lfsvc, SensorService
+# Set-Service lfsvc -StartupType Automatic
+```
+
+### URI de la page Localisation
+```
+start ms-settings:privacy-location
+```
