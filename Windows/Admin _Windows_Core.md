@@ -1836,6 +1836,23 @@ netsh wlan show profile <SSID_Name>
 netsh wlan show profile <SSID_Name> key=clear
 ```
 
+
+### Afficher tous les SSID détectés par une carte Wi-Fi
+```bat
+netsh wlan show networks
+```
+Plus de détails sur les SSID détectés
+```bat
+netsh wlan show networks mode=bssid
+```
+
+
+### URI de la page Localisation
+```
+start ms-settings:privacy-location
+```
+"Services de localisation" et "Permettre aux app d'accéder à la localisation" doivent être activé pour afficher tous les SSID. 
+
 ### Service de localisation et service de capteur (géoloc avancée)
 Ces services doivent être activés pour faire apparaître les SSID inconnus de la carte WiFi.
 ```powershell
@@ -1845,7 +1862,3 @@ Start-Service lfsvc, SensorService
 # Set-Service SensorService -StartupType Automatic
 ```
 
-### URI de la page Localisation
-```
-start ms-settings:privacy-location
-```
