@@ -183,6 +183,11 @@ man Get-Item
 Get-Command *hash*
 ```
 
+### Afficher la version de Powershell
+```powershell
+$PSVersionTable
+```
+
 ### Installer PowerShell core 7.5.4
 ```bat
 winget install --id Microsoft.PowerShell --source winget
