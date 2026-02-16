@@ -1837,6 +1837,13 @@ Add-Type -AssemblyName System.Web
 netsh wlan show interfaces
 ```
 
+
+### Afficher les détails driver de la carte WiFi
+```bat
+netsh wlan show drivers
+```
+
+
 ### Afficher password WiFi
 ```bat
 # Afficher les profiles ssid connus de la carte wifi
