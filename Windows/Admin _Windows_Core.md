@@ -666,7 +666,6 @@ rmdir /s /q "C:\Users\ccarpentier"
 ```
 
 ### Créer un dossier avec ses fichiers personnalisés
-Avec `here-string` c'est pratique
 ```powershell
 md TEST
 $fichiers = ("Toto", "Coco", "Momo", "Dodo", "Popo")
