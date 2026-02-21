@@ -665,6 +665,13 @@ rd /s
 rmdir /s /q "C:\Users\ccarpentier"
 ```
 
+### Créer un dossier avec ses fichiers personnalisés
+Avec `here-string` c'est pratique
+```powershell
+md TEST
+$fichiers = ("Toto", "Coco", "Momo", "Dodo", "Popo")
+$fichiers | % { ni TEST\$_.txt }
+```
 
 
 ### Créer un fichier texte en batch dans powershell
