@@ -1707,9 +1707,10 @@ Select-Object Name, SamAccountName
 * `-band` vérifie le bit dans userAccountControl
 
 
-
-
-
+### Synchroniser les DC
+```bat
+repadmin /syncall
+```
 
 <br>
 
@@ -1888,3 +1889,55 @@ Start-Service lfsvc, SensorService
 # Set-Service SensorService -StartupType Automatic
 ```
 
+
+
+
+---
+
+<br>
+
+
+
+
+# VPN
+
+
+### Exemple VPN L2TP-PSK
+```powershell
+Add-VpnConnection -Name "VPN-Entreprise" -ServerAddress "<Nom.connexion.com>"
+-TunnelType L2tp -L2tpPsk "<key_here!>"
+-AuthenticationMethod MSChapv2 -EncryptionLevel Required
+-Force
+```
+
+
+### Afficher toutes les connexions VPN présentes :
+```powershell
+Get-VpnConnection
+```
+
+
+### Afficher une connexion spécifique :
+```powershell
+Get-VpnConnection -Name "VPN-Entreprise" | fl *
+```
+
+
+### Vérifier si elle est en profil utilisateur ou machine (important si déployée en GPO) :
+```powershell
+Get-VpnConnection -AllUserConnection
+Get-VpnConnection -Name "VPN-Entreprise" -AllUserConnection
+```
+
+
+### Supprimer la connexion VPN (profil utilisateur) :
+```powershell
+Remove-VpnConnection -Name "VPN-Entreprise" -Force
+```
+
+
+### Supprimer si elle a été créée en mode machine (AllUserConnection) :
+```powershell
+Remove-VpnConnection -Name "VPN-Entreprise" -AllUserConnection -Force
+```
+Si la suppression échoue, vérifier d’abord si elle existe en mode utilisateur ou machine avec les commandes ci-dessus.
