@@ -1944,7 +1944,7 @@ Start-Service lfsvc, SensorService
 
 ### Exemple VPN L2TP-PSK
 ```powershell
-Add-VpnConnection -Name "VPN-Entreprise" -ServerAddress "<Nom.connexion.com>" -TunnelType L2tp -L2tpPsk "<key_here!>" -AuthenticationMethod Pap, MSChapv2  -EncryptionLevel Optional -Force
+Add-VpnConnection -Name "VPN-Entreprise" -ServerAddress "<Nom.connexion.com>" -TunnelType L2tp -L2tpPsk "<key_here!>" -AuthenticationMethod Pap, MSChapv2 -EncryptionLevel Optional -Force
 ```
 * `-RememberCredential -Name "VPN-Entreprise"`
 * `-DnsSuffix 10.10.10.10` Si besoin préciser adresse IP
