@@ -12,3 +12,5 @@
 | ObjectSID | — | Identifiant de sécurité unique de l’objet |
 | pwdLastSet | — | Date de dernière modification du mot de passe |
 | userAccountControl | — | État du compte (ensemble de flags binaires) |
+
+

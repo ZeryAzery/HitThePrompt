@@ -9,6 +9,9 @@
 #                                                                                                #
 #------------------------------------------------------------------------------------------------#
 
+chcp 65001 | Out-Null
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 $currentUser = $env:USERNAME
 $exclude = @("Public", "Default", "Default User", "All Users", $currentUser)
 
@@ -22,7 +25,7 @@ $inactiveUsers = @()
 
 foreach ($login in $userDirs) {
     $Searcher = New-Object DirectoryServices.DirectorySearcher
-    $Searcher.SearchRoot = "LDAP://OU=INACTIFS,DC=<domain-name>,DC=<domain-TLD>"
+    $Searcher.SearchRoot = "LDAP://OU=INACTIFS,DC=abej,DC=local"
     $Searcher.Filter = "(&(objectClass=user)(sAMAccountName=$login))"
 
     $result = $Searcher.FindOne()
@@ -34,6 +37,13 @@ foreach ($login in $userDirs) {
     else {
         Write-Host "$login non trouvé dans l'OU INACTIFS" -ForegroundColor Yellow
     }
+}
+
+# Si aucun utilisateur trouvé dans l'OU INACTIFS
+if ($inactiveUsers.Count -eq 0) {
+    Write-Host "`nAucun utilisateur trouvé dans l'OU INACTIFS" -ForegroundColor Green
+    pause
+    return
 }
 
 # Choix principal

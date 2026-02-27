@@ -665,6 +665,14 @@ rd /s
 rmdir /s /q "C:\Users\ccarpentier"
 ```
 
+
+### Créer un fichier texte  (Alias `ni`):
+```powershell
+New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
+```
+
+
+
 ### Créer un dossier avec ses fichiers personnalisés
 ```powershell
 md TEST
@@ -673,7 +681,24 @@ $fichiers | % { ni TEST\$_.txt }
 ```
 
 
-### Créer un fichier texte en batch dans powershell
+### Insérer du texte ligne par ligne dans un fichier (Here-String)
+```powershell
+Set-Content .\Toto.txt @"
+Salut Toto !
+Ligne 1
+Ligne 2
+"@
+```
+
+
+### Créer un fichier ou écrase ancien
+```powershell
+Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
+```
+
+
+
+### Créer un fichier txt
 ```bat
 echo null > .\Compta\toto.txt
 ```
@@ -685,16 +710,6 @@ mv ".\Ananlyser le contenu d'un executable.doc" ".\Analyser executable.doc"
 ```
 
 
-### Créer un fichier ou écrase ancien
-```powershell
-Set-Content -Path C:\Administrateur\Users\fichiertest -Value "Texte du fichier"
-```
-
-
-### Créer un fichier texte  :
-```powershell
-New-Item -Path C:\Administrateur\Users\fichiertest -ItemType File
-```
 
 
 ### Renommer un dossier :
@@ -755,15 +770,35 @@ Add-Content -Path C:\Administrateur\Users\fichiertest -Value "Ajoute Texte au fi
 ```
 
 
+### Ajouter du texte avec here-string
+```powershell
+$txtmomo =@"
+Salut Momo !
+Ligne 1
+Ligne 2
+"@
+$txtmomo | Out-File .\Momo.txt
+```
+
+
+### Ajouter le texte sans écraser
+```powershell
+$nvtxtmomo | Out-File .\Momo.txt -Append
+```
+```bat
+$nvtxtmomo >> .\Momo.txt
+```
+
+
 ### Rediriger le résultat d'une commande dans un fichier .csv existant 
 ```bat
-<commande> > C:\Users\admazie\Desktop\User_OfficeE1.csv
+<commande> > C:\Users\admtoto\Desktop\User_OfficeE1.csv
 ```
 
 
 ### Rediriger le résultat d'une commande dans un fichier .csv non existant (Le dossier de destination doit quand même exister)
 ```powershell
-<commande> | Export-Csv -Path  "C:\Users\admintoto\Desktop\lastlogon_active_users.csv" -NoTypeInformation -Encoding UTF8 -Delimiter ';'
+<commande> | Export-Csv -Path  "C:\Users\admtoto\Desktop\lastlogon_active_users.csv" -NoTypeInformation -Encoding UTF8 -Delimiter ';'
 ```
 
 * `-NoTypeInformation` évite la ligne #TYPE ... en haut du CSV.
@@ -1516,7 +1551,7 @@ ssh-keygen.exe -t rsa -b 4096
 
 Inutile de préciser le port source et inutile de préciser le port dest si port 22 (SSH actif sur machine Linux évidemment)
 ```shell
-scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> axel@10.0.0.51:/home/axel/Bureau/
+scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> toto@10.0.0.51:/home/toto/Bureau/
 ```
 
 
