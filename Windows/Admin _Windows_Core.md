@@ -1982,3 +1982,14 @@ Remove-VpnConnection -Name "VPN-Entreprise" -Force
 Remove-VpnConnection -Name "VPN-Entreprise" -AllUserConnection -Force
 ```
 Si la suppression échoue, vérifier d’abord si elle existe en mode utilisateur ou machine avec les commandes ci-dessus.
+
+
+
+### Connecter l'utilisateur
+```bat
+rasdial "VPN-ABJ-TEST" user password
+```
+ou en pwsh
+```powershell
+Connect-VpnConnection -Name "VPN-Entreprise"
+```
