@@ -1572,6 +1572,9 @@ scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> toto@10.0.0.51:/
 ### Installer les fonctionnalités
 
 ```powershell
+# Synchroniser les DC
+repadmin /syncall
+
 # Installer le rôle AD DS
 Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
 
