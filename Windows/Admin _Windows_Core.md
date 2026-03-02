@@ -583,10 +583,40 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 
 
 ### Afficher les disques 
-
 Pratique sur domaine pour afficher d'où proviennent les lecteurs réseaux
 ```powershell
 Get-PSDrive -PSProvider FileSystem
+```
+
+
+### Affichier les disques durs
+```powershell
+Get-Disk
+```
+
+
+### Afficher le BusType
+```powershell
+Get-Disk | Select-Object Number, BusType, FriendlyName
+```
+
+
+### Afficher toutes les infos dispo sur un disque
+```powershell
+Get-Disk -Number 0 | Select-Object *
+```
+
+
+### Afficher les infos des disques qui ne sont pas des USB
+```powershell
+Get-Disk | select Number, FriendlyName, SerialNumber ,Size, PartitionStyle, BusType | ? BusType -ne 'USB' | ft
+```
+
+
+### Afficher le n° de disque qui n'est pas un USB
+Peu être utile pour un fichier de démarrage (autounnatend.xml)
+```powershell
+(Get-Disk | Where-Object BusType -ne 'USB' | Sort-Object Number | Select-Object -First 1).Number
 ```
 
 <br>
