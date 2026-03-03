@@ -1397,6 +1397,53 @@ systemctl enable open-iscsi
 
 
 
+
+
+
+## Cryptographie
+
+### Vérifier si OpenSSL est installé
+```bash
+openssl version
+```
+
+### Installer OpenSSL
+```bash
+sudo apt update && sudo apt install openssl -y
+```
+
+### Chiffrer une chaîne de caractères en AES-256-CBC
+Avec salt et sortie en Base64 et dérivation PBKDF2 (facultatif mais plus sécurisé)
+```bash
+echo 'TESTSECRET1234567' | openssl enc -aes-256-cbc -salt -pbkdf2 -base64 > aes-test.txt
+```
+* clé = PBKDF2(mot_de_passe, salt, iterations=10000, hash=SHA256)
+* `-pbkdf2` permet de dériver la clé à partir du mot de passe (mécanisme plus sécurisé)
+
+### Afficher la décomposition de clé
+`-P` affiche : salt, key, iv
+```bash
+echo 'TESTSECRET1234567' | openssl enc -aes-256-cbc -salt -pbkdf2 -P
+```
+
+### Déchiffrement
+```bash
+echo 'CIPHERTEXT_BASE64' | openssl enc -aes-256-cbc -d -salt -pbkdf2 -base64
+```
+`-d` pour le déchiffrement
+
+> [!IMPORTANT] 
+> Le Base64 commence toujours par : `U2FsdGVkX1` 
+
+
+---
+
+<br>
+
+
+
+
+
 ##  DIVERS
 
 ```bash

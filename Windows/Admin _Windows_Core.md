@@ -2023,3 +2023,24 @@ ou en pwsh
 ```powershell
 Connect-VpnConnection -Name "VPN-Entreprise"
 ```
+
+
+
+
+---
+
+<br>
+
+
+
+
+# Générer des clées cryptographiques
+
+### Paire de clées publique et privées
+* RSA 2048 bits avec .NET dans le dossier actuel
+```bat
+$rsa = [System.Security.Cryptography.RSA]::Create(2048)
+[IO.File]::WriteAllText("$PWD\private.pem",$rsa.ExportRSAPrivateKeyPem())
+[IO.File]::WriteAllText("$PWD\public.pem",$rsa.ExportSubjectPublicKeyInfoPem())
+```
+
