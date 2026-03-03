@@ -1402,6 +1402,7 @@ systemctl enable open-iscsi
 
 # 🔢 Cryptographie
 
+
 ### Vérifier ou Installer OpenSSL
 ```bash
 openssl version
@@ -1409,6 +1410,11 @@ openssl version
 ```bash
 sudo apt update && sudo apt install openssl -y
 ```
+
+
+---
+
+IV = Initialization Vector
 
 ### Chiffrer une chaîne de caractères en AES-256-CBC
 Avec salt et sortie en Base64 et dérivation PBKDF2 (facultatif mais plus sécurisé)
@@ -1433,10 +1439,66 @@ echo 'CIPHERTEXT_BASE64' | openssl enc -aes-256-cbc -d -salt -pbkdf2 -base64
 > [!IMPORTANT] 
 > Le Base64 commence toujours par : `U2FsdGVkX1` 
 
+---
+
+### Générer clé + IV depuis une passphrase sans sel
+```bash
+openssl enc -aes-256-cbc -nosalt -pbkdf2 -pass pass:Sup€rC0de -P
+```
+
+### Chiffrer une chaîne avec la clé et l’IV obtenus
+Remplace par les valeurs affichées précédemment
+```bash
+echo "MON_MESSAGE_SECRET" | openssl enc -aes-256-cbc -K "AF9457B0D50E9D4908D1695C51CDA8ED51ED167632804EDF5A427B308F759811" -iv "F3C578214F70C94D63165500FA338AC4" -base64
+```
+
+### Déchiffrement 
+Déchiffrer le message
+```bash
+echo 'UsJbYN9OT+luM/cIOuMtwcQcfKMXfbm0WljjFwgvLd8=' | openssl enc -aes-256-cbc -d -nosalt -pbkdf2 -base64
+```
 
 
+---
 
 
+### Générer une paire de clée RSA 2048 bits
+```bash
+openssl genrsa -out cle_privee.pem 2048
+openssl rsa -in cle_privee.pem -pubout -out cle_publique.pem
+```
+
+
+### Chiffrer un message avec la clé publique
+```bash
+echo "MON_MESSAGE_SECRET" > message.txt
+```
+```bash
+openssl pkeyutl \
+  -encrypt \
+  -pubin \
+  -inkey cle_publique.pem \
+  -in message.txt \
+  -out message_chiffre.bin \
+  -pkeyopt rsa_padding_mode:oaep
+```
+Afficher en Base64 (faciltatif)
+```bash
+base64 message_chiffre.bin > message_chiffre.b64 && cat message_chiffre.b64
+```
+### Déchiffrer avec la clé privée
+```bash
+openssl pkeyutl \
+  -decrypt \
+  -inkey cle_privee.pem \
+  -in message_chiffre.bin \
+  -out message_dechiffre.txt \
+  -pkeyopt rsa_padding_mode:oaep
+```
+Reconvertir le base64 en binaire 
+```bash
+base64 -d message_chiffre.b64 > message_chiffre.bin
+```
 
 
 
