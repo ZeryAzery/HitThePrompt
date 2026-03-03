@@ -1447,7 +1447,7 @@ openssl enc -aes-256-cbc -nosalt -pbkdf2 -pass pass:Sup€rC0de -P
 ```
 
 ### Chiffrer une chaîne avec la clé et l’IV obtenus
-Remplace par les valeurs affichées précédemment
+Mettre les valeurs de la clée et de l'IV affichées précédemment
 ```bash
 echo "MON_MESSAGE_SECRET" | openssl enc -aes-256-cbc -K "AF9457B0D50E9D4908D1695C51CDA8ED51ED167632804EDF5A427B308F759811" -iv "F3C578214F70C94D63165500FA338AC4" -base64
 ```
