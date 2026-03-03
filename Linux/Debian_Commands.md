@@ -1482,7 +1482,7 @@ openssl pkeyutl \
   -out message_chiffre.bin \
   -pkeyopt rsa_padding_mode:oaep
 ```
-Afficher en Base64 (faciltatif)
+Afficher en Base64 (facultatif)
 ```bash
 base64 message_chiffre.bin > message_chiffre.b64 && cat message_chiffre.b64
 ```
@@ -1495,7 +1495,7 @@ openssl pkeyutl \
   -out message_dechiffre.txt \
   -pkeyopt rsa_padding_mode:oaep
 ```
-Reconvertir le base64 en binaire 
+Reconvertir le base64 en binaire si besoin
 ```bash
 base64 -d message_chiffre.b64 > message_chiffre.bin
 ```
