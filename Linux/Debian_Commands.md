@@ -1400,14 +1400,12 @@ systemctl enable open-iscsi
 
 
 
-## Cryptographie
+# 🔢 Cryptographie
 
-### Vérifier si OpenSSL est installé
+### Vérifier ou Installer OpenSSL
 ```bash
 openssl version
 ```
-
-### Installer OpenSSL
 ```bash
 sudo apt update && sudo apt install openssl -y
 ```
@@ -1434,6 +1432,12 @@ echo 'CIPHERTEXT_BASE64' | openssl enc -aes-256-cbc -d -salt -pbkdf2 -base64
 
 > [!IMPORTANT] 
 > Le Base64 commence toujours par : `U2FsdGVkX1` 
+
+
+
+
+
+
 
 
 ---
