@@ -199,13 +199,13 @@ wc -l totoshit.txt
 
 
 
-### Télécharger un fichier
+### Télécharger un fichier 
 ```sh
 cd ~/Bureau
 wget https://github.com/ropnop/kerbrute/archive/refs/heads/master.zip -O Kerbrute-master.zip
 
 ```
-`-O` et pas -o (lowercase o = log file)
+`-O` et pas -o (lowercase -o = log file)
 ```sh
 unzip Kerbrute-master.zip
 ```
@@ -261,6 +261,16 @@ go build -o kerbrute
 ```sh
 sudo mv kerbrute /usr/local/bin/
 ```
+
+---
+
+
+### Installer les Seclist
+```sh
+cd /usr/share
+sudo apt install seclists
+```
+
 
 
 
@@ -431,6 +441,28 @@ apt install flameshot
 
 
 
+### openvpn
+```sh
+openvpn --version
+sudo openvpn --config mon_fichier.ovpn
+```
+### Ctrl + C Pour couper la connexion si arrière plan
+```sh
+ps aux | grep openvpn
+sudo kill <PID>
+sudo killall openvpn
+ip a
+```
+
+
+
+
+---
+
+<br>
+
+
+
 ### Afficher les partages SMB avec NMAP
 ```sh
 nmap --script smb-enum-shares -p 445 <IP>
@@ -443,12 +475,27 @@ smbclient //<IP> -N
 ```
 
 
+### Enum SMB
+```sh
+smbclient -L //<IP> -N
+```
+```sh
+crackmapexec smb 10.129.10.147
+```
+
+
 ### Se connecter au partage SMB (si pas de password...)
 ```sh
 smbclient //<IP>/nom_partage
 ```
 
 Se souvenir que les printers ont souvent leurs pages web sur http 80 et peuvent contenir pas mal d'infos et permettre des mouvements latéraux.
+
+
+### Énum des users AD
+```sh
+kerbrute userenum /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt --dc 10.129.10.147 -d overwatch.htb
+```
 
 
 ### brutforce un login SMB avec hydra
@@ -460,8 +507,39 @@ hydra -L usernames.txt -P rockyou.txt smb://<IP>
 ```sh
 smbclient //<IP>/nom_partage -U <username>
 ```
+Ou
+```sh
+smbclient //10.129.10.147/software$ -N
+```
+```sh
+ls
+get <nom_fichier>
+```
 
 
+
+---
+
+
+
+### Enum LDAP
+```sh
+ldapsearch -x -H ldap://<IP>
+```
+
+### Vérifier accès anonyme LDAP
+```sh
+ldapsearch -x -H ldap://<IP> -s base namingcontexts
+```
+```sh
+ldapsearch -x -H ldap://<IP> -b "DC=overwatch,DC=htb"
+```
+
+
+### Test utilisateurs anonymes
+```sh
+kerbrute userenum users.txt --dc <IP>
+```
 
 ### create fake login web page avec setoolkit (social engineeering tool kit) pour récolter des logins
 ```sh

@@ -52,6 +52,16 @@ nmap --script=smb-enum-shares -p 445 <Ip cible>
 
 ---
 
+
+
+
+### Le `-v` affiche la progression
+```nmap
+nmap -Pn -sC -sV -v 10.129.10.147
+```
+
+
+
 <br>
 
 Rapport et analyse : Consolider les données collectées, identifier les vulnérabilités exploitables et leurs criticités. 
@@ -142,3 +152,7 @@ Plus la valeur est haute, plus les le délais est réduit entre les paquets envo
 
 
 
+NOTES <br>
+Si un scan indique : SMB signing enabled and required
+* Pas de NTLM relay
+* Pas d’attaque MITM simple
