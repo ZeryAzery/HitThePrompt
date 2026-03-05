@@ -440,7 +440,8 @@ apt install flameshot
 openvpn --version
 sudo openvpn --config mon_fichier.ovpn
 ```
-### Ctrl + C Pour couper la connexion si arrière plan
+Faire Ctrl + C Pour couper la connexion. <br>
+Si arrière plan
 ```sh
 ps aux | grep openvpn
 sudo kill <PID>
