@@ -1268,7 +1268,9 @@ Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
 ```powershell
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 ```
-
+```bat
+netsh advfirewall set allprofiles state off
+```
 
 ### Désactiver la découverte réseau
 ```bat
