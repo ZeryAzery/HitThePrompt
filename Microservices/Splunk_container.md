@@ -9,9 +9,9 @@ docker run -d \
   splunk/splunk:latest start
   ```
 
-
+```sh
 docker images | grep splunk
 docker ps
 docker inspect splunk
 docker top splunk
-
+```
