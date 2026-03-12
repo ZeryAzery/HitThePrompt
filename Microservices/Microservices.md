@@ -588,6 +588,9 @@ docker stats vulnapp
 - Docker Compose permet de décrire et lancer plusieurs containers en même temps via un seul fichier (docker-compose.yml).
 - Il permet de définir les containers, leurs volumes, ports et dépendances, et ensuite une seule commande `docker-compose up` démarre tout.
 
+> [!NOTE]
+> Docker Compose manages containers on a single machine. Kubernetes orchestrates containers across a cluster of machines.
+
 <br>
 
 Créer le dossier pour Docker Compose
