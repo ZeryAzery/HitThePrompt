@@ -651,7 +651,7 @@ __Explication :__
 - image: busybox → pas besoin de Dockerfile, c’est une image toute prête.
 - volumes: - logs-data:/logs → on crée un volume nommé logs-data où l’API pourra écrire ses logs.
 - command: tail -f /dev/null → on laisse le container tourner “vide” juste pour que le volume existe et soit accessible.
-- logs-data correspond au volume du deuxième container, et /shared/logs est le chemin où ton application écrit ses logs.
+- logs-data correspond au volume du deuxième container, et /shared/logs est le chemin où l'application écrit ses logs.
 
 <br>
 
