@@ -2046,3 +2046,37 @@ $rsa = [System.Security.Cryptography.RSA]::Create(2048)
 [IO.File]::WriteAllText("$PWD\public.pem",$rsa.ExportSubjectPublicKeyInfoPem())
 ```
 
+
+
+
+
+
+---
+
+<br>
+
+
+
+
+
+
+# Gestion de l'observateur d'éénements
+
+### Afficher si anciens logs écrasés, maximum size logs (poids) et nombre de logs gardés ()
+```powershell
+Get-WinEvent -ListLog "Microsoft-Windows-NTLM/Operational"
+```
+
+* LogMode = Circular → les anciens événements sont écrasés automatiquement
+* MaximumSize ≈ 1 Mo → très petit
+* RecordCount ≈ 2000 → garde seulement ~2000 events récents
+
+### Augmenter la taille de stockage des logs
+Exemple pour 256 Mo de logs NTLM
+```bat
+wevtutil sl "Microsoft-Windows-NTLM/Operational" /ms:268435456
+```
+Exemple pour 1 Go de log 'Sécurité'
+```bat
+wevtutil sl Security /ms:1073741824
+```
