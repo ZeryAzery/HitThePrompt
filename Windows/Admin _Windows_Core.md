@@ -1683,7 +1683,7 @@ foreach ($groupe in $groupes) {
 ```powershell
 (Get-ADUser -Identity j.dupont).DistinguishedName
 # ou
-Get-ADUser -Identity NomUser | Select-Object DistinguishedName
+Get-ADUser -Identity <user_name> | Select-Object DistinguishedName
 ```
 
 
