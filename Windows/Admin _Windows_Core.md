@@ -1624,7 +1624,7 @@ Install-WindowsFeature -Name WDS -IncludeManagementTools
 Install-ADDSForest -DomainName "<domain.tld>" -DomainNetbiosName "<domain>" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "<Admin_Pswd>" -Force) -InstallDNS	
 
 # Joindre le domaine
-Add-Computer -DomainName TSSR.INFO
+Add-Computer -DomainName CYBER-MANAGEMENT
 # ou
 Add-Computer -DomainName "<domain.tld>" -Credential (Get-Credential) -Restart
 
