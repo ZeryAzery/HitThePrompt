@@ -1650,8 +1650,11 @@ nltest /dsgetdc:<domain.tld>
 Test-NetConnection <hostname> -Port 389
 ```
 
+### Gets the DFS Replication state for a member
+	```powershell
+Get-DfsrState -ComputerName "SRV02" | Format-Table FileName,UpdateState,Inbound,Source* -Auto -Wrap
+```
 
-	
 
 
 ### 👮 Créer un nouvel utilisateur admin du domaine  
