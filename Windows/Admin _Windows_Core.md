@@ -1193,6 +1193,12 @@ Get-WinEvent -LogName Microsoft-Windows-SMBServer/Operational -MaxEvents 30
 ```
 
 
+### Retrieves the SMB connections and shows whether signing is enforce
+```powershell
+Get-WmiObject -Class Win32_ServerConnection
+```
+
+
 
 
 <br>
