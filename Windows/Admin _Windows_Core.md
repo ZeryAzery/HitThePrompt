@@ -410,8 +410,15 @@ Install-WindowsUpdate -AcceptAll
 wmic qfe get Caption,Description,HotFixID,InstalledOn
 ```
 
+### Vérifier la présence de mises à jours (cmd)
+```bat
+wmic qfe list | findstr KB4012213
+```
 
-### Vérifier la présence de mises à jours 
+
+
+
+### Vérifier la présence de mises à jours (powershell)
 
 ```powershell
 $kbs= @("KB5066835", "KB5065789")
