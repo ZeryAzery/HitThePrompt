@@ -67,49 +67,16 @@ C:\Users\<TonUtilisateur>\AppData\Roaming\Microsoft\Internet Explorer\Quick Laun
 ```
 
 
-Fichier binaire IconCache.db
-```
-C:\Users\<user>\AppData\Local\IconCache.db
-```
-
-
-### Fichier qui stoke les images des icones windows 
-```
-%windir%\system32\imageres.dll
-```
-```
-C:\Windows\System32\imageres.dll
-```
-
-icônes générales : bulles, messages, utilisateurs
-```
-C:\Windows\System32\shell32.dll
-```
-
-icônes modernes, notifications, communication
-```
-C:\Windows\System32\ddores.dll
-```
-
-icônes réseau et communication
-```
-C:\Windows\System32\pnidui.dll
-```
-
-icônes liées aux consoles et interactions
-```
-C:\Windows\System32\mmcndmgr.dll
-```
-
-icônes COM, parfois bulles/info
-```
-C:\Windows\System32\comres.dll
-```
-
-Rechercher des .ico sur google :
-```
-github octocat icon filetype:ico
-```
+| Élément | Description | Chemin / Exemple |
+|--------|-------------|------------------|
+| IconCache.db | Cache binaire des icônes Windows | `C:\Users\<user>\AppData\Local\IconCache.db` |
+| imageres.dll | Images principales des icônes Windows | `%windir%\system32\imageres.dll` |
+| shell32.dll | Icônes générales (utilisateurs, bulles, messages) | `C:\Windows\System32\shell32.dll` |
+| ddores.dll | Icônes modernes, notifications, communication | `C:\Windows\System32\ddores.dll` |
+| pnidui.dll | Icônes réseau et communication | `C:\Windows\System32\pnidui.dll` |
+| mmcndmgr.dll | Icônes liées aux consoles et interactions | `C:\Windows\System32\mmcndmgr.dll` |
+| comres.dll | Icônes COM, parfois bulles / info | `C:\Windows\System32\comres.dll` |
+| Recherche .ico | Recherche d’icônes sur internet | `github octocat icon filetype:ico` |
 
 
 
