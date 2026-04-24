@@ -25,7 +25,7 @@ $inactiveUsers = @()
 
 foreach ($login in $userDirs) {
     $Searcher = New-Object DirectoryServices.DirectorySearcher
-    $Searcher.SearchRoot = "LDAP://OU=INACTIFS,DC=<Enter domain>,DC=<enter tld domain>"
+    $Searcher.SearchRoot = "LDAP://OU=INACTIFS,DC=<Enter domain here>,DC=<Enter TLD here>"
     $Searcher.Filter = "(&(objectClass=user)(sAMAccountName=$login))"
 
     $result = $Searcher.FindOne()
