@@ -5,7 +5,7 @@
 #   This script only works if you use an OU for disabled accounts                                #
 #   Note that the user directory will be permanently removed from the PC                         #
 #   Accounts are detected as soon as they are placed in the chosen OU (here: OU=INACTIFS)        #
-#   Rename with your domain credentials and OU name (line 25)                                    #
+#   Rename with your domain credentials and OU name (line 28 here)                               #
 #                                                                                                #
 #------------------------------------------------------------------------------------------------#
 
@@ -25,7 +25,7 @@ $inactiveUsers = @()
 
 foreach ($login in $userDirs) {
     $Searcher = New-Object DirectoryServices.DirectorySearcher
-    $Searcher.SearchRoot = "LDAP://OU=INACTIFS,DC=abej,DC=local"
+    $Searcher.SearchRoot = "LDAP://OU=INACTIFS,DC=<Enter domain>,DC=<enter tld domain>"
     $Searcher.Filter = "(&(objectClass=user)(sAMAccountName=$login))"
 
     $result = $Searcher.FindOne()
