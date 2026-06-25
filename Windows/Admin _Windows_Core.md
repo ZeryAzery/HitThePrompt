@@ -16,14 +16,14 @@
 - [📅 MISES À JOUR](#mises-a-jour)
 - [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#gestion-des-processus)
 - [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
-- [💿 GESTION DES DISQUES](#gestion-des-disques)
+- [💿 GESTION DU STOCKAGE](#gestion-du-stockage)
 - [📂 GESTION DES OBJETS](#gestion-des-objets)
 - [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
 - [🔪 HASHAGE](#hashage)
 - [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#rechercher-des-fichiers-et-dossiers)
 - [📇 RECHERCHER DANS UN FICHIER](#rechercher-dans-un-fichier)
 - [🔎 RECHERCHER UN FICHIER ET SON CONTENU](#rechercher-un-fichier-et-son-contenu)
-- [💾 SAUVEGARDER ET COPIER](#sauvegarder-et-copier)
+- [💾 COMPRESSION, SAUVEGARDE ET COPIE](#compression,-sauvegarde-et-copie)
 - [↔️ SMB](#smb)
 - [⬇️ GESTION CONTENU HTTP/HTTPS](#telechargement-http-https)
 - [🧱 PARE-FEU](#pare-feu)
@@ -586,7 +586,7 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 
 
 
-# 💿 __GESTION DES DISQUES__ <a id="gestion-des-disques"></a>
+# 💿 __GESTION DU STOCKAGE__ <a id="gestion-du-stockage"></a>
 
 
 ### Afficher les disques 
@@ -624,6 +624,19 @@ Get-Disk | select Number, FriendlyName, SerialNumber ,Size, PartitionStyle, BusT
 Peu être utile pour un fichier de démarrage (autounnatend.xml)
 ```powershell
 (Get-Disk | Where-Object BusType -ne 'USB' | Sort-Object Number | Select-Object -First 1).Number
+```
+
+<br>
+
+### Afficher les volumes
+```powershell
+Get-Volume | Select-Object DriveLetter, FileSystemLabel, FileSystem
+```
+
+
+### Afficher les partitions
+```powershell
+Get-Partition | Select-Object DiskNumber, PartitionNumber, DriveLetter, Size
 ```
 
 <br>
@@ -1075,13 +1088,20 @@ Format-List
 
 
 
-# 💾 __SAUVEGARDER ET COPIER__  <a id="sauvegarder-et-copier"></a>
+# 💾 __COMPRESSION, SAUVEGARDE ET COPIE__  <a id="compression,-sauvegarde-et-copie"></a>
 
 
 
 ### Compress-Archive (zip)
 ```powershell
 $date = Get-Date -Format "Le_dd-MM-yyyy_à_HH'h'mm"; Compress-Archive -Path \\PC-01\E$\RD -DestinationPath "E:\srcipt_save\saveRD_$date.zip" -Force
+```
+
+
+
+### Compresser le dossier complet
+```powershell
+Compress-Archive -Path "G:\Succession" -DestinationPath "G:\Succession.zip"
 ```
 
 
@@ -1818,7 +1838,7 @@ winget install --id Git.Git -e
 
 ### Cloner un dépot
 ```powershell
-git clone https://github.com/ZeryAzery/HitThePrompt.git
+git clone https://github.com/ZeryAzery/HitThePrompt.git .\Chemin_Dossier
 ```
 
 
