@@ -13,6 +13,7 @@
 - [🔑 LICENSING MANAGEMENT TOOL](#licensing-management-tool)
 - [🍴 POINT DE RESTAURATION](#point-de-restauration)
 - [📶 CONFIGURATION RÉSEAU](#configuration-reseau)
+- [📶 WIFI](#wifi)
 - [📅 MISES À JOUR](#mises-a-jour)
 - [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#gestion-des-processus)
 - [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
@@ -20,17 +21,18 @@
 - [📂 GESTION DES OBJETS](#gestion-des-objets)
 - [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
 - [🔪 HASHAGE](#hashage)
-- [🔍 RECHERCHER DES FICHIERS ET DOSSIERS](#rechercher-des-fichiers-et-dossiers)
-- [📇 RECHERCHER DANS UN FICHIER](#rechercher-dans-un-fichier)
-- [🔎 RECHERCHER UN FICHIER ET SON CONTENU](#rechercher-un-fichier-et-son-contenu)
+- [🔍 RECHERCHER DES OBJETS & CHAINES DE TEXTES](#rechercher-des-objets-&-chaines-de-textes)
 - [💾 COMPRESSION, SAUVEGARDE ET COPIE](#compression,-sauvegarde-et-copie)
 - [↔️ SMB](#smb)
 - [⬇️ GESTION CONTENU HTTP/HTTPS](#telechargement-http-https)
 - [🧱 PARE-FEU](#pare-feu)
-- [🛡️ DEFENDER](#defender)
+- [🛡️ DEFENDER & EVENT](#defender)
+- [🎏 GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS](#event)
 - [🔢 WINRM](#winrm)
 - [🔢 SSH](#ssh)
 - [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
+- [🚋 VPN](#vpn)
+- [🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES](#crypto)
 - [🐈‍⬛ GITHUB](#github)
 - [🟩 DIVERS](#divers)
 
@@ -380,6 +382,75 @@ Test-NetConnection -ComputerName localhost -Port 389
 ---
 
 <br>
+
+
+
+
+
+
+# 📶  WIFI <a id="wifi"></a>
+
+### Afficher les détails de la carte WiFi
+```bat
+netsh wlan show interfaces
+```
+
+
+### Afficher les détails driver de la carte WiFi
+```bat
+netsh wlan show drivers
+```
+
+
+### Afficher password WiFi
+```bat
+# Afficher les profiles ssid connus de la carte wifi
+netsh wlan show profile
+
+# Afficher les détails d'un profil ssid connu
+netsh wlan show profile <SSID_Name>
+
+# Afficher le Contenu de la clé d'un SSID
+netsh wlan show profile <SSID_Name> key=clear
+```
+
+
+### Afficher tous les SSID détectés par une carte Wi-Fi
+```bat
+netsh wlan show networks
+```
+Plus de détails sur les SSID détectés
+```bat
+netsh wlan show networks mode=bssid
+```
+
+
+### URI de la page Localisation
+```
+start ms-settings:privacy-location
+```
+"Services de localisation" et "Permettre aux app d'accéder à la localisation" doivent être activé pour afficher tous les SSID. 
+
+### Service de localisation et service de capteur (géoloc avancée)
+Ces services doivent être activés pour faire apparaître les SSID inconnus de la carte WiFi.
+```powershell
+Get-Service lfsvc, SensorService
+Start-Service lfsvc, SensorService
+# Set-Service lfsvc -StartupType Automatic
+# Set-Service SensorService -StartupType Automatic
+```
+
+
+
+
+---
+
+<br>
+
+---
+
+
+
 
 
 
@@ -914,6 +985,8 @@ $h1 -eq $h2
 
 
 
+
+
 <br>
 
 ---
@@ -923,8 +996,12 @@ $h1 -eq $h2
 
 
 
-# 🔍 __RECHERCHER DES FICHIERS ET DOSSIERS__   <a id="rechercher-des-fichiers-et-dossiers"></a>
 
+
+# 🔍 RECHERCHER DES OBJETS & CHAINES DE TEXTES <a id="rechercher-des-objets-&-chaines-de-textes"></a>
+
+
+##  Rechercher des fichiers et des dossiers  
 
 
 ### Rechercher un fichier
@@ -983,16 +1060,14 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 <br>
 
----
-
-<br>
 
 
 
 
-# 📇 __RECHERCHER DANS UN FICHIER__  <a id="rechercher-dans-un-fichier"></a>
+##  Rechercher dans un fichier
 
- `Get-Content` et `Select-String`
+
+`Get-Content` et `Select-String`
 
 ### Afficher le contenu d'un fichier (Alias: gc) 	
 ```powershell
@@ -1029,23 +1104,18 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 
 
 
-
-<br>
-
----
-
 <br>
 
 
 
 
-# 🔎 __RECHERCHER UN FICHIER ET SON CONTENU__  <a id="rechercher-un-fichier-et-son-contenu"></a>
+##  Rechercher un fichier et son contenu
 
 
 
 `Get-ChildItem` et `Select-String` combinés
 
-Rechercher une expression dans un fichier 
+### Rechercher une expression dans un fichier 
 ```powershell
 Get-ChildItem -Path "C:\Users\toto" -Recurse -Filter *.txt -ErrorAction SilentlyContinue | Select-String "proxmox"
 ```
@@ -1059,7 +1129,7 @@ Le `-Filter` Windows filtre les fichiers directement au niveau du système, donc
 
 
 
-Éviter les erreurs de permissions durant la recherche
+### Éviter les erreurs de permissions durant la recherche
 ```powershell
 Get-ChildItem C:\ -Recurse -File -Force -ErrorAction SilentlyContinue |
 Select-String "cl_resend" -ErrorAction SilentlyContinue |
@@ -1362,7 +1432,7 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
-# 🛡️ __DEFENDER__   <a id="defender"></a>
+# 🛡️ __DEFENDER & EVENT__   <a id="defender"></a>
 
 
 
@@ -1500,6 +1570,47 @@ __Liste non exhaustive d'ID évènements Defender__
 <br>
 
 Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.microsoft.com/fr-fr/defender-endpoint/troubleshoot-microsoft-defender-antivirus)
+
+
+
+
+
+
+<br>
+
+---
+
+<br>
+
+
+
+
+
+
+# 🎏 GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS <a id="event"></a>
+
+### Afficher si anciens logs écrasés, maximum size logs (poids) et nombre de logs gardés ()
+```powershell
+Get-WinEvent -ListLog "Microsoft-Windows-NTLM/Operational"
+```
+
+* LogMode = Circular → les anciens événements sont écrasés automatiquement
+* MaximumSize ≈ 1 Mo → très petit
+* RecordCount ≈ 2000 → garde seulement ~2000 events récents
+
+### Augmenter la taille de stockage des logs
+Exemple pour 256 Mo de logs NTLM
+```bat
+wevtutil sl "Microsoft-Windows-NTLM/Operational" /ms:268435456
+```
+Exemple pour 1 Go de log 'Sécurité'
+```bat
+wevtutil sl Security /ms:1073741824
+```
+
+
+
+
 
 
 
@@ -1708,7 +1819,7 @@ Test-NetConnection <hostname> -Port 389
 ```
 
 ### Gets the DFS Replication state for a member
-	```powershell
+```powershell
 Get-DfsrState -ComputerName "SRV02" | Format-Table FileName,UpdateState,Inbound,Source* -Auto -Wrap
 ```
 
@@ -1724,7 +1835,7 @@ New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName 
 Get-ADGroup -Filter 'Name -like "*admin*"'
 Get-ADGroup -Filter 'Name -like "*stratégie*"'
 
-# Ajouter l'utilisateur "admtoto" aux groupes admin 
+# Ajouter l'utilisateur "admtoto" aux groupes admin souhaités
 $groupes = @(
     "Administrateurs",
     "Administrateurs du schéma",
@@ -1851,7 +1962,7 @@ repadmin /syncall
 
 
 
-# 🐈‍⬛ GITHUB  <a id="github"></a>
+# 🐈‍ GITHUB  <a id="github"></a>
 
 
 ### Installer GitHub
@@ -1907,6 +2018,11 @@ git config --global --edit
 `:wq` → sauvegarder et quitter
 
 
+
+
+
+
+
 <br>
 
 ---
@@ -1916,122 +2032,8 @@ git config --global --edit
 
 
 
-# 🟩 DIVERS  <a id="divers"></a>
 
-
-### Vérouiller l'écran d'une session
-```powershell
-rundll32.exe user32.dll,LockWorkStation; exit
-```
-
-
-<br>
-
-
-### Ouvrir un nouveau terminal pour exécuter "en tant que"
-```bat
-runas /user:DOMAINE\MonCompteAD "cmd.exe"
-```
-
-
-<br>
-
-
-### Vérifier le niveau des privilèges de l'utilisateur en cours
-```bat
-whoami /all
-```
-```bat
-whoami /priv
-```
-
-<br>
-
-
-### Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
-
-```powershell
-Add-Type -AssemblyName System.Web
-[System.Web.Security.Membership]::GeneratePassword(16, 4)
-```
-* `16` : longueur totale du mot de passe.
-* `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
-
-
-
-
----
-
-<br>
-
-
-
-
-# Réseau WiFi
-
-### Afficher les détails de la carte WiFi
-```bat
-netsh wlan show interfaces
-```
-
-
-### Afficher les détails driver de la carte WiFi
-```bat
-netsh wlan show drivers
-```
-
-
-### Afficher password WiFi
-```bat
-# Afficher les profiles ssid connus de la carte wifi
-netsh wlan show profile
-
-# Afficher les détails d'un profil ssid connu
-netsh wlan show profile <SSID_Name>
-
-# Afficher le Contenu de la clé d'un SSID
-netsh wlan show profile <SSID_Name> key=clear
-```
-
-
-### Afficher tous les SSID détectés par une carte Wi-Fi
-```bat
-netsh wlan show networks
-```
-Plus de détails sur les SSID détectés
-```bat
-netsh wlan show networks mode=bssid
-```
-
-
-### URI de la page Localisation
-```
-start ms-settings:privacy-location
-```
-"Services de localisation" et "Permettre aux app d'accéder à la localisation" doivent être activé pour afficher tous les SSID. 
-
-### Service de localisation et service de capteur (géoloc avancée)
-Ces services doivent être activés pour faire apparaître les SSID inconnus de la carte WiFi.
-```powershell
-Get-Service lfsvc, SensorService
-Start-Service lfsvc, SensorService
-# Set-Service lfsvc -StartupType Automatic
-# Set-Service SensorService -StartupType Automatic
-```
-
-
-
-
----
-
-<br>
-
-
-
-
-# VPN
-
-
+# 🚋 VPN <a id="vpn"></a>
 
 
 ### Exemple VPN L2TP-PSK
@@ -2096,9 +2098,23 @@ Connect-VpnConnection -Name "VPN-Entreprise"
 
 
 
-# Générer des clées cryptographiques
+# 🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES <a id="crypto"></a>
 
-### Paire de clées publique et privées
+
+
+| Objet            | Contenu                                                |
+| ---------------- | ------------------------------------------------------ |
+| `private.pem`    | Clé privée RSA                                         |
+| `public.pem`     | Clé publique RSA                                       |
+| `certificat.cer` | Certificat X.509 (clé publique + identité + signature) |
+| `certificat.pfx` | Certificat + clé privée                                |
+| `certificat.pem` | Certificat X.509 au format PEM                         |
+
+
+<br>
+
+
+## Paire de clées publique et privées
 * RSA 2048 bits avec .NET dans le dossier actuel
 ```bat
 $rsa = [System.Security.Cryptography.RSA]::Create(2048)
@@ -2108,8 +2124,47 @@ $rsa = [System.Security.Cryptography.RSA]::Create(2048)
 
 
 
+## Générer et exporter un certificat avec sa clé privée associée
+
+Clé privée + certificat X.509 auto-signé
+```powershell
+$cert = New-SelfSignedCertificate -DnsName "MonServeur" -CertStoreLocation "Cert:\CurrentUser\My"
+```
+
+Exporter la partie publique du certificat vers un fichier
+```powershell
+Export-Certificate -Cert $cert -FilePath "$PWD\certificat.cer"
+```
+
+Pour un serveur web, il faut généralement aussi la clé privée (export.pfx)
+```powershell
+$pwd = ConvertTo-SecureString "MotDePasseToto123!" -AsPlainText -Force
+Export-PfxCertificate -Cert $cert -FilePath "$PWD\certificat.pfx" -Password $pwd
+```
+Le fichier .pfx contient : certificat, la clé publique + la clé privée
+
+__Résumé :__
+
+| Commande                    | Contenu                      | Fichier créé     |
+| --------------------------- | ---------------------------- | ---------------- |
+| `New-SelfSignedCertificate` | Certificat + clé privée      | Aucun fichier    |
+| `Export-Certificate`        | Certificat public uniquement | `certificat.cer` |
+| `Export-PfxCertificate`     | Certificat + clé privée      | `certificat.pfx` |
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
 
 ---
 
@@ -2120,23 +2175,46 @@ $rsa = [System.Security.Cryptography.RSA]::Create(2048)
 
 
 
-# Gestion de l'observateur d'éénements
 
-### Afficher si anciens logs écrasés, maximum size logs (poids) et nombre de logs gardés ()
+# 🟩 DIVERS  <a id="divers"></a>
+
+
+### Vérouiller l'écran d'une session
 ```powershell
-Get-WinEvent -ListLog "Microsoft-Windows-NTLM/Operational"
+rundll32.exe user32.dll,LockWorkStation; exit
 ```
 
-* LogMode = Circular → les anciens événements sont écrasés automatiquement
-* MaximumSize ≈ 1 Mo → très petit
-* RecordCount ≈ 2000 → garde seulement ~2000 events récents
 
-### Augmenter la taille de stockage des logs
-Exemple pour 256 Mo de logs NTLM
+<br>
+
+
+### Ouvrir un nouveau terminal pour exécuter "en tant que"
 ```bat
-wevtutil sl "Microsoft-Windows-NTLM/Operational" /ms:268435456
+runas /user:DOMAINE\MonCompteAD "cmd.exe"
 ```
-Exemple pour 1 Go de log 'Sécurité'
+
+
+<br>
+
+
+### Vérifier le niveau des privilèges de l'utilisateur en cours
 ```bat
-wevtutil sl Security /ms:1073741824
+whoami /all
 ```
+```bat
+whoami /priv
+```
+
+<br>
+
+
+### Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
+
+```powershell
+Add-Type -AssemblyName System.Web
+[System.Web.Security.Membership]::GeneratePassword(16, 4)
+```
+* `16` : longueur totale du mot de passe.
+* `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
+
+
