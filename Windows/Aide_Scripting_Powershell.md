@@ -466,7 +466,16 @@ Gammes, pipeline, exécution, arrays…
 | `%`       | alias de `ForEach-Object`              |
 | `?`       | alias de `Where-Object`                |
 
-__Exemple__
+<br>
+
+__Exemples:__
+
+Produira : 1 2 3 4 5
 ```powershell
-1..5        # Produit : 1 2 3 4 5
+1..5        
+```
+
+`&` exécutera un programme via son chemin complet (si absent du PATH)
+```powershell
+& "C:\Program Files\7-Zip\7z.exe" a -tzip "Site-Malveillant.zip" "Site-Malveillant"       
 ```

@@ -490,10 +490,26 @@ Get-Process GreenShot | Stop-Process -Confirm
 Get-Process GreenShot | Stop-Process -Force
 ```
 
+
 ### Arréter un processus avec son Id
 ```powershell
 Stop-Process -Id 2960
 ```
+
+
+### Start a PowerShell background job
+```powershell
+Start-Job
+```
+
+
+### Exécuter un programme qui est absent du PATH
+```powershell
+& "C:\Program Files\7-Zip\7z.exe" a -tzip "Site-Malveillant.zip" "Site-Malveillant"       
+```
+
+
+
 
 
 
@@ -1446,6 +1462,14 @@ Select-Object TimeCreated, Id, RecordId, Message, LogName
 ### Analyser un event en particulier
 ```powershell
 Get-WinEvent -LogName "Microsoft-Windows-Windows Defender/Operational" | Where-Object { $_.RecordID -eq 8169 } | fl
+```
+
+
+
+### Voir les logs en direct dans un fichier
+Équivalent "tail -f"
+```powershell
+gc "C:\Chemin\fichier" -Wait
 ```
 
 
