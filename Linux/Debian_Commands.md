@@ -13,6 +13,7 @@
 - [🙋‍♂️ DHCP](#dhcp)
 - [🗒️ DNS](#dns)
 - [🙋 GESTION DES UTILISATEURS](#gestion-des-utilisateurs)
+- [🙋 GESTION DES GROUPES](#gestion-des-groupes)
 - [🚷 FAIL2BAN](#fail2ban)
 - [🧱 UFW](#ufw)
 - [📆 CRON](#cron)
@@ -30,7 +31,7 @@
 
 
 
-# 🔰 Commandes de bases <a id="commandes-de-base"></a>
+# 🔰 COMMANDES DE BASE <a id="commandes-de-base"></a>
 
 
 
@@ -164,7 +165,7 @@ Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh qu
 
 
 
-# 📶 Réseau <a id="reseau"></a>
+# 📶 RÉSEAU <a id="reseau"></a>
 
 
 ### Config IP statique 
@@ -221,7 +222,7 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 sysctl -p # recharger pour appliquer les modifs
 ```
 
-### Afficher les ports en écoute s
+### Afficher les ports en écoutes
 ```bash
 ss -tulnp 
 ```
@@ -251,7 +252,7 @@ lsof -i -P -n | grep LISTEN
 
 
 
-# 📁 Manipulation de fichiers <a id="manipulation-de-fichiers"></a>
+# 📁 MANIPULATION DE FICHIERS <a id="manipulation-de-fichiers"></a>
 
 
 ### Supprimer un dossier et tout son contenu :
@@ -376,7 +377,7 @@ scp -P 6666 aliasll.sh Toto@10.0.0.6:/home/Toto
 
 
 
-# 📇 Samba <a id="samba"></a>
+# 📇 SAMBA <a id="samba"></a>
 
 
 ### Installer Samba
@@ -562,7 +563,7 @@ where kerbrute
 
 
 
-# 👮‍♀️ Gestion des permissions <a id="gestion-des-permissions"></a>
+# 👮‍♀️ GESTION DES PERMISSION <a id="gestion-des-permissions"></a>
 
 | Octal | Signification                 |
 |-------|-------------------------------|
@@ -617,7 +618,7 @@ chmod -t Archives
 
 
 
-# 📇 Gestion des packages <a id="gestion-des-packages"></a>
+# 📇 GESTION DES PACKAGES <a id="gestion-des-packages"></a>
 
 
 ### Pour changer de serveur de gestion de paquets :
@@ -921,7 +922,7 @@ Il y a 13 serveurs racines dans le monde (principalement aux États Unis)
 
 
 
-# 🙋 Gestion des utilisateurs <a id="gestion-des-utilisateurs"></a>
+# 🙋 GESTION DES UTILISATEURS <a id="gestion-des-utilisateurs"></a>
 
 
 ### Lister les utilisateurs :
@@ -1004,6 +1005,86 @@ Puis se déco ou redémarrer après ou alors faire la commande `source ~/.bashrc
 
 <br>
 
+
+
+
+# 🙋 GESTION DES GROUPES <a id="gestion-des-groupes"></a>
+
+### Créer un groupe standard
+```bash
+sudo groupadd admins
+```
+
+
+### Ajouter un groupe avec un GID en spécifiant un GID
+```bash
+sudo groupadd -g 1010 admins
+```
+
+
+### Créer un groupe système
+Les groupes système sont destinés à être utilisés par des services ou des démons du système.
+```bash
+sudo groupadd -r sauvegarde
+```
+
+
+> ![NOTE]
+> * Les GID des goupes d'utilisateurs créés manuellement comment à partir de 1000
+> * Pour les groupes système, les GID attribués automatiquement se trouvent dans une plage entre 1 et 999
+> * Ces plages de GID peuvent varier en fonction de la configuration du fichier "/etc/login.defs". 
+
+
+### Ajouter un utilisateur à un groupe
+```sh
+sudo usermod -aG admins toto
+```
+
+
+ ### Afficher les groupes de l'utilisateur courant
+```sh
+groups
+```
+
+### Afficher les groupes d'un utilisateur
+```sh
+groups toto
+```
+
+
+### Supprimer un groupe
+Retire le groupe "admins" du fichier "/etc/group" (ne supprime le compte user)
+```sh
+sudo groupdel admins
+```
+
+
+### Renommer un groupe
+```sh
+sudo groupmod -n <nouveau_nom_groupe> <ancien_nom_groupe>
+```
+
+
+### Changer le GID d'un groupe
+```sh
+sudo groupdel -g 2000 admins
+```
+
+
+### Changer le groupe propriétaire d'un fichier ou d'un répertoire
+```sh
+sudo chgrp admins credentials.txt
+```
+
+
+### Changer le groupe propriétaire d'un répertoire de façon récursive
+```sh
+sudo chgrp -R /chemin/vers/repertoire
+```
+
+---
+
+<br>
 
 
 
@@ -1344,7 +1425,7 @@ echo 1 > /proc/sys/vm/swappiness
 
 
 
-# ➡️ Installation et connexion iSCSI <a id="installation-et-connexion-iscsi"></a>
+# ➡️ INSTALLATION ET CONNEXION ISCSI <a id="installation-et-connexion-iscsi"></a>
 
 
 
@@ -1426,7 +1507,7 @@ systemctl enable open-iscsi
 
 
 
-# 🔢 Cryptographie <a id="cryptographie"></a>
+# 🔢 CRYPTOGRAPHIE<a id="cryptographie"></a>
 
 
 ### Vérifier ou Installer OpenSSL
