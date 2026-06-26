@@ -1008,7 +1008,7 @@ Puis se déco ou redémarrer après ou alors faire la commande `source ~/.bashrc
 
 
 
-# 🙋 GESTION DES GROUPES <a id="gestion-des-groupes"></a>
+# 👨‍👩‍👦‍👦 GESTION DES GROUPES <a id="gestion-des-groupes"></a>
 
 ### Créer un groupe standard
 ```bash
