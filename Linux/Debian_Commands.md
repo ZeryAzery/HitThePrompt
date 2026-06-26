@@ -167,7 +167,11 @@ Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh qu
 # 📶 Réseau <a id="reseau"></a>
 
 
-### Pour une config statique dans le fichier interfaces : (nano /etc/network/interfaces)
+### Config IP statique 
+```sh
+nano /etc/network/interfaces
+```
+Dans le fichier interfaces :
 ```sh
 allow-hotplug enp0s3
 iface enp0s3 inet static
