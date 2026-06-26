@@ -666,7 +666,7 @@ apt autoremove --purge nom_package
 
 
 
-#  🛣️ SSH <a id="ssh"></a>
+# 🛣️ SSH <a id="ssh"></a>
 
 
 ### Installer SSH
@@ -1030,7 +1030,7 @@ sudo groupadd -r sauvegarde
 
 
 > [!NOTE]
-> * Les GID des goupes d'utilisateurs créés manuellement comment à partir de 1000
+> * Les GID des goupes d'utilisateurs créés manuellement commencent à partir de 1000
 > * Pour les groupes système, les GID attribués automatiquement se trouvent dans une plage entre 1 et 999
 > * Ces plages de GID peuvent varier en fonction de la configuration du fichier "/etc/login.defs". 
 
@@ -1081,6 +1081,10 @@ sudo chgrp admins credentials.txt
 ```sh
 sudo chgrp -R /chemin/vers/repertoire
 ```
+
+
+
+
 
 ---
 
