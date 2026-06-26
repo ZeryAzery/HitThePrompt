@@ -86,8 +86,10 @@ sudo apt update
 
 
 
-## dépanner une kali coicée au boot sur VBox...
+## dépanner une kali coincée au boot sur VBox...
+
 Ctrl + Alt + F2 peut rendre le terminal acessible.
+
 ---
 
 <br>
@@ -129,7 +131,7 @@ exec zsh
 
 
 
-### Dézippé un fichier dans un dossier (créé le dossier si inexistant)
+### Dézipper un fichier dans un dossier (créé le dossier si inexistant)
 ```sh
 sudo unzip 20260108151307_BloodHound.zip -d BH_extract
 ```

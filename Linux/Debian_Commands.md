@@ -1,6 +1,28 @@
 # Debian commands
 
 
+- [🔰 COMMANDES DE BASE](#commandes-de-base)
+- [📶 RÉSEAU](#reseau)
+- [📁 MANIPULATION DE FICHIERS](#manipulation-de-fichiers)
+- [📇 SAMBA](#samba)
+- [🪝 GREP](#grep)
+- [🔍 FIND](#find)
+- [👮‍♀️ GESTION DES PERMISSIONS](#gestion-des-permissions)
+- [📇 GESTION DES PACKAGES](#gestion-des-packages)
+- [🛣️ SSH](#ssh)
+- [🙋‍♂️ DHCP](#dhcp)
+- [🗒️ DNS](#dns)
+- [🙋 GESTION DES UTILISATEURS](#gestion-des-utilisateurs)
+- [🚷 FAIL2BAN](#fail2ban)
+- [🧱 UFW](#ufw)
+- [📆 CRON](#cron)
+- [🕸️ APACHE2](#apache2)
+- [💿 GESTION DES DISQUES](#gestion-des-disques)
+- [➡️ INSTALLATION ET CONNEXION ISCSI](#installation-et-connexion-iscsi)
+- [🔢 CRYPTOGRAPHIE](#cryptographie)
+
+
+
 
 ---
 
@@ -8,7 +30,7 @@
 
 
 
-## 🔰 Commandes de bases
+# 🔰 Commandes de bases <a id="commandes-de-base"></a>
 
 
 
@@ -75,12 +97,12 @@ echo $SHELL
 ```
 
 
-## Nom de la distribution + version
+### Nom de la distribution + version
 ```shell
 cat /etc/os-release
 ```
 
-## Nom du système + architecture
+### Nom du système + architecture
 ```shell
 uname -a
 ```
@@ -91,7 +113,7 @@ uname -a
 uname -r
 ```
 
-## Architecture du processeur
+### Architecture du processeur
 ```shell
 uname -m
 ```
@@ -142,7 +164,7 @@ Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh qu
 
 
 
-# 📶 Réseau 
+# 📶 Réseau <a id="reseau"></a>
 
 
 ### Pour une config statique dans le fichier interfaces : (nano /etc/network/interfaces)
@@ -225,7 +247,7 @@ lsof -i -P -n | grep LISTEN
 
 
 
-# 📁 Manipulation de fichiers
+# 📁 Manipulation de fichiers <a id="manipulation-de-fichiers"></a>
 
 
 ### Supprimer un dossier et tout son contenu :
@@ -350,7 +372,7 @@ scp -P 6666 aliasll.sh Toto@10.0.0.6:/home/Toto
 
 
 
-# 📇 Samba
+# 📇 Samba <a id="samba"></a>
 
 
 ### Installer Samba
@@ -469,7 +491,7 @@ sudo smbstatus
 
 
 
-# 🪝 GREP
+# 🪝 GREP <a id="grep"></a>
 
 
 ### Rechercher un mot exacte
@@ -508,7 +530,7 @@ grep -Ei "error|fail|denied" /etc/server.log
 
 
 
-# 🔍 FIND  
+# 🔍 FIND <a id="find"></a>  
 
 
 ### Rechercher ce qui contient test dans le dossier actuel:
@@ -536,7 +558,7 @@ where kerbrute
 
 
 
-# 👮‍♀️ Gestion des permissions
+# 👮‍♀️ Gestion des permissions <a id="gestion-des-permissions"></a>
 
 | Octal | Signification                 |
 |-------|-------------------------------|
@@ -591,7 +613,7 @@ chmod -t Archives
 
 
 
-# 📇 Gestion des packages
+# 📇 Gestion des packages <a id="gestion-des-packages"></a>
 
 
 ### Pour changer de serveur de gestion de paquets :
@@ -639,7 +661,7 @@ apt autoremove --purge nom_package
 
 
 
-#  🛣️ SSH
+#  🛣️ SSH <a id="ssh"></a>
 
 
 ### Installer SSH
@@ -728,7 +750,7 @@ ssh -p 4444 Toto@192.168.100.2
 
 
 
-# 🙋‍♂️ DHCP
+# 🙋‍♂️ DHCP <a id="dhcp"></a>
 
 
 ### S'installe ici automatiquement : `/etc/dhcp` 
@@ -807,7 +829,7 @@ cat /var/lib/dhcp/dhcpd.leases
 
 
 
-# 🗒️ DNS 
+# 🗒️ DNS <a id="dns"></a>
 
 
 ```bash
@@ -895,7 +917,7 @@ Il y a 13 serveurs racines dans le monde (principalement aux États Unis)
 
 
 
-# 🙋 Gestion des utilisateurs  
+# 🙋 Gestion des utilisateurs <a id="gestion-des-utilisateurs"></a>
 
 
 ### Lister les utilisateurs :
@@ -983,7 +1005,7 @@ Puis se déco ou redémarrer après ou alors faire la commande `source ~/.bashrc
 
 
 
-# 🚷 FAIL2BAN
+# 🚷 FAIL2BAN <a id="fail2ban"></a>
 
 
 ### Repérer une erreur dans la conf fail2an :
@@ -1045,7 +1067,7 @@ tail -f /var/log/fail2ban.log
 
 
 
-# 🧱 UFW 
+# 🧱 UFW <a id="ufw"></a>
 
 
 ### réinitiliser ufw (retire toutes les règles)
@@ -1117,7 +1139,7 @@ ufw status verbose
 
 
 
-# 📆 CRON
+# 📆 CRON <a id="cron"></a>
 
 
 cron est l'exétuteur de tâches planifiées
@@ -1179,7 +1201,7 @@ Ex : 0 3 1 * 5 → Exécuté le 1er du mois et tous les vendredis.
 
 
 
-# 🕸️ APACHE2
+# 🕸️ APACHE2 <a id="apache2"></a>
 
 
 
@@ -1231,7 +1253,7 @@ certbot --apache -d mon-site.fr
 
 
 
-# 💿 GESTION DES DISQUES 
+# 💿 GESTION DES DISQUES <a id="gestion-des-disques"></a>
 
 
 
@@ -1318,7 +1340,7 @@ echo 1 > /proc/sys/vm/swappiness
 
 
 
-# ➡️⬅️ Installation et connexion iSCSI
+# ➡️ Installation et connexion iSCSI <a id="installation-et-connexion-iscsi"></a>
 
 
 
@@ -1400,7 +1422,7 @@ systemctl enable open-iscsi
 
 
 
-# 🔢 Cryptographie
+# 🔢 Cryptographie <a id="cryptographie"></a>
 
 
 ### Vérifier ou Installer OpenSSL

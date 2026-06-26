@@ -2122,7 +2122,7 @@ $rsa = [System.Security.Cryptography.RSA]::Create(2048)
 [IO.File]::WriteAllText("$PWD\public.pem",$rsa.ExportSubjectPublicKeyInfoPem())
 ```
 
-
+<br>
 
 ## Générer et exporter un certificat avec sa clé privée associée
 
@@ -2142,6 +2142,8 @@ $pwd = ConvertTo-SecureString "MotDePasseToto123!" -AsPlainText -Force
 Export-PfxCertificate -Cert $cert -FilePath "$PWD\certificat.pfx" -Password $pwd
 ```
 Le fichier .pfx contient : certificat, la clé publique + la clé privée
+
+<br>
 
 __Résumé :__
 
