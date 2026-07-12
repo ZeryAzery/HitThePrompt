@@ -396,6 +396,13 @@ Test-NetConnection -ComputerName localhost -Port 389
 ```
 
 
+### Afficher la table de routage IPv4
+```powershell		
+Get-NetRoute -AddressFamily IPv4
+```
+
+
+
 
 
 <br>
