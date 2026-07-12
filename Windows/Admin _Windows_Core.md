@@ -15,7 +15,7 @@
 - [📶 CONFIGURATION RÉSEAU](#configuration-reseau)
 - [📶 WIFI](#wifi)
 - [📅 MISES À JOUR](#mises-a-jour)
-- [🏃‍♀️‍➡️ GESTION DES PROCESSUS](#gestion-des-processus)
+- [🏃‍♀️ GESTION DES PROCESSUS](#gestion-des-processus)
 - [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
 - [💿 GESTION DU STOCKAGE](#gestion-du-stockage)
 - [📂 GESTION DES OBJETS](#gestion-des-objets)
@@ -293,6 +293,23 @@ Get-NetAdapter | Select Name, InterfaceDescription, InterfaceGuid
 Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
 ```
 
+### Plus d'infos sur une carte réseau
+```powershell
+get-netadapter "Ethernet" | fl
+```
+```powershell
+get-netadapter "Ethernet" | fl *
+```
+
+
+### Statistiques réseau à partir d'une carte réseau
+```powershell
+Get-NetAdapterStatistics
+```
+```powershell
+get-netadapterstatistics  | fl
+```
+
 
 ### Afficher n° carte réseau
 ```powershell
@@ -354,6 +371,10 @@ Disable-NetAdapter -Name  nom_carte_réseau
 ### Désactiver/Réactiver une carte réseau
 ```powershell
 Restart-NetAdapter -Name nom_carte_réseau
+```
+ou directement avec le nom :
+```powershell
+Restart-NetAdapter "Ethernet"
 ```
 
 
@@ -531,7 +552,7 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 
 
 
-# 🏃‍♀️‍➡️ __GESTION DES PROCESSUS__  <a id="gestion-des-processus"></a>
+# 🏃‍♀️ __GESTION DES PROCESSUS__  <a id="gestion-des-processus"></a>
 
 
 ### Afficher les processus en cours 
