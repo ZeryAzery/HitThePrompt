@@ -22,6 +22,7 @@
 - [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
 - [🔪 HASHAGE](#hashage)
 - [🔍 RECHERCHER DES OBJETS & CHAINES DE TEXTES](#rechercher-des-objets-&-chaines-de-textes)
+- [🔍 RECHERCHER UN PROGRAMME](#rechercher-un-programme)
 - [💾 COMPRESSION, SAUVEGARDE ET COPIE](#compression,-sauvegarde-et-copie)
 - [↔️ SMB](#smb)
 - [⬇️ GESTION CONTENU HTTP/HTTPS](#telechargement-http-https)
@@ -574,7 +575,13 @@ Get-Process *green*
 ```
 
 
-### Afficher les modules d'un processus
+### Affiche le process ID du terminal Powershell en cours
+```powershell
+$PID
+```
+
+
+### Afficher les modules d'un processus (dll)
 ```powershell
 (Get-Process -name Greenshot).Modules
 ```
@@ -582,10 +589,15 @@ Get-Process *green*
 
 ### stopper un processus
 ```powershell
+Stop-Process Greenshot
+```
+```powershell
 Get-Process | Where-Object { $_.Name -like '*Greenshot*' } | Stop-Process
-
+```
+```powershell
 Get-Process GreenShot | Stop-Process -Confirm
-
+```
+```powershell
 Get-Process GreenShot | Stop-Process -Force
 ```
 
@@ -1085,10 +1097,7 @@ Get-ChildItem -Path E:\ -Filter *.md -Recurse | Select-Object -ExpandProperty Fu
 
 
 
-
 <br>
-
-
 
 
 
@@ -1131,9 +1140,7 @@ Select-String -Path "C:\chemin\vers\rockyou.txt" -Pattern "\bpass\b" | ForEach-O
 ```
 
 
-
 <br>
-
 
 
 
@@ -1188,6 +1195,41 @@ Format-List
 | DOC, DOCX	| ❌ Non	| COM Object ou OpenXML |
 | PDF | ❌ Non	|	PDFtoText ou une librairie externe |
 | XLS, XLSX | ❌ Non | COM Object ou Import-Excel |
+
+
+
+
+<br>
+
+---
+
+<br>
+
+
+
+
+
+ # 🔍 __RECHERCHER UN PROGRAMME__ <a id="rechercher-un-programme"></a>
+
+
+### Afficher le chemin d'un exécutable
+```powershell
+(Get-Process -Name *greensh*).path
+```
+
+### Autre exemple l'invite de commande
+```powershell
+(Get-Command conhost).source
+```
+
+### Afficher le chemin du Powershell en cours
+```powershell
+$PSHOME
+```
+ou
+```powershell
+(Get-Process -Id $PID).Path
+```
 
 
 
@@ -1617,6 +1659,54 @@ Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.
 
 # 🎏 GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS <a id="event"></a>
 
+
+
+### Afficher les logs systèmes des 10 dernières minutes
+```powershell
+Get-WinEvent -FilterHashtable @{LogName='system';StartTime=(Get-Date).AddMinutes(-10)}
+```
+
+<br>
+
+Exemple de construction d'une requête avec un HasTable :
+```powershell
+@{
+    LogName = 'System'
+    StartTime = ...
+    EndTime = ...
+    Level = ...
+    ProviderName = ...
+    ID = ...
+}
+```
+
+### Filtrage des niveaux de criticités
+
+
+| Icône               | Niveau        | Level |
+| ------------------- | ------------- | ----: |
+| 🔴 Croix rouge      | Erreur        |     2 |
+| ⚠️ Triangle jaune   | Avertissement |     3 |
+| ❌ Rond rouge avec ! | Critique      |     1 |
+| ℹ️ Bleu             | Information   |     4 |
+| Verbose             | Verbose       |     5 |
+
+<br>
+
+Exemple pour filtrer les logs systèmes de niveau critique
+```powershell
+Get-WinEvent -FilterHashtable @{
+    LogName = 'System'
+    Level = 1
+}
+```
+Filtrer sur les 10 dernières minutes level 1, 2 et 3
+```powershell
+Get-WinEvent -FilterHashtable @{LogName = 'System';Level = 1,2,3;StartTime=(Get-Date).AddMinutes(-10)} | fl
+```
+
+
+
 ### Afficher si anciens logs écrasés, maximum size logs (poids) et nombre de logs gardés ()
 ```powershell
 Get-WinEvent -ListLog "Microsoft-Windows-NTLM/Operational"
@@ -1625,6 +1715,8 @@ Get-WinEvent -ListLog "Microsoft-Windows-NTLM/Operational"
 * LogMode = Circular → les anciens événements sont écrasés automatiquement
 * MaximumSize ≈ 1 Mo → très petit
 * RecordCount ≈ 2000 → garde seulement ~2000 events récents
+
+<br>
 
 ### Augmenter la taille de stockage des logs
 Exemple pour 256 Mo de logs NTLM
@@ -2005,7 +2097,8 @@ git clone https://github.com/ZeryAzery/HitThePrompt.git .\Chemin_Dossier
 ```
 
 
-### Ne **jamais** re-cloner un dépot
+###  pull les modifications
+Ne **jamais** re-cloner un dépot et toujours faire pull en 1er
 ```powershell
 git pull
 ```
@@ -2029,6 +2122,7 @@ Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler 
 Script pour Push les modifications
 ```powershell
 sl "C:\Users\t.petit\OneDrive - CYBER MANAGEMENT\Documents\HitThePrompt"
+git pull
 git add .
 git commit -m "$(Get-Date -Format 'dd/MM/yyyy')"
 git push
@@ -2248,3 +2342,9 @@ Add-Type -AssemblyName System.Web
 * `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
 
 
+### Enregistrer ce qui se passe dans la console
+```powershell
+Start-Transcript
+<commands>
+Stop-Transcript
+```

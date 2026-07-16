@@ -113,3 +113,21 @@ $HOME
 ```powershell
 Get-ChildItem Env:
 ```
+
+---
+
+<br>
+
+
+# Autres variables
+
+
+### Affiche le chemin Powershell en cours
+```powershell
+$PSHOME
+```
+
+### Affiche le process ID du terminal Powershell en cours
+```powershell
+$PID
+```

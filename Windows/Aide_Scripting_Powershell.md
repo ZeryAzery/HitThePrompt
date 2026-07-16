@@ -2,16 +2,9 @@
 
 
 
-
-
 ---
 
-
-
 <br>
-
-
-
 
 
 
@@ -49,8 +42,6 @@ Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 
 ---
 
-
-
 <br>
 
 
@@ -73,8 +64,6 @@ Empêche d'affecter une valeur incorrecte
 
 
 ---
-
-
 
 <br>
 
@@ -118,8 +107,6 @@ Ne pas déclarer une liste avec des `{}` sinon Powershell attendra une valeur av
 
 
 ---
-
-
 
 <br>
 
@@ -179,11 +166,11 @@ Dans ce cas Powershell interprêtera else comme une commande à part entière et
 
 
 
+
 ---
 
-
-
 <br>
+
 
 
 
@@ -202,8 +189,6 @@ Ces structures permettent de répéter une action plusieurs fois.
 
 
 ---
-
-
 
 <br>
 
@@ -225,8 +210,6 @@ Ces mots-clés servent à interrompre ou passer une itération.
 
 ---
 
-
-
 <br>
 
 
@@ -246,8 +229,6 @@ Ces structures permettent de gérer les erreurs sans planter le script.
 
 ---
 
-
-
 <br>
 
 
@@ -265,7 +246,7 @@ Get-Alias -Definition Set-Location
 ```
 
 | Alias | Commande              | Utilité                                                                                                           |
-|:-----:|:---------------------:|-------------------------------------------------------------------------------------------------------------------|
+|------:|:----------------------|-------------------------------------------------------------------------------------------------------------------|
 | gm    | Get-Member            | Affiche les membres (propriétés et méthodes) d’un objet. Très utile pour explorer les objets retournés par d’autres commandes.  |
 | gcm   | Get-Command           | Liste toutes les commandes disponibles ou récupère des informations sur une commande spécifique.                        |
 | %     | ForEach-Object        | Applique une action à chaque élément d’une collection.                                                       |
@@ -287,10 +268,7 @@ Get-Service | ? { $_.Status -eq "Running" }
 
 ---
 
-
-
 <br>
-
 
 
 
@@ -323,13 +301,9 @@ __Exemple d'utilisation simple :__ (retournera "True" or "False")
 
 
 
-
 ---
 
-
-
 <br>
-
 
 
 
@@ -357,13 +331,9 @@ __Exemple__
 
 
 
-
 ---
 
-
-
 <br>
-
 
 
 
@@ -385,13 +355,9 @@ __Exemple__
 
 
 
-
 ---
 
-
-
 <br>
-
 
 
 
@@ -414,15 +380,9 @@ $x += 3      # x vaut maintenant 8
 ```
 
 
-
-
 ---
 
-
-
 <br>
-
-
 
 
 ### 📝 Opérateurs de type (Type Operators)
@@ -445,10 +405,7 @@ __Exemple__
 
 ---
 
-
-
 <br>
-
 
 
 
@@ -478,4 +435,47 @@ Produira : 1 2 3 4 5
 `&` exécutera un programme via son chemin complet (si absent du PATH)
 ```powershell
 & "C:\Program Files\7-Zip\7z.exe" a -tzip "Site-Malveillant.zip" "Site-Malveillant"       
+```
+
+
+
+---
+
+<br>
+
+
+
+### Pour les accents dans le terminal (au début du script)
+```powershell
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+```
+
+
+### Pour les accents dans la sortie d'un fichier 
+```powershell
+Set-Content ... -Encoding utf8
+```
+
+### "exit" va fermer le terminal
+```powershell
+while ($Response -notin $Choices) {
+    $Response = Read-Host "Voulez-vous continuer ? ('o' continuer, 'n' sortir)"
+}
+
+if ($Response -eq "n") {
+    exit
+}
+
+# Si on arrive ici, c'est forcément "o"
+```
+
+### "return" va fermer le script
+```powershell
+while ($Response -notin $Choices) {
+    $Response = Read-Host "Voulez-vous continuer ? ('o' continuer, 'n' sortir)"
+}
+
+if ($Response -eq "n") {
+    return
+}
 ```
