@@ -131,3 +131,18 @@ $PSHOME
 ```powershell
 $PID
 ```
+
+
+### Chemin de "C:\Users\$env:USERNAME\AppData\Local"
+```powershell
+$env:LOCALAPPDATA
+```
+
+### Ajouter 2 dossiers au PATH user (ici python)
+```powershell
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path","User") + ";$env:LOCALAPPDATA\Programs\Python\Python313;$env:LOCALAPPDATA\Programs\Python\Python313\Scripts",
+    "User"
+)
+```

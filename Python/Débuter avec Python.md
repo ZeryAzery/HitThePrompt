@@ -1,9 +1,20 @@
 # Python Basics
 
 ## Ajouter ces variables d'envirronements à "Path" après avoir installé Python (utiliser "sysdm.cpl" par exemple):
+Contrairement à ce que je montre ici c'est préférable de mettre ça en haut du coté utilisateur plutôt que du coté système
 ![alt text](<var env python-1.png>)
+
+
 C:\Users\Ton_Username\AppData\Local\Programs\Python\Python313\
 C:\Users\Ton_Username\AppData\Local\Programs\Python\Python313\Scripts\
+
+
+### Ajouter les dossier Python au PATH utilisateur avec Powershell
+Ajuster la version si nécéssaire
+```powershell
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path","User") + ";C:\Users\Administrateur\AppData\Local\Programs\Python\Python313;C:\Users\Administrateur\AppData\Local\Programs\Python\Python313\Scripts", "User")
+```
+
 
 ## Afficher l'aide Python et lancer un script depuis powershell
 ```powershell

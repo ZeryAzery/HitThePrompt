@@ -34,7 +34,8 @@
 - [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
 - [🚋 VPN](#vpn)
 - [🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES](#crypto)
-- [🐈‍⬛ GITHUB](#github)
+- [🐈‍ GITHUB](#github)
+- [✅ VARIABLE D'ENVIRONNEMENT DU PATH](#path)
 - [🐍 PYTHON](#python)
 - [🟩 DIVERS](#divers)
 
@@ -1217,11 +1218,16 @@ Format-List
 ```powershell
 (Get-Process -Name *greensh*).path
 ```
+```powershell
+Get-Command python | Select-Object Source
+```
+
 
 ### Autre exemple l'invite de commande
 ```powershell
 (Get-Command conhost).source
 ```
+
 
 ### Afficher le chemin du Powershell en cours
 ```powershell
@@ -1232,6 +1238,11 @@ ou
 (Get-Process -Id $PID).Path
 ```
 
+
+### Pour les programmes natifs
+```powershell
+where.exe ping
+```
 
 
 
@@ -2293,13 +2304,73 @@ __Résumé :__
 
 
 
+#  ✅ __VARIABLE D'ENVIRONNEMENT DU PATH__ <a id="path"></a>
+
+
+Afin d'appeler les programmes depuis n'importe où sur la machine il faut ajouter le dossier du programme dans le PATH utilisateur ou système (si utile pour tous les utilisateurs)
+
+### Ajouter un dossier au PATH utilisateur (Python ici)
+```powershell
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path","User") + ";$env:LOCALAPPDATA\Programs\Python\Python313;$env:LOCALAPPDATA\Programs\Python\Python313\Scripts",
+    "User"
+)
+```
+
+
+### Ajouter un dossier au PATH système 
+Nécessite une console PowerShell lancée en tant qu'administrateur pour modifier le PATH system
+```powershell
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path","Machine") + ";C:\Outils",
+    "Machine"
+)
+```
+
+
+### Vérifier ce qui se trouve dans le Path (system + user)
+```powershell
+$env:Path -split ';'
+```
+
+
+### Afficher seulement le PATH machine
+```powershell
+[Environment]::GetEnvironmentVariable("Path","Machine") -split ';'
+```
+
+
+### Afficher seulement le PATH utilisateur
+```powershell
+[Environment]::GetEnvironmentVariable("Path","User") -split ';'
+```
+
+
+
+
+
+
+<br>
+
+---
+
+<br>
+
+
+
+
+
+
+
+
+
+
 # 🐍 __PYTHON__ <a id="python"></a>
 
 
 ### Vérifier si Python est installé
-```powershell
-python --version
-```
 ```powershell
 py --version
 ```
@@ -2317,9 +2388,39 @@ Installer Python
 ```powershell
 winget install Python.Python.3.14
 ```
+```powershell
+py --version
+```
+Vérifier que pip soit présent
+```powershell
+pip --version
+```
+Mettre à jour pip si besoin
+```powershell
+
+```
+
+### Ajouter les dossier nécéssaires de Python au PATH user
+Attention à ajuster votre version sur les deux dossier.
+```powershell
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path","User") + ";$env:LOCALAPPDATA\Programs\Python\Python313;$env:LOCALAPPDATA\Programs\Python\Python313\Scripts",
+    "User"
+)
+```
+Voici les chemins sans la variable :
+```
+C:\Users\Administrateur\AppData\Local\Programs\Python\Python313
+C:\Users\Administrateur\AppData\Local\Programs\Python\Python313\Scripts
+```
+
+
+
+
 Désinstaller Python
 ```powershell
-winget uninstall --id Python.Python.3.13
+winget uninstall --id Python.Python.3.14
 ```
 
 
