@@ -1,4 +1,4 @@
-# 🪟 __ADMINISTRATRION EN POWERSHELL__
+#  __ADMINISTRATRION EN POWERSHELL__
 
 
 * __Powershell n'a pas de sensiblité à la casse c'est juste visuel__
@@ -38,6 +38,7 @@
 - [✅ VARIABLE D'ENVIRONNEMENT DU PATH](#path)
 - [🐍 PYTHON](#python)
 - [🟩 DIVERS](#divers)
+
 
 
 
@@ -261,18 +262,24 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 # 📶 __CONFIGURATION RÉSEAU__  <a id="configuration-reseau"></a>
 
 
-### Information réseau détaillée
+### Configuration IP 
 ```powershell
 Get-NetIPConfiguration
+```
+
+
+### Configuration IP détaillée
+```pwoershell
 gip -Detailed
 ```
 
 
-### Choix de la carte réseau pour un ping (où IP source = carte réseau souhaitée)
+### Choix de la carte réseau pour un ping 
+Où IP source = carte réseau souhaitée
 ```powershell
 Test-Connection -ComputerName 192.168.51.253 -Source 192.168.51.245
 ```
-version bat 
+version bat (`-S` = Source)
 ```bat
 ping -S 192.168.51.245 192.168.51.253
 ```
@@ -291,7 +298,7 @@ Get-NetAdapter | Select Name, InterfaceDescription, InterfaceGuid
 ```
 
 
-### Afficher les cartes réseau up:
+### Afficher les cartes réseau up
 ```powershell
 Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
 ```
@@ -314,7 +321,7 @@ get-netadapterstatistics  | fl
 ```
 
 
-### Afficher n° carte réseau
+### Afficher n° carte réseau (ifIndex)
 ```powershell
 Get-NetIPInterface 
 ```
@@ -2085,6 +2092,8 @@ Select-Object Name, SamAccountName
 repadmin /syncall
 ```
 
+
+
 <br>
 
 ---
@@ -2225,9 +2234,14 @@ Connect-VpnConnection -Name "VPN-Entreprise"
 
 
 
+
+<br>
+
 ---
 
 <br>
+
+
 
 
 
@@ -2365,8 +2379,6 @@ $env:Path -split ';'
 
 
 
-
-
 # 🐍 __PYTHON__ <a id="python"></a>
 
 
@@ -2395,13 +2407,14 @@ Vérifier que pip soit présent
 ```powershell
 pip --version
 ```
-Mettre à jour pip si besoin
+Mettre à jour pip
 ```powershell
-
+py -m pip install --upgrade pip
 ```
 
+
 ### Ajouter les dossier nécéssaires de Python au PATH user
-Attention à ajuster votre version sur les deux dossier.
+Attention à ajuster votre version sur les deux dossiers.
 ```powershell
 [Environment]::SetEnvironmentVariable(
     "Path",
@@ -2416,12 +2429,16 @@ C:\Users\Administrateur\AppData\Local\Programs\Python\Python313\Scripts
 ```
 
 
+### Lancer un scipt Python depuis powershell
+```powershell
+py test.py
+```
 
-
-Désinstaller Python
+### Désinstaller Python 
 ```powershell
 winget uninstall --id Python.Python.3.14
 ```
+
 
 
 

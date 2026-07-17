@@ -122,6 +122,7 @@ if x = 2:
     print("x est plus grand que 2")
 else:
     print("x estplus petit ou égal à 2")
+
 ```
 ### if, elif, else
 ```python
@@ -136,6 +137,7 @@ elif fruits.count("pomme"):
 else:
     print("Pas trouvé")
 ```
+
 ### try except
 ```python
 print("[*] avant mon erreur")
@@ -161,6 +163,7 @@ a = multiply(i)
 print("a :", a)
 print("i :", i)
 ```
+
 ## Les dictionnaires 
 Un dictionnaire contient une clé et une valeur, ici il y a 2 cléfs (kiwi et orange)
 
