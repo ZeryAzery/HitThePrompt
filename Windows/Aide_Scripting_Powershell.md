@@ -455,8 +455,8 @@ Produira : 1 2 3 4 5
 ```powershell
 Set-Content ... -Encoding utf8
 ```
-
-### "exit" va fermer le terminal
+### Utiliser return ou exit avec if
+__"exit" va fermer le terminal__
 ```powershell
 while ($Response -notin $Choices) {
     $Response = Read-Host "Voulez-vous continuer ? ('o' continuer, 'n' sortir)"
@@ -469,7 +469,7 @@ if ($Response -eq "n") {
 # Si on arrive ici, c'est forcément "o"
 ```
 
-### "return" va fermer le script
+__"return" va fermer le script__
 ```powershell
 while ($Response -notin $Choices) {
     $Response = Read-Host "Voulez-vous continuer ? ('o' continuer, 'n' sortir)"
@@ -478,4 +478,12 @@ while ($Response -notin $Choices) {
 if ($Response -eq "n") {
     return
 }
+```
+
+
+### Prendre un compte un espace vide
+PowerShell est construit sur .NET, du coup on peux appeler les méthodes .NET directement.
+```powershell
+$Event = Get-WinEvent -FilterHashtable @{LogName = 'System';Level = 1,2,3;StartTime=(Get-Date).AddMinutes(-10)} -ErrorAction SilentlyContinue | Format-List | Out-String
+$CritEvent = if ([string]::IsNullOrWhiteSpace($Event)) { "Aucun évènement système au cours de ces 10 dernières minutes." } else { $Event }
 ```

@@ -35,6 +35,7 @@
 - [🚋 VPN](#vpn)
 - [🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES](#crypto)
 - [🐈‍⬛ GITHUB](#github)
+- [🐍 PYTHON](#python)
 - [🟩 DIVERS](#divers)
 
 
@@ -1657,7 +1658,7 @@ Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.
 
 
 
-# 🎏 GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS <a id="event"></a>
+# 🎏 __GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS__ <a id="event"></a>
 
 
 
@@ -2082,7 +2083,7 @@ repadmin /syncall
 
 
 
-# 🐈‍ GITHUB  <a id="github"></a>
+# 🐈‍ __GITHUB__  <a id="github"></a>
 
 
 ### Installer GitHub
@@ -2155,7 +2156,7 @@ git config --global --edit
 
 
 
-# 🚋 VPN <a id="vpn"></a>
+# 🚋 __VPN__ <a id="vpn"></a>
 
 
 ### Exemple VPN L2TP-PSK
@@ -2220,7 +2221,7 @@ Connect-VpnConnection -Name "VPN-Entreprise"
 
 
 
-# 🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES <a id="crypto"></a>
+# 🔢 __GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES__ <a id="crypto"></a>
 
 
 
@@ -2280,6 +2281,47 @@ __Résumé :__
 
 
 
+<br>
+
+---
+
+<br>
+
+
+
+
+
+
+
+# 🐍 __PYTHON__ <a id="python"></a>
+
+
+### Vérifier si Python est installé
+```powershell
+python --version
+```
+```powershell
+py --version
+```
+
+### Installer Python avec Winget
+Vérifier que Winget est dispo
+```powershell
+winget --version
+```
+Vérifier la dernière version disponible de Python
+```powershell
+winget search --id Python.Python --versionswinget install Python.Python.3.14
+```
+Installer Python
+```powershell
+winget install Python.Python.3.14
+```
+Désinstaller Python
+```powershell
+winget uninstall --id Python.Python.3.13
+```
+
 
 
 
@@ -2300,7 +2342,7 @@ __Résumé :__
 
 
 
-# 🟩 DIVERS  <a id="divers"></a>
+# 🟩 __DIVERS__  <a id="divers"></a>
 
 
 ### Vérouiller l'écran d'une session
