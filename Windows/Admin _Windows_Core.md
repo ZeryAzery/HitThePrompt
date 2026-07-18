@@ -34,9 +34,9 @@
 - [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
 - [🚋 VPN](#vpn)
 - [🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES](#crypto)
-- [🐈‍ GITHUB](#github)
 - [✅ VARIABLE D'ENVIRONNEMENT DU PATH](#path)
-- [🐍 PYTHON](#python)
+- [🐈‍ INSTALLER GITHUB](#github)
+- [🐍 INSTALLER PYTHON](#python)
 - [🟩 DIVERS](#divers)
 
 
@@ -2094,76 +2094,6 @@ repadmin /syncall
 
 
 
-<br>
-
----
-
-<br>
-
-
-
-
-# 🐈‍ __GITHUB__  <a id="github"></a>
-
-
-### Installer GitHub
-```powershell
-winget install --id Git.Git -e
-```
-
-
-### Cloner un dépot
-```powershell
-git clone https://github.com/ZeryAzery/HitThePrompt.git .\Chemin_Dossier
-```
-
-
-###  pull les modifications
-Ne **jamais** re-cloner un dépot et toujours faire pull en 1er
-```powershell
-git pull
-```
-
-<br>
-
-* Clone → une seule fois par machine
-
-* Pull → récupérer les modifs
-
-* Commit + Push → synchroniser les modifs
-
-<br>
-
-**Toujours faire `git pull` avant de commencer à coder.**<br>
-Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler le pull manquant : <br>
-`! [rejected] main -> main (fetch first)`
-
-
-
-Script pour Push les modifications
-```powershell
-sl "C:\Users\t.petit\OneDrive - CYBER MANAGEMENT\Documents\HitThePrompt"
-git pull
-git add .
-git commit -m "$(Get-Date -Format 'dd/MM/yyyy')"
-git push
-```
-
-Éditer infos du compte GiHub (s'ouvre avec vi)
-```powershell
-git config --global --edit
-```
-**Commandes vi :** <br>
-`i` → mode insertion <br>
-`Esc` → retour en mode normal <br>
-`x` → supprimer un caractère <br>
-`dd` → supprime une ligne <br>
-`:wq` → sauvegarder et quitter
-
-
-
-
-
 
 
 <br>
@@ -2171,6 +2101,7 @@ git config --global --edit
 ---
 
 <br>
+
 
 
 
@@ -2365,6 +2296,78 @@ $env:Path -split ';'
 
 
 
+<br>
+
+---
+
+<br>
+
+
+
+
+
+# 🐈‍ __INSTALLER GITHUB__  <a id="github"></a>
+
+
+### Installer GitHub
+```powershell
+winget install --id Git.Git -e
+```
+
+
+### Cloner un dépot
+```powershell
+git clone https://github.com/ZeryAzery/HitThePrompt.git .\Chemin_Dossier
+```
+
+
+###  pull les modifications
+Ne **jamais** re-cloner un dépot et toujours faire pull en 1er
+```powershell
+git pull
+```
+
+<br>
+
+* Clone → une seule fois par machine
+
+* Pull → récupérer les modifs
+
+* Commit + Push → synchroniser les modifs
+
+<br>
+
+**Toujours faire `git pull` avant de commencer à coder.**<br>
+Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler le pull manquant : <br>
+`! [rejected] main -> main (fetch first)`
+
+
+
+Script pour Push les modifications
+```powershell
+sl "C:\Users\t.petit\OneDrive - CYBER MANAGEMENT\Documents\HitThePrompt"
+git pull
+git add .
+git commit -m "$(Get-Date -Format 'dd/MM/yyyy')"
+git push
+```
+
+Éditer infos du compte GiHub (s'ouvre avec vi)
+```powershell
+git config --global --edit
+```
+**Commandes vi :** <br>
+`i` → mode insertion <br>
+`Esc` → retour en mode normal <br>
+`x` → supprimer un caractère <br>
+`dd` → supprime une ligne <br>
+`:wq` → sauvegarder et quitter
+
+
+
+
+
+
 
 <br>
 
@@ -2377,9 +2380,7 @@ $env:Path -split ';'
 
 
 
-
-
-# 🐍 __PYTHON__ <a id="python"></a>
+# 🐍 __INSTALLER PYTHON__ <a id="python"></a>
 
 
 ### Vérifier si Python est installé
