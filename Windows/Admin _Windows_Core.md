@@ -2502,6 +2502,7 @@ Add-Type -AssemblyName System.Web
 * `16` : longueur totale du mot de passe.
 * `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
 
+<br>
 
 ### Enregistrer ce qui se passe dans la console
 ```powershell
