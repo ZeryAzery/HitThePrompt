@@ -7,13 +7,14 @@
 
 <br>
 
-## __Sommaire__
+## __Sommaire__ <a id="sommaire"></a>
 
 - [🔰 COMMANDES DE BASE](#commandes-de-base)
 - [🔑 LICENSING MANAGEMENT TOOL](#licensing-management-tool)
 - [🍴 POINT DE RESTAURATION](#point-de-restauration)
 - [📶 CONFIGURATION RÉSEAU](#configuration-reseau)
 - [📶 WIFI](#wifi)
+- [👩‍💻 WINGET](#winget)
 - [📅 MISES À JOUR](#mises-a-jour)
 - [🏃‍♀️ GESTION DES PROCESSUS](#gestion-des-processus)
 - [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
@@ -199,6 +200,20 @@ $PSVersionTable
 winget install --id Microsoft.PowerShell --source winget
 ```
 
+
+### Installer VsCode et accepeter les les contrats de licence
+```powershell
+winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
+```
+
+[Retour au sommaire](#sommaire)
+
+
+
+
+
+
+
 <br>
 
 ---
@@ -220,6 +235,10 @@ winget install --id Microsoft.PowerShell --source winget
 | `slmgr /dli`            | Affiche un résumé de l'état de la licence                     |
 | `slmgr /upk`            | Supprime la clé de produit actuelle                           |
 
+[Retour au sommaire](#sommaire)
+
+
+
 
 
 
@@ -228,6 +247,8 @@ winget install --id Microsoft.PowerShell --source winget
 ---
 
 <br>
+
+
 
 
 
@@ -247,6 +268,7 @@ Enable-ComputerRestore -Drive "C:\"
 Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTINGS"
 ```
 
+[Retour au sommaire](#sommaire)
 
 
 
@@ -411,6 +433,9 @@ Test-NetConnection -ComputerName localhost -Port 389
 Get-NetRoute -AddressFamily IPv4
 ```
 
+[Retour au sommaire](#sommaire)
+
+
 
 
 
@@ -478,6 +503,10 @@ Start-Service lfsvc, SensorService
 # Set-Service SensorService -StartupType Automatic
 ```
 
+[Retour au sommaire](#sommaire)
+
+
+
 
 
 
@@ -492,7 +521,7 @@ Start-Service lfsvc, SensorService
 
 
 
-# __WINGET__
+# 👩‍💻 __WINGET__ <a id="winget"></a>
 
 
 ### Vérifier si WinGet est disponible
@@ -502,7 +531,14 @@ winget --version
 
 ### Installer Winget
 ```powershell
+# Download the latest App Installer (which includes WinGet)
+Invoke-WebRequest -Uri "https://aka.ms/getwinget" -OutFile "$env:TEMP\WinGet.msixbundle" -UseBasicParsing
 
+# Install the package
+Add-AppxPackage -Path "$env:TEMP\WinGet.msixbundle"
+
+# Optional: Clean up the downloaded file
+Remove-Item "$env:TEMP\WinGet.msixbundle"   
 ```
 
 ### Vérifier le nom d'un paquet
@@ -528,6 +564,8 @@ winget install Python.Python.3.13
 winget install Microsoft.WindowsTerminal
 winget install Docker.DockerDesktop
 ```
+
+[Retour au sommaire](#sommaire)
 
 
 
@@ -578,8 +616,6 @@ wmic qfe list | findstr KB4012213
 ```
 
 
-
-
 ### Vérifier la présence de mises à jours (powershell)
 
 ```powershell
@@ -610,6 +646,8 @@ Get-WindowsFeature | Where-Object {$_.Name -like 'WDS*'}
 Uninstall-WindowsFeature -Name WDS-AdminPack
 ```
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -618,6 +656,8 @@ Uninstall-WindowsFeature -Name WDS-AdminPack
 ---
 
 <br>
+
+
 
 
 
@@ -681,7 +721,7 @@ Start-Job
 & "C:\Program Files\7-Zip\7z.exe" a -tzip "Site-Malveillant.zip" "Site-Malveillant"       
 ```
 
-
+[Retour au sommaire](#sommaire)
 
 
 
@@ -760,6 +800,9 @@ wmic process where processid=13128 get executablepath
 
 Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails :
 [Télécharger Sysinternals ici](https://learn.microsoft.com/fr-fr/sysinternals/downloads/)
+
+
+[Retour au sommaire](#sommaire)
 
 
 
@@ -863,6 +906,8 @@ Le formatage ne s'effectue pas dans Diskpart
 exit
 format G: /FS:ntfs
 ```
+
+[Retour au sommaire](#sommaire)
 
 
 
@@ -976,6 +1021,10 @@ mklink /J "C:\Users\stoto\OneDrive - CYBER MANAGEMENT\Bureau\USB" "E:\"
 * Cré un dossier 'USB' sur le bureau et ne sera accessible que si 'E:\' est joignable
 * mklink va créer le dossier "USB" mais la destination doit déjà exister
 
+[Retour au sommaire](#sommaire)
+
+
+
 
 
 
@@ -984,6 +1033,9 @@ mklink /J "C:\Users\stoto\OneDrive - CYBER MANAGEMENT\Bureau\USB" "E:\"
 ---
 
 <br>
+
+
+
 
 
 
@@ -1048,6 +1100,9 @@ $nvtxtmomo >> .\Momo.txt
 <commande> | Export-Csv "\\192.168.64.60\C$\Users\toto\OneDrive - NEOPIX STUDIO\Desktop\LastLogonActiveUsers.csv" -NoTypeInformation -Encoding UTF8
 ```
 
+[Retour au sommaire](#sommaire)
+
+
 
 
 
@@ -1056,6 +1111,9 @@ $nvtxtmomo >> .\Momo.txt
 ---
 
 <br>
+
+
+
 
 
 
@@ -1084,6 +1142,7 @@ $h2 = (Get-FileHash 'C:\Users\Toto\Download\debian13.iso').hash
 $h1 -eq $h2
 ```
 
+[Retour au sommaire](#sommaire)
 
 
 
@@ -1234,6 +1293,10 @@ Select Path, Line, LineNumber |
 Format-List
 ```
 
+[Retour au sommaire](#sommaire)
+
+
+
 
 
 
@@ -1242,6 +1305,10 @@ Format-List
 ---
 
 <br>
+
+
+
+
 
 
 
@@ -1304,6 +1371,11 @@ ou
 where.exe ping
 ```
 
+[Retour au sommaire](#sommaire)
+
+
+
+
 
 
 
@@ -1312,6 +1384,7 @@ where.exe ping
 ---
 
 <br>
+
 
 
 
@@ -1343,6 +1416,10 @@ Copy-Item .\README.md -Destination 'C:\Users\toto\OneDrive - CYBER MANAGEMENT\Bu
 ```powershell
 Copy-Item \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker\PC-485\"Clé de récupération BitLocker.txt" -Destination C:\Users\admtoto\Desktop\ -Recurse -Force
 ```
+
+[Retour au sommaire](#sommaire)
+
+
 
 
 
@@ -1453,6 +1530,9 @@ Get-WinEvent -LogName Microsoft-Windows-SMBServer/Operational -MaxEvents 30
 Get-WmiObject -Class Win32_ServerConnection
 ```
 
+[Retour au sommaire](#sommaire)
+
+
 
 
 
@@ -1461,6 +1541,8 @@ Get-WmiObject -Class Win32_ServerConnection
 ---
 
 <br>
+
+
 
 
 
@@ -1509,6 +1591,8 @@ Permet aussi de copier des fichiers d'un partage SMB
 Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
 ```
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1521,8 +1605,9 @@ Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
 
 
 
-# 🧱 __PARE-FEU__  <a id="pare-feu"></a>
 
+
+# 🧱 __PARE-FEU__  <a id="pare-feu"></a>
 
 
 ### Disable all Firewall profiles (Requires Admin privileges)
@@ -1562,6 +1647,9 @@ New-NetFirewallRule -DisplayName "Autoriser ICMPv4-Out" -Protocol ICMPv4 -IcmpTy
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
 ```
 
+[Retour au sommaire](#sommaire)
+
+
 
 
 
@@ -1574,8 +1662,9 @@ New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction I
 
 
 
-# 🛡️ __DEFENDER & EVENT__   <a id="defender"></a>
 
+
+# 🛡️ __DEFENDER & EVENT__   <a id="defender"></a>
 
 
 ### Désactiver Defender, ajouter une exclusion pour "C:\Windows\Temp", exclut les extension .exe et .ps1
@@ -1713,6 +1802,8 @@ __Liste non exhaustive d'ID évènements Defender__
 
 Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.microsoft.com/fr-fr/defender-endpoint/troubleshoot-microsoft-defender-antivirus)
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1730,7 +1821,6 @@ Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.
 
 
 # 🎏 __GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS__ <a id="event"></a>
-
 
 
 ### Afficher les logs systèmes des 10 dernières minutes
@@ -1800,7 +1890,7 @@ Exemple pour 1 Go de log 'Sécurité'
 wevtutil sl Security /ms:1073741824
 ```
 
-
+[Retour au sommaire](#sommaire)
 
 
 
@@ -1855,6 +1945,9 @@ Enter-PSSession -ComputerName PC01-W10 -Credential nom_domaine\compte_admin
 ```powershell
 Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 ```
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1945,6 +2038,9 @@ Inutile de préciser le port source et inutile de préciser le port dest si port
 ```shell
 scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> toto@10.0.0.51:/home/toto/Bureau/
 ```
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -2145,6 +2241,8 @@ Select-Object Name, SamAccountName
 repadmin /syncall
 ```
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -2214,6 +2312,8 @@ ou en pwsh
 ```powershell
 Connect-VpnConnection -Name "VPN-Entreprise"
 ```
+
+[Retour au sommaire](#sommaire)
 
 
 
@@ -2286,6 +2386,8 @@ __Résumé :__
 | `Export-PfxCertificate`     | Certificat + clé privée      | `certificat.pfx` |
 
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -2307,7 +2409,10 @@ __Résumé :__
 
 Afin d'appeler les programmes depuis n'importe où sur la machine il faut ajouter le dossier du programme dans le PATH utilisateur ou système (si utile pour tous les utilisateurs)
 
-### Ajouter un dossier au PATH utilisateur (Python ici)
+<br>
+
+### Ajouter un ou plusieurs dossiers au PATH utilisateur 
+Ici les deux dossiers nécéssaires au fonctionnement de Python
 ```powershell
 [Environment]::SetEnvironmentVariable(
     "Path",
@@ -2346,11 +2451,14 @@ $env:Path -split ';'
 ```
 
 
-### Recharger le PATH dans le terminal pour qu'il prenne les modifs en compte
+### Recharger le PATH dans le terminal pour qu'il prenne en compte les modifs 
 ```powershell
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" +
             [System.Environment]::GetEnvironmentVariable("Path","User")
 ```
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -2444,6 +2552,8 @@ git config --global --edit
 `:wq` → sauvegarder et quitter
 
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -2520,7 +2630,7 @@ py test.py
 winget uninstall --id Python.Python.3.14
 ```
 
-
+[Retour au sommaire](#sommaire)
 
 
 
@@ -2590,3 +2700,5 @@ Start-Transcript
 <commands>
 Stop-Transcript
 ```
+
+[Retour au sommaire](#sommaire)
