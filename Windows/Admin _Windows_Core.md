@@ -492,6 +492,59 @@ Start-Service lfsvc, SensorService
 
 
 
+# __WINGET__
+
+
+### Vérifier si WinGet est disponible
+```powershell
+winget --version
+```
+
+### Installer Winget
+```powershell
+
+```
+
+### Vérifier le nom d'un paquet
+```powershell
+winget search vscode
+```
+```powershell
+winget search "Visual Studio Code"
+```
+
+
+### Installer VsCode 
+```powershell
+winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
+```
+
+
+### Exemple prépa machine dev :
+```powershell
+winget install Microsoft.VisualStudioCode
+winget install Git.Git
+winget install Python.Python.3.13
+winget install Microsoft.WindowsTerminal
+winget install Docker.DockerDesktop
+```
+
+
+
+
+
+---
+
+<br>
+
+---
+
+
+
+
+
+
+
 
 # 📅 __MISES À JOUR__   <a id="mises-a-jour"></a>
 
@@ -2293,6 +2346,13 @@ $env:Path -split ';'
 ```
 
 
+### Recharger le PATH dans le terminal pour qu'il prenne les modifs en compte
+```powershell
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" +
+            [System.Environment]::GetEnvironmentVariable("Path","User")
+```
+
+
 
 
 
@@ -2315,13 +2375,25 @@ winget install --id Git.Git -e
 ```
 
 
+### Ajouter Git au PATH 
+```powershell
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path","User") + ";C:\Program Files\Git\cmd",
+    "User"
+)
+```
+Rouvrir le terminal pour que le processus hérite du nouveau PATH
+
+
 ### Cloner un dépot
+Le dossier cible sera créé (exemple : $HOME\Desktop\Nom_Dossier)
 ```powershell
 git clone https://github.com/ZeryAzery/HitThePrompt.git .\Chemin_Dossier
 ```
 
 
-###  pull les modifications
+### Pull les modifications
 Ne **jamais** re-cloner un dépot et toujours faire pull en 1er
 ```powershell
 git pull
