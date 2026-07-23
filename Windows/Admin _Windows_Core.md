@@ -2386,6 +2386,14 @@ winget install --id Git.Git -e
 Rouvrir le terminal pour que le processus hérite du nouveau PATH
 
 
+
+### S'authetifier sur GitHub
+```powershell
+git config --global user.name "GitHub-UserName"
+git config --global user.email "ton.adresse@mail.com"
+```
+
+
 ### Cloner un dépot
 Le dossier cible sera créé (exemple : $HOME\Desktop\Nom_Dossier)
 ```powershell
@@ -2415,7 +2423,7 @@ Si oubli de pull, rien ne sera écrasé mais ce message apparaît pour rappeler 
 
 
 
-Script pour Push les modifications
+### Script pour Push les modifications
 ```powershell
 sl "C:\Users\t.petit\OneDrive - CYBER MANAGEMENT\Documents\HitThePrompt"
 git pull
@@ -2424,7 +2432,7 @@ git commit -m "$(Get-Date -Format 'dd/MM/yyyy')"
 git push
 ```
 
-Éditer infos du compte GiHub (s'ouvre avec vi)
+### Éditer infos du compte GiHub (s'ouvre avec vi)
 ```powershell
 git config --global --edit
 ```
