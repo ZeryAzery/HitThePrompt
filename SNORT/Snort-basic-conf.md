@@ -41,10 +41,12 @@ Vérifier le mode promiscuous
 
 ### Désactiver l'interface Offloading
 
-> [!NOTE] 
-> * L’Interface Offloading est une série d’optimisations matérielles utilisées pour décharger le traitement des paquets vers la carte réseau, ce qui peut réduire la charge CPU. Cependant, ces options peuvent causer des problèmes avec Snort, notamment en tronquant les paquets de plus de 1518 octets, ce qui empêche Snort de capturer certaines menaces de manière complète. <br>
 
-> * Nous devons désactiver les fonctionnalités __GRO__ (Generic Receive Offload) et __LRO__ (Large Receive Offload), qui sont souvent activées par défaut sur les interfaces réseau.
+Nous devons désactiver les fonctionnalités __GRO__ (Generic Receive Offload) et __LRO__ (Large Receive Offload), qui sont souvent activées par défaut sur les interfaces réseau.
+
+> [!NOTE] 
+> * L’Interface Offloading est une série d’optimisations matérielles utilisées pour décharger le traitement des paquets vers la carte réseau, ce qui peut réduire la charge CPU. Cependant, ces options peuvent causer des problèmes avec Snort, notamment en tronquant les paquets de plus de 1518 octets, ce qui empêche Snort de capturer certaines menaces de manière complète. 
+
 
 <br>
 
