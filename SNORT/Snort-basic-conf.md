@@ -64,7 +64,9 @@ ethtool -K enp0s3  gro off lro off  # désactive gro et lro
 
 ### Rendre la désactivation de l'Offloading permanent
 
-Les configurations effectuées pour le mode promiscuous et la désactivation de l’offloading peuvent être temporaires et réinitialisés après un redémarrage. Pour rendre ces modifications permanentes on créé un service. (exemple de fichier de service pour enp0s3)
+Les configurations effectuées pour le mode promiscuous et la désactivation de l’offloading peuvent être temporaires et réinitialisés après un redémarrage. <br> 
+<br>
+__Pour rendre ces modifications permanentes on créé un service.__ (exemple de fichier de service pour enp0s3)
 
 ```sh
 cat << EOF > /etc/systemd/system/promisc-mode.service
