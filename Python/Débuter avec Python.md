@@ -35,7 +35,8 @@ pip3 install lxml # parser correctement du HTML
 
 ```
 
-## Mettre à jour Python
+## Mettre à jour Pip
+PIP sert à gérer les paquets Python et leur dépendances
 ```powershell
 python.exe -m pip install --upgrade pip
 ```
@@ -181,3 +182,5 @@ for key, value in dico.items():
         else:
             print(f"{key}: {value} ")
 ```
+
+
