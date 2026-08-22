@@ -2665,6 +2665,9 @@ winget uninstall --id Python.Python.3.14
 ```powershell
 wsl --install
 ```
+```powershell
+wsl --update
+```
 ###  Redémarrer Windows pour finir l'installation
 ```powershell
 Restart-Computer
