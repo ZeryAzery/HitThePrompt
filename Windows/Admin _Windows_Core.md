@@ -38,6 +38,7 @@
 - [✅ VARIABLE D'ENVIRONNEMENT DU PATH](#path)
 - [🐈‍ INSTALLER GITHUB](#github)
 - [🐍 INSTALLER PYTHON](#python)
+- [🐋 INSTALLER DOCKER](#docker)
 - [🟩 DIVERS](#divers)
 
 
@@ -121,11 +122,16 @@ Get-CimInstance -ClassName Win32_BIOS
 ```
 
 
-
 ### Afficher les infos de la machine
 ```powershell
 Get-computerInfo 
 ```	
+
+
+### Afficher le nombre de coeurs et de threads de la machine
+```powershell
+Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors
+```
 
 
 ### Affichera juste le nom de la machine
@@ -2644,6 +2650,52 @@ winget uninstall --id Python.Python.3.14
 ---
 
 <br>
+
+
+
+
+
+
+
+# 🐋 __INSTALLER DOCKER DESKTOP__ <a id="docker"></a>
+
+
+
+### Installer WSL
+```powershell
+wsl --install
+```
+###  Redémarrer Windows pour finir l'installation
+```powershell
+Restart-Computer
+```
+
+### Installer Docker Desktop
+```powershell
+winget install --id Docker.DockerDesktop -e
+```
+Le `-e` signifie `--exact` et permet de demander explicitement le nom d'un packet
+
+
+### Vérifier l'installation
+```powershell
+docker --version
+docker run hello-world
+```
+
+
+
+
+
+
+
+
+<br>
+
+---
+
+<br>
+
 
 
 
