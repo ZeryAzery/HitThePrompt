@@ -38,6 +38,7 @@
 - [✅ VARIABLE D'ENVIRONNEMENT DU PATH](#path)
 - [🐈‍ INSTALLER GITHUB](#github)
 - [🐍 INSTALLER PYTHON](#python)
+- [🐧 INSTALLER WSL](#wsl)
 - [🐋 INSTALLER DOCKER](#docker)
 - [🟩 DIVERS](#divers)
 
@@ -2655,11 +2656,104 @@ winget uninstall --id Python.Python.3.14
 
 
 
+# 🐧 __INSTALLER WSL__ <a id="wsl"></a>
+
+
+
+
+### Afficher les distributions disponibles à l'installation :
+```powershell
+wsl --list --online
+```
+```powershell
+wsl -l -o
+```
+
+### Afficher les distributions déjà installées :
+```powershell
+wsl --list --verbose
+```
+```powershell
+wsl -l -v
+```
+
+
+### Installer une distribution WSL précise :
+```powershell
+wsl --install -d <Distribution>
+```
+Exemple avec Debian :
+```powershell
+wsl --install -d Debian
+```
+
+
+
+### Supprimer complètement une distribution WSL
+```powershell
+wsl --unregister <Distribution>
+```
+Exemple :
+```powershell
+wsl --unregister Ubuntu
+```
+
+> `wsl --unregister` supprime définitivement la distribution ainsi que toutes ses données, fichiers et configurations.
+
+### Commandes utiles
+
+Arrêter toutes les distributions WSL :
+```powershell
+wsl --shutdown
+```
+
+Lancer une distribution précise :
+```powershell
+wsl -d <Distribution>
+```
+
+Afficher la version de WSL :
+```powershell
+wsl --version
+```
+
+Mettre WSL à jour :
+```powershell
+wsl --update
+```
+
+
+Afficher le chemin d'installation des distros WSL
+```powershell
+Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss\*" |
+Select-Object DistributionName, BasePath
+```
+
+
+[Retour au sommaire](#sommaire)
+
+
+
+
+
+
+<br>
+
+---
+
+<br>
+
+
+
+
+
 
 
 # 🐋 __INSTALLER DOCKER DESKTOP__ <a id="docker"></a>
 
 
+
+Docker Desktop → fournit Docker Engine + Docker Compose + intégration WSL 2.
 
 ### Installer WSL
 ```powershell
