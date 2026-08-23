@@ -2688,6 +2688,11 @@ wsl --install -d Debian
 ```
 
 
+### Lancer une distribution précise :
+```powershell
+wsl -d <Distribution>
+```
+
 
 ### Supprimer complètement une distribution WSL
 ```powershell
@@ -2707,10 +2712,6 @@ Arrêter toutes les distributions WSL :
 wsl --shutdown
 ```
 
-Lancer une distribution précise :
-```powershell
-wsl -d <Distribution>
-```
 
 Afficher la version de WSL :
 ```powershell
@@ -2754,6 +2755,14 @@ Select-Object DistributionName, BasePath
 
 
 Docker Desktop → fournit Docker Engine + Docker Compose + intégration WSL 2.
+activer Docker dans Debian
+
+### Intégrer WSL dans Docker Desktop :
+
+`Settings → Resources → WSL Integration` puis choisir la distro à intégrer. <br>
+Puis vérifier dans la disto WSL avec : `docker --version` et `docker compose version`
+
+
 
 ### Installer WSL
 ```powershell
