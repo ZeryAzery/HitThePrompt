@@ -618,7 +618,6 @@ Le fichier apparaîtra dans le dossier en cours
 winget export -o <nom_fichier>.json
 ```
 
-toto
 
 #### Réinstaller les logiciels sur une autre machine
 ```powershell
