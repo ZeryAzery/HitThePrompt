@@ -623,7 +623,7 @@ winget install --id 7zip.7zip --scope user
 
 ### Réinstaller les logiciels d'une machine sur une autre machine
 
-#### Exporter une lsite des logiciels
+#### Exporter une liste des logiciels
 Le fichier apparaîtra dans le dossier en cours
 ```powershell
 winget export -o <nom_fichier>.json
