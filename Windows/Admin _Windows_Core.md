@@ -531,10 +531,18 @@ Start-Service lfsvc, SensorService
 # 👩‍💻 __WINGET__ <a id="winget"></a>
 
 
+
+
+
+
+
 ### Vérifier si WinGet est disponible
 ```powershell
 winget --version
 ```
+
+<details>
+<summary>Cliquer ici si besoin d'insatller Winget</summary>
 
 ### Installer Winget
 ```powershell
@@ -548,6 +556,8 @@ Add-AppxPackage -Path "$env:TEMP\WinGet.msixbundle"
 Remove-Item "$env:TEMP\WinGet.msixbundle"   
 ```
 
+</details>
+
 
 ### Vérifier le nom d'un paquet
 ```powershell
@@ -557,12 +567,10 @@ winget search vscode
 winget search "Visual Studio Code"
 ```
 
-
 ### Installer VsCode en arrière plan 
 ```powershell
 winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
 ```
-
 
 ###  Vérifier si un paquet est  bien installé 
 ```powershell
@@ -573,7 +581,6 @@ winget list "Visual Studio Code"
 ```powershell
 winget list 
 ```
-
 
 ### Désinstaller un paquet
 ```powershell
@@ -586,8 +593,9 @@ winget uninstall "Visual Studio Code" -h --disable-interactivity
 ```
 Certains logiciels afficheront quand même une fenêtre de désinstallation (ex: firefox)
 
+<br>
 
-### Afficher toutes version disponible pour un paquet
+### Afficher toutes les versions disponible pour un paquet
 ```powershell
 winget show -q Mozilla.Firefox.ESR.fr --versions
 ```
@@ -596,9 +604,10 @@ winget show -q Mozilla.Firefox.ESR.fr --versions
 ```powershell
 winget install --id Mozilla.Firefox.ESR.fr -v 140.10.0 -h -e
 ```
-`-h` →  Silencieux (hidden)
+`-h` →  Silencieux (hidden) <br>
 `-e` → S'assurer que ce paquet soit explicitement prit en compte. (exact)
 
+<br>
 
 ### Choix du scope d'installation
 Pour toute la machine
@@ -609,6 +618,8 @@ Pour l'utilisateur en cours
 ```powershell
 winget install --id 7zip.7zip --scope user
 ```
+
+<br>
 
 ### Réinstaller les logiciels d'une machine sur une autre machine
 
@@ -628,12 +639,14 @@ Les logiciels réinstallés seront mis à jour automatiquement (sauf précision 
 > [!NOTE]
 > Seuls les logiciels présents dans les dépots auxquels winget a accès (Winget & MSStore) seront réinstallés
 
+<br>
 
 ### Mettre à jour tous les logiciels de la machine (si dispo dans les dépots)
 ```powershell
-winget upgrade --all --accept-package-agreements --include-unknown --disable-interactivity -- accept-source-agreements --force
+winget upgrade --all --accept-package-agreements --include-unknown --disable-interactivity --accept-source-agreements --force
 ```
 
+<br>
 
 ### Exemple d'un script simple pour préparer une machine
 ```powershell
@@ -643,10 +656,15 @@ winget install --id Python.Python.3.13 -e -h --scope "machine"
 winget install --id Microsoft.WindowsTerminal -e -h --scope "machine"
 winget install --id Docker.DockerDesktop -e -h --scope "machine"
 ```
+
+<br>
+
 > [!TIP]
-> `Winget-AutoUpdate` (dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black kiste pour choisir les applis à mettre à jour ou non.
+> `Winget-AutoUpdate` (dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black liste pour choisir les applis à mettre à jour ou non.
 
 [Retour au sommaire](#sommaire)
+
+
 
 
 
