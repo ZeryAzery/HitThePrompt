@@ -605,16 +605,16 @@ winget show -q Mozilla.Firefox.ESR.fr --versions
 winget install --id Mozilla.Firefox.ESR.fr -v 140.10.0 -h -e
 ```
 `-h` →  Silencieux (hidden) <br>
-`-e` → S'assurer que ce paquet soit explicitement prit en compte. (exact)
+`-e` → S'assurer que ce paquet soit explicitement pris en compte. (exact)
 
 <br>
 
 ### Choix du scope d'installation
-Pour toute la machine
+- Pour toute la machine
 ```powershell
 winget install --id 7zip.7zip --scope machine
 ```
-Pour l'utilisateur en cours
+- Pour l'utilisateur en cours
 ```powershell
 winget install --id 7zip.7zip --scope user
 ```
