@@ -643,7 +643,7 @@ winget install --id Python.Python.3.13 -e -h --scope "machine"
 winget install --id Microsoft.WindowsTerminal -e -h --scope "machine"
 winget install --id Docker.DockerDesktop -e -h --scope "machine"
 ```
-> [!NOTE]
+> [!TIP]
 > `Winget-AutoUpdate` (dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black kiste pour choisir les applis à mettre à jour ou non.
 
 [Retour au sommaire](#sommaire)
