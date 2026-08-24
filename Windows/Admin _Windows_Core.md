@@ -634,14 +634,16 @@ winget upgrade --all --accept-package-agreements --include-unknown --disable-int
 ```
 
 
-### Exemple prépa machine dev :
+### Exemple d'un script simple pour préparer une machine
 ```powershell
-winget install Microsoft.VisualStudioCode
-winget install Git.Git
-winget install Python.Python.3.13
-winget install Microsoft.WindowsTerminal
-winget install Docker.DockerDesktop
+winget install --id Microsoft.VisualStudioCode -e -h --scope "machine"
+winget install --id Git.Git -e -h --scope "machine"
+winget install --id Python.Python.3.13 -e -h --scope "machine"
+winget install --id Microsoft.WindowsTerminal -e -h --scope "machine"
+winget install --id Docker.DockerDesktop -e -h --scope "machine"
 ```
+> [!NOTE]
+> `Winget-AutoUpdate` (dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black kiste pour choisir les applis à mettre à jour ou non.
 
 [Retour au sommaire](#sommaire)
 
