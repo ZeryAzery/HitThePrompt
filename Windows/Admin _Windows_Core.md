@@ -548,6 +548,7 @@ Add-AppxPackage -Path "$env:TEMP\WinGet.msixbundle"
 Remove-Item "$env:TEMP\WinGet.msixbundle"   
 ```
 
+
 ### Vérifier le nom d'un paquet
 ```powershell
 winget search vscode
@@ -557,9 +558,79 @@ winget search "Visual Studio Code"
 ```
 
 
-### Installer VsCode 
+### Installer VsCode en arrière plan 
 ```powershell
 winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
+```
+
+
+###  Vérifier si un paquet est  bien installé 
+```powershell
+winget list "Visual Studio Code"
+```
+
+### Lister l'ensemble des applis installées
+```powershell
+winget list 
+```
+
+
+### Désinstaller un paquet
+```powershell
+winget uninstall "Visual Studio Code"
+```
+
+### Désinstaller un paquet silencieusement 
+```powershell
+winget uninstall "Visual Studio Code" -h --disable-interactivity
+```
+Certains logiciels afficheront quand même une fenêtre de désinstallation (ex: firefox)
+
+
+### Afficher toutes version disponible pour un paquet
+```powershell
+winget show -q Mozilla.Firefox.ESR.fr --versions
+```
+
+### Installer une version précise 
+```powershell
+winget install --id Mozilla.Firefox.ESR.fr -v 140.10.0 -h -e
+```
+`-h` →  Silencieux (hidden)
+`-e` → S'assurer que ce paquet soit explicitement prit en compte. (exact)
+
+
+### Choix du scope d'installation
+Pour toute la machine
+```powershell
+winget install --id 7zip.7zip --scope machine
+```
+Pour l'utilisateur en cours
+```powershell
+winget install --id 7zip.7zip --scope user
+```
+
+### Réinstaller les logiciels d'une machine sur une autre machine
+
+#### Exporter une lsite des logiciels
+Le fichier apparaîtra dans le dossier en cours
+```powershell
+winget export -o <nom_fichier>.json
+```
+
+#### Réinstaller les logiciels sur une autre machine
+```powershell
+winget import -o <nom_fichier>.json
+```
+Les logiciels réinstallés seront mis à jour automatiquement (sauf précision de la version)
+
+> [!NOTE]
+> Seuls les logiciels présents dans les dépots auxquels winget a accès (Winget & MSStore) seront réinstallés
+
+
+### Mettre à jour tous les logiciels de la machine (si dispo dans les dépots)
+```powershell
+winget upgrade --all --accept-package-agreements --include-unknown --disable-interactivity -- accept-source-agreements --force
 ```
 
 
@@ -2760,7 +2831,7 @@ activer Docker dans Debian
 ### Intégrer WSL dans Docker Desktop :
 
 `Settings → Resources → WSL Integration` puis choisir la distro à intégrer. <br>
-Puis vérifier dans la disto WSL avec : `docker --version` et `docker compose version`
+Puis vérifier dans la distro WSL avec : `docker --version` et `docker compose version`
 
 
 
