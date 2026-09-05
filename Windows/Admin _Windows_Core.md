@@ -623,14 +623,14 @@ winget install --id 7zip.7zip --scope user
 
 ### Réinstaller les logiciels d'une machine sur une autre machine
 
-#### Exporter une liste des logiciels
+1) Exporter une liste des logiciels
 Le fichier apparaîtra dans le dossier en cours
 ```powershell
 winget export -o <nom_fichier>.json
 ```
 
 
-#### Réinstaller les logiciels sur une autre machine
+2)  Réinstaller les logiciels sur une autre machine
 ```powershell
 winget import -o <nom_fichier>.json
 ```
@@ -1944,29 +1944,42 @@ Exemple de construction d'une requête avec un HasTable :
 ### Filtrage des niveaux de criticités
 
 
-| Icône               | Niveau        | Level |
-| ------------------- | ------------- | ----: |
-| 🔴 Croix rouge      | Erreur        |     2 |
-| ⚠️ Triangle jaune   | Avertissement |     3 |
-| ❌ Rond rouge avec ! | Critique      |     1 |
-| ℹ️ Bleu             | Information   |     4 |
-| Verbose             | Verbose       |     5 |
+| **Icône**                              | **Niveau**        | **Level** |
+| -------------------------------------- | ----------------- | --------: |
+| ❌ **Cercle rouge avec croix blanche** | **Critique**      |     **1** |
+| 🔴 **Cercle rouge avec !**             | **Erreur**        |     **2** |
+| ⚠️ **Triangle jaune avec !**           | **Avertissement** |     **3** |
+| ℹ️ **Cercle bleu avec i**              | **Information**   |     **4** |
+| ⚪ **Cercle blanc avec coche**         | **Verbose**       |     **5** |
+
 
 <br>
 
-Exemple pour filtrer les logs systèmes de niveau critique
+### Exemple pour filtrer les logs systèmes de niveau critique
 ```powershell
 Get-WinEvent -FilterHashtable @{
     LogName = 'System'
     Level = 1
 }
 ```
-Filtrer sur les 10 dernières minutes level 1, 2 et 3
+
+### Filtrer les logs system des 10 dernières minutes level 1, 2 et 3
 ```powershell
 Get-WinEvent -FilterHashtable @{LogName = 'System';Level = 1,2,3;StartTime=(Get-Date).AddMinutes(-10)} | fl
 ```
 
+### Filtrer les logs de redémarrages inattendus d'un jour précis
+```powershell
+Get-WinEvent -FilterHashtable @{
+    LogName = 'System'
+    StartTime = (Get-Date).AddDays(-12)
+    EndTime = (Get-Date).AddDays(-11)
+    Level = 1
+    ID = 41
+}
+```
 
+<br>
 
 ### Afficher si anciens logs écrasés, maximum size logs (poids) et nombre de logs gardés ()
 ```powershell
