@@ -933,6 +933,12 @@ Get-Disk
 ```
 
 
+### Afficher les disques, partitions et volumes
+```powershell
+Get-Disk | Get-Partition | Get-Volume
+```
+
+
 ### Afficher le BusType
 ```powershell
 Get-Disk | Select-Object Number, BusType, FriendlyName
