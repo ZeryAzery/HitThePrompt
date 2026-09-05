@@ -1994,7 +1994,6 @@ Get-WinEvent -FilterHashtable @{
 ```powershell
 Get-WinEvent -FilterHashtable @{
     LogName      = 'System'
-    Level        = 1,2,3
     ProviderName = 'Microsoft-Windows-DNS-Client'
     StartTime = (Get-Date).AddDays(-2)
 }
