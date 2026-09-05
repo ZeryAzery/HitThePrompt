@@ -2966,7 +2966,7 @@ whoami /priv
 <br>
 
 
-### Générer un mot de passe avec Powershell ou une chaîne de caractère aléatoire
+### Générer un mot de passe ou une chaîne de caractère aléatoire
 
 ```powershell
 Add-Type -AssemblyName System.Web
