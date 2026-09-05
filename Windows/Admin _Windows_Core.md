@@ -1921,15 +1921,8 @@ Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.
 
 # 🎏 __GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS__ <a id="event"></a>
 
-
-### Afficher les logs systèmes des 10 dernières minutes
-```powershell
-Get-WinEvent -FilterHashtable @{LogName='system';StartTime=(Get-Date).AddMinutes(-10)}
-```
-
-<br>
-
-Exemple de construction d'une requête avec un HasTable :
+###  Construire une requête avec `Get-WinEvent` et un HasTable (paramètre `-FilterHashtable`)
+Exemple :
 ```powershell
 @{
     LogName = 'System'
@@ -1955,7 +1948,14 @@ Exemple de construction d'une requête avec un HasTable :
 
 <br>
 
-### Exemple pour filtrer les logs systèmes de niveau critique
+
+### Afficher les logs systèmes des 10 dernières minutes
+```powershell
+Get-WinEvent -FilterHashtable @{LogName='system';StartTime=(Get-Date).AddMinutes(-10)}
+```
+
+
+### Filtrer les logs systèmes de niveau critique
 ```powershell
 Get-WinEvent -FilterHashtable @{
     LogName = 'System'
@@ -1963,7 +1963,7 @@ Get-WinEvent -FilterHashtable @{
 }
 ```
 
-### Filtrer les logs system des 10 dernières minutes level 1, 2 et 3
+### Filtrer les logs systèmes des 10 dernières minutes level 1, 2 et 3
 ```powershell
 Get-WinEvent -FilterHashtable @{LogName = 'System';Level = 1,2,3;StartTime=(Get-Date).AddMinutes(-10)} | fl
 ```
