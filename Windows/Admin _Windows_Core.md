@@ -2153,7 +2153,7 @@ ssh -b 192.168.51.245 admin@192.168.51.253
 ```
 
 ### Forcer SSH à utiliser SHA1 (n'est plus sécurisé aujourd'hui)
-Sur certains vieux endpoint il faut se connecter de cette façon...
+Sur certains vieux switchs on peut se connecter de cette façon...
 ```bat
 ssh -b 192.168.64.60 -oKexAlgorithms=+diffie-hellman-group14-sha1 admin@192.168.51.254
 ```
@@ -2164,7 +2164,7 @@ ssh -b 192.168.64.60 -oKexAlgorithms=+diffie-hellman-group14-sha1 admin@192.168.
 ssh-keygen.exe -t rsa -b 4096
 ```
 
-### Transférer un fichier via SCP vers une machine Linux
+### Transférer un fichier avec SCP vers une machine Linux
 
 Inutile de préciser le port source et inutile de préciser le port dest si port 22 (SSH actif sur machine Linux évidemment)
 ```shell
