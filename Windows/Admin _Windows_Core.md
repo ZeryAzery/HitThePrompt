@@ -1934,6 +1934,17 @@ Exemple :
 }
 ```
 
+
+**LogName** = où l'événement est enregistré
+
+**ProviderName** = qui a généré l'événement
+
+
+### Afficher les providers de system 
+```powershell
+Get-WinEvent -LogName System | Select-Object -ExpandProperty ProviderName -Unique
+```
+
 ### Filtrage des niveaux de criticités
 
 
@@ -1976,6 +1987,16 @@ Get-WinEvent -FilterHashtable @{
     EndTime = (Get-Date).AddDays(-11)
     Level = 1
     ID = 41
+}
+```
+
+### Afficher les erreurs DNS des 2 derniers jours
+```powershell
+Get-WinEvent -FilterHashtable @{
+    LogName      = 'System'
+    Level        = 1,2,3
+    ProviderName = 'Microsoft-Windows-DNS-Client'
+    StartTime = (Get-Date).AddDays(-2)
 }
 ```
 
