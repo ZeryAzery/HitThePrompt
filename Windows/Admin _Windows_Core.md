@@ -303,12 +303,14 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 
 Le profil powershell consiste en un fichier .ps1 qui s'exécute à l'ouverture du terminal. Il permet d'y ajouter des alias, de personnaliser les couleurs du texte, de pouvoir appeler des fonctions rapidement et beaucoup d'autres chose permettant la personnalisation de votre environnement. (C'est un peu l'équivalent du .bashrc sur Linux)
 
+Il faudra prêter attention à la politique d'exécution des scripts pour éviter les erreurs dans le terminal.
+
 ### Afficher le chemin du fichier 
 ```powershell
 $PROFILE
 ```
 
-![NOTE]
+[!NOTE]
 > Bien que la variable $PROFILE existe le fichier doit être créé car il n'est pas présent nativement sur le système. <br>
 > Il est possible de créer plusieurs fichiers de profils (utilisateur en cours, tous les utilisateurs... Utiliser cette commande pour voir les chemins `$PROFILE | Select-Object *`)
 
@@ -333,6 +335,8 @@ Set-Alias ll Get-ChildItem
 ```powershell
 . $PROFILE
 ```
+
+
 
 
 
