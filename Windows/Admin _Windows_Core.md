@@ -310,7 +310,7 @@ Il faudra prêter attention à la politique d'exécution des scripts pour évite
 $PROFILE
 ```
 
-[!NOTE]
+> [!NOTE] 
 > Bien que la variable $PROFILE existe le fichier doit être créé car il n'est pas présent nativement sur le système. <br>
 > Il est possible de créer plusieurs fichiers de profils (utilisateur en cours, tous les utilisateurs... Utiliser cette commande pour voir les chemins `$PROFILE | Select-Object *`)
 
@@ -330,6 +330,15 @@ Ouvrir le fichier puis enregistrer
 ```powershell
 Set-Alias ll Get-ChildItem
 ```
+
+### Afficher les paramètres d'une commande
+Pour afficher les paramètres d'une commande, il est possible d'utiliser `[Ctrl+Espace]` après avoir fait un `-` <br>
+Il est possible de mettre cette fonction sur le bouton TAB et de l'enregistrer dans le fichier du prolfil <br>
+
+```powershell
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+```
+La fonction d'autocomplétion permet désormais d'afficher les choix disponible
 
 ### Recharger le fichier pour que les modificatons soient prises en compte
 ```powershell
