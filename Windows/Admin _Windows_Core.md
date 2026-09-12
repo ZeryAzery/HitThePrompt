@@ -2043,6 +2043,16 @@ Get-WinEvent -LogName System | Select-Object -ExpandProperty ProviderName -Uniqu
 <br>
 
 
+### Voir tous les journaux disponibles
+```powershell
+Get-WinEvent -ListLog *
+```
+### Rechercher un journal particulier
+```powershell
+Get-WinEvent -ListLog * | Where-Object LogName -like "*NTLM*"
+```
+
+
 ### Afficher les logs systèmes des 10 dernières minutes
 ```powershell
 Get-WinEvent -FilterHashtable @{LogName='system';StartTime=(Get-Date).AddMinutes(-10)}
@@ -2084,7 +2094,8 @@ Get-WinEvent -FilterHashtable @{
 
 <br>
 
-### Afficher si anciens logs écrasés, maximum size logs (poids) et nombre de logs gardés ()
+### Afficher les informations sur le journal lui-même 
+(taille maximale, mode de rétention, nombre d'événements, emplacement...)
 ```powershell
 Get-WinEvent -ListLog "Microsoft-Windows-NTLM/Operational"
 ```
@@ -2096,7 +2107,7 @@ Get-WinEvent -ListLog "Microsoft-Windows-NTLM/Operational"
 <br>
 
 ### Augmenter la taille de stockage des logs
-Exemple pour 256 Mo de logs NTLM
+Exemple pour 256 Mo de logs NTLM (valeurs en octets)
 ```bat
 wevtutil sl "Microsoft-Windows-NTLM/Operational" /ms:268435456
 ```
@@ -2104,6 +2115,17 @@ Exemple pour 1 Go de log 'Sécurité'
 ```bat
 wevtutil sl Security /ms:1073741824
 ```
+
+<br>
+
+> [!IMPORTANT]  
+> Pour augmenter la durée de rétention des journaux il faut augmenter la valeur de stockage par défaut. <br>
+
+> Voici les recommandations à appliquer pour les 4 principaux journaux de Windows Server :
+    > - Application : 33554432 (32 768 Ko)
+    > - Système : 33554432 (32 768 Ko)
+    > - Sécurité : 201326592 (196 608 Ko)
+    > - Installation : 33554432 (32 768 Ko)
 
 [Retour au sommaire](#sommaire)
 
