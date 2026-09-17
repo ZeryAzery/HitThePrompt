@@ -3230,7 +3230,7 @@ Stop-Transcript
 
 Pour plus de détails consulter la [page microsoft](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file)
 
-
+[Retour au sommaire](#sommaire)
 
 
 
