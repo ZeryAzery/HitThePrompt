@@ -1,11 +1,15 @@
-# Debian commands
+# __DEBIAN COMMANDS__
 
+
+
+
+## Sommaire <a id="sommaire"></a>
 
 - [🔰 COMMANDES DE BASE](#commandes-de-base)
 - [📶 RÉSEAU](#reseau)
 - [📁 MANIPULATION DE FICHIERS](#manipulation-de-fichiers)
 - [📇 SAMBA](#samba)
-- [🪝 GREP](#grep)
+- [⛳ GREP](#grep)
 - [🔍 FIND](#find)
 - [👮‍♀️ GESTION DES PERMISSIONS](#gestion-des-permissions)
 - [📇 GESTION DES PACKAGES](#gestion-des-packages)
@@ -150,7 +154,7 @@ alias ll="ls -la | awk 'NR==1 {print; next} {printf \"%s | %s | %s | %s  %2s %3s
 ```
 Je précise que ça n'a surement pas été créé à l'aide de ChatGPT (ouhhh que non)
 
-
+[Retour au sommaire](#sommaire)
 
 
 
@@ -243,11 +247,15 @@ lsof -i -P -n | grep LISTEN
 /etc/resolv.conf
 ```
 
+[Retour au sommaire](#sommaire)
+
+
 
 
 ---
 
 <br>
+
 
 
 
@@ -364,6 +372,7 @@ scp -r "C:\Users\Toto\Desktop\img site\section-1-bg.jpg" root@192.168.0.20:/var/
 scp -P 6666 aliasll.sh Toto@10.0.0.6:/home/Toto
 ```
 
+[Retour au sommaire](#sommaire)
 
 
 
@@ -486,6 +495,9 @@ net use \\10.0.0.3\writeable
 sudo smbstatus
 ```
 
+[Retour au sommaire](#sommaire)
+
+
 
 
 
@@ -496,7 +508,8 @@ sudo smbstatus
 
 
 
-# 🪝 GREP <a id="grep"></a>
+
+# ⛳ GREP <a id="grep"></a>
 
 
 ### Rechercher un mot exacte
@@ -523,6 +536,9 @@ grep -qxF "alias ll='ls -la'" ~/.bashrc
 ```sh
 grep -Ei "error|fail|denied" /etc/server.log
 ```
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -551,6 +567,9 @@ locate ls
 ```sh
 where kerbrute
 ```
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -607,6 +626,8 @@ chmod +t Archives
 chmod -t Archives 
 ```
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -653,6 +674,9 @@ apt list --installed | grep nom_paquet
 apt remove --purge nom_package
 apt autoremove --purge nom_package
 ```
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -730,8 +754,6 @@ PasswordAuthentication no
 PubkeyAuthentication yes
 ```
 
-
-
 ```bash	
 systemctl restart sshd
 ```
@@ -742,6 +764,8 @@ systemctl restart sshd
 ```bash	
 ssh -p 4444 Toto@192.168.100.2
 ```
+
+[Retour au sommaire](#sommaire)
 
 
 
@@ -821,6 +845,8 @@ service isc-dhcp-server restart
 cat /var/lib/dhcp/dhcpd.leases
 ```
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -843,10 +869,10 @@ ls /etc/bind
 ```
 
 
-* __Il y a 3 fichiers à configurer pour le dns :__
-	* named.conf.local
-	* db.127
-	* db.local
+__Il y a 3 fichiers à configurer pour le dns :__
+* named.conf.local
+* db.127
+* db.local
 
 
 
@@ -908,6 +934,9 @@ nslookup + IP # (! Sur nslookup ne pas taper ctrl+C mais exit !)
 > [!NOTE] 
 > Chaque serveur DNS à sa propre zone et s'il n'a pas l'adresse dans sa base il ira chercher dans une base supérieure
 Il y a 13 serveurs racines dans le monde (principalement aux États Unis)
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -997,6 +1026,8 @@ chsh -s /bin/bash
 ```
 Puis se déco ou redémarrer après ou alors faire la commande `source ~/.bashrc`
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1082,6 +1113,8 @@ sudo chgrp admins credentials.txt
 sudo chgrp -R /chemin/vers/repertoire
 ```
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1143,6 +1176,9 @@ tail /var/log/fail2ban.log
 ```bash
 tail -f /var/log/fail2ban.log
 ```
+
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1215,6 +1251,7 @@ ufw enable
 ufw status verbose
 ```
 
+[Retour au sommaire](#sommaire)
 
 
 
@@ -1277,6 +1314,8 @@ crontab -e
 > Si une valeur est entrée dans la colonne "Jour du mois" (3ème colonne) et une autre dans "Jour de la semaine" (5ème colonne), cron exécute la tâche si l'une des deux conditions est remplie.
 Ex : 0 3 1 * 5 → Exécuté le 1er du mois et tous les vendredis.
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1329,6 +1368,7 @@ sudo chmod -R 755 /var/www/seemyresume
 certbot --apache -d mon-site.fr
 ```
 
+[Retour au sommaire](#sommaire)
 
 
 
@@ -1416,6 +1456,8 @@ echo 1 > /proc/sys/vm/swappiness
 * 60 = valeur par défaut (utilisation modérée)
 * 1 = n’utiliser le swap qu’en dernier recours.
 
+[Retour au sommaire](#sommaire)
+
 
 
 
@@ -1496,6 +1538,7 @@ iscsiadm -m node --op update -n node.startup -v automatic
 systemctl enable open-iscsi
 ```
 
+[Retour au sommaire](#sommaire)
 
 
 
@@ -1611,6 +1654,12 @@ Reconvertir le base64 en binaire si besoin
 base64 -d message_chiffre.b64 > message_chiffre.bin
 ```
 
+[Retour au sommaire](#sommaire)
+
+
+
+
+
 
 
 ---
@@ -1639,4 +1688,6 @@ apt install cmatrix
 ```sh
 man (ls /usr/bin /usr/sbin | shuf -n1)
 ```
+
+[Retour au sommaire](#sommaire)
 
