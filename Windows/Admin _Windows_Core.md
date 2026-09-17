@@ -43,6 +43,7 @@
 - [🐍 INSTALLER PYTHON](#python)
 - [🐧 INSTALLER WSL](#wsl)
 - [🐋 INSTALLER DOCKER](#docker)
+- [🥊 SANDBOX](#sandbox)
 - [🟩 DIVERS](#divers)
 
 
@@ -3032,6 +3033,216 @@ docker run hello-world
 
 <br>
 
+
+
+
+
+
+# 🥊 __SANDBOX__ <a id="sandbox"></a>
+
+
+La SandBox offre un environnement léger et éphémère, une fois fermée tout est supprimé sans laisser de trace sur le système.
+
+__La SandBox permet par exemple :__ 
+- Ouvrir des fichiers suspects dans un environnement temporaire isolé.
+- Tester des scripts
+- Tester un logiciel avant de l'installer sur son système
+
+__Prérequis :__
+- Windows Sandbox est disponible sur Windows 10 (à aprtir de la version 1903) et 11 Pro/Enterprise (pas Home)
+- Architecture x64
+- 4 Go de RAM (8 Go recommandé)
+- 2 coeurs minimum
+- 1 Go de stockage minimum
+- Activer dans le BIOS/UEFI Intel-VT ou AMD-V
+
+__Détails techniques :__
+- La sandbox repose une technologie de conteneurisation de Windows, (différent des machines virtuelles)
+- Utilise les processus `WindowsSandbox.exe` (~ 160 Mo RAM) et `VmmemWindowsSandbox` (1 à 1,5 Go RAM), exécuté avec un compte système isolé.
+- Le compte sur l'environnement Bac à sable est nommé `WDAGUtilityAccount`.
+
+
+Il possible de redémarrer de la SandBox sans perdre les données. (Ne fonctionne pas sur Windows 10) <br>
+
+<br>
+
+### Installation (PowerShell administrateur)
+- Sur powershell 7 utiliser l'outils natif DISM (ou importer le module)
+```bat
+dism /online /enable-feature /featurename:Containers-DisposableClientVM /all
+```
+
+- Sur powershell 5 (Si powershell 7 importer le module DISM avant)
+```powershell
+# Import-Module DISM -UseWindowsPowerShell
+Enable-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM" -All -Online
+```
+
+#### Puis redémarre Windows :
+```powershell
+Restart-Computer
+```
+
+#### Après redémarrage lancer la Sandbox avec :
+```powershell
+Start-Process "WindowsSandbox.exe"
+```
+
+#### Vérifier que la fonctionnalité est installée
+```powershell
+Get-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM"
+```
+
+On doit obtenir : __State : Enabled__
+
+<br>
+
+### Personnaliser Windows Sandbox avec des fichiers .WSB
+
+Les fichier `.wsb` permettent par exemple de monter un dossier précis d'un disque externe ou d'un dossier avec la possiblité de les mettre en lecture seule,
+
+| Fonction | Configuration |
+|---|---|
+| Désactiver le réseau | `<Networking>Disable</Networking>` |
+| Monter un dossier local | `<MappedFolders>`<br>`<MappedFolder>`<br>`<HostFolder>C:\SANDBOX</HostFolder>`<br>`<ReadOnly>true</ReadOnly>`<br>`</MappedFolder>`<br>`</MappedFolders>` |
+| Exécuter une commande au démarrage | `<LogonCommand><Command>...</Command></LogonCommand>` |
+| Désactiver le GPU virtualisé | `<VGpu>Disable</VGpu>` |
+| Activer le mode client protégé (isolation renforcée) | `<ProtectedClient>Enable</ProtectedClient>` |
+| Activer la redirection des imprimantes de l'hôte vers la sandbox | `<PrinterRedirection>Enable</PrinterRedirection>` |
+| Spécifier la quantité de RAM disponible pour la sandbox (en MB) | `<MemoryInMB>4096</MemoryInMB>` |
+
+<br>
+
+### Monter un dossier d'un disque externe en lecture seule
+
+⚠️ Il est conseillé de ne pas donner un accès complet en écriture si certains fichiers sont suspects.
+
+Exemple, si le disque externe est E: et que des fichiers suspects sont dans : <br>
+E:\FichiersSuspects
+
+Créer un fichier .wsb :
+```powershell
+@"
+<Configuration>
+    <Networking>Enable</Networking>
+    <MappedFolders>
+        <MappedFolder>
+            <HostFolder>E:\FichiersSuspects</HostFolder>
+            <SandboxFolder>C:\Suspects</SandboxFolder>
+            <ReadOnly>true</ReadOnly>
+        </MappedFolder>
+    </MappedFolders>
+</Configuration>
+"@ | Set-Content "$env:USERPROFILE\Desktop\Sandbox-Suspects.wsb"
+```
+```powershell
+Start-Process "$env:USERPROFILE\Desktop\Sandbox-Suspects.wsb"
+```
+
+#### Dans la Sandbox, on retrouve alors :
+```
+C:\Suspects
+```
+avec les fichiers du disque externe.
+
+__Important :__ `ReadOnly=true` est à privilégier pour cet usage. Le fichier suspect peut être exécuté depuis la Sandbox sans que la Sandbox ait besoin d'avoir un accès en écriture sur le disque externe.
+
+
+<br>
+
+### Lancer une SandBox avec des logiciels personnalisés (Winget)
+
+Afin de personnaliser la Sandbox il est possible de lancer un script Powershell au démarrage de la SandBox à l'aide du fichier .wsb <br>
+On créé un dossier sur le système hôte contenant le script et les packages nécessaires à Winget <br>
+Le dossier créé sera accessible depuis la SandBox grâce au fichier .wsb et le script utilisera les packages pour installer Winget.
+
+#### Télécharger les modules nécessaires Winget dans C:\SANDBOX
+Créer un dossier sur l'hôte qu'on mappera sur la Sandbox
+```bat
+md "C:\SANDBOX"
+```
+Placer les packages pour Winget (Testé sur un Windows 10)
+```powershell
+Invoke-WebRequest "https://aka.ms/windowsappsdk/1.8/1.8.260101001/windowsappruntimeinstall-x64.exe" -OutFile "C:\SANDBOX\WindowsAppRuntimeInstall-x64.exe"
+Invoke-WebRequest "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -OutFile "C:\SANDBOX\Microsoft.VCLibs.140.00.UWPDesktop_14.0.33728.0_x64.appx"
+Invoke-WebRequest "https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.8.6/Microsoft.UI.Xaml.2.8.x64.appx" -OutFile "C:\SANDBOX\Microsoft.UI.Xaml.2.8.x64.appx"
+Invoke-WebRequest "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile "C:\SANDBOX\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+```
+
+#### Fichier .wsb (2 mappages de dossiers en lecture seule avec exécution d'un script et choix d'allocation mémoire)
+```powershell
+sl C:\SANDBOX
+ni WingetPerso.wsb
+```
+```xml
+<Configuration>
+  <Networking>Enable</Networking>
+
+  <MappedFolders>
+
+    <MappedFolder>
+      <HostFolder>I:\Users\Moldu\Downloads</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\Desktop\Dossier-Suspect</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+
+    <MappedFolder>
+      <HostFolder>C:\SANDBOX</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\Desktop\SANDBOX</SandboxFolder>
+      <ReadOnly>true</ReadOnly>
+    </MappedFolder>
+
+  </MappedFolders>
+
+  <LogonCommand>
+    <Command>powershell.exe -ExecutionPolicy Bypass -File C:\Users\WDAGUtilityAccount\Desktop\SANDBOX\WinGet-Sandbox.ps1</Command>
+  </LogonCommand>
+
+  <MemoryInMB>4096</MemoryInMB>
+</Configuration>
+```
+
+#### Script qui installerra Winget et les logiciels choisis
+La transcription de la console Powershell permet de générer un fichier de log. Dans cet exemple Winget installera le logiciel photo de Windows et VLC.
+```powershell
+Start-Transcript "C:\Users\WDAGUtilityAccount\Desktop\WinGet.log"
+
+$path = "C:\Users\WDAGUtilityAccount\Desktop\SANDBOX"
+
+# Installation des dépendances
+Add-AppxPackage -Path "$path\Microsoft.VCLibs.140.00_14.0.33519.0_x64.appx"
+Add-AppxPackage -Path "$path\Microsoft.VCLibs.140.00.UWPDesktop_14.0.33728.0_x64.appx"
+Add-AppxPackage -Path "$path\Microsoft.UI.Xaml.2.8.x64.appx"
+Add-AppxPackage -Path "$path\Microsoft.WindowsAppRuntime.1.8_8000.616.304.0_x64.appx"
+
+# Installation de WinGet
+Add-AppxPackage -Path "$path\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+
+# Installation de Packages Winget personnalisés
+Add-Type -AssemblyName PresentationFramework
+[System.Windows.MessageBox]::Show("Un moment, les logiciels sont entrain de s'installer.")
+
+winget install --id 9WZDNCRFJBH4 --silent --disable-interactivity --accept-source-agreements --accept-package-agreements --force
+winget install --id VideoLAN.VLC --silent --disable-interactivity --accept-source-agreements --accept-package-agreements --force
+
+Stop-Transcript
+```
+
+Pour plus de détails consulter la [page microsoft](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file)
+
+
+
+
+
+
+
+
+
+<br>
+
+---
+
+<br>
 
 
 
