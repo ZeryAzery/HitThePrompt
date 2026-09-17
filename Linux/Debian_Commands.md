@@ -25,6 +25,8 @@
 - [💿 GESTION DES DISQUES](#gestion-des-disques)
 - [➡️ INSTALLATION ET CONNEXION ISCSI](#installation-et-connexion-iscsi)
 - [🔢 CRYPTOGRAPHIE](#cryptographie)
+- [🐈 INSTALLER GITHUB](#github)
+- [🟢 DIVERS](#divers)
 
 
 
@@ -1554,7 +1556,7 @@ systemctl enable open-iscsi
 
 
 
-# 🔢 CRYPTOGRAPHIE<a id="cryptographie"></a>
+# 🔢 CRYPTOGRAPHIE <a id="cryptographie"></a>
 
 
 ### Vérifier ou Installer OpenSSL
@@ -1661,6 +1663,54 @@ base64 -d message_chiffre.b64 > message_chiffre.bin
 
 
 
+---
+
+<br>
+
+
+
+
+
+# 🐈 INSTALLER GITHUB <a id="github"></a>
+
+
+
+### Installer les dépendances
+```bash
+sudo apt update
+sudo apt install curl -y
+```
+
+### Ajouter la clé GPG officielle de GitHub CLI
+```bash
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
+  sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+```
+
+### Ajouter le dépôt GitHub CLI
+```bash
+echo "deb [arch=$(dpkg --print-architecture) \
+  signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+  https://cli.github.com/packages stable main" | \
+  sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+```
+
+### Installer GitHub CLI
+```bash
+sudo apt update
+sudo apt install gh -y
+```
+
+### Vérifier l'installation
+```bash
+gh --version
+```
+
+[Retour au sommaire](#sommaire)
+
+
+
+
 
 ---
 
@@ -1670,7 +1720,7 @@ base64 -d message_chiffre.b64 > message_chiffre.bin
 
 
 
-##  DIVERS
+##  🟢 DIVERS <a id="divers"></a>
 
 ```bash
 apt install figlet
