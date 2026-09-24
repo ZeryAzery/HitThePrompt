@@ -302,7 +302,7 @@ Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTI
 # 📇 __CRÉÉR SON PROFIL POWERSHELL__ <a id="powershell-profil"></a>
 
 
-Le profil powershell consiste en un fichier .ps1 qui s'exécute à l'ouverture du terminal. Il permet d'y ajouter des alias, de personnaliser les couleurs du texte, de pouvoir appeler des fonctions rapidement et beaucoup d'autres chose permettant la personnalisation de votre environnement. (C'est un peu l'équivalent du .bashrc sur Linux)
+Le profil powershell consiste à créer un fichier .ps1 dont les scripts et commandes s'exécuteront à l'ouverture du terminal. Il permet d'y ajouter des alias, de personnaliser les couleurs du texte, de pouvoir appeler des fonctions rapidement et beaucoup d'autres chose permettant la personnalisation de votre environnement. (C'est un peu l'équivalent du .bashrc sur Linux)
 
 Il faudra prêter attention à la politique d'exécution des scripts pour éviter les erreurs dans le terminal.
 
@@ -313,7 +313,7 @@ $PROFILE
 
 > [!NOTE] 
 > Bien que la variable $PROFILE existe le fichier doit être créé car il n'est pas présent nativement sur le système. <br>
-> Il est possible de créer plusieurs fichiers de profils (utilisateur en cours, tous les utilisateurs... Utiliser cette commande pour voir les chemins `$PROFILE | Select-Object *`)
+> Il est possible de créer plusieurs fichiers de profils (utilisateur en cours, tous les utilisateurs... Utiliser la commande `$PROFILE | Select-Object *` pour voir les chemins ).
 
 
 ### Créer le fichier profil
@@ -3057,7 +3057,7 @@ __Prérequis :__
 - Activer dans le BIOS/UEFI Intel-VT ou AMD-V
 
 __Détails techniques :__
-- La sandbox repose une technologie de conteneurisation de Windows, (différent des machines virtuelles)
+- La sandbox repose sur une technologie de conteneurisation Windows, (différent des machines virtuelles)
 - Utilise les processus `WindowsSandbox.exe` (~ 160 Mo RAM) et `VmmemWindowsSandbox` (1 à 1,5 Go RAM), exécuté avec un compte système isolé.
 - Le compte sur l'environnement Bac à sable est nommé `WDAGUtilityAccount`.
 
@@ -3092,14 +3092,14 @@ Start-Process "WindowsSandbox.exe"
 ```powershell
 Get-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM"
 ```
-
 On doit obtenir : __State : Enabled__
 
 <br>
 
 ### Personnaliser Windows Sandbox avec des fichiers .WSB
 
-Les fichier `.wsb` permettent par exemple de monter un dossier précis d'un disque externe ou d'un dossier avec la possiblité de les mettre en lecture seule,
+Un fichier `.wsb` permet de lancer une SandBox avec des paramètres personnalisés. <br>
+Par exemple il est possible de monter un dossier précis d'un disque externe et de le mettre en lecture seule.
 
 | Fonction | Configuration |
 |---|---|
@@ -3153,7 +3153,7 @@ __Important :__ `ReadOnly=true` est à privilégier pour cet usage. Le fichier s
 ### Lancer une SandBox avec des logiciels personnalisés (Winget)
 
 Afin de personnaliser la Sandbox il est possible de lancer un script Powershell au démarrage de la SandBox à l'aide du fichier .wsb <br>
-On créé un dossier sur le système hôte contenant le script et les packages nécessaires à Winget <br>
+On créé un dossier sur le système hôte contenant le script et les packages nécessaires à Winget. <br>
 Le dossier créé sera accessible depuis la SandBox grâce au fichier .wsb et le script utilisera les packages pour installer Winget.
 
 #### Télécharger les modules nécessaires Winget dans C:\SANDBOX
