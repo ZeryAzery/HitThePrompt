@@ -376,8 +376,20 @@ Get-NetIPConfiguration
 
 
 ### Configuration IP détaillée
-```pwoershell
+```powershell
 gip -Detailed
+```
+
+
+### Pinguer certaines machines
+```powershell
+1, 2, 17 | % {Test-Connection 192.168.1.$_ -Count 2}  | select Destination, Status | ft
+```
+
+
+### Tester l'écoute d'un port sur un intervalle de machines (Scan TCP)
+```powershell
+17..25 | % { Test-NetConnection 192.168.1.$_ -Port445 } | ? TcpTestSucceeded | Select ComputerName
 ```
 
 
@@ -390,7 +402,6 @@ version bat (`-S` = Source)
 ```bat
 ping -S 192.168.51.245 192.168.51.253
 ```
-
 
 
 ### Afficher les cartes réseau
