@@ -3318,13 +3318,28 @@ Add-Type -AssemblyName System.Web
 * `16` : longueur totale du mot de passe.
 * `4` : nombre de caractères non alphanumériques (ex : !, @, #, etc.).
 
+
+
 <br>
 
+
+
 ### Enregistrer ce qui se passe dans la console
+Cette commande peut être pratique pour générer un fichier de log quand on exécute des scripts.
 ```powershell
-Start-Transcript
+Start-Transcript "C:\Users\Administrateur\Desktop\fichier.log"
 <commands>
 Stop-Transcript
 ```
+
+<br>
+
+
+### Exercices Powershell avec PSKoans
+```powershell
+Install-Module -Name PSKoans
+Get-Command -Module PSKoans
+```
+
 
 [Retour au sommaire](#sommaire)
