@@ -103,6 +103,14 @@ Rename-Item
 Move-Item			
 ```
 
+### Installer un éditeur de texte 
+- Edit est un éditeur de texte equivalent a nano
+- Voir comment [installer Winget](#winget)
+```bat
+winget install Microsoft.Edit
+```
+Puis utiliser la commande `Edit` dans le terminal 
+
 
 ### Redémarrer directement dans le BIOS/UEFI
 ```bat
@@ -344,6 +352,14 @@ La fonction d'autocomplétion permet désormais d'afficher les choix disponible
 ### Recharger le fichier pour que les modificatons soient prises en compte
 ```powershell
 . $PROFILE
+```
+
+### Exemple
+```powershell
+Set-Alias ll Get-ChildItem
+Set-Alias -Name nano -Value Edit
+Set-Alias -Name cat -Value Get-Content
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 ```
 
 
