@@ -3077,7 +3077,7 @@ Il possible de redémarrer de la SandBox sans perdre les données. (Ne fonctionn
 
 <br>
 
-### Installation (PowerShell administrateur)
+## Installation (PowerShell administrateur)
 - Sur powershell 7 utiliser l'outils natif DISM (ou importer le module)
 ```bat
 dism /online /enable-feature /featurename:Containers-DisposableClientVM /all
@@ -3107,7 +3107,7 @@ On doit obtenir : __State : Enabled__
 
 <br>
 
-### Personnaliser Windows Sandbox avec des fichiers .WSB
+## Personnaliser Windows Sandbox avec des fichiers .WSB
 
 Un fichier `.wsb` permet de lancer une SandBox avec des paramètres personnalisés. <br>
 Par exemple il est possible de monter un dossier précis d'un disque externe et de le mettre en lecture seule.
@@ -3124,7 +3124,7 @@ Par exemple il est possible de monter un dossier précis d'un disque externe et 
 
 <br>
 
-### Monter un dossier d'un disque externe en lecture seule
+## Monter un dossier d'un disque externe en lecture seule
 
 ⚠️ Il est conseillé de ne pas donner un accès complet en écriture si certains fichiers sont suspects.
 
@@ -3161,7 +3161,7 @@ __Important :__ `ReadOnly=true` est à privilégier pour cet usage. Le fichier s
 
 <br>
 
-### Lancer une SandBox avec des logiciels personnalisés (Winget)
+## Lancer une SandBox avec des logiciels personnalisés (Winget)
 
 Afin de personnaliser la Sandbox il est possible de lancer un script Powershell au démarrage de la SandBox à l'aide du fichier .wsb <br>
 On créé un dossier sur le système hôte contenant le script et les packages nécessaires à Winget. <br>
@@ -3220,6 +3220,9 @@ Start-Transcript "C:\Users\WDAGUtilityAccount\Desktop\WinGet.log"
 
 $path = "C:\Users\WDAGUtilityAccount\Desktop\SANDBOX"
 
+Add-Type -AssemblyName PresentationFramework
+[System.Windows.MessageBox]::Show("Winget et ses logiciels sont entrain de s'installer. Patientez un peu")
+
 # Installation des dépendances
 Add-AppxPackage -Path "$path\Microsoft.VCLibs.140.00_14.0.33519.0_x64.appx"
 Add-AppxPackage -Path "$path\Microsoft.VCLibs.140.00.UWPDesktop_14.0.33728.0_x64.appx"
@@ -3230,9 +3233,6 @@ Add-AppxPackage -Path "$path\Microsoft.WindowsAppRuntime.1.8_8000.616.304.0_x64.
 Add-AppxPackage -Path "$path\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 
 # Installation de Packages Winget personnalisés
-Add-Type -AssemblyName PresentationFramework
-[System.Windows.MessageBox]::Show("Un moment, les logiciels sont entrain de s'installer.")
-
 winget install --id 9WZDNCRFJBH4 --silent --disable-interactivity --accept-source-agreements --accept-package-agreements --force
 winget install --id VideoLAN.VLC --silent --disable-interactivity --accept-source-agreements --accept-package-agreements --force
 
