@@ -29,17 +29,18 @@ __En pratique :__
 
 Sur un shell root
 ```bash
-wget https://raw.githubusercontent.com/ZeryAzery/HitThePrompt/refs/heads/main/Exo_AIS/Docker/Docker_Install_Debian.sh
+wget https://raw.githubusercontent.com/ZeryAzery/HitThePrompt/refs/heads/main/Microservices/Docker_Install_Debian.sh
 chmod +x Docker_Install_Debian.sh
 ./Docker_Install_Debian.sh
 ```
 
 Vérifier le contenu du script
 ```bash
-curl https://raw.githubusercontent.com/ZeryAzery/HitThePrompt/refs/heads/main/Exo_AIS/Docker/Docker_Install_Debian.sh
+curl https://raw.githubusercontent.com/ZeryAzery/HitThePrompt/refs/heads/main/Microservices/Docker_Install_Debian.sh
 ```
 
 <br>
+
 
 ## Installation de Docker (exemple Ubuntu/Debian)
 
