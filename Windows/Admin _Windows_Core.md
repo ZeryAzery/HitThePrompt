@@ -2323,7 +2323,6 @@ scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> toto@10.0.0.51:/
 
 
 ### Installer les fonctionnalités
-
 ```powershell
 # Synchroniser les DC
 repadmin /syncall
@@ -2339,7 +2338,6 @@ Install-WindowsFeature -Name WDS -IncludeManagementTools
 ```
 
 ### Promouvoir le serveur en contrôleur de domaine
-
 ```powershell
 # Ajouter domaine nouvelle forêt
 Install-ADDSForest -DomainName "<domain.tld>" -DomainNetbiosName "<domain>" -SafeModeAdministratorPassword (ConvertTo-SecureString -AsPlainText "<Admin_Pswd>" -Force) -InstallDNS	
@@ -2379,7 +2377,6 @@ Get-DfsrState -ComputerName "SRV02" | Format-Table FileName,UpdateState,Inbound,
 
 
 ### 👮 Créer un nouvel utilisateur admin du domaine  
-
 ```powershell
 # Créer un nouvel utilisateur  		
 New-ADUser -Name "Adminname" -GivenName "Admin" -Surname "name" -SamAccountName "Adminname" -UserPrincipalName "Adminname@domainname.fr" -AccountPassword (ConvertTo-SecureString "*******" -AsPlainText -Force) -Enabled $true
@@ -2505,6 +2502,51 @@ Select-Object Name, SamAccountName
 ```bat
 repadmin /syncall
 ```
+
+
+## Administrer des PCs ou serveur du domaine à distance
+La commande `Invoke-Commande` necéssite que WinRM soit actif sur les machines
+
+### Afficher les processus d'une machine distante
+Permet de ne pas déranger l'utilisateur et d'éviter un bureau à distance
+```powershell
+Invoke-Commande -ComputerName LENTBK-2056 -ScriptBlock { Get-process | ? { $_.ProcessName -eq "chrome" } }
+```
+
+### Exécuter un script sur une machine distante
+Le `-FilePath` doit être accessible depuis la machine qui exécute la commande (pas nécessairement par la machine visée)
+```powershell
+Invoke-Commande -ComputerName LENTBK-2056 -FilePath "C:\Script\Remove_Inactive_AD_User_Dir.ps1"
+```
+
+### Exécuter une commande sur plusieurs machines disatantes
+```powershell
+$ComputerList = @(
+    SRV-PRINT,
+    SRV-RDS,
+    SRV-APPS,
+)
+```
+```powershell
+Invoke-Commande -ComputerName $ComputerList -ScriptBlock "Test-Connection -Count 2 192.168.100.1"
+```
+
+### Consulter l'espace disque sur les machines d'une OU
+On récupère la liste des machines contenues dans l'OU
+```powershell
+$ADComputersList = (Get-ADComputer -Filter * -SearchBase "OU=PC,OU=Servers,DC=Homesecure,DC=local").DNSHostName
+```
+Puis récupérer l'espace total en soustrayant l'espace libre
+```powershell
+Invoke-Command -ComputerName $ComputersListAD -ScriptBlock {
+    Get-CimInstance -ClassName Win32_LogicalDisk | Select-Object Name, 
+        @{Name="UsedSpace"; Expression={(($_.Size - $_.FreeSpace) / 1GB).ToString("F2")}}, 
+        @{Name="TotalSize"; Expression={($_.Size / 1GB).ToString("F2")}}
+}
+```
+- `/ 1GB` → convertit les octets en gigaoctets (constante PowerShell correspondant à 1 × 1024³ octets).
+- `.ToString('F2')` → définit le nombre de chiffres après la virgule. (F0, F1, F2...)
+
 
 [Retour au sommaire](#sommaire)
 
