@@ -760,13 +760,17 @@ winget install --id Git.Git -e -h --scope "machine"
 winget install --id Python.Python.3.13 -e -h --scope "machine"
 winget install --id Microsoft.WindowsTerminal -e -h --scope "machine"
 winget install --id Docker.DockerDesktop -e -h --scope "machine"
+winget install --id Microsoft.Edit -e -h --scope "machine"
 ```
+> [!NOTE]
+> L'application "Microsoft.WindowsTerminal" fonctionne sur Windows 10 (permet d'utiliser le terminal de votre choix avec une version plus moderne et de pouvoir utiliser plusieurs onglets, comme un terminal WSL)
+
 
 <br>
 
 > [!TIP]
 > - `Winget-AutoUpdate`(dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black liste pour choisir les applis à mettre à jour ou non.
-> - `UniGetUI` permet aussi une automatisation des mises à jour en profitant d'une interface graphique.
+> - `UniGetUI` (WingetUI) permet aussi une automatisation des mises à jour en profitant d'une interface graphique.
 > - `Winget DSC` permet une automatisation de la configuration logicielle de Windows en utilisant Powershell (approche altervative à Ansible) :
 >   - Applications à installer (paquets MSI)
 >   - Modification du registre
