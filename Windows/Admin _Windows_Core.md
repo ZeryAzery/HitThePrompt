@@ -765,7 +765,16 @@ winget install --id Docker.DockerDesktop -e -h --scope "machine"
 <br>
 
 > [!TIP]
-> `Winget-AutoUpdate` (dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black liste pour choisir les applis à mettre à jour ou non.
+> - `Winget-AutoUpdate`(dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black liste pour choisir les applis à mettre à jour ou non.
+> - `UniGetUI` permet aussi une automatisation des mises à jour en profitant d'une interface graphique.
+> - `Winget DSC` permet une automatisation de la configuration logicielle de Windows en utilisant Powershell (approche altervative à Ansible) :
+>   - Applications à installer (paquets MSI)
+>   - Modification du registre
+>   - lancement de scripts
+>   - Configuration des services
+>   - Installation ou désinstallations de fonctionnalités
+>   - Démarrages ou arrêts de processus
+>   - Gestion de l'environnement Windows...
 
 [Retour au sommaire](#sommaire)
 
