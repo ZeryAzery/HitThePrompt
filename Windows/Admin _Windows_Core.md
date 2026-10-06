@@ -755,8 +755,8 @@ winget upgrade --all --accept-package-agreements --include-unknown --disable-int
 
 ### Exemple d'un script simple pour préparer une machine
 ```powershell
-winget install --id Microsoft.VisualStudioCode -e -h --scope "machine"
-winget install --id Git.Git -e -h --scope "machine"
+winget install --id Microsoft.VisualStudioCode -e -h --scope "machine" --source winget
+winget install --id Git.Git -e -h --scope "machine" --source winget
 winget install --id Python.Python.3.13 -e -h --scope "machine"
 winget install --id Microsoft.WindowsTerminal -e -h --scope "machine"
 winget install --id Docker.DockerDesktop -e -h --scope "machine"
@@ -771,7 +771,7 @@ winget install --id Microsoft.Edit -e -h --scope "machine"
 > [!TIP]
 > - `Winget-AutoUpdate`(dispo sur github) permet une automatisation des mises à jour en intégrant une white liste et une black liste pour choisir les applis à mettre à jour ou non.
 > - `UniGetUI` (WingetUI) permet aussi une automatisation des mises à jour en profitant d'une interface graphique.
-> - `Winget DSC` permet une automatisation de la configuration logicielle de Windows en utilisant Powershell (approche altervative à Ansible) :
+> - `Winget DSC` (Desired State Configuration) permet une automatisation de la configuration logicielle de Windows en utilisant Powershell (altervative à Ansible pour une approche locale) :
 >   - Applications à installer (paquets MSI)
 >   - Modification du registre
 >   - lancement de scripts
