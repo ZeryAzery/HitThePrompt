@@ -405,7 +405,7 @@ gip -Detailed
 
 ### Tester l'écoute d'un port sur un intervalle de machines (Scan TCP)
 ```powershell
-17..25 | % { Test-NetConnection 192.168.1.$_ -Port445 } | ? TcpTestSucceeded | Select ComputerName
+17..25 | % { Test-NetConnection 192.168.1.$_ -Port 445 } | ? TcpTestSucceeded | Select ComputerName
 ```
 
 
@@ -2549,12 +2549,13 @@ On récupère la liste des machines contenues dans l'OU
 ```powershell
 $ADComputersList = (Get-ADComputer -Filter * -SearchBase "OU=PC,OU=Servers,DC=Homesecure,DC=local").DNSHostName
 ```
-Puis récupérer l'espace total en soustrayant l'espace libre
+Puis récupérer l'espace utilisé (espace total - l'espace libre)
 ```powershell
 Invoke-Command -ComputerName $ComputersListAD -ScriptBlock {
     Get-CimInstance -ClassName Win32_LogicalDisk | Select-Object Name, 
         @{Name="UsedSpace"; Expression={(($_.Size - $_.FreeSpace) / 1GB).ToString("F2")}}, 
-        @{Name="TotalSize"; Expression={($_.Size / 1GB).ToString("F2")}}
+        @{Name="TotalSize"; Expression={($_.Size / 1GB).ToString("F2")}},
+        @{Name="FreeSpace"; Expression={($_.FreeSpace / 1GB).ToString("F2")}}
 }
 ```
 - `/ 1GB` → convertit les octets en gigaoctets (constante PowerShell correspondant à 1 × 1024³ octets).
