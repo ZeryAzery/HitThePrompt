@@ -467,9 +467,10 @@ Get-NetIPAddress -AddressFamily IPv4 | select IPAddress, InterfaceAlias
 ```
 
 
-### IP statique et Gateway: 		
+### IP statique et Gateway
+4 est le num de la carte réseau	
 ```powershell
-New-NetIPaddress -InterfaceIndex 4 -IPAddress 192.0.100.1 -PrefixLength 24 -DefaultGateway 10.0.0.254 (ou 4 est le num de la carte réseau)
+New-NetIPaddress -InterfaceIndex 4 -IPAddress 192.0.100.1 -PrefixLength 24 -DefaultGateway 10.0.0.254
 ```
 
 
@@ -724,6 +725,17 @@ winget install --id 7zip.7zip --scope machine
 winget install --id 7zip.7zip --scope user
 ```
 
+
+### Mettre à jour un logiciel avec une version précise
+```powershell
+winget upgrade --id Greenshot.Greenshot --version 1.3.323
+```
+
+### Mettre à jour tous les logiciels de la machine (si dispo dans les dépots)
+```powershell
+winget upgrade --all --accept-package-agreements --include-unknown --disable-interactivity --accept-source-agreements --force
+```
+
 <br>
 
 ### Réinstaller les logiciels d'une machine sur une autre machine
@@ -744,12 +756,6 @@ Les logiciels réinstallés seront mis à jour automatiquement (sauf précision 
 > [!NOTE]
 > Seuls les logiciels présents dans les dépots auxquels winget a accès (Winget & MSStore) seront réinstallés
 
-<br>
-
-### Mettre à jour tous les logiciels de la machine (si dispo dans les dépots)
-```powershell
-winget upgrade --all --accept-package-agreements --include-unknown --disable-interactivity --accept-source-agreements --force
-```
 
 <br>
 
@@ -763,7 +769,7 @@ winget install --id Docker.DockerDesktop -e -h --scope "machine"
 winget install --id Microsoft.Edit -e -h --scope "machine"
 ```
 > [!NOTE]
-> L'application "Microsoft.WindowsTerminal" fonctionne sur Windows 10 (permet d'utiliser le terminal de votre choix avec une version plus moderne et de pouvoir utiliser plusieurs onglets, comme un terminal WSL)
+> L'application "Microsoft.WindowsTerminal" fonctionne sur Windows 10 et 11 et permet d'utiliser le terminal de votre choix avec une version plus moderne et de pouvoir utiliser plusieurs onglets consoles, comme un terminal WSL, Powershell 7...
 
 
 <br>
