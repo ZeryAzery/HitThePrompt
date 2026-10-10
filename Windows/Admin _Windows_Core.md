@@ -898,6 +898,25 @@ Get-Process
 ```powershell
 Get-Process *green*
 ```
+- Sortie de la commande :
+```txt
+    NPM(K)    PM(M)      WS(M)     CPU(s)      Id  SI ProcessName
+    ------    -----      -----     ------      --  -- -----------
+        37    44,00      47,62       0,59    2496   1 Greenshot
+```
+- Explication de la sortie :
+
+    | NPM(K) | PM(M) | WS(M) | CPU(s) | Id | SI | ProcessName |
+    | ------ | ----- | ----- | ------ | -- | -- | ----------- |
+    | Nonpaged Memory (KB) | Private Memory (MB) | Working Set (MB) | CPU Time (s) | Process ID | Session ID | Process Name |
+    | Mémoire non paginable | Mémoire privée (Mo) | Mémoire physique utilisée (Mo) | Temps processeur cumulé (secondes) | Identifiant du processus (PID) | Identifiant de session | Nom du processus |
+
+> ![NOTE]
+> - L'expression « non pageable » (ou verrouillée / pinned) signifie que cette mémoire doit impérativement rester en permanence dans la mémoire physique (RAM) et ne peut en aucun cas être écrite sur le disque.
+> - La mémoire paginée (ou pool paginé) désigne une zone de mémoire virtuelle du noyau d'un système d'exploitation qui peut être déplacée (permutée ou paged out) vers le fichier d'échange.
+
+
+<br>
 
 
 ### Affiche le process ID du terminal Powershell en cours
