@@ -911,7 +911,7 @@ Get-Process *green*
     | Nonpaged Memory (KB) | Private Memory (MB) | Working Set (MB) | CPU Time (s) | Process ID | Session ID | Process Name |
     | Mémoire non paginable | Mémoire privée (Mo) | Mémoire physique utilisée (Mo) | Temps processeur cumulé (secondes) | Identifiant du processus (PID) | Identifiant de session | Nom du processus |
 
-> ![NOTE]
+> [!NOTE]
 > - L'expression « non pageable » (ou verrouillée / pinned) signifie que cette mémoire doit impérativement rester en permanence dans la mémoire physique (RAM) et ne peut en aucun cas être écrite sur le disque.
 > - La mémoire paginée (ou pool paginé) désigne une zone de mémoire virtuelle du noyau d'un système d'exploitation qui peut être déplacée (permutée ou paged out) vers le fichier d'échange.
 
@@ -1004,7 +1004,7 @@ Select -ExpandProperty IPAddress
 ```
 
 
-### Sortie des process TCP "Established" sur l'IPv4 de "Ethernet 4"
+### Sortie des process TCP "Established" de "Ethernet 4" en IPv4
 ```powershell
 $ipv4addr = Get-NetIPAddress -AddressFamily IPv4 | ? { $_.InterfaceAlias -eq "Ethernet 4" } | Select -ExpandProperty IPAddress
 
@@ -1013,6 +1013,8 @@ Get-NetTCPConnection |
     Where-Object { $_.State -eq "Established" -and $_.LocalAddress -eq "$ipv4addr" } | 
     ft
 ```
+
+<br>
 
 ## NETSTAT
 
