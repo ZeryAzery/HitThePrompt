@@ -3223,7 +3223,7 @@ Par exemple il est possible de monter un dossier précis d'un disque externe et 
 
 <br>
 
-## Monter un dossier d'un disque externe en lecture seule
+## Monter le dossier d'un disque externe en lecture seule
 
 ⚠️ Il est conseillé de ne pas donner un accès complet en écriture si certains fichiers sont suspects.
 
