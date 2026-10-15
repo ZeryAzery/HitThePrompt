@@ -8,18 +8,18 @@
 
 
 
-### ©️ Afficher les méthodes et propriétés d'un objet avec `| gm`
+## ©️ Afficher les méthodes et propriétés d'un objet avec `| gm`
 
 ```powershel
 Get-WmiObject Win32_ComputerSystem | gm
 ```
 
 
+<br>
 
 
 
-
-### ⛔ Passer outre la politique d'exécution des scripts
+## ⛔ Passer outre la politique d'exécution des scripts
 
 
 Exécuter un script quelque soit le ExecutionPolicy
@@ -46,7 +46,7 @@ Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 
 
 
-### 📍 Principaux types de données en PowerShell
+## 📍 Principaux types de données en PowerShell
 
 Empêche d'affecter une valeur incorrecte
 
@@ -72,7 +72,7 @@ Empêche d'affecter une valeur incorrecte
 
 # Hashtables et listes
 
-### Déclarer un hashtable  
+## Déclarer un hashtable  
 * Structure clé = valeur (comme dictinnaire python) 
 * Les `{}` attendent une valeur pour chaque clé :
 ```powershell
@@ -84,7 +84,7 @@ $htable = @{
 
 
 
-### Déclarer une liste 
+## Déclarer une liste 
 Utiliser avec `()` 
 ```powershell
 $liste = @(
@@ -113,7 +113,7 @@ Ne pas déclarer une liste avec des `{}` sinon Powershell attendra une valeur av
 
 
 
-###  ☝️ Structures conditionnelles
+##  ☝️ Structures conditionnelles
 
 Ces structures permettent d'exécuter un bloc de code sous certaines conditions.
 
@@ -174,7 +174,7 @@ Dans ce cas Powershell interprêtera else comme une commande à part entière et
 
 
 
-### 🔄 Boucles (itérations)
+## 🔄 Boucles (itérations)
 
 Ces structures permettent de répéter une action plusieurs fois.
 
@@ -194,7 +194,7 @@ Ces structures permettent de répéter une action plusieurs fois.
 
 
 
-### 🔁 Saut de boucle / sortie de script
+## 🔁 Saut de boucle / sortie de script
 
 Ces mots-clés servent à interrompre ou passer une itération.
 
@@ -214,7 +214,7 @@ Ces mots-clés servent à interrompre ou passer une itération.
 
 
 
-### ⚠️ Gestion des erreurs (Try-Catch)
+## ⚠️ Gestion des erreurs (Try-Catch)
 
 Ces structures permettent de gérer les erreurs sans planter le script.
 
@@ -258,10 +258,29 @@ Get-Alias -Definition Set-Location
 | iwr   | Invoke-WebRequest     | Plus généraliste qu’`irm`, permet d’envoyer des requêtes HTTP (GET, POST...) pour télécharger des pages, des fichiers, etc.           |
 | gc    | Get-Content           | Lit le contenu d’un fichier ligne par ligne (utile pour lire des logs, scripts, etc.).                               |
 | select | Select-Object        | Sélectionne les propriétés d'un objet ou d'un ensemble d'objets. Sélectionne des objets dans un tableau.           | 
-      
+
+   <br>
+
 __Exemple__
 ```powershell
 Get-Service | ? { $_.Status -eq "Running" }
+```
+
+<br>
+
+## Raccourcis de paramètre
+
+
+| Raccourci | Paramètre |
+| --- | --- |
+| `-EA 0` | `-ErrorAction SilentlyContinue` | 
+| `-nop` | 
+
+<br>
+
+__Exemple__
+```powershell
+[bool](Get-Process Greenshot -EA 0)
 ```
 
 
@@ -275,7 +294,7 @@ Get-Service | ? { $_.Status -eq "Running" }
 # Les différents opérateurs
 
 
-### ✅ Opérateurs de comparaison (Comparison Operators)
+## ✅ Opérateurs de comparaison (Comparison Operators)
 
 Testent l’égalité ou la comparaison entre nombres/valeurs.
 
@@ -307,7 +326,7 @@ __Exemple d'utilisation simple :__ (retournera "True" or "False")
 
 
 
-### 🔤 Opérateurs pour les chaînes (String Operators)
+## 🔤 Opérateurs pour les chaînes (String Operators)
 
 Wildcards, regex, recherches dans des collections.
 
@@ -337,7 +356,7 @@ __Exemple__
 
 
 
-### 🧠 Opérateurs logiques
+## 🧠 Opérateurs logiques
 
 Combinent plusieurs conditions.
 
@@ -361,7 +380,7 @@ __Exemple__
 
 
 
-### 🔄 Opérateurs d'affectation
+## 🔄 Opérateurs d'affectation
 
 Modifient la valeur d’une variable.
 
@@ -385,7 +404,7 @@ $x += 3      # x vaut maintenant 8
 <br>
 
 
-### 📝 Opérateurs de type (Type Operators)
+## 📝 Opérateurs de type (Type Operators)
 
 Vérifient ou convertissent le type d’un objet
 
@@ -410,7 +429,7 @@ __Exemple__
 
 
 
-### 🔍 Opérateurs divers utiles
+## 🔍 Opérateurs divers utiles
 
 Gammes, pipeline, exécution, arrays…
 
@@ -443,7 +462,7 @@ Produira : 1 2 3 4 5
 
 <br>
 
-
+## Gestion de la typo et des accents dans les scripts
 
 ### Pour les accents dans le terminal (au début du script)
 ```powershell
@@ -481,9 +500,42 @@ if ($Response -eq "n") {
 ```
 
 
-### Prendre un compte un espace vide
+## Prendre un compte un espace vide
 PowerShell est construit sur .NET, du coup on peux appeler les méthodes .NET directement.
 ```powershell
 $Event = Get-WinEvent -FilterHashtable @{LogName = 'System';Level = 1,2,3;StartTime=(Get-Date).AddMinutes(-10)} -ErrorAction SilentlyContinue | Format-List | Out-String
 $CritEvent = if ([string]::IsNullOrWhiteSpace($Event)) { "Aucun évènement système au cours de ces 10 dernières minutes." } else { $Event }
+```
+
+<br>
+
+## Créer un fichier de log avec Start-Transcript
+C'est très utile pour diagnostiquer une tâche qui s'exécute sans fenêtre visible.
+```powershell
+$LogDirectory = Join-Path "Chemin répertoire où sera le fichier log"
+$LogFile = Join-Path $LogDirectory "NomFichier.log"
+
+New-Item -Path $LogDirectory -ItemType Directory -Force | Out-Null
+
+Start-Transcript -Path $LogFile -Append
+# Les commandes et actions du scripts doivent commencer ici
+try {
+Write-Host "=== Début des mises à jour : $(Get-Date) ==="
+
+# Script blabla
+# Script blabla
+
+# $LASTEXITCODE récupère le code de sortie du programme externe, ici Winget
+Write-Host "Code de retour Winget : $LASTEXITCODE"
+
+}
+catch {
+
+# catch { Write-Host "ERREUR : $_" } affiche l'erreur PowerShell capturée    
+Write-Host "ERREUR : $_"
+}
+finally {
+Write-Host "=== Fin du traitement : $(Get-Date) ==="
+Stop-Transcript
+}
 ```

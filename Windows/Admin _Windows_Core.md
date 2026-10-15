@@ -701,6 +701,12 @@ Certains logiciels afficheront quand même une fenêtre de désinstallation (ex:
 
 <br>
 
+
+### Afficher les logiciels avec maj dispo
+```powershell
+winget list --upgrade-available
+```
+
 ### Afficher toutes les versions disponible pour un paquet
 ```powershell
 winget show -q Mozilla.Firefox.ESR.fr --versions
@@ -949,6 +955,16 @@ Get-Process GreenShot | Stop-Process -Force
 ### Arréter un processus avec son Id
 ```powershell
 Stop-Process -Id 2960
+```
+
+
+
+### Retourner $True, $False ou $Null 
+```powershell
+[bool](Get-Process -Name Greenshot)
+```
+```powershell
+(Get-Process -Name "notepad" -ErrorAction SilentlyContinue) -ne $null
 ```
 
 
@@ -1610,11 +1626,12 @@ Get-Command python | Select-Object Source
 ```powershell
 $PSHOME
 ```
-ou
 ```powershell
 (Get-Process -Id $PID).Path
 ```
-
+```powershell
+(Get-Command pwsh.exe).Source
+```
 
 ### Pour les programmes natifs
 ```powershell
