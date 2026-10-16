@@ -510,7 +510,10 @@ $CritEvent = if ([string]::IsNullOrWhiteSpace($Event)) { "Aucun évènement syst
 <br>
 
 ## Créer un fichier de log avec Start-Transcript
+
 C'est très utile pour diagnostiquer une tâche qui s'exécute sans fenêtre visible.
+
+### Création du fichier et capture des erreurs
 ```powershell
 $LogDirectory = Join-Path "Chemin répertoire où sera le fichier log"
 $LogFile = Join-Path $LogDirectory "NomFichier.log"
@@ -518,6 +521,7 @@ $LogFile = Join-Path $LogDirectory "NomFichier.log"
 New-Item -Path $LogDirectory -ItemType Directory -Force | Out-Null
 
 Start-Transcript -Path $LogFile -Append
+
 # Les commandes et actions du scripts doivent commencer ici
 try {
 Write-Host "=== Début des mises à jour : $(Get-Date) ==="
@@ -538,4 +542,9 @@ finally {
 Write-Host "=== Fin du traitement : $(Get-Date) ==="
 Stop-Transcript
 }
+```
+
+### Afficher le journal
+```powershell
+Get-Content "C:\Chemin\Répertoire\NomFichier.log" -Tail 20
 ```
