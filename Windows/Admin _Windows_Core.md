@@ -1106,6 +1106,14 @@ Get-Disk | Select-Object Number, BusType, FriendlyName
 ```
 
 
+### Afficher les disques avec espace utilisé, espace total, espace libre
+```powershell
+Get-CimInstance -ClassName Win32_LogicalDisk | Select-Object Name, 
+    @{Name="UsedSpace"; Expression={(($_.Size - $_.FreeSpace) / 1GB).ToString("F2")}}, 
+    @{Name="TotalSize"; Expression={($_.Size / 1GB).ToString("F2")}},
+    @{Name="FreeSpace"; Expression={($_.FreeSpace / 1GB).ToString("F2")}}
+```
+
 ### Afficher toutes les infos dispo sur un disque
 ```powershell
 Get-Disk -Number 0 | Select-Object *
