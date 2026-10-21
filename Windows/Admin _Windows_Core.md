@@ -5,47 +5,32 @@
 
 * __Sur serveur Core "Ctrl+Alt+Suprr" permet d'ouvrir le gestionnaire des tâches puis d'avoir la fenêtre "executer".__
 
-
+---
 
 <br>
+<br>
 
-## __Sommaire__ <a id="sommaire"></a>
+# SOMMAIRE <a id="sommaire"></a>
 
-- [🔰 COMMANDES DE BASE](#commandes-de-base)
-- [🔑 LICENSING MANAGEMENT TOOL](#licensing-management-tool)
-- [🍴 POINT DE RESTAURATION](#point-de-restauration)
-- [📇 CRÉÉR SON PROFIL POWERSHELL](#powershell-profil)
-- [📶 CONFIGURATION RÉSEAU](#configuration-reseau)
-- [📶 WIFI](#wifi)
-- [👩‍💻 WINGET](#winget)
-- [📅 MISES À JOUR](#mises-a-jour)
-- [🏃‍♀️ GESTION DES PROCESSUS](#gestion-des-processus)
-- [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp)
-- [💿 GESTION DU STOCKAGE](#gestion-du-stockage)
-- [📂 GESTION DES OBJETS](#gestion-des-objets)
-- [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier)
-- [🔪 HASHAGE](#hashage)
-- [🔍 RECHERCHER DES OBJETS & CHAINES DE TEXTES](#rechercher-des-objets-&-chaines-de-textes)
-- [🔍 RECHERCHER UN PROGRAMME](#rechercher-un-programme)
-- [💾 COMPRESSION, SAUVEGARDE ET COPIE](#compression,-sauvegarde-et-copie)
-- [↔️ SMB](#smb)
-- [⬇️ GESTION CONTENU HTTP/HTTPS](#telechargement-http-https)
-- [🧱 PARE-FEU](#pare-feu)
-- [🛡️ DEFENDER & EVENT](#defender)
-- [🎏 GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS](#event)
-- [🔢 WINRM](#winrm)
-- [🔢 SSH](#ssh)
-- [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine)
-- [🚋 VPN](#vpn)
-- [🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES](#crypto)
-- [✅ VARIABLE D'ENVIRONNEMENT DU PATH](#path)
-- [🐈‍ INSTALLER GITHUB](#github)
-- [🐍 INSTALLER PYTHON](#python)
-- [🐧 INSTALLER WSL](#wsl)
-- [🐋 INSTALLER DOCKER](#docker)
-- [🥊 SANDBOX](#sandbox)
-- [🟩 DIVERS](#divers)
-
+| | |
+|--|--|
+| [🔰 COMMANDES DE BASE](#commandes-de-base) | [🔑 LICENSING MANAGEMENT TOOL](#licensing-management-tool) |
+| [🍴 POINT DE RESTAURATION](#point-de-restauration) | [📇 CRÉER SON PROFIL POWERSHELL](#powershell-profil) |
+| [📶 CONFIGURATION RÉSEAU](#configuration-reseau) | [📶 WIFI](#wifi) |
+| [👩‍💻 WINGET](#winget) | [📅 MISES À JOUR](#mises-a-jour) |
+| [🏃‍♀️ GESTION DES PROCESSUS](#gestion-des-processus) | [🌐 GESTION DES PROCESSUS TCP](#gestion-des-processus-tcp) |
+| [💿 GESTION DU STOCKAGE](#gestion-du-stockage) | [📂 GESTION DES OBJETS](#gestion-des-objets) |
+| [➡️ SORTIE DE COMMANDE DANS UN FICHIER](#sortie-de-commande-dans-un-fichier) | [🔪 HASHAGE](#hashage) |
+| [🔍 RECHERCHER DES OBJETS & CHAINES DE TEXTES](#rechercher-des-objets-&-chaines-de-textes) | [🔍 RECHERCHER UN PROGRAMME](#rechercher-un-programme) |
+| [💾 COMPRESSION, SAUVEGARDE ET COPIE](#compression,-sauvegarde-et-copie) | [↔️ SMB](#smb) |
+| [⬇️ GESTION CONTENU HTTP/HTTPS](#telechargement-http-https) | [🧱 PARE-FEU](#pare-feu) |
+| [🛡️ DEFENDER & EVENT](#defender) | [🎏 GESTION DE L'OBSERVATEUR D'ÉVÈNEMENTS](#event) |
+| [🔢 WINRM](#winrm) | [🔢 SSH](#ssh) |
+| [🏠 CONTROLEUR DE DOMAINE](#controleur-de-domaine) | [🚋 VPN](#vpn) |
+| [🔢 GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES](#crypto) | [✅ VARIABLE D'ENVIRONNEMENT DU PATH](#path) |
+| [🐈‍ INSTALLER GITHUB](#github) | [🐍 INSTALLER PYTHON](#python) |
+| [🐧 INSTALLER WSL](#wsl) | [🐋 INSTALLER DOCKER](#docker) |
+| [🥊 SANDBOX](#sandbox) | [🟩 DIVERS](#divers) |
 
 
 
@@ -230,7 +215,10 @@ winget install --id Microsoft.PowerShell --source winget
 winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -259,7 +247,10 @@ winget install Microsoft.VisualStudioCode --accept-package-agreements --accept-s
 | `slmgr /dli`            | Affiche un résumé de l'état de la licence                     |
 | `slmgr /upk`            | Supprime la clé de produit actuelle                           |
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -292,7 +283,10 @@ Enable-ComputerRestore -Drive "C:\"
 Checkpoint-Computer -Description "Avant Debloat" -RestorePointType "MODIFY_SETTINGS"
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -354,19 +348,32 @@ La fonction d'autocomplétion permet désormais d'afficher les choix disponible
 . $PROFILE
 ```
 
-### Exemple
+### Exemple de profil powershell
 ```powershell
+# Fonction
+function hst {
+    $Word = Read-Host "Quel mot cherchez vous ?"
+    Get-Content "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt" | Select-String $Word
+}
+
+# KeyHandler
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+
+# Alias
 Set-Alias ll Get-ChildItem
+Set-Alias cc Clear-Host
 Set-Alias -Name nano -Value Edit
 Set-Alias -Name cat -Value Get-Content
-Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 ```
 
 
 
 
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -506,14 +513,18 @@ Remove-NetIPAddress -IPAddress 192.168.100.1 -Confirm:$false
 Remove-NetRoute -InterfaceAlias "Ethernet" -NextHop "192.168.0.254"
 ```
 
-
-### Désactiver carte réseau
+### Activer ou Désactiver une carte réseau
 ```powershell
-Disable-NetAdapter -Name  nom_carte_réseau
+Enable-NetAdapter -name "Ethernet"
 ```
+```powershell
+Disable-NetAdapter -Name "Ethernet" -Confirm:$false
+```
+`-Confirm:$false` permet d'éviter la validation
 
 
 ### Désactiver/Réactiver une carte réseau
+Pratique quand on travaille à distance
 ```powershell
 Restart-NetAdapter -Name nom_carte_réseau
 ```
@@ -541,12 +552,27 @@ Test-NetConnection -ComputerName localhost -Port 389
 ```
 
 
-### Afficher la table de routage IPv4
+### Afficher la table de routage IPv4 de la carte Ethernet
 ```powershell		
-Get-NetRoute -AddressFamily IPv4
+Get-NetRoute -InterfaceAlias "Ethernet" -AddressFamily IPv4
 ```
 
-[Retour au sommaire](#sommaire)
+### Afficher le cahe ARP IPv4 de la carte Ethernet
+```powershell		
+Get-NetNeighbor -InterfaceAlias "Ethernet" -AddressFamily IPv4
+```
+
+### Afficher le cache ARP de toutes les cartes réseau
+```bat
+arp -a
+```
+
+
+
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -616,7 +642,10 @@ Start-Service lfsvc, SensorService
 # Set-Service SensorService -StartupType Automatic
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -792,7 +821,10 @@ winget install --id Microsoft.Edit -e -h --scope "machine"
 >   - Démarrages ou arrêts de processus
 >   - Gestion de l'environnement Windows...
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -875,7 +907,10 @@ Get-WindowsFeature | Where-Object {$_.Name -like 'WDS*'}
 Uninstall-WindowsFeature -Name WDS-AdminPack
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -979,7 +1014,10 @@ Start-Job
 & "C:\Program Files\7-Zip\7z.exe" a -tzip "Site-Malveillant.zip" "Site-Malveillant"       
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1062,7 +1100,10 @@ Afin d'avoir une meilleur vue sur tous les process et d'approfondir en détails 
 [Télécharger Sysinternals ici](https://learn.microsoft.com/fr-fr/sysinternals/downloads/)
 
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1181,7 +1222,10 @@ exit
 format G: /FS:ntfs
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1295,7 +1339,10 @@ mklink /J "C:\Users\stoto\OneDrive - CYBER MANAGEMENT\Bureau\USB" "E:\"
 * Cré un dossier 'USB' sur le bureau et ne sera accessible que si 'E:\' est joignable
 * mklink va créer le dossier "USB" mais la destination doit déjà exister
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1374,7 +1421,10 @@ $nvtxtmomo >> .\Momo.txt
 <commande> | Export-Csv "\\192.168.64.60\C$\Users\toto\OneDrive - NEOPIX STUDIO\Desktop\LastLogonActiveUsers.csv" -NoTypeInformation -Encoding UTF8
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1416,7 +1466,10 @@ $h2 = (Get-FileHash 'C:\Users\Toto\Download\debian13.iso').hash
 $h1 -eq $h2
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1567,7 +1620,10 @@ Select Path, Line, LineNumber |
 Format-List
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1646,7 +1702,10 @@ $PSHOME
 where.exe ping
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1692,7 +1751,10 @@ Copy-Item .\README.md -Destination 'C:\Users\toto\OneDrive - CYBER MANAGEMENT\Bu
 Copy-Item \\192.168.10.125\C$\PARTAGES\Cles_Bitlocker\PC-485\"Clé de récupération BitLocker.txt" -Destination C:\Users\admtoto\Desktop\ -Recurse -Force
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1805,7 +1867,10 @@ Get-WinEvent -LogName Microsoft-Windows-SMBServer/Operational -MaxEvents 30
 Get-WmiObject -Class Win32_ServerConnection
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1866,7 +1931,10 @@ Permet aussi de copier des fichiers d'un partage SMB
 Start-BitsTransfer -Source \\server\share\file.txt -Destination C:\Temp\file.txt
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -1922,7 +1990,10 @@ New-NetFirewallRule -DisplayName "Autoriser ICMPv4-Out" -Protocol ICMPv4 -IcmpTy
 New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2077,7 +2148,10 @@ __Liste non exhaustive d'ID évènements Defender__
 
 Plus d'infos sur les ID des events sur le [site de microsoft ici](https://learn.microsoft.com/fr-fr/defender-endpoint/troubleshoot-microsoft-defender-antivirus)
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2220,7 +2294,10 @@ wevtutil sl Security /ms:1073741824
     > - Sécurité : 201326592 (196 608 Ko)
     > - Installation : 33554432 (32 768 Ko)
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2276,7 +2353,10 @@ Enter-PSSession -ComputerName PC01-W10 -Credential nom_domaine\compte_admin
 Set-PSSessionConfiguration -Name Microsoft.PowerShell -ShowSecurityDescriptorUI
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2369,7 +2449,10 @@ Inutile de préciser le port source et inutile de préciser le port dest si port
 scp C:\Users\Administrateur\Desktop\domusers.txt -P <dest_port> toto@10.0.0.51:/home/toto/Bureau/
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2614,7 +2697,10 @@ Invoke-Command -ComputerName $ComputersListAD -ScriptBlock {
 - `.ToString('F2')` → définit le nombre de chiffres après la virgule. (F0, F1, F2...)
 
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2686,7 +2772,10 @@ ou en pwsh
 Connect-VpnConnection -Name "VPN-Entreprise"
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2705,7 +2794,9 @@ Connect-VpnConnection -Name "VPN-Entreprise"
 
 # 🔢 __GÉNÉRER DES CLÉES CRYPTOGRAPHIQUES__ <a id="crypto"></a>
 
+<br>
 
+## __CHIFFREMENT ASYMETRIQUE__
 
 | Objet            | Contenu                                                |
 | ---------------- | ------------------------------------------------------ |
@@ -2719,7 +2810,7 @@ Connect-VpnConnection -Name "VPN-Entreprise"
 <br>
 
 
-## Paire de clées publique et privées
+### Générer une paire de clés publique et privée
 * RSA 2048 bits avec .NET dans le dossier actuel
 ```bat
 $rsa = [System.Security.Cryptography.RSA]::Create(2048)
@@ -2729,7 +2820,7 @@ $rsa = [System.Security.Cryptography.RSA]::Create(2048)
 
 <br>
 
-## Générer et exporter un certificat avec sa clé privée associée
+### Générer et exporter un certificat avec sa clé privée associée
 
 Clé privée + certificat X.509 auto-signé
 ```powershell
@@ -2743,8 +2834,8 @@ Export-Certificate -Cert $cert -FilePath "$PWD\certificat.cer"
 
 Pour un serveur web, il faut généralement aussi la clé privée (export.pfx)
 ```powershell
-$pwd = ConvertTo-SecureString "MotDePasseToto123!" -AsPlainText -Force
-Export-PfxCertificate -Cert $cert -FilePath "$PWD\certificat.pfx" -Password $pwd
+$passwd = ConvertTo-SecureString "MotDePasseToto123!" -AsPlainText -Force
+Export-PfxCertificate -Cert $cert -FilePath "$PWD\certificat.pfx" -Password $passwd
 ```
 Le fichier .pfx contient : certificat, la clé publique + la clé privée
 
@@ -2759,7 +2850,75 @@ __Résumé :__
 | `Export-PfxCertificate`     | Certificat + clé privée      | `certificat.pfx` |
 
 
-[Retour au sommaire](#sommaire)
+
+---
+
+<br>
+
+
+
+## __CHIFFREMENT SYMETRIQUE__
+
+### Générer une clé AES-256 et l'exporter en B64 dans un fichier 
+```powershell
+$aeskey = [byte[]]::new(32)
+[System.Security.Cryptography.RandomNumberGenerator]::Fill($aeskey)
+
+[IO.File]::WriteAllText("$PWD\AESKey.txt", [Convert]::ToBase64String($aeskey))
+```
+Ici, 32 octets = 256 bits.
+
+### Chiffrer un texte avec AES-GCM
+
+> ![NOTE]
+> * AES-GCM utilise un `nonce` (aussi appelé IV dans les API) et un `tag d'authentification` généré lors du chiffrement.
+> * Il est préférable de privilégier AES-GCM plutôt que AES-CGC qui est sans authentification.
+
+
+Exemple avec un fichier Message.txt
+```powershell
+ni -ItemType File "Message.txt"
+"Le message à chiffrer" | Out-File .\Message.txt
+```
+Chiffrer le message dans le fichier
+```powershell
+$key = [Convert]::FromBase64String((Get-Content "$PWD\AESKey.txt" -Raw))
+$nonce = [byte[]]::new(12)
+[System.Security.Cryptography.RandomNumberGenerator]::Fill($nonce)
+
+$plaintext = [IO.File]::ReadAllBytes("$PWD\Message.txt")
+$ciphertext = [byte[]]::new($plaintext.Length)
+$tag = [byte[]]::new(16)
+
+$aes = [System.Security.Cryptography.AesGcm]::new($key, 16)
+$aes.Encrypt($nonce, $plaintext, $ciphertext, $tag)
+
+[IO.File]::WriteAllBytes("$PWD\Message.enc", $ciphertext)
+[IO.File]::WriteAllText("$PWD\Message.nonce", [Convert]::ToBase64String($nonce))
+[IO.File]::WriteAllText("$PWD\Message.tag", [Convert]::ToBase64String($tag))
+
+$aes.Dispose()
+```
+Pour déchiffrer, il faudra récupérer les quatre éléments et utiliser Decrypt() avec le même nonce et le même tag. <br>
+Il est possible de mettre le tag, le nounce et le message ensemble dans un même fichier.
+
+<br>
+
+Ce qu'il faut conserver:
+
+| Élément | Taille | Secret ? | Rôle |
+| :--- | :--- | :--- | :--- |
+| **Clé AES** | 32 octets | Oui | Permet de chiffrer et déchiffrer les données (clé AES-256). |
+| **Nonce** | 12 octets | Non | Nombre unique utilisé une seule fois pour garantir que le même fichier chiffré deux fois produise des résultats différents. |
+| **Tag** | 16 octets | Non | Code d'authentification qui garantit que le fichier n'a pas été modifié ou altéré (intégrité). |
+| **Fichier chiffré** | Variable | Non, mais à protéger selon le contexte | Le contenu original du fichier rendu illisible sans la clé et le nonce. |
+
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
+
+
 
 
 
@@ -2830,7 +2989,10 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
             [System.Environment]::GetEnvironmentVariable("Path","User")
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -2925,7 +3087,10 @@ git config --global --edit
 `:wq` → sauvegarder et quitter
 
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -3003,7 +3168,10 @@ py test.py
 winget uninstall --id Python.Python.3.14
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -3097,7 +3265,10 @@ Select-Object DistributionName, BasePath
 ```
 
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -3155,7 +3326,10 @@ docker --version
 docker run hello-world
 ```
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -3365,7 +3539,10 @@ Stop-Transcript
 
 Pour plus de détails consulter la [page microsoft](https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-configure-using-wsb-file)
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)
 
 
 
@@ -3450,4 +3627,7 @@ Get-Command -Module PSKoans
 ```
 
 
-[Retour au sommaire](#sommaire)
+
+<br>
+
+⬆️ [Retour au sommaire](#sommaire)

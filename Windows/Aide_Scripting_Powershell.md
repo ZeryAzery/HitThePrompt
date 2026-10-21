@@ -548,3 +548,51 @@ Stop-Transcript
 ```powershell
 Get-Content "C:\Chemin\Répertoire\NomFichier.log" -Tail 20
 ```
+
+
+## Créer une commande personnalisée avec arguments optionnels
+
+Cette fonction simple permet de créer une commande "hst" qui acceptera comme un argiment une 'String' de votre choix pour chercher dans le fichier History de Powershell. <br>
+Cette fonction peut être ajoutée au fichier $PROFIL pour la rendre permanente sur votre système.
+```powershell
+function hst {
+    param(
+        [Parameter(Mandatory=$false, Position=0)]
+        [string]$Word
+    )
+
+    # Si aucun mot n'est fourni en argument, on le demande à l'utilisateur
+    if ([string]::IsNullOrEmpty($Word)) {
+        $Word = Read-Host "Quel mot cherchez vous ?"
+    }
+
+    # Exécution de la recherche
+    $HistoryPath = "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt"
+    if (Test-Path $HistoryPath) {
+        Get-Content $HistoryPath | Select-String $Word
+    } else {
+        Write-Warning "Fichier d'historique introuvable."
+    }
+}
+```
+
+* `param(...)` : Ce bloc sert à définir comment la commande reçoit les arguments une fois qu'elle est lancée.
+* `[Parameter(...)]` : Ce sont les règles du paramètre.
+	* `Mandatory=$false` : Signifie que le paramètre est facultatif. Vous avez le droit de taper hst tout seul sans rien ajouter derrière.
+	* `Position=0` : Signifie que c'est le premier argument de la ligne. Cela vous évite d'avoir à écrire le nom du paramètre explicitement (vous pouvez taper hst mot au lieu de hst -Word mot).
+* `[string]$Word` : Crée une variable nommée $Word qui va stocker le texte que vous allez taper après hst.
+
+
+---
+
+<br>
+
+## Encapsuler une suite de nombre
+Ajouter des `[]` après `[int` sinon Powershell voudra interpréter (0..7) comme un entier.
+```powershell
+$Int = [int[]](0..7)
+```
+```txt
+PS C:\Users\Administrateur> Write-Host $Int
+0 1 2 3 4 5 6 7
+```
