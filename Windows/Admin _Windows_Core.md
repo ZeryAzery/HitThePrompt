@@ -567,7 +567,10 @@ Get-NetNeighbor -InterfaceAlias "Ethernet" -AddressFamily IPv4
 arp -a
 ```
 
-
+### Vider le cache ARP
+```bat
+arp -d
+```
 
 
 <br>
