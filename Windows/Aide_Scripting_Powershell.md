@@ -142,9 +142,9 @@ switch ($usrvalue)
 
 > [!IMPORTANT]
 > * `else` n'a jamais de conditions derrière.
-> * Et PowerShell attend obligatoirement cette syntaxe pour `else` :
+> * Et PowerShell peut utiliser deux syntaxes pour `else` :
 
-✅ Syntaxe PowerShell stricte
+✅ Syntaxe PowerShell
 ```powershell
 if ((5 -gt 3) -eq $true) { 
     Write-Host "C'est vrai"
@@ -153,7 +153,7 @@ if ((5 -gt 3) -eq $true) {
 }
 ```
 
-❌ Contrairement aux langages C, C#, Python ou JS on ne peut pas faire :
+✅ Comme dans les langages C, C#, Python ou JS on peut pas faire :
 ```powershell
 if ((5 -gt 3) -eq $true) { 
     Write-Host "C'est vrai"
@@ -162,7 +162,6 @@ else {
     Write-Host "C'est faux"
 }
 ```
-Dans ce cas Powershell interprêtera else comme une commande à part entière et génèrera une erreur.
 
 
 
@@ -462,6 +461,9 @@ Produira : 1 2 3 4 5
 
 <br>
 
+
+
+
 ## Gestion de la typo et des accents dans les scripts
 
 ### Pour les accents dans le terminal (au début du script)
@@ -474,7 +476,16 @@ Produira : 1 2 3 4 5
 ```powershell
 Set-Content ... -Encoding utf8
 ```
-### Utiliser return ou exit avec if
+
+
+---
+
+<br>
+
+
+
+
+## Utiliser return ou exit avec if
 __"exit" va fermer le terminal__
 ```powershell
 while ($Response -notin $Choices) {
@@ -498,6 +509,14 @@ if ($Response -eq "n") {
     return
 }
 ```
+
+
+
+---
+
+<br>
+
+
 
 
 ## Prendre un compte un espace vide
@@ -550,6 +569,14 @@ Get-Content "C:\Chemin\Répertoire\NomFichier.log" -Tail 20
 ```
 
 
+
+---
+
+<br>
+
+
+
+
 ## Créer une commande personnalisée avec arguments optionnels
 
 Cette fonction simple permet de créer une commande "hst" qui acceptera comme un argiment une 'String' de votre choix pour chercher dans le fichier History de Powershell. <br>
@@ -583,9 +610,14 @@ function hst {
 * `[string]$Word` : Crée une variable nommée $Word qui va stocker le texte que vous allez taper après hst.
 
 
+
+
 ---
 
 <br>
+
+
+
 
 ## Encapsuler une suite de nombre
 Ajouter des `[]` après `[int` sinon Powershell voudra interpréter (0..7) comme un entier.
