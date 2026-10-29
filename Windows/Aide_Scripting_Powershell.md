@@ -11,8 +11,11 @@
 ## ©️ Afficher les méthodes et propriétés d'un objet avec `| gm`
 
 ```powershel
-Get-WmiObject Win32_ComputerSystem | gm
+Get-CimInstance Win32_ComputerSystem | gm
 ```
+
+Les commandes `Get-WmiObject` sont dépréciées sur les dernières versions de Powershell core, il faut utiliser `Get-CimInstance`
+
 
 
 <br>
