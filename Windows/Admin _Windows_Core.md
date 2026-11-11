@@ -396,13 +396,29 @@ Set-Alias -Name cat -Value Get-Content
 ```powershell
 Get-NetIPConfiguration
 ```
-
-
-### Configuration IP détaillée
+Avec l'alias et la configuration détaillée
 ```powershell
 gip -Detailed
 ```
 
+<br>
+
+### Définir un profil réseau privé ou public
+Identifier votre réseau et son profil
+```powershell
+Get-NetConnectionProfile
+```
+
+Définir profil réseau sur "privé"
+```powershell
+Set-NetConnectionProfile -NetworkCategory Private
+```
+Ou en précisant le SSID du réseau
+```powershell
+Set-NetConnectionProfile -Name "Livebox-EF48" -NetworkCategory Private
+```
+
+<br>
 
 ### Pinguer certaines machines
 ```powershell
@@ -415,6 +431,7 @@ gip -Detailed
 17..25 | % { Test-NetConnection 192.168.1.$_ -Port 445 } | ? TcpTestSucceeded | Select ComputerName
 ```
 
+<br>
 
 ### Choix de la carte réseau pour un ping 
 Où IP source = carte réseau souhaitée
@@ -426,6 +443,7 @@ version bat (`-S` = Source)
 ping -S 192.168.51.245 192.168.51.253
 ```
 
+<br>
 
 ### Afficher les cartes réseau
 ```powershell
@@ -461,6 +479,7 @@ Get-NetAdapterStatistics
 get-netadapterstatistics  | fl
 ```
 
+<br>
 
 ### Afficher n° carte réseau (ifIndex)
 ```powershell
@@ -473,6 +492,7 @@ Get-NetIPInterface
 Get-NetIPAddress -AddressFamily IPv4 | select IPAddress, InterfaceAlias	
 ```
 
+<br>
 
 ### IP statique et Gateway
 4 est le num de la carte réseau	
@@ -533,6 +553,7 @@ ou directement avec le nom :
 Restart-NetAdapter "Ethernet"
 ```
 
+<br>
 
 ### Désactiver l'IPv6
 ```powershell
@@ -1974,11 +1995,21 @@ netsh advfirewall firewall set rule group="Network Discovery" new enable=No
 netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes
 ```
 
-
 ### Afficher les règles de pare-feu
 ```powershell
 Get-NetFirewallRule
 ```
+
+### Rechercher une règle
+```powershell
+Get-NetFirewallRule | ? {$_.Displayname -like "Transfert*"}
+```
+
+### Supprimer une règle
+```powershell
+Remove-NetFirewallRule -DisplayName "TransfertTemp"
+```
+
 
 
 ### Règles ICMP IN/OUT
